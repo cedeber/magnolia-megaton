@@ -1,0 +1,32 @@
+@charset "utf-8";
+
+/**
+ * ╒═══════════════════════════════════════╕
+ * │           HoW tO wrItE CoDE           │
+ * ╞═══════════════════╤═══════════════════╡
+ * │          variable │ --like-this       │
+ * │ cust. media query │ --[for|when]-[..] │
+ * ├───────────────────┼───────────────────┤
+ * │      layout, obj. │ .o-[..]           │
+ * │    element, cmpt. │ .like-this        │
+ * │         CSS state │ .[is|has]-[..]    │
+ * │          JS state │ .js-[..]          │
+ * │       theme, mod. │ .-like-this       │
+ * └───────────────────┴───────────────────┘
+ */
+
+@import url(./components/loading.css);
+@import url(./components/breadcrumbs.css);
+@import url(./components/article.css);
+@import url(./components/image.css);
+@import url(./components/carousel.css);
+
+article ol,
+article ul {
+    list-style: disc;
+    list-style-position: inside;
+}
+
+/* --- Themes --- */
+.has-background.-grey { background: var(--base05); }
+.has-background.-white { background: white; }

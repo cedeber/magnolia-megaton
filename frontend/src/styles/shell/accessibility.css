@@ -1,0 +1,39 @@
+/* Hide content */
+.is-visually-hidden {
+    position: absolute !important;
+    left: -10000px !important;
+    top: auto !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+}
+
+.skip-links {
+    position: absolute;
+    z-index: 1001;
+
+    & a {
+        position: absolute;
+        display: inline-block;
+        left: -10000px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        padding: 1em;
+        background: white;
+        color: black;
+        text-decoration: none;
+        font-size: 1.6rem;
+        outline: 0;
+        border: 3px solid black;
+    }
+
+    & a:focus {
+        position: static;
+        width: auto;
+        height: auto;
+    }
+}

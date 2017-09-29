@@ -1,0 +1,22 @@
+@import url(../shared/vars.css);
+
+:root {
+    --breadcrumb-space: 1em;
+}
+
+.o-breadcrumbs {
+    margin-bottom: var(--content-horizontal-step);
+
+    & li.splitter { margin: 0 var(--breadcrumb-space); }
+    & li:last-child { display:none; }
+
+    & .link {
+        transition: opacity var(--default-timing);
+        text-decoration: none;
+        outline: 0;
+        position: relative;
+    }
+    & .link:hover { opacity: .65; }
+
+    & .has-svg-icon { line-height: inherit; }
+}

@@ -1,0 +1,67 @@
+form:
+  label: Carousel
+  tabs:
+    - name: tabMain
+      label: Content
+      fields:
+        - name: slides
+          class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+          transformerClass: info.magnolia.ui.form.field.transformer.multi.MultiValueSubChildrenNodePropertiesTransformer
+          label: Slides
+          field:
+            name: slide
+            class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
+            transformerClass: info.magnolia.ui.form.field.transformer.composite.NoOpCompositeTransformer
+            layout: vertical
+            label: Slide
+            i18n: true
+            fields:
+              - name: splitter
+                class: info.magnolia.ui.form.field.definition.StaticFieldDefinition
+                label: ""
+                value: ─────────────────────────────────────────────────
+              - name: foregroundText
+                class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+                label: Foreground text
+                height: 130
+                configJsFile: /.resources/main/dialogs/components/config/simple.js
+                i18n: true
+              - name: image
+                class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+                targetWorkspace: dam
+                appName: assets
+                required: true
+                label: Image
+                identifierToPathConverter:
+                  class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+                contentPreviewDefinition:
+                  contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+              - name: isCover
+                class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+                label: Image as cover
+                buttonLabel: The image covers the whole container (like a background)
+                defaultValue: true
+
+    - name: tabConfig
+      label: Configuration
+      fields:
+        - name: asHero
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          label: Hero Banner
+          buttonLabel: The Carousel is a Hero Banner (from header to bottom viewport)
+        - name: isAutoplay
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          label: Carousel autoplay
+          buttonLabel: Switch automatically between the slides
+
+
+    - !include:/main/dialogs/components/include/tabLayout.yaml
+      fields:
+        - name: className
+          defaultValue: o-carousel
+        - name: isFullWidth
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          label: Carousel layout
+          buttonLabel: Make the carousel as large as the window viewport
+
+actions: !include:/main/dialogs/components/include/commonActions.yaml

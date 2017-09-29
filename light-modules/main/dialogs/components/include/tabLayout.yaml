@@ -1,0 +1,21 @@
+name: tabLayout
+label: Layout & CSS
+fields:
+  - name: isLarge
+    class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+    label: Section layout
+    buttonLabel: Make this section layout large
+  - name: space
+    class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+    multiselect: true
+    label: Vertical spaces
+    sortOptions: false
+    options:
+      - name: top
+        label: Remove top space
+      - name: bottom
+        label: Remove bottom space
+  - name: className
+    class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+    label: Component CSS class name
+  - !include:/main/dialogs/components/include/cssTheme.yaml

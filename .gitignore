@@ -1,0 +1,133 @@
+### Project ###
+light-modules/**/webresources/js/app/
+light-modules/**/webresources/css/*.css*
+!light-modules/**/webresources/css/webfonts.css
+light-modules/**/*.min.*
+!light-modules/**/external/**/*.min.*
+
+*-webapp/**/repositories/
+*-webapp/**/overlays/
+*-webapp/**/cache/
+
+### Temp ###
+tmp/
+temp/
+*.tmp
+*.bak
+.lock
+
+### Java ###
+*.class
+*.log
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+target/
+
+### Node ###
+logs
+*.log
+npm-debug.log*
+pids
+*.pid
+*.seed
+*.pid.lock
+build/Release
+node_modules/
+typings/
+.npm
+.eslintcache
+.node_repl_history
+*.tgz
+.yarn-integrity
+.env
+
+### IntelliJ ###
+#.idea/**/codeStyleSettings.xml
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/artifacts/
+.idea/**/compiler.xml
+.idea/**/misc.xml
+.idea/**/vcs.xml
+.idea/dictionaries
+.idea/libraries
+*.iws
+*.iml
+*.ipr
+modules.xml
+out
+gen
+
+### SublimeText ###
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+Package Control.last-run
+Package Control.ca-list
+Package Control.ca-bundle
+Package Control.system-ca-bundle
+Package Control.cache/
+Package Control.ca-certs/
+Package Control.merged-ca-bundle
+Package Control.user-ca-bundle
+oscrypto-ca-bundle.crt
+bh_unicode_properties.cache
+
+### VisualStudioCode ###
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### Vim ###
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+Session.vim
+.netrwhist
+tags
+
+### macOS ###
+*.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+### Linux ###
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+### Windows ###
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk

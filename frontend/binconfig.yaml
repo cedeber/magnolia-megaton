@@ -1,0 +1,10 @@
+paths:
+  source:
+    styles: "./src/styles/"
+    scripts: "./scr/scripts/"
+  build: 
+    styles: "../light-modules/main/webresources/css/"
+    scripts:
+      app: "../light-modules/main/webresources/js/app/"
+      polyfills: "../light-modules/main/webresources/js/polyfills/"
+      vendor: "../light-modules/main/webresources/js/vendor/"

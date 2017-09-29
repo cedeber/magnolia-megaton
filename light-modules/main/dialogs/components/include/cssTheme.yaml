@@ -1,0 +1,12 @@
+name: backgroundTheme
+class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+label: CSS Background theme
+sortOptions: false
+options:
+  - name: default
+    selected: true
+    label: No theme (default)
+  - name: grey
+    label: Grey Background
+  - name: white
+    label: White Background

@@ -1,0 +1,73 @@
+/* View */
+.o-view {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    overflow: hidden;
+}
+
+/* Sections and Groups */
+.o-section {
+    position: relative;
+    clear: both;
+}
+.o-section:not(.has-no-gutter), .o-section:not(.is-full-width) { margin: var(--section-splitter-height) var(--page-gutter-width); }
+.o-section.has-no-gutter, .o-section.is-full-width { margin: var(--section-splitter-height) 0; }
+.o-section.has-inner-space {
+    padding-top: var(--section-splitter-height);
+    padding-bottom: var(--section-splitter-height);
+}
+
+.o-group {
+    width: 100%;
+    margin: var(--section-splitter-height) auto;
+    position: relative;
+    z-index: 2;
+}
+
+.o-group:not(.is-full-width) { max-width: var(--page-width); }
+.o-group.is-large:not(.is-full-width) { max-width: var(--page-width-large); }
+.o-group:first-of-type { margin-top: 0; }
+.o-group:last-child { margin-bottom: 0; }
+
+/* Inner gutter */
+.o-section.has-no-gutter > .o-group.has-inner-gutter,
+.o-section.is-full-width > .o-group.has-inner-gutter {
+    padding-right: var(--page-gutter-width);
+    padding-left: var(--page-gutter-width);
+}
+
+.o-section.has-no-gutter > .o-group.has-inner-gutter:not(.is-full-width),
+.o-section.is-full-width > .o-group.has-inner-gutter:not(.is-full-width) {
+    max-width: calc(var(--page-width) + 2 * var(--page-gutter-width)) !important;
+}
+
+.o-section.has-no-gutter > .o-group.has-inner-gutter.is-large:not(.is-full-width),
+.o-section.is-full-width > .o-group.has-inner-gutter.is-large:not(.is-full-width) {
+    max-width: calc(var(--page-width-large) + 2 * var(--page-gutter-width)) !important;
+}
+
+/* Layout Modifiers */
+.has-no-bottom-space { margin-bottom: 0 !important; }
+.has-no-bottom-space:not(.has-inner-space) { padding-bottom: 0 !important; }
+.has-no-top-space { margin-top: 0 !important; }
+.has-no-top-space:not(.has-inner-space) { padding-top: 0 !important; }
+
+/**
+ * iPhone X :: viewport-fit=cover
+ * constant(apple) == env(w3c)
+ */
+@supports(padding: max(0px)) {
+    .o-section:not(.has-no-gutter), .o-section:not(.is-full-width) {
+        margin-left: max(var(--page-gutter-width), constant(safe-area-inset-left));
+        margin-right: max(var(--page-gutter-width), constant(safe-area-inset-right));
+    }
+
+    .o-section.has-no-gutter > .o-group.has-inner-gutter,
+    .o-section.is-full-width > .o-group.has-inner-gutter {
+        padding-left: max(var(--page-gutter-width), constant(safe-area-inset-left));;
+        padding-right: max(var(--page-gutter-width), constant(safe-area-inset-right));
+    }
+}

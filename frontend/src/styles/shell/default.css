@@ -1,0 +1,61 @@
+/* Default settings */
+*, *::before, *::after {
+    box-sizing: inherit;
+    -webkit-tap-highlight-color: inherit;
+}
+
+/*
+  Repeating the background mostly makes sense in the <body>.
+  Otherwise, people usually want the image and preferably its center
+  (not the top-right corner)
+*/
+*:not(body) {
+    background: no-repeat center center;
+    background-size: cover;
+}
+
+/*
+  Makes the hidden attribute works even when an element is styled display: flex
+  http://lists.w3.org/Archives/Public/public-whatwg-archive/2014May/0001.html
+*/
+[hidden], template {
+    display: none !important;
+}
+
+[draggable] { user-select: none; }
+
+html, body {
+    /* Text */
+    font-family: var(--default-font-family);
+    font-weight: var(--default-font-weight);
+    line-height: var(--default-line-height);
+    color: var(--default-text-color);
+    text-size-adjust: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-wrap: break-word; /* new but badly supported */
+    word-wrap: normal;
+    hyphens: auto;
+
+    /* Page */
+    background: var(--page-background) fixed;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    /* Blocks */
+    box-sizing: border-box;
+
+    /*
+    !* App *!
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    */
+}
+
+html { font-size: 62.5%; }
+body { font-size: var(--default-font-size); }
+
+.has-async-css {
+    opacity: 0;
+    pointer-events: none;
+}

@@ -1,0 +1,4 @@
+title: Image
+renderType: freemarker
+templateScript: /main/templates/components/image.ftl
+dialog: main:components/image

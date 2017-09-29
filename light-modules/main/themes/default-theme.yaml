@@ -1,0 +1,41 @@
+imaging:
+  enabled: true
+  class: info.magnolia.templating.imaging.VariationAwareImagingSupport
+  variations:
+    # --- hero --- #
+    "hero-375":
+      class: info.magnolia.templating.imaging.variation.SimpleResizeVariation
+      width: 375
+    "hero-375-2x":
+      class: info.magnolia.templating.imaging.variation.SimpleResizeVariation
+      width: 750
+    "hero-667":
+      class: info.magnolia.templating.imaging.variation.SimpleResizeVariation
+      width: 667
+    "hero-667-2x":
+      class: info.magnolia.templating.imaging.variation.SimpleResizeVariation
+      width: 1334
+    "hero-1024":
+      class: info.magnolia.templating.imaging.variation.SimpleResizeVariation
+      width: 1024
+    "hero-1024-2x":
+      class: info.magnolia.templating.imaging.variation.SimpleResizeVariation
+      width: 2048
+    "hero-1440":
+      class: info.magnolia.templating.imaging.variation.SimpleResizeVariation
+      width: 1440
+    "hero-1440-2x":
+      class: info.magnolia.templating.imaging.variation.SimpleResizeVariation
+      width: 2880
+    "hero-1920":
+      class: info.magnolia.templating.imaging.variation.SimpleResizeVariation
+      width: 1920
+    "hero-1920-2x":
+      class: info.magnolia.templating.imaging.variation.SimpleResizeVariation
+      width: 3840
+    "hero-2560":
+      class: info.magnolia.templating.imaging.variation.SimpleResizeVariation
+      width: 2560
+    "hero-2560-2x":
+      class: info.magnolia.templating.imaging.variation.SimpleResizeVariation
+      width: 5120

@@ -1,0 +1,57 @@
+/* Layout modifications */
+body.has-perspective {
+    height: 100%;
+    overflow: hidden;
+    transform: translateZ(0);
+}
+
+.o-view.has-perspective {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+
+    /*
+    perspective-origin: top left; !* Desktop *!
+    perspective: 1px; !* Desktop *!
+    */
+}
+
+/* o-view inner wrapper */
+.o-perspective {
+    transform-style: preserve-3d;
+    perspective-origin: bottom right; /* iOS */
+    perspective: 1px; /* iOS */
+}
+
+/* Apply it to the perspective child */
+.has-parallax {
+    /*
+    transform: translateZ( -0.4px ) scale( 1.4 ); !* Desktop *!
+    transform: translateZ( -3px ) scale( 4 ); !* iOS + js *!
+    */
+    position: sticky !important; /* iOS */
+    top: 100vh; /* iOS */
+    transform-origin: bottom right;
+    z-index: -1;
+
+    /* Since the parallax elements still consume space, we set the margin to undo
+        the height of this parallax element making it essentially consume 0 space. */
+    height: 100vh;
+    margin-bottom: -100vh;
+}
+
+.has-parallax > * {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.has-parallax > img,
+.has-parallax > svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

@@ -1,0 +1,4 @@
+title: Carousel
+renderType: freemarker
+templateScript: /main/templates/components/carousel.ftl
+dialog: main:components/carousel

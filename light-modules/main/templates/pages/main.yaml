@@ -1,0 +1,28 @@
+title: Article (default)
+templateScript: /main/templates/pages/main.ftl
+renderType: freemarker
+modelClass: info.magnolia.module.jsmodels.rendering.JavascriptRenderingModel
+dialog: main:pages/main
+visible: true
+
+areas:
+  hero:
+    renderType: freemarker
+    type: single
+    availableComponents:
+      carousel:
+        id: main:components/carousel
+  main:
+    renderType: freemarker
+    templateScript: /main/templates/areas/main.ftl
+    availableComponents:
+      editorial:
+        id: main:components/editorial
+      image:
+        id: main:components/image
+    autoGeneration:
+      content:
+        editorial:
+          nodeType: mgnl:component
+          templateId: main:components/editorial
+      generatorClass: info.magnolia.rendering.generator.CopyGenerator

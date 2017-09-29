@@ -1,0 +1,32 @@
+form:
+  label: Image
+  tabs:
+    - name: tabMain
+      label: Content
+      fields:
+        - name: image
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          targetWorkspace: dam
+          appName: assets
+          label: Image
+          required: true
+          identifierToPathConverter:
+            class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+          contentPreviewDefinition:
+            contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+
+    - !include:/main/dialogs/components/include/tabLayout.yaml
+      fields:
+        - name: className
+          defaultValue: o-lazy-picture
+        - name: isFullWidth
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          label: Image layout
+          buttonLabel: Make the picture as large as the window viewport
+        - name: isCover
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          label: Image as cover
+          buttonLabel: The image covers the whole container (like a background)
+          defaultValue: true
+
+actions: !include:/main/dialogs/components/include/commonActions.yaml
