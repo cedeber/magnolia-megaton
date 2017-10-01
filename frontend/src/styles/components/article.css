@@ -1,7 +1,8 @@
 article {
     & hr {
         border: 0;
-        border-bottom: 1px dotted var(--base03);
+        border-top: 1px solid color(var(--base05) alpha(70%));
+        border-bottom: 1px solid var(--base07);
         margin: 1.75em 10rem;
     }
 }
