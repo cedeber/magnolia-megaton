@@ -5,7 +5,7 @@
     --carousel-transition-nonlinear: 1.5s;
     --carousel-delay: 5s;
     --carousel-scale: 1.1;
-    --carousel-height: 450px;
+    --carousel-min-height: 450px;
 }
 
 /*
@@ -15,13 +15,13 @@
 */
 .o-carousel {
     width: 100%;
-    height: var(--carousel-height);
+    min-height: var(--carousel-min-height);
 
     opacity: 0;
     will-change: opacity;
     transition: opacity 0s;
 
-    &.js-loaded {
+    & .js-loaded {
         opacity: 1;
         transition: opacity var(--default-timing) 50ms;
     }
@@ -119,7 +119,7 @@
 */
 .o-carousel .slides.js-moving { transition-duration: 0s; }
 
-.o-carousel.js-swipe .slide {
+.o-carousel .js-swipe .slide {
     cursor: move;
     cursor: -webkit-grab;
     cursor: grab;
@@ -135,7 +135,7 @@
     user-drag: none;
 }
 
-.o-carousel.js-swipe.js-cursor-down .slide {
+.o-carousel .js-swipe.js-cursor-down .slide {
     cursor: -webkit-grabbing;
     cursor: grabbing;
 }
@@ -173,14 +173,6 @@
    └─────────────┘
 */
 
-/*.o-carousel .foreground { padding: 5rem; }*/
-
-.o-carousel .title {
-    max-width: 60rem;
-    font-size: 5.2rem;
-    line-height: 1.05;
-    font-weight: 700;
-}
 
 
 /*

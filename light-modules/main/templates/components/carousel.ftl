@@ -6,11 +6,11 @@
 [#assign hasNoTopSpace = content.space?? && content.space?seq_contains("top") || hasBackground]
 [#assign hasNoBottomSpace = content.space?? && content.space?seq_contains("bottom") || hasBackground]
 [#assign hasInnerSpace = hasBackground && !(content.space?? && (content.space?seq_contains("bottom") || content.space?seq_contains("top")))]
-<section class="o-section [#if hasBackground == true]has-background -${content.backgroundTheme!} is-full-width[/#if] [#if hasInnerSpace == true]has-inner-space[/#if] [#if hasNoTopSpace == true]has-no-top-space[/#if] [#if hasNoBottomSpace == true]has-no-bottom-space[/#if] [#if isFullWidth == true]is-full-width[/#if]">
+<section class="${content.className!} o-section [#if hasBackground == true]has-background -${content.backgroundTheme!} is-full-width[/#if] [#if hasInnerSpace == true]has-inner-space[/#if] [#if hasNoTopSpace == true]has-no-top-space[/#if] [#if hasNoBottomSpace == true]has-no-bottom-space[/#if] [#if isFullWidth == true]is-full-width[/#if]">
     <div class="o-group [#if isFullWidth == true]is-full-width[#elseif isLarge == true]is-large[/#if]">
         [#if !cmsfn.isEditMode()]
         <multi-carousel inline-template v-bind:transition-delay="250" v-bind:autoplay="false">
-            <div class="${content.className!}" v-bind:data-render="renderType"
+            <div v-bind:data-render="renderType"
                  v-bind:class="{ 'js-loaded': isLoaded, 'js-first-page': onFirstPage, 'js-last-page': onLastPage, 'js-single-page': isSinglePage, 'js-reverse': isReverse, }">
                 <div class="slider">
                     <div class="slides o-flex" v-bind:style="itemsContainerStyles">
@@ -18,7 +18,7 @@
                             <div class="slide">
                                 [#if slide.foregroundText?has_content]
                                 <div class="foreground o-flex-middle is-vertical is-left">
-                                    <div class="title is-left">${cmsfn.decode(slide).foregroundText!}</div>
+                                    <div class="h1 is-left">${cmsfn.decode(slide).foregroundText!}</div>
                                 </div>
                                 [/#if]
                                 <div class="background">
