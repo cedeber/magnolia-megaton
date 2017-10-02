@@ -11,7 +11,7 @@
     <div class="o-group [#if isFullWidth == true]is-full-width[#elseif isLarge == true]is-large[/#if]">
         [#if !cmsfn.isEditMode()]
         <multi-carousel inline-template v-bind:transition-delay="250" v-bind:autoplay="false">
-            <div v-bind:data-render="renderType" class="${content.className!}"
+            <div v-bind:data-render="renderType" class="o-carousel"
                  v-bind:class="{ 'js-loaded': isLoaded, 'js-first-page': onFirstPage, 'js-last-page': onLastPage, 'js-single-page': isSinglePage, 'js-reverse': isReverse, }">
                 <div class="slider">
                     <div class="slides o-flex" v-bind:style="itemsContainerStyles">

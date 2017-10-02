@@ -22,8 +22,5 @@ form:
           configJsFile: /.resources/main/dialogs/components/config/editorial.js
 
     - !include:/main/dialogs/components/include/tabLayout.yaml
-      fields:
-        - name: className
-          defaultValue: o-editorial
 
 actions: !include:/main/dialogs/components/include/commonActions.yaml
