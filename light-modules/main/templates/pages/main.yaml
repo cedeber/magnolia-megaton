@@ -20,6 +20,8 @@ areas:
         id: main:components/editorial
       image:
         id: main:components/image
+      carousel:
+        id: main:components/carousel
     autoGeneration:
       content:
         editorial:
