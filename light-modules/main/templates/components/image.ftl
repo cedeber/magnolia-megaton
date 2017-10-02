@@ -31,7 +31,7 @@
                 </picture>
             </lazy-picture>
         [#else]
-            <img class="image" src="${damfn.getAssetLink(content.image)!}" style="max-width:100%">
+            <img class="image" src="${damfn.getAssetLink(content.image)!}" style="display:block;max-width:100%">
         [/#if]
         </div>
     </div>
