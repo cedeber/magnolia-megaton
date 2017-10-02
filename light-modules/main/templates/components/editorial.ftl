@@ -4,6 +4,7 @@
 [#assign hasInnerSpace = hasBackground && !(content.space?? && (content.space?seq_contains("bottom") || content.space?seq_contains("top")))]
 [#assign hasNoTopSpace = content.space?? && content.space?seq_contains("top") || hasBackground || hasInnerSpace]
 [#assign hasNoBottomSpace = content.space?? && content.space?seq_contains("bottom") || hasBackground || hasInnerSpace]
+<!-- Editorial -->
 <section class="${content.className!} o-section [#if hasBackground == true]has-background -${content.backgroundTheme!} is-full-width[/#if] [#if hasNoTopSpace == true]has-no-top-space[/#if] [#if hasNoBottomSpace == true]has-no-bottom-space[/#if] [#if hasInnerSpace == true]has-inner-space[/#if]">
     <div class="o-group [#if isLarge == true]is-large[/#if] [#if hasBackground == true]has-inner-gutter[/#if]">
         <header>

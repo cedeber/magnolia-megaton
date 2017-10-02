@@ -21,7 +21,7 @@
     will-change: opacity;
     transition: opacity 0s;
 
-    & .js-loaded {
+    &.js-loaded {
         opacity: 1;
         transition: opacity var(--default-timing) 50ms;
     }
@@ -119,7 +119,7 @@
 */
 .o-carousel .slides.js-moving { transition-duration: 0s; }
 
-.o-carousel .js-swipe .slide {
+.o-carousel.js-swipe .slide {
     cursor: move;
     cursor: -webkit-grab;
     cursor: grab;

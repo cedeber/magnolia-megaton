@@ -6,6 +6,7 @@
 [#assign hasNoTopSpace = content.space?? && content.space?seq_contains("top") || hasBackground]
 [#assign hasNoBottomSpace = content.space?? && content.space?seq_contains("bottom") || hasBackground]
 [#assign hasInnerSpace = hasBackground && !(content.space?? && (content.space?seq_contains("bottom") || content.space?seq_contains("top")))]
+<!-- Image -->
 <section class="o-section [#if hasBackground == true]has-background -${content.backgroundTheme!} is-full-width[/#if] [#if hasInnerSpace == true]has-inner-space[/#if] [#if hasNoTopSpace == true]has-no-top-space[/#if] [#if hasNoBottomSpace == true]has-no-bottom-space[/#if] [#if isFullWidth == true]is-full-width[/#if]">
     <div class="o-group [#if isFullWidth == true]is-full-width[#elseif isLarge == true]is-large[/#if]">
         <div class="${content.className!}">
