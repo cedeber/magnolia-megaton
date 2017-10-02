@@ -1,0 +1,4 @@
+title: Carousel Slide
+renderType: freemarker
+templateScript: /main/templates/components/carousel-slide.ftl
+dialog: main:components/carousel-slide
