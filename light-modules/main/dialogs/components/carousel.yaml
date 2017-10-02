@@ -41,8 +41,8 @@ form:
             - name: linear
               selected: true
               label: Linear
-            - name: continue
-              label: Continue
+            # - name: continue
+            #   label: Continue
             - name: async
               label: Asynchronous
 
