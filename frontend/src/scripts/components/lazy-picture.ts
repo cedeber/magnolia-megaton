@@ -1,11 +1,13 @@
 import * as Vue from "vue";
 import Component from "vue-class-component";
 
+/*
 interface LazyResult {
     height: number; // Height of the fetched image
     source: string; // Source of the fetched image
     width: number; // Width of the fetched image
 }
+*/
 
 @Component
 class LazyPicture extends Vue {
@@ -20,15 +22,20 @@ class LazyPicture extends Vue {
 
             observer.disconnect();
 
+            this.source = this.getSource();
+
+            /*
             this.fetch().then(result => {
                 this.source = result.source;
                 this.width = result.width;
                 this.height = result.height;
             });
+            */
         });
         observer.observe(this.$el);
     }
 
+    /*
     public fetch(): Promise<LazyResult> {
         const source = this.getSource();
 
@@ -61,6 +68,7 @@ class LazyPicture extends Vue {
             image.src = source;
         });
     }
+    */
 
     public getSource(): string {
         const sources = this.$el.querySelectorAll("source");

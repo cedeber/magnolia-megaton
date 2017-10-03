@@ -22,7 +22,8 @@
                         <source srcset="${damfn.getAssetLink(content.image)!}">
                     [/#if]
                     <template v-if="source">
-                        <img class="image [#if isCover == true]is-cover[/#if]" data-object-fit v-bind:src="source" v-bind:width="width" v-bind:height="height" alt="${imageMap.caption!imageMap.description!}">
+                        <!--img class="image [#if isCover == true]is-cover[/#if]" data-object-fit v-bind:src="source" v-bind:width="width" v-bind:height="height" alt="${imageMap.caption!imageMap.description!}"-->
+                        <img class="image [#if isCover == true]is-cover[/#if]" data-object-fit v-bind:src="source" alt="${imageMap.caption!imageMap.description!}">
                     </template>
                     <template v-else>
                         <svg class="image" width="${imageMap.metadata.mgnl.width?string.computer}px" height="${imageMap.metadata.mgnl.height?string.computer}px" viewBox="0 0 1 1"></svg>
