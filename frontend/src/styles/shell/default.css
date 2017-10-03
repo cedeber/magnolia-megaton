@@ -36,7 +36,7 @@ html, body {
     text-rendering: optimizeLegibility;
     overflow-wrap: break-word; /* new but badly supported */
     word-wrap: normal;
-    hyphens: auto;
+    hyphens: none;
 
     /* Page */
     background: var(--page-background) fixed;
@@ -54,6 +54,8 @@ html, body {
 
 html { font-size: 62.5%; }
 body { font-size: var(--default-font-size); }
+
+p { hyphens: auto; }
 
 .has-async-css {
     opacity: 0;
