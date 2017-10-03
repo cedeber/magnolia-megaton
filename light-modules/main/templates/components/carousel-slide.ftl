@@ -25,7 +25,7 @@
                     <img class="image [#if content.isCover == true]is-cover[/#if]" data-object-fit v-bind:src="source" v-bind:width="width" v-bind:height="height" alt="${imageMap.caption!imageMap.description!}">
                 </template>
                 <template v-else>
-                    <img class="image" width="${imageMap.metadata.mgnl.width?string.computer}px" height="${imageMap.metadata.mgnl.height?string.computer}px" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="${imageMap.caption!imageMap.description!}">
+                    <svg class="image" width="${imageMap.metadata.mgnl.width?string.computer}px" height="${imageMap.metadata.mgnl.height?string.computer}px" viewBox="0 0 1 1"></svg>
                 </template>
             </picture>
         </lazy-picture>

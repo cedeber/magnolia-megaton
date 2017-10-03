@@ -12,9 +12,8 @@
         <div class="o-image">
         [#if !cmsfn.isEditMode()]
             [#assign imageMap = damfn.getAssetMap(content.image)]
-            <lazy-picture inline-template="true">
+            <lazy-picture inline-template>
                 <picture v-bind:class="{ 'js-loaded': source }" class="picture">
-                    [#--if !imageMap.name?ends_with(".gif")--]
                     [#if !(cmsfn.fileExtension(imageMap.name) == "gif")]
                         <source media="(max-width: 376px)" srcset="${damfn.getRendition(content.image, "hero-375").getLink()}, ${damfn.getRendition(content.image, "hero-375-2x").getLink()} 2x">
                         <source media="(max-width: 668px)" srcset="${damfn.getRendition(content.image, "hero-667").getLink()}, ${damfn.getRendition(content.image, "hero-667-2x").getLink()} 2x">
@@ -26,7 +25,7 @@
                         <img class="image [#if isCover == true]is-cover[/#if]" data-object-fit v-bind:src="source" v-bind:width="width" v-bind:height="height" alt="${imageMap.caption!imageMap.description!}">
                     </template>
                     <template v-else>
-                        <img class="image" width="${imageMap.metadata.mgnl.width?string.computer}px" height="${imageMap.metadata.mgnl.height?string.computer}px" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="${imageMap.caption!imageMap.description!}">
+                        <svg class="image" width="${imageMap.metadata.mgnl.width?string.computer}px" height="${imageMap.metadata.mgnl.height?string.computer}px" viewBox="0 0 1 1"></svg>
                     </template>
                 </picture>
             </lazy-picture>
