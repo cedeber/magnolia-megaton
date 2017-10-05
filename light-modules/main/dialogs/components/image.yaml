@@ -17,8 +17,6 @@ form:
 
     - !include:/main/dialogs/components/include/tabLayout.yaml
       fields:
-        - name: className
-          defaultValue: o-lazy-picture
         - name: isFullWidth
           class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
           label: Image layout
