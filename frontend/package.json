@@ -16,6 +16,7 @@
     "css-loader": "^0.28.7",
     "cssnano": "^3.10.0",
     "es6-shim": "^0.35.3",
+    "eslint": "^4.8.0",
     "intersection-observer": "^0.4.2",
     "js-yaml": "^3.10.0",
     "lodash-es": "^4.17.4",
