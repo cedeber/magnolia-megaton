@@ -1,4 +1,4 @@
-import * as Vue from "vue";
+import Vue from "vue";
 import "./config/loading-animations";
 import { LazyPicture } from "./components/lazy-picture";
 import { Carousel } from "./components/carousel";

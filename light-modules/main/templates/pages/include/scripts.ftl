@@ -34,33 +34,6 @@ ${resfn.css(["/main/webresources/external/cookies-eu-banner.css"])!}
 [/#if]
 
 <!-- Application -->
-[#if devMode]
-    ${resfn.js(["/main/webresources/js/vendor/require.js"])!}
-[#else]
-    ${resfn.js(["/main/webresources/js/vendor/require.min.js"])!}
-[/#if]
-<script>
-    require.config({
-        [#if cmsfn.authorInstance]waitSeconds: 60,[/#if]
-        baseUrl: "${ctx.contextPath}/.resources/main/webresources/js/",
-        paths: {
-            "vue": "vendor/vue[#if !devMode].min[/#if]",
-            "vuex": "vendor/vuex[#if !devMode].min[/#if]",
-            "vue-router": "vendor/vue-router[#if !devMode].min[/#if]",
-            "vue-class-component": "vendor/vue-class-component[#if !devMode].min[/#if]",
-            "vue-property-decorator": "vendor/vue-property-decorator[#if !devMode].min[/#if]",
-            "reflect-metadata": "vendor/reflect-metadata[#if !devMode].min[/#if]",
-            "vuex-class": "vendor/vuex-class[#if !devMode].min[/#if]",
-            "lodash": "vendor/lodash[#if !devMode].min[/#if]",
-        }
-    });
-    require([
-        "polyfills/es6[#if !devMode].min[/#if]",
-        "polyfills/fetch[#if !devMode].min[/#if]",
-        "polyfills/match-media[#if !devMode].min[/#if]",
-        "polyfills/intersection-observer[#if !devMode].min[/#if]",
-        "polyfills/object-fit[#if !devMode].min[/#if]",
-        "app/main"
-    ]);
-</script>
+${resfn.js(["/main/webresources/js/polyfills.bundle.js"])!}
+${resfn.js(["/main/webresources/js/app.bundle.js"])!}
 [/#if]

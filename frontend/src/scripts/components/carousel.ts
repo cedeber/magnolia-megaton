@@ -1,6 +1,6 @@
-import * as Vue from "vue";
+import Vue from "vue";
 import { Component, Prop, Watch } from "vue-property-decorator";
-import * as _ from "lodash";
+import _ from "lodash-es";
 
 type RenderType = "linear" | "continue" | "async";
 

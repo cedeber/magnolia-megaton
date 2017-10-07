@@ -1,6 +1,6 @@
-import * as Vue from "vue";
+import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
-import * as _ from "lodash";
+import _ from "lodash-es";
 import "../utils/vertical-state";
 
 const CACHE_QUANTITY = 5;

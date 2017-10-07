@@ -1,4 +1,4 @@
-import * as VueInterface from "vue";
+import VueInterface from "vue";
 import "../utils/scroll-into-viewport";
 
 interface Scroll {

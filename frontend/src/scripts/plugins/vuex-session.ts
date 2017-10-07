@@ -1,5 +1,5 @@
-import * as Vuex from "vuex";
-import * as _ from "lodash";
+import Vuex from "vuex";
+import _ from "lodash-es";
 
 function createSessionStorage(key?: string) {
     function doSubscribe(_mutation: Vuex.Payload, state: any) {

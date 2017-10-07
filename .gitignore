@@ -1,8 +1,7 @@
 ### Project ###
-light-modules/**/webresources/js/app/
+light-modules/**/webresources/js/
 light-modules/**/webresources/css/*.css*
 !light-modules/**/webresources/css/webfonts.css
-light-modules/**/*.min.*
 !light-modules/**/external/**/*.min.*
 
 *-webapp/**/repositories/
@@ -47,15 +46,7 @@ typings/
 .env
 
 ### IntelliJ ###
-#.idea/**/codeStyleSettings.xml
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/**/artifacts/
-.idea/**/compiler.xml
-.idea/**/misc.xml
-.idea/**/vcs.xml
-.idea/dictionaries
-.idea/libraries
+.idea/
 *.iws
 *.iml
 *.ipr
@@ -68,6 +59,7 @@ gen
 *.tmPreferences.cache
 *.stTheme.cache
 *.sublime-workspace
+*.sublime-project
 Package Control.last-run
 Package Control.ca-list
 Package Control.ca-bundle
@@ -80,10 +72,7 @@ oscrypto-ca-bundle.crt
 bh_unicode_properties.cache
 
 ### VisualStudioCode ###
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+.vscode/
 
 ### Vim ###
 [._]*.s[a-v][a-z]
