@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const fs = require("fs");
 const path = require("path");
 const yaml = require("js-yaml");
@@ -53,7 +55,8 @@ for (let i = 2, l = process.argv.length; i < l; i++) {
 function buildStyleFile(file) {
     if (path.extname(file) !== ".css") { return; }
 
-    const inputFile = path.resolve(appConfig.paths.source.styles, file);
+    // const inputFile = path.resolve(appConfig.paths.source.styles, file);
+    const inputFile = file;
     const outputFile = path.resolve(appConfig.paths.build.styles, path.basename(file));
 
     fs.readFile(inputFile, "utf8", (error, data) => {
@@ -85,18 +88,37 @@ function buildStyleFile(file) {
     });
 }
 
-function main() {
-    fs.readdir(appConfig.paths.source.styles, (error, files) => {
-        if (error) { console.warn(error); return; }
+function walk(directoryName, depth, callback) {
+    if (depth < 0) { return; }
 
-        for (const file of files) { buildStyleFile(file); }
+    fs.readdir(directoryName, (error1, files) => {
+        if (error1) { console.warn(error1); return; }
+
+        files.forEach(file => {
+            const fullPath = path.join(directoryName, file);
+
+            fs.stat(fullPath, (error2, f) => {
+                if (error2) { console.warn(error2); return; }
+
+                if (f.isDirectory()) {
+                    const newDepth = depth - 1;
+                    if (newDepth > 0) { walk(fullPath, newDepth, callback); }
+                }
+                else {
+                    callback(fullPath);
+                }
+            });
+        });
     });
+}
+
+function main() {
+    walk(appConfig.paths.source.styles, 0, buildStyleFile);
 }
 
 if (watch) {
     fs.watch(appConfig.paths.source.styles, { recursive: true }, (eventType, fileName) => {
-        if (eventType === "change") {
-            // [TODO] check if file is CSS
+        if (eventType === "change" && path.extname(fileName) === ".css") {
             console.log(`\n${chalk.bold("File change:")} ${chalk.magenta(fileName)}`);
             main();
         }
