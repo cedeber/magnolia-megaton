@@ -1,15 +1,19 @@
 const path = require('path');
+const fs = require('fs');
+const yaml = require('js-yaml');
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
+const appConfig = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, "binconfig.yaml"), "utf-8"));
+
 module.exports = {
     entry: {
-        app: './src/scripts/main.ts',
+        app: appConfig.paths.source.scripts,
         polyfills: ['es6-shim', 'whatwg-fetch', 'matchmedia-polyfill', 'intersection-observer', 'objectFitPolyfill']
     },
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, '../light-modules/main/webresources/js/'),
+        path: path.resolve(__dirname, appConfig.paths.build.scripts),
     },
     plugins: [
         // new webpack.optimize.CommonsChunkPlugin({

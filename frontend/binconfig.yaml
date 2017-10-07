@@ -1,10 +1,7 @@
 paths:
   source:
     styles: "./src/styles/"
-    scripts: "./scr/scripts/"
+    scripts: "./src/scripts/main.ts"
   build: 
     styles: "../light-modules/main/webresources/css/"
-    scripts:
-      app: "../light-modules/main/webresources/js/app/"
-      polyfills: "../light-modules/main/webresources/js/polyfills/"
-      vendor: "../light-modules/main/webresources/js/vendor/"
+    scripts: "../light-modules/main/webresources/js/"
