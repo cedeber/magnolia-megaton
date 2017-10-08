@@ -9,7 +9,7 @@
     100% { opacity: 0 }
 }
 
- .o-loading {
+loading-page {
     position: fixed;
     top: 0;
     left: 0;
@@ -17,24 +17,5 @@
     height: 100vh;
     background: white;
     z-index: 999;
-    transition: opacity 130ms, left 0s;
     opacity: 1;
-
-    & .content {
-        opacity: 0;
-    }
-
-    &.js-loading .content {
-        opacity: 1;
-        animation-duration: 1.4s;
-        animation-name: loadingAnimation;
-        animation-iteration-count: infinite;
-        animation-timing-function: linear;
-    }
-
-    &.js-hidden {
-        opacity: 0;
-        left: -10000px;
-        transition: opacity var(--default-timing), left 0s var(--default-timing);
-    }
  }

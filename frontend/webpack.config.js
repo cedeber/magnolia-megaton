@@ -14,6 +14,7 @@ module.exports = {
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, appConfig.paths.build.scripts),
+        publicPath: appConfig.paths.build.public
     },
     plugins: [
         // new webpack.optimize.CommonsChunkPlugin({
@@ -24,15 +25,21 @@ module.exports = {
         rules: [
             {
                 test: /\.vue$/,
-                loader: 'vue-loader'
+                loader: 'vue-loader',
             },
             {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
                 exclude: /node_modules/,
-                options: {
-                    appendTsSuffixTo: [/\.vue$/],
-                }
+                options: { appendTsSuffixTo: [/\.vue$/] }
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.(png|svg|jpg|gif|woff|woff2)$/,
+                loader: 'file-loader',
             }
         ]
     },

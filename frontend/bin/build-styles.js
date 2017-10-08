@@ -118,6 +118,7 @@ function main() {
 
 if (watch) {
     fs.watch(appConfig.paths.source.styles, { recursive: true }, (eventType, fileName) => {
+        console.log(eventType);
         if (eventType === "change" && path.extname(fileName) === ".css") {
             console.log(`\n${chalk.bold("File change:")} ${chalk.magenta(fileName)}`);
             main();

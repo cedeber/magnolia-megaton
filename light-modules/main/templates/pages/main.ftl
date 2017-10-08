@@ -31,8 +31,8 @@
                     Footer
                 </div>
             </footer>
+            [#include "include/loading.ftl"]
         </main>
-        [#include "include/loading.ftl"]
         [#include "include/scripts.ftl"]
     </body>
 </html>

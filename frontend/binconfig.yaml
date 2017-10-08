@@ -5,3 +5,4 @@ paths:
   build: 
     styles: "../light-modules/main/webresources/css/"
     scripts: "../light-modules/main/webresources/js/"
+    public: "/.resources/main/webresources/js/"
