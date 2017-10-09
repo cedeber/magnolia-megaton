@@ -65,26 +65,36 @@ function buildStyleFile(file) {
         const options = sourcemap ? {
             from: inputFile,
             to: outputFile,
-            map: { inline: false, sourcesContent: false },
+            map: process.env.NODE_ENV === "production" ? { inline: false, sourcesContent: false } : { inline: true, sourcesContent: true },
         } : {
             from: inputFile,
             to: outputFile,
         };
 
         postcss(plugins).
-            process(data, options).
-            then(result => {
-                result.warnings().forEach(warn => console.warn(warn.toString()));
-                if (result.warnings().length > 0) { return; }
-                if (sourcemap) {
-                    fs.writeFile(outputFile, result.css, () => console.log(`${chalk.yellow("[INFO]")} ${chalk.green.bold("✓")} ${chalk.dim("source")}\t\t${chalk.blue(file)}`));
-                    fs.writeFile(`${outputFile}.map`, result.map, () => console.log(`${chalk.yellow("[INFO]")} ${chalk.green.bold("✓")} ${chalk.dim("sourcemap")}\t${chalk.cyan(file + ".map")}`));
+        process(data, options).
+        then(result => {
+            result.warnings().forEach(warn => console.warn(warn.toString()));
+            if (result.warnings().length > 0) { return; }
+            if (sourcemap) {
+                fs.writeFile(
+                    outputFile,
+                    result.css,
+                    () => console.log(`${chalk.yellow("[INFO]")} ${chalk.green.bold("✓")} ${result.map ? chalk.dim("source") : chalk.dim("source, sourcemap")}\t\t${chalk.blue(file)}`));
+
+                if(result.map) {
+                    fs.writeFile(
+                        `${outputFile}.map`,
+                        result.map,
+                        () => console.log(`${chalk.yellow("[INFO]")} ${chalk.green.bold("✓")} ${chalk.dim("sourcemap")}\t${chalk.cyan(file + ".map")}`)
+                    );
                 }
-                else {
-                    fs.writeFile(outputFile, cleanEmptyLines(result.css), () => console.log(`${chalk.yellow("[INFO]")} ${chalk.green.bold("✓")} ${chalk.dim("source")}\t\t${chalk.blue(file)}`));
-                }
-            }).
-            catch((err) => console.error(`\n${chalk.red("[ERROR]")} ${chalk.red.bold("✗")} ${chalk.bold(err.reason)} ${chalk.magenta(path.relative(appConfig.paths.source.styles, err.input.file))}:${err.input.line}:${err.input.column} ${chalk.dim(err.plugin)}\n${err.showSourceCode(true)}`));
+            }
+            else {
+                fs.writeFile(outputFile, cleanEmptyLines(result.css), () => console.log(`${chalk.yellow("[INFO]")} ${chalk.green.bold("✓")} ${chalk.dim("source")}\t\t${chalk.blue(file)}`));
+            }
+        }).
+        catch((err) => console.error(`\n${chalk.red("[ERROR]")} ${chalk.red.bold("✗")} ${chalk.bold(err.reason)} ${chalk.magenta(path.relative(appConfig.paths.source.styles, err.input.file))}:${err.input.line}:${err.input.column} ${chalk.dim(err.plugin)}\n${err.showSourceCode(true)}`));
     });
 }
 
@@ -118,7 +128,6 @@ function main() {
 
 if (watch) {
     fs.watch(appConfig.paths.source.styles, { recursive: true }, (eventType, fileName) => {
-        console.log(eventType);
         if (eventType === "change" && path.extname(fileName) === ".css") {
             console.log(`\n${chalk.bold("File change:")} ${chalk.magenta(fileName)}`);
             main();

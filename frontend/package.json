@@ -1,11 +1,11 @@
 {
   "scripts": {
-    "debug:styles": "node bin/build-styles.js --sourcemap",
-    "build:styles": "node bin/build-styles.js --sourcemap --minify",
-    "watch:styles": "node bin/build-styles.js --sourcemap --watch",
-    "debug:scripts": "webpack --hide-modules",
+    "watch:styles": "cross-env NODE_ENV=development node bin/build-styles.js --sourcemap --watch",
+    "debug:styles": "cross-env NODE_ENV=development node bin/build-styles.js --sourcemap",
+    "build:styles": "cross-env NODE_ENV=production node bin/build-styles.js --sourcemap --minify",
+    "watch:scripts": "cross-env NODE_ENV=development webpack --hide-modules --watch",
+    "debug:scripts": "cross-env NODE_ENV=development webpack --hide-modules",
     "build:scripts": "cross-env NODE_ENV=production webpack --hide-modules",
-    "watch:scripts": "webpack --hide-modules --watch",
     "build": "npm run build:styles && npm run build:scripts"
   },
   "dependencies": {
