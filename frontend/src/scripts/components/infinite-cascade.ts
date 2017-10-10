@@ -1,6 +1,8 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
-import _ from "lodash-es";
+import slice from "lodash-es/slice";
+import size from "lodash-es/size";
+import concat from "lodash-es/concat";
 import "../utils/vertical-state";
 
 const CACHE_QUANTITY = 5;
@@ -11,9 +13,9 @@ const CACHE_QUANTITY = 5;
 async function getCacheAsync(from: number, quantity: number): Promise<any[]> {
     const response = await fetch("./assets/messages.json");
     const messages = response.ok ? await response.json() : [];
-    const result = _.slice(messages, from, Math.min(from + quantity, _.size(messages)));
+    const result = slice(messages, from, Math.min(from + quantity, size(messages)));
 
-    if (from > _.size(messages)) { return Promise.reject("no more items"); }
+    if (from > size(messages)) { return Promise.reject("no more items"); }
     return Promise.resolve(result);
 }
 
@@ -34,7 +36,7 @@ class InfiniteCascade extends Vue {
 
         while (i >= 0) {
             try {
-                this.items = _.concat(this.items, await this.getItem(i));
+                this.items = concat(this.items, await this.getItem(i));
                 i = i + 1;
             }
             catch (error) { i = -1; }
@@ -49,7 +51,7 @@ class InfiniteCascade extends Vue {
         try {
             const cache = await getCacheAsync(this.itemsCached, CACHE_QUANTITY);
 
-            this.cache = _.concat(this.cache, cache);
+            this.cache = concat(this.cache, cache);
             this.itemsCached += CACHE_QUANTITY;
             return Promise.resolve(true);
         }

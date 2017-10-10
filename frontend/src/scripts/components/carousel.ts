@@ -1,6 +1,7 @@
 import Vue from "vue";
 import { Component, Prop, Watch } from "vue-property-decorator";
-import _ from "lodash-es";
+import size from "lodash-es/size";
+import debounce from "lodash-es/debounce";
 
 type RenderType = "linear" | "continue" | "async";
 
@@ -51,7 +52,7 @@ class Carousel extends Vue {
 
     @Watch("slides")
     public onSlidesChanged(value: any[]) {
-        if (_.size(value) > 0) {
+        if (size(value) > 0) {
             this.carouselWidth = this.$el.offsetWidth;
             this.items = this.slides;
             this.itemsQuantity = this.slides.length;
@@ -89,7 +90,7 @@ class Carousel extends Vue {
 
         // slides ? JSON Carousel : DOM Carousel
         // JSON Carousel is initialized via the "slides" watcher
-        if (_.size(this.slides) === 0) {
+        if (size(this.slides) === 0) {
             this.setupDOM();
             this.init();
         }
@@ -104,7 +105,7 @@ class Carousel extends Vue {
             }
         }
 
-        window.addEventListener("resize", _.debounce(resize.bind(this), 300));
+        window.addEventListener("resize", debounce(resize.bind(this), 300));
     }
 
     public setupDOM() {
