@@ -1,8 +1,0 @@
-paths:
-  source:
-    styles: "./src/styles/"
-    scripts: "./src/scripts/main.ts"
-  build: 
-    styles: "../light-modules/main/webresources/css/"
-    scripts: "../light-modules/main/webresources/js/"
-    public: "/.resources/main/webresources/js/"

@@ -1,28 +1,23 @@
 {
   "scripts": {
-    "watch:styles": "cross-env NODE_ENV=development node bin/build-styles.js --sourcemap --watch",
-    "debug:styles": "cross-env NODE_ENV=development node bin/build-styles.js --sourcemap",
-    "build:styles": "cross-env NODE_ENV=production node bin/build-styles.js --sourcemap --minify",
-    "watch:scripts": "cross-env NODE_ENV=development webpack --hide-modules --watch",
-    "debug:scripts": "cross-env NODE_ENV=development webpack --hide-modules",
-    "build:scripts": "cross-env NODE_ENV=production webpack --hide-modules",
-    "build": "npm run build:styles && npm run build:scripts"
+    "watch": "cross-env NODE_ENV=development webpack --hide-modules --watch",
+    "build": "cross-env NODE_ENV=production webpack --hide-modules --progress"
   },
   "dependencies": {
     "@types/animejs": "^2.0.0",
-    "@types/googlemaps": "^3.29.1",
-    "@types/lodash": "^4.14.77",
+    "@types/googlemaps": "^3.29.2",
     "@types/lodash-es": "^4.14.7",
     "animejs": "^2.2.0",
     "chalk": "^2.1.0",
+    "clean-webpack-plugin": "^0.1.17",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "cssnano": "^3.10.0",
     "es6-shim": "^0.35.3",
     "eslint": "^4.8.0",
+    "extract-text-webpack-plugin": "^3.0.1",
     "file-loader": "^1.1.5",
     "intersection-observer": "^0.4.2",
-    "js-yaml": "^3.10.0",
     "lodash-es": "^4.17.4",
     "matchmedia-polyfill": "^0.3.0",
     "objectFitPolyfill": "^2.0.5",

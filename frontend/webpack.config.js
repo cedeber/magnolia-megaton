@@ -1,25 +1,40 @@
 const path = require('path');
-const fs = require('fs');
-const yaml = require('js-yaml');
 const webpack = require('webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const appConfig = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, "binconfig.yaml"), "utf-8"));
+/* --- CONFIG --- */
+const env = process.env.NODE_ENV;
+const entryPath = './src/main.ts';
+const buildPath = path.resolve(__dirname, '../light-modules/main/webresources/app/');
+const publicPath = '/.resources/main/webresources/app/';
 
 module.exports = {
     entry: {
-        app: appConfig.paths.source.scripts,
+        app: entryPath,
         polyfills: ['es6-shim', 'whatwg-fetch', 'matchmedia-polyfill', 'intersection-observer', 'objectFitPolyfill']
     },
     output: {
-        filename: '[name].bundle.js',
-        path: path.resolve(__dirname, appConfig.paths.build.scripts),
-        publicPath: appConfig.paths.build.public
+        filename: env === 'production' ? '[name].[chunkhash].js' : '[name].debug.js',
+        path: buildPath,
+        publicPath: publicPath,
     },
     plugins: [
         // new webpack.optimize.CommonsChunkPlugin({
         //     name: 'common' // Specify the common bundle's name.
         // }),
+        new CleanWebpackPlugin(
+            [buildPath],
+            {
+                root: path.resolve(__dirname, "../"),
+                verbose: false,
+            }
+        ),
+        new ExtractTextPlugin({
+            filename: env === 'production' ? '[name].[contenthash].css' : '[name].debug.css',
+            allChunks: true,
+        }),
     ],
     module: {
         rules: [
@@ -31,15 +46,20 @@ module.exports = {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
                 exclude: /node_modules/,
-                options: { appendTsSuffixTo: [/\.vue$/] }
+                options: {
+                    appendTsSuffixTo: [/\.vue$/],
+                    silent: true,
+                }
             },
             {
                 test: /\.css$/,
-                use: [
-                    'style-loader',
-                    { loader: 'css-loader', options: { importLoaders: 1 } },
-                    'postcss-loader'
-                ],
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        {loader: 'css-loader', options: {importLoaders: 1, camelCase: true, sourceMap: true}},
+                        {loader: 'postcss-loader', options: {sourceMap: true}},
+                    ]
+                }),
             },
             {
                 test: /\.(png|svg|jpg|gif|woff|woff2)$/,
@@ -53,11 +73,11 @@ module.exports = {
             'vue$': 'vue/dist/vue.esm.js'
         }
     },
-    devtool: '#eval-source-map'
+    devtool: '#source-map'
 };
 
-if (process.env.NODE_ENV === 'production') {
-    module.exports.devtool = '#source-map';
+if (env === 'production') {
+    // module.exports.devtool = '#source-map';
     // http://vue-loader.vuejs.org/en/workflow/production.html
     module.exports.plugins = (module.exports.plugins || []).concat([
         new webpack.DefinePlugin({
@@ -69,7 +89,7 @@ if (process.env.NODE_ENV === 'production') {
             sourceMap: true,
             uglifyOptions: {
                 mangle: true,
-                compress: true
+                compress: true,
             }
         }),
     ])

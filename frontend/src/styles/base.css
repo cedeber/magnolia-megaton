@@ -15,7 +15,6 @@
  * └───────────────────┴───────────────────┘
  */
 
-@import url(./components/loading.css);
 @import url(./components/breadcrumbs.css);
 @import url(./components/article.css);
 @import url(./components/image.css);
@@ -25,6 +24,18 @@ article ol,
 article ul {
     list-style: disc;
     list-style-position: inside;
+}
+
+/* --- Vue Loading --- */
+loading-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--base01);
+    z-index: 999;
+    opacity: 1;
 }
 
 /* --- Themes --- */

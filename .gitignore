@@ -1,8 +1,6 @@
 ### Project ###
-light-modules/**/webresources/js/
-light-modules/**/webresources/css/*.css*
-!light-modules/**/webresources/css/webfonts.css
-!light-modules/**/external/**/*.min.*
+light-modules/**/webresources/app
+!light-modules/**/external
 
 *-webapp/**/repositories/
 *-webapp/**/overlays/
