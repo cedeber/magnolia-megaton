@@ -2,8 +2,8 @@
     [#assign devMode = cmsfn.authorInstance!false]
 
     <!-- Application -->
-    ${resfn.js(["/main/webresources/js/polyfills.*.js"])!}
-    ${resfn.js(["/main/webresources/js/app.*.js"])!}
+    ${resfn.js(["/main/webresources/app/polyfills.*.js"])!}
+    ${resfn.js(["/main/webresources/app/app.*.js"])!}
 
     <!-- Outdated Browsers -->
     [#if !devMode]
