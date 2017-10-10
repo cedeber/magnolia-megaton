@@ -13,6 +13,7 @@
         [#if !cmsfn.isEditMode()]
             [#assign imageMap = damfn.getAssetMap(content.image)]
             <lazy-picture inline-template>
+                [#if imageMap.metadata.dc.format?starts_with("image")]
                 <picture v-bind:class="{ 'js-loaded': source }" class="picture">
                     [#if !(cmsfn.fileExtension(imageMap.name) == "gif")]
                         <source media="(max-width: 376px)" srcset="${damfn.getRendition(content.image, "hero-375").getLink()}, ${damfn.getRendition(content.image, "hero-375-2x").getLink()} 2x">
@@ -26,9 +27,22 @@
                         <img class="image [#if isCover == true]is-cover[/#if]" data-object-fit v-bind:src="source" alt="${imageMap.caption!imageMap.description!}">
                     </template>
                     <template v-else>
-                        <svg class="image" width="${imageMap.metadata.mgnl.width?string.computer}px" height="${imageMap.metadata.mgnl.height?string.computer}px" viewBox="0 0 1 1"></svg>
+                        <svg class="image" width="${(imageMap.metadata.mgnl.width * 1000)?string.computer}px" height="${(imageMap.metadata.mgnl.height * 1000)?string.computer}px" viewBox="0 0 1 1"></svg>
                     </template>
                 </picture>
+                [#elseif imageMap.metadata.dc.format?starts_with("video")]
+                <div>
+                    <picture hidden><source srcset="${damfn.getAssetLink(content.image)!}"></picture>
+                    <template v-if="source">
+                        <video autoplay loop muted playsinline v-bind:class="{ 'js-loaded': source }" class="picture">
+                            <source class="image [#if isCover == true]is-cover[/#if]" v-bind:src="source" type="${imageMap.metadata.dc.format}">
+                        </video>
+                    </template>
+                    <template v-else>
+                        <div class="picture"><svg class="image" width="1280000px" height="720000px" viewBox="0 0 1 1"></svg></div>
+                    </template>
+                </div>
+                [/#if]
             </lazy-picture>
         [#else]
             <img class="image" src="${damfn.getAssetLink(content.image)!}" style="display:block;max-width:100%">
