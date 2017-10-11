@@ -1,30 +1,47 @@
-# Magnolia CMS Megaton Edition
+# Frontools Magnolia CMS "Megaton Edition"
 
-A ready to play local Magnolia CMS with
-- Magnolia CMS Community Edition
-    - REST Services & Tools
-    - JavaScript Models
-- TypeScript for requirejs
-- Vue.js & lodash
+## Why?
+
+Frontools Magnolia Megaton Edition is a ready-to-use, frontend-oriented development environment. Based deeply on light modules, it gives you the possibility to embrace multi-page CMS as well as single-page application Headless CMS. And mix them together with ease.
+
+### Magnolia CMS
+A ready to play Magnolia CMS with
+- REST Services and Tools
+- JavaScript Models
+- a preconfigured webapp with a main fullfilled light module
+- a preconfigured Java module
+
+### Included frontend frameworks and tools
+- [webpack](https://webpack.js.org)
+- [TypeScript](https://www.typescriptlang.org)
+- [Vue.js Ecosystem](https://vuejs.org)
+- [lodash](https://lodash.com)
+- [cssnext](http://cssnext.io)
+
+### Frontools
 - Frontools Vue Components
-- PostCSS cssnext
+- Frontools Utilities & Helpers
 - Frontools CSS Shell
 
-## Setup
+More details coming soon...
 
-As a designer and an Unix-like OS lover, I use macOS.
-The current configuration should work on Linux as well.
-Windows is not supported but you could try it with [cmder](http://cmder.net) or [chocolatey](https://chocolatey.org)
+### Included polyfills
+- ES6 Shims
+- Fetch API
+- Intersection Observer API
+- matchMedia
+- CSS object-fit
+
+## Workflow
+As the frontend workflow is based on webpack, everything that has nothing to do with Magnolia or FreeMarker can be saved on the `/frontend` folder like JS, CSS, single file Vue components, pictures...
+
+Lots of components are generated thanks to FreeMarker but thanks to Vue inline templating it's not a problem at all. It's even very powerful.
 
 ### Frontend
-Go to the `/frontend` folder and do `npm install` followed by `npm build:all`.
-It build and minify CSS and JS with sourcemaps.
+Go to the `/frontend` folder and do `npm install` followed by `npm run build`. It bundles JS files, extracts CSS and manages all other needed resources.
 
 #### Watchers
-If you want to build CSS or JS after each file save, in the `/frontend` folder you can do
-- CSS: `npm run watch:styles` or `node bin/build-styles --sourcemap --watch`
-- JS: `npm run watch:scripts` or `tsc -w -p tsconfig.json`
+If you want to build CSS or JS after each files save, in the `/frontend` folder you can do `npm run watch`. Webpack will run in watch mode and produces less optimised debug files.
 
 ### Magnolia
-From the root `/` folder
-- `mvn clean package` to build the Webapp and the Java Module
+From the root `/` folder, do `mvn clean package` in order to prepare Magnolia and build the webapp and the Java Module.
