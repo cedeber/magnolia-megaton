@@ -14,7 +14,7 @@ areas:
         id: main:components/carousel
   main:
     renderType: freemarker
-    templateScript: /main/templates/areas/main.ftl
+    templateScript: /main/templates/areas/indexed.ftl
     availableComponents:
       editorial:
         id: main:components/editorial
