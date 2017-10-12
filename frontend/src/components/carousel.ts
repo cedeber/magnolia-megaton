@@ -3,6 +3,8 @@ import { Component, Prop, Watch } from "vue-property-decorator";
 import size from "lodash-es/size";
 import debounce from "lodash-es/debounce";
 
+import "./carousel.css";
+
 type RenderType = "linear" | "continue" | "async";
 
 @Component

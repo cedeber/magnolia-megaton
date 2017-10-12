@@ -1,4 +1,4 @@
-@import url(../shared/vars.css);
+@import url(../variables.css);
 
 :root {
     --carousel-transition-timing: 350ms;

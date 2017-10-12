@@ -1,3 +1,5 @@
+@import url(../variables.css);
+
 article {
     & hr {
         border: 0;
@@ -5,6 +7,12 @@ article {
         border-bottom: 1px solid var(--base07);
         margin: 1.75em 10rem;
     }
+}
+
+article ol,
+article ul {
+    list-style: disc;
+    list-style-position: inside;
 }
 
 .o-editorial {

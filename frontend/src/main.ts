@@ -1,11 +1,13 @@
 import Vue from "vue";
-import { LazyPicture } from "./scripts/components/lazy-picture";
-import { Carousel } from "./scripts/components/carousel";
+import { LazyPicture } from "./components/lazy-picture";
+import { Carousel } from "./components/carousel";
 
-import LoadingPage from "./scripts/components/loading-page.vue";
+import LoadingPage from "./components/loading-page.vue";
 
-import "./styles/_shell.css";
-import "./styles/base.css";
+import "./css-shell/main.css";
+import "./page-styles/base.css";
+import "./page-styles/article.css";
+import "./page-styles/breadcrumbs.css";
 
 const vm = new Vue({});
 

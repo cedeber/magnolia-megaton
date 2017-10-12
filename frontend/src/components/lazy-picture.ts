@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 
+import "./lazy-picture.css";
+
 /*
 interface LazyResult {
     height: number; // Height of the fetched image

@@ -13,29 +13,14 @@
  * └───────────────────┴───────────────────┘
  */
 
-@import url(./components/breadcrumbs.css);
-@import url(./components/article.css);
-@import url(./components/image.css);
-@import url(./components/carousel.css);
+/* --- Partials --- */
+@import url(../variables.css);
 
-article ol,
-article ul {
-    list-style: disc;
-    list-style-position: inside;
-}
-
-/* --- Vue Loading --- */
-loading-page {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: var(--base01);
-    z-index: 999;
-    opacity: 1;
-}
-
-/* --- Themes --- */
-.has-background.-grey { background: var(--base05); }
-.has-background.-white { background: white; }
+/* --- Layout --- */
+@import url(reset.css);
+@import url(default.css);
+@import url(accessibility.css);
+@import url(layout.css);
+@import url(flexbox.css);
+@import url(text.css);
+@import url(images.css);

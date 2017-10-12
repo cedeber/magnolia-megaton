@@ -1,6 +1,6 @@
 <template>
     <div id="loading" role="presentation" aria-hidden="true" class="o-loading" v-bind:class="{ 'js-loading': isLoading, 'js-hidden': isHidden }">
-        <div class="o-flex-middle loading-overlay" v-bind:class="{ 'js-loading': isLoading }"><img class="image" src="../../assets/square.svg" width="10px" height="10" alt=""></div>
+        <div class="o-flex-middle loading-overlay" v-bind:class="{ 'js-loading': isLoading }"><img class="image" src="../assets/square.svg" width="10px" height="10" alt=""></div>
         <div class="opaque-overlay"></div>
         <div class="transparent-overlay"></div>
     </div>
@@ -8,7 +8,7 @@
 
 <script lang="ts">
     import { Vue, Component } from "vue-property-decorator";
-    import { applyBeforeQuit, simulateLoading, pageLoaded } from "../utils/loading";
+    import { applyBeforeQuit, simulateLoading, pageLoaded } from "../helpers/loading";
 
     @Component
     class LoadingPage extends Vue {
@@ -37,7 +37,7 @@
 </script>
 
 <style scoped>
-    @import url(../../styles/shared/vars.css);
+    @import url(../variables.css);
 
     @keyframes loadingAnimation {
         0% { opacity: 0 }
