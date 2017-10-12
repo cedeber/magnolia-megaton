@@ -18,8 +18,8 @@ areas:
     availableComponents:
       editorial:
         id: main:components/editorial
-      image:
-        id: main:components/image
+      media:
+        id: main:components/media
       carousel:
         id: main:components/carousel
     autoGeneration:

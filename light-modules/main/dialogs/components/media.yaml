@@ -1,5 +1,5 @@
 form:
-  label: Image
+  label: Media
   tabs:
     - name: tabMain
       label: Content
@@ -8,12 +8,24 @@ form:
           class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
           targetWorkspace: dam
           appName: assets
-          label: Image
+          label: Image or Video
           required: true
           identifierToPathConverter:
             class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
           contentPreviewDefinition:
             contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+        - name: ratio
+          class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
+          transformerClass: info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
+          label: Fixed ratio
+          description: For instance, 16 / 9 for videos or 4 / 3 for images.
+          fields:
+            - name: width
+              class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              label: Width unit
+            - name: height
+              class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              label: Height unit
 
     - !include:/main/dialogs/components/include/tabLayout.yaml
       fields:
