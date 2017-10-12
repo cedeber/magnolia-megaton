@@ -5,6 +5,9 @@ modelClass: info.magnolia.module.jsmodels.rendering.JavascriptRenderingModel
 dialog: main:pages/main
 visible: true
 
+parameters:
+  app: main
+
 areas:
   hero:
     renderType: freemarker

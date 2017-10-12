@@ -2,8 +2,9 @@
     [#assign devMode = cmsfn.authorInstance!false]
 
     <!-- Application -->
+    [#assign app = def.parameters.app!"main"]
     ${resfn.js(["/main/webresources/app/polyfills.*.js"])!}
-    ${resfn.js(["/main/webresources/app/app.*.js"])!}
+    ${resfn.js(["/main/webresources/app/" + app + ".*.js"])!}
 
     <!-- Outdated Browsers -->
     [#if !devMode]

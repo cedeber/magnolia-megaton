@@ -6,13 +6,12 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 /* --- CONFIG --- */
 const env = process.env.NODE_ENV;
-const entryPath = './src/main.ts';
 const buildPath = path.resolve(__dirname, '../light-modules/main/webresources/app/');
 const publicPath = '/.resources/main/webresources/app/';
 
 module.exports = {
     entry: {
-        app: entryPath,
+        main: './src/main.ts',
         polyfills: ['es6-shim', 'whatwg-fetch', 'matchmedia-polyfill', 'intersection-observer', 'objectFitPolyfill']
     },
     output: {
