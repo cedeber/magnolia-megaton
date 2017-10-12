@@ -1,5 +1,5 @@
 import VueInterface from "vue";
-import "../utils/scroll-into-viewport";
+import "../helpers/scroll-into-viewport";
 
 interface Scroll {
     speed?: number;

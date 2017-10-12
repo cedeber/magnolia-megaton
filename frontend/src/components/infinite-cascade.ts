@@ -3,7 +3,7 @@ import { Component, Prop } from "vue-property-decorator";
 import slice from "lodash-es/slice";
 import size from "lodash-es/size";
 import concat from "lodash-es/concat";
-import "../utils/vertical-state";
+import "../helpers/vertical-state";
 
 const CACHE_QUANTITY = 5;
 // let observer: IntersectionObserver;

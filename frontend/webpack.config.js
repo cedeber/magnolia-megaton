@@ -39,16 +39,26 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.vue$/,
-                loader: 'vue-loader',
-            },
-            {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
                 exclude: /node_modules/,
                 options: {
                     appendTsSuffixTo: [/\.vue$/],
                     silent: true,
+                }
+            },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader',
+                options: {
+                    loaders: {
+                        css: ExtractTextPlugin.extract({
+                            fallback: 'vue-style-loader',
+                            use: [
+                                {loader: 'css-loader', options: {sourceMap: true}},
+                            ],
+                        })
+                    }
                 }
             },
             {
