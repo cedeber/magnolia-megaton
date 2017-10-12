@@ -28,3 +28,7 @@ areas:
           nodeType: mgnl:component
           templateId: main:components/editorial
       generatorClass: info.magnolia.rendering.generator.CopyGenerator
+
+variations:
+  txt:
+    templateScript: /main/templates/variations/txt.ftl
