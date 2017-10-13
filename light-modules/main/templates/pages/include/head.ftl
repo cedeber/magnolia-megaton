@@ -27,5 +27,6 @@
 <meta name="msapplication-TileColor" content="#000000">
 <meta name="msapplication-tap-highlight" content="no">
 
-${resfn.css(["/main/webresources/app/.*.css"])!}
+[#assign app = def.parameters.app!"main"]
+${resfn.css(["/main/webresources/app/" + app + ".*.css"])!}
 <script> window.$$currentPath = "${ctx.contextPath}";</script>
