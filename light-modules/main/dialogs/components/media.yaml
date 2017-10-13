@@ -26,6 +26,23 @@ form:
             - name: height
               class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               label: Height unit
+        - name: position
+          class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+          sortOptions: false
+          label: Position
+          description: If cropped, this is the part of the image which will be shown.
+          options:
+            - name: center
+              selected: true
+              label: Center
+            - name: top
+              label: Top
+            - name: right
+              label: Right
+            - name: bottom
+              label: Bottom
+            - name: left
+              label: Left
 
     - !include:/main/dialogs/components/include/tabLayout.yaml
       fields:

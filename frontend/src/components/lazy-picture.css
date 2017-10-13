@@ -36,6 +36,12 @@
         object-fit: cover;
     }
 
+    & .image.is-center { object-position: center; }
+    & .image.is-top { object-position: top; }
+    & .image.is-right { object-position: right; }
+    & .image.is-bottom { object-position: bottom; }
+    & .image.is-left { object-position: left; }
+
     & .image.is-cover {
         width: 100%;
         height: 100%;
