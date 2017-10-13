@@ -2,30 +2,29 @@
 [#assign depth = 1]
 [#assign listClass = "o-flex-inline is-vertical"]
 
-[#macro navItem link level]
-    [#if !navfn.isHiddenInNav(link)]
-        [#assign linkContent = cmsfn.contentById(link.@uuid)! /]
-        [#if linkContent.redirect?has_content]
-            [#if linkContent.redirect == "internal" && linkContent.redirectinternal?has_content]
-                [#assign redirectLinkInternal = cmsfn.link('website', linkContent.redirectinternal)! /]
-            [#elseif linkContent.redirect == "external" && linkContent.redirectexternal?has_content]
-                [#assign redirectLinkExternal = linkContent.redirectexternal! /]
+[#macro navItem currentNode level]
+    [#if !navfn.isHiddenInNav(currentNode)]
+        [#if currentNode.redirect?has_content]
+            [#if currentNode.redirect == "internal" && currentNode.redirectinternal?has_content]
+                [#assign redirectLinkInternal = navfn.link(currentNode.redirectinternal)!]
+            [#elseif currentNode.redirect == "external" && currentNode.redirectexternal?has_content]
+                [#assign redirectLinkExternal = currentNode.redirectexternal!]
             [/#if]
         [/#if]
         <li>
-            <a class="link[#if navfn.isActive(content, link)] is-active[/#if][#if navfn.isOpen(content, link)] is-parent[/#if] is-level-${level}"
+            <a class="link[#if navfn.isActive(content, currentNode)] is-active[/#if][#if navfn.isOpen(content, currentNode)] is-parent[/#if] is-level-${level}"
                 [#if redirectLinkExternal?has_content]target="_blank" rel="noopener external"[/#if]
-                href="${redirectLinkExternal!redirectLinkInternal!cmsfn.link(link)!}">
-                ${link.navigationTitle!link.title!}
+                href="${redirectLinkExternal!redirectLinkInternal!cmsfn.link(currentNode)!}">
+                ${currentNode.navigationTitle!currentNode.title!}
             </a>
 
-            [#if level < depth && (openOnly == true && (navfn.isActive(content, link) || navfn.isOpen(content, link)) || openOnly == false)]
-            [#assign children = cmsfn.children(link, "mgnl:page")]
+            [#if level < depth && (openOnly == true && (navfn.isActive(content, currentNode) || navfn.isOpen(content, currentNode)) || openOnly == false)]
+            [#assign children = navfn.navItems(currentNode)]
             [#if children?size > 0]
             [#assign nextLevel = level + 1]
                 <ul class="${listClass}">
                     [#list children as child]
-                        [@navItem link=child level=nextLevel /]
+                        [@navItem currentNode=child level=nextLevel /]
                     [/#list]
                 </ul>
             [/#if]
@@ -35,12 +34,12 @@
     [/#if]
 [/#macro]
 
-[#assign home = navfn.rootPage(content) /]
-[#assign children = cmsfn.children(home, "mgnl:page")]
+[#assign home = navfn.rootPage(content)]
+[#assign children = navfn.navItems(home)]
 <nav id="mainNavigation" class="o-navigation">
     <ul class="${listClass}">
         [#list children as child]
-            [@navItem link=child level=0 /]
+            [@navItem currentNode=child level=0 /]
         [/#list]
     </ul>
 </nav>
