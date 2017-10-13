@@ -2,7 +2,7 @@
 [#assign depth = 1]
 [#assign listClass = "o-flex-inline is-vertical"]
 
-[#macro navItem link level levelMax]
+[#macro navItem link level]
     [#if !navfn.isHiddenInNav(link)]
         [#assign linkContent = cmsfn.contentById(link.@uuid)! /]
         [#if linkContent.redirect?has_content]
@@ -19,17 +19,18 @@
                 ${link.navigationTitle!link.title!}
             </a>
 
-            [#if level < levelMax && (openOnly == true && (navfn.isActive(content, link) || navfn.isOpen(content, link)) || openOnly == false)]
+            [#if level < depth && (openOnly == true && (navfn.isActive(content, link) || navfn.isOpen(content, link)) || openOnly == false)]
             [#assign children = cmsfn.children(link, "mgnl:page")]
             [#if children?size > 0]
             [#assign nextLevel = level + 1]
                 <ul class="${listClass}">
                     [#list children as child]
-                        [@navItem link=child level=nextLevel levelMax=levelMax /]
+                        [@navItem link=child level=nextLevel /]
                     [/#list]
                 </ul>
             [/#if]
             [/#if]
+            [#assign nextLevel = level]
         </li>
     [/#if]
 [/#macro]
@@ -39,7 +40,7 @@
 <nav id="mainNavigation" class="o-navigation">
     <ul class="${listClass}">
         [#list children as child]
-            [@navItem link=child level=0 levelMax=depth /]
+            [@navItem link=child level=0 /]
         [/#list]
     </ul>
 </nav>
