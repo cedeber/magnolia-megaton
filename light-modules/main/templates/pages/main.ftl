@@ -18,6 +18,7 @@
                         logo: ${model.getRandomNumber()}${model.text}
                     </div>
                     [#include "include/main-navigation.ftl"]
+                    [#include "include/languages.ftl"]
                 </div>
             </section>
             [@cms.area name="hero" /]
