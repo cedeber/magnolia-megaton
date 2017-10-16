@@ -119,6 +119,8 @@ class Carousel extends Vue {
     }
 
     public init() {
+        if (this.carouselWidth <= 0) { this.isLoaded = true; return; }
+
         const getWidth = (n: number) => Math.min(this.columns > 0 ? this.carouselWidth / this.columns : n || this.carouselWidth, this.carouselWidth);
 
         this.itemsPerPage = Math.max(Math.floor(this.carouselWidth / getWidth(this.minWidth)), Math.ceil(this.carouselWidth / getWidth(this.maxWidth)));
