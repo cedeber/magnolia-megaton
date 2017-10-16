@@ -1,10 +1,17 @@
 name: tabLayout
 label: Layout & CSS
 fields:
-  - name: isLarge
-    class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+  - name: sectionLayout
+    class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
     label: Section layout
-    buttonLabel: Make this section layout large
+    layout: horizontal
+    sortOptions: false
+    options:
+      - name: standard
+        label: standard
+        selected: true
+      - name: large
+        label: large
   - name: space
     class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
     multiselect: true

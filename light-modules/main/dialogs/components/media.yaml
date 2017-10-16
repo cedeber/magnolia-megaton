@@ -2,7 +2,7 @@ form:
   label: Media
   tabs:
     - name: tabMain
-      label: Content
+      label: Media
       fields:
         - name: image
           class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
@@ -14,6 +14,11 @@ form:
             class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
           contentPreviewDefinition:
             contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+        - name: isCover
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          label: Media as cover
+          buttonLabel: The media covers the whole container (like a background)
+          defaultValue: true
         - name: ratio
           class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
           transformerClass: info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
@@ -27,10 +32,11 @@ form:
               class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               label: Height unit
         - name: position
-          class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+          class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+          layout: horizontal
           sortOptions: false
           label: Position
-          description: If cropped, this is the part of the image which will be shown.
+          description: If cropped, this is the part of the media which will be shown.
           options:
             - name: center
               selected: true
@@ -46,14 +52,9 @@ form:
 
     - !include:/main/dialogs/components/include/tabLayout.yaml
       fields:
-        - name: isFullWidth
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-          label: Image layout
-          buttonLabel: Make the picture as large as the window viewport
-        - name: isCover
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-          label: Image as cover
-          buttonLabel: The image covers the whole container (like a background)
-          defaultValue: true
+        - name: sectionLayout
+          options:
+            - name: wide
+              label: as wide as the viewport
 
 actions: !include:/main/dialogs/components/include/commonActions.yaml

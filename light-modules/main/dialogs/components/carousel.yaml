@@ -48,9 +48,9 @@ form:
 
     - !include:/main/dialogs/components/include/tabLayout.yaml
       fields:
-        - name: isFullWidth
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-          label: Carousel layout
-          buttonLabel: Make the carousel as large as the window viewport
+        - name: sectionLayout
+          options:
+            - name: wide
+              label: as wide as the viewport
 
 actions: !include:/main/dialogs/components/include/commonActions.yaml
