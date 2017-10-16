@@ -1,5 +1,5 @@
-[#assign isLarge = content.isLarge?? && content.isLarge == true]
-[#assign isFullWidth = content.isFullWidth?? && content.isFullWidth == true]
+[#assign isLarge = content.sectionLayout?? && content.sectionLayout == "large"]
+[#assign isFullWidth = content.sectionLayout?? && content.sectionLayout == "wide"]
 [#assign isCover = content.isCover?? && content.isCover == true]
 [#assign hasBackground = content.backgroundTheme?has_content && content.backgroundTheme != "default"]
 [#assign hasNoTopSpace = content.space?? && content.space?seq_contains("top") || hasBackground]
