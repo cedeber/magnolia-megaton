@@ -1,6 +1,6 @@
 [#if content.image?? && damfn.getAsset(content.image)??]
-[#assign isLarge = content.isLarge?? && content.isLarge == true]
-[#assign isFullWidth = content.isFullWidth?? && content.isFullWidth == true]
+[#assign isLarge = content.sectionLayout?? && content.sectionLayout == "large"]
+[#assign isFullWidth = content.sectionLayout?? && content.sectionLayout == "wide"]
 [#assign isCover = content.isCover?? && content.isCover == true]
 [#assign hasRatio = content.width?has_content && content.height?has_content]
 [#assign hasBackground = content.backgroundTheme?has_content && content.backgroundTheme != "default"]
