@@ -1,6 +1,6 @@
 name: backgroundTheme
 class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
-label: Background theme
+label: Theme
 sortOptions: false
 options:
   - name: default
