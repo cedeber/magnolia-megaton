@@ -1,9 +1,12 @@
 title: Article (default)
 templateScript: /main/templates/pages/main.ftl
 renderType: freemarker
-modelClass: info.magnolia.module.jsmodels.rendering.JavascriptRenderingModel
 dialog: main:pages/main
 visible: true
+
+modelClass: info.magnolia.module.jsmodels.rendering.JavascriptRenderingModel
+class: info.magnolia.module.jsmodels.rendering.JavascriptTemplateDefinition
+modelPath: /main/templates/pages/main.js
 
 parameters:
   app: main
