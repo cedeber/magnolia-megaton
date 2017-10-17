@@ -1,5 +1,5 @@
 name: tabLayout
-label: Layout & CSS
+label: Layout
 fields:
   - name: sectionLayout
     class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
