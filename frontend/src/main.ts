@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { LazyPicture } from "./components/lazy-picture";
+import { LazyMedia } from "./components/lazy-media";
 import { Carousel } from "./components/carousel";
 
 import LoadingPage from "./components/loading-page.vue";
@@ -11,7 +11,7 @@ import "./page-styles/breadcrumbs.css";
 
 const vm = new Vue({});
 
-Vue.component("lazy-picture", LazyPicture);
+Vue.component("lazy-media", LazyMedia);
 Vue.component("multi-carousel", Carousel);
 Vue.component("loading-page", LoadingPage);
 

@@ -8,7 +8,7 @@
     <div class="background">
         [#if !cmsfn.isEditMode()]
         [#assign imageMap = damfn.getAssetMap(content.image)!]
-        <lazy-picture inline-template="true">
+        <lazy-media inline-template="true">
             <picture v-bind:class="{ 'js-loaded': source }" class="picture">
                 [#if !(cmsfn.fileExtension(imageMap.name) == "gif")]
                     <source media="(max-width: 376px)" srcset="${damfn.getRendition(content.image, "hero-375").getLink()!}, ${damfn.getRendition(content.image, "hero-375-2x").getLink()!} 2x">
@@ -27,7 +27,7 @@
                     <svg class="image" width="${imageMap.metadata.mgnl.width?string.computer}px" height="${imageMap.metadata.mgnl.height?string.computer}px" viewBox="0 0 1 1"></svg>
                 </template>
             </picture>
-        </lazy-picture>
+        </lazy-media>
         [#else]
         <img src="${damfn.getAssetLink(content.image)!}" style="display:block;max-width:100%">
         [/#if]

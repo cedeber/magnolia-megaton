@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 
-import "./lazy-picture.css";
+import "./lazy-media.css";
 
 /*
 interface LazyResult {
@@ -12,7 +12,7 @@ interface LazyResult {
 */
 
 @Component
-class LazyPicture extends Vue {
+class LazyMedia extends Vue {
     public source = "";
     public width: string | number = "100%";
     public height: string | number = "100%";
@@ -148,4 +148,4 @@ class LazyPicture extends Vue {
     }
 }
 
-export { LazyPicture };
+export { LazyMedia };
