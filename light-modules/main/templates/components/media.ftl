@@ -17,9 +17,9 @@
                 [#if imageMap.metadata.dc.format?starts_with("image")]
                 <picture v-bind:class="{ 'js-loaded': source }" class="picture [#if hasRatio]has-fixed-ratio[/#if]">
                     [#if !(cmsfn.fileExtension(imageMap.name) == "gif")]
-                        <source media="(max-width: 376px)" srcset="${damfn.getRendition(content.image, "hero-375").getLink()}, ${damfn.getRendition(content.image, "hero-375-2x").getLink()} 2x">
-                        <source media="(max-width: 668px)" srcset="${damfn.getRendition(content.image, "hero-667").getLink()}, ${damfn.getRendition(content.image, "hero-667-2x").getLink()} 2x">
-                        <source srcset="${damfn.getRendition(content.image, "hero-1024").getLink()}, ${damfn.getRendition(content.image, "hero-1024-2x").getLink()} 2x">
+                        <source media="(max-width: 376px)" srcset="${damfn.getRendition(content.image, "hero-375").getLink()!}, ${damfn.getRendition(content.image, "hero-375-2x").getLink()!} 2x">
+                        <source media="(max-width: 668px)" srcset="${damfn.getRendition(content.image, "hero-667").getLink()!}, ${damfn.getRendition(content.image, "hero-667-2x").getLink()!} 2x">
+                        <source srcset="${damfn.getRendition(content.image, "hero-1024").getLink()!}, ${damfn.getRendition(content.image, "hero-1024-2x").getLink()!} 2x">
                     [#else]
                         <source srcset="${damfn.getAssetLink(content.image)!}">
                     [/#if]

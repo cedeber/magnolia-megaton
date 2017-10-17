@@ -16,7 +16,7 @@
             bgColor: "#f25648",
             color: "#ffffff",
             lowerThan: "IE11",
-            languagePath: '${ctx.contextPath}/.resources/main/webresources/external/lang/${cmsfn.language()}.html'
+            languagePath: '${ctx.contextPath}/.resources/main/webresources/external/lang/${cmsfn.language()!'en'}.html'
         });
     </script>
     [/#if]

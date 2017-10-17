@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="${cmsfn.language()}">
+<html lang="${cmsfn.language()!'en'}">
 <head>
     [@cms.page /]
     [#include "include/head.ftl"]
@@ -15,7 +15,7 @@
             <section class="o-section">
                 <div class="o-group is-large o-flex-space">
                     <div>
-                        logo: ${model.getRandomNumber()}${model.text}
+                        logo: ${model.getRandomNumber()!}${model.text!}
                     </div>
                     [#include "include/main-navigation.ftl"]
                     [#include "include/languages.ftl"]
