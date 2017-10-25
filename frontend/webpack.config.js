@@ -15,7 +15,7 @@ module.exports = {
         polyfills: ['es6-shim', 'whatwg-fetch', 'matchmedia-polyfill', 'intersection-observer', 'objectFitPolyfill']
     },
     output: {
-        filename: env === 'production' ? '[name].[chunkhash].js' : '[name].debug.js',
+        filename: env === 'production' ? '[name].bundle.js' : '[name].debug.js',
         path: buildPath,
         publicPath: publicPath,
     },
@@ -31,7 +31,7 @@ module.exports = {
             }
         ),
         new ExtractTextPlugin({
-            filename: env === 'production' ? '[name].[contenthash].css' : '[name].debug.css',
+            filename: env === 'production' ? '[name].bundle.css' : '[name].debug.css',
             allChunks: true,
         }),
     ],
