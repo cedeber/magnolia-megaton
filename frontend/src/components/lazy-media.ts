@@ -38,6 +38,15 @@ class LazyMedia extends Vue {
     }
 
     /*
+    public updated() {
+        if (typeof window.objectFitPolyfill === "function") {
+            const image = this.$el.querySelector("img");
+            if (image) { window.objectFitPolyfill(image); }
+        }
+    }
+    */
+
+    /*
     public fetch(): Promise<LazyResult> {
         const source = this.getSource();
 

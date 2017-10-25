@@ -7,7 +7,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 /* --- CONFIG --- */
 const env = process.env.NODE_ENV;
 const buildPath = path.resolve(__dirname, '../light-modules/main/webresources/app/');
-const publicPath = '/.resources/main/webresources/app/';
+const publicPath = `${env === 'production' ? '' : '/author'}/.resources/main/webresources/app/`;
 
 module.exports = {
     entry: {

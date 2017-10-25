@@ -8,6 +8,7 @@ form:
           class: info.magnolia.ui.form.field.definition.TextFieldDefinition
           i18n: true
           label: title
+          required: true
         - name: navigationTitle
           class: info.magnolia.ui.form.field.definition.TextFieldDefinition
           i18n: true

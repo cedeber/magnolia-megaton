@@ -1,4 +1,4 @@
-import VueInterface from "vue";
+import { PluginObject } from "vue";
 import "../helpers/scroll-into-viewport";
 
 interface Scroll {
@@ -23,6 +23,6 @@ const Scroll = {
             },
         });
     },
-} as VueInterface.PluginObject<Scroll>;
+} as PluginObject<Scroll>;
 
 export { Scroll };

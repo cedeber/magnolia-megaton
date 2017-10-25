@@ -27,7 +27,7 @@
                         <img class="media is-${content.position!"center"} [#if isCover == true]is-cover[/#if]" data-object-fit v-bind:src="source" alt="${imageMap.caption!imageMap.description!}">
                     </template>
                     <template v-else>
-                        <svg class="media" width="${(imageMap.metadata.mgnl.width * 1000)?string.computer}px" height="${(imageMap.metadata.mgnl.height * 1000)?string.computer}px" viewBox="0 0 1 1"></svg>
+                        <svg class="media" width="${(imageMap.metadata.mgnl.width * 100)?string.computer}px" height="${(imageMap.metadata.mgnl.height * 100)?string.computer}px" viewBox="0 0 1 1"></svg>
                     </template>
                 </picture>
                 [#elseif imageMap.metadata.dc.format?starts_with("video")]
@@ -39,7 +39,7 @@
                         </video>
                     </template>
                     <template v-else>
-                        <div class="container"><svg class="media" width="1280000px" height="720000px" viewBox="0 0 1 1"></svg></div>
+                        <div class="container"><svg class="media" width="12800px" height="7200px" viewBox="0 0 1 1"></svg></div>
                     </template>
                 </div>
                 [/#if]
