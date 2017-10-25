@@ -32,7 +32,9 @@
                 Footer
             </div>
         </footer>
-        [#include "include/loading.ftl"]
+        [#if !cmsfn.isEditMode()]
+            <loading-page></loading-page>
+        [/#if]
     </main>
     [#include "include/scripts.ftl"]
 </body>
