@@ -1,14 +1,14 @@
-import Vuex from "vuex";
+import { Payload, Store } from "vuex";
 import _ from "lodash-es";
 
 function createSessionStorage(key?: string) {
-    function doSubscribe(_mutation: Vuex.Payload, state: any) {
+    function doSubscribe(_mutation: Payload, state: any) {
         const data = key ? (state[key]) : state;
 
         window.sessionStorage.setItem("vuex", JSON.stringify(data));
     }
 
-    return function(store: Vuex.Store<any>) {
+    return function(store: Store<any>) {
         const sessionData = window.sessionStorage.getItem("vuex");
 
         if (sessionData) {

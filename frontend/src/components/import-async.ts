@@ -1,11 +1,11 @@
-import Vue from "vue";
+import Vue, { CreateElement, VNode } from "vue";
 import { Component, Prop } from "vue-property-decorator";
 
 @Component
 class ImportAsync extends Vue {
     @Prop({ type: String, required: true }) public href: string;
 
-    public render(createElement: Vue.CreateElement): Vue.VNode | undefined {
+    public render(createElement: CreateElement): VNode | undefined {
         const url: string = (<any>window).encodeURI(this.href);
 
         if (url != undefined) {
