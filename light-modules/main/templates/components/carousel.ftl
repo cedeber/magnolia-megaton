@@ -24,15 +24,21 @@
                     </div>
                 </div>
                 <div class="bullets" v-if="pagesQuantity > 1">
-                    <template v-for="(page, index) in pagesQuantity">
-                        <button class="bullet" v-on:click="gotoPage(index)"
-                                v-bind:class="{ 'js-active': (currentPage == index) }">
-                            <span class="is-visually-hidden">{{ index + 1 }}</span>
+                    <div class="bullets" v-if="pagesQuantity > 1">
+                        <template v-for="(page, index) in pagesQuantity">
+                            <button class="bullet" v-on:click="gotoPage(index)" v-bind:class="{ 'js-active': (currentPage == index) }">
+                                <span class="is-visually-hidden">Show slide {{ index + 1 }} of {{ pagesQuantity }}</span>
+                            </button>
+                        </template>
+                        <button v-on:click="previousPage()">
+                            &lt;
+                            <span class="is-visually-hidden">Show previous slide</span>
                         </button>
-                    </template>
-
-                    <button v-on:click="previousPage()">Prev</button>
-                    <button v-on:click="nextPage()">Next</button>
+                        <button v-on:click="nextPage()">
+                            &gt;
+                            <span class="is-visually-hidden">Show next slide</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </multi-carousel>
