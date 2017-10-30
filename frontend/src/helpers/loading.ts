@@ -8,17 +8,15 @@ function applyBeforeQuit(callback: () => Promise<any>) {
         }
 
         if (element) {
-           event.preventDefault();
-           const location = element.getAttribute("href");
+            const location = element.getAttribute("href");
 
-           try {
-               await callback();
-           }
-           catch (_unusedError) { /* empty */ }
+            if (location && /^(mailto|tel):/.test(location)) { return; }
+            event.preventDefault();
 
-           if (location) {
-               window.location.assign(location);
-           }
+            try { await callback(); }
+            catch (_unusedError) { /* empty */ }
+
+            if (location) { window.location.assign(location); }
         }
     });
 }
