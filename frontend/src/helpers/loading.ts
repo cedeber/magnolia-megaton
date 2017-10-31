@@ -10,7 +10,7 @@ function applyBeforeQuit(callback: () => Promise<any>) {
         if (element) {
             const location = element.getAttribute("href");
 
-            if (location && /^(mailto|tel):/.test(location)) { return; }
+            if (location && /^((mailto|tel):|#)/.test(location)) { return; }
             event.preventDefault();
 
             try { await callback(); }
