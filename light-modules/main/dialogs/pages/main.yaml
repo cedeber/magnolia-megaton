@@ -1,45 +1,60 @@
 form:
   label: Page properties
   tabs:
+#    - !include:/main/dialogs/include/tabXXX.yaml # [FIXME] no fields order, fixed in 5.5.8
     - name: tabMain
-      label: main
+      label: Page infos
       fields:
         - name: title
           class: info.magnolia.ui.form.field.definition.TextFieldDefinition
           i18n: true
-          label: title
+          label: Title
           required: true
         - name: navigationTitle
           class: info.magnolia.ui.form.field.definition.TextFieldDefinition
           i18n: true
-          label: navigation title
+          label: Navigation title
         - name: windowTitle
           class: info.magnolia.ui.form.field.definition.TextFieldDefinition
           i18n: true
-          label: window title
+          label: Window title
         - name: hideInNav
           class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
           defaultValue: false
           i18n: false
           type: Boolean
-          label:  hide In Navigation
+          label:  Hide in navigation
           buttonLabel: hide
-    - name: tabMeta
-      label: Meta Data
+          
+    - name: tabMetaData
+      label: Meta data
       fields:
         - name: keywords
           class: info.magnolia.ui.form.field.definition.TextFieldDefinition
           i18n: true
-          label: keywords
+          label: Keywords
           rows: 3
         - name: description
           class: info.magnolia.ui.form.field.definition.TextFieldDefinition
           i18n: true
-          label: description
+          label: Description
           rows: 5
+        - name: app
+          label: Application name
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          i18n: true
+        - name: color
+          label: Theme color
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          description: "CSS hex value. Black is default: #000000"
+        - name: image
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          targetWorkspace: dam
+          appName: assets
+          label: Page image
+          identifierToPathConverter:
+            class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+          contentPreviewDefinition:
+            contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
 
-actions:
-  commit:
-    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
-  cancel:
-    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
+actions: !include:/main/dialogs/include/commonActions.yaml

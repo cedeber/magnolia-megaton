@@ -50,11 +50,11 @@ form:
             - name: left
               label: Left
 
-    - !include:/main/dialogs/components/include/tabLayout.yaml
+    - !include:/main/dialogs/include/tabLayout.yaml
       fields:
         - name: sectionLayout
           options:
             - name: wide
               label: as wide as the viewport
 
-actions: !include:/main/dialogs/components/include/commonActions.yaml
+actions: !include:/main/dialogs/include/commonActions.yaml
