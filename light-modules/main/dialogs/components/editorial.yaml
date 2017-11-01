@@ -17,14 +17,14 @@ form:
           label: Article introduction
           i18n: true
           height: 180
-          configJsFile: /.resources/main/dialogs/components/config/simple.js
+          configJsFile: /.resources/main/dialogs/include/config/simple.js
         - name: body
           class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
           label: Article body
           i18n: true
           height: 450
-          configJsFile: /.resources/main/dialogs/components/config/editorial.js
+          configJsFile: /.resources/main/dialogs/include/config/editorial.js
 
-    - !include:/main/dialogs/components/include/tabLayout.yaml
+    - !include:/main/dialogs/include/tabLayout.yaml
 
-actions: !include:/main/dialogs/components/include/commonActions.yaml
+actions: !include:/main/dialogs/include/commonActions.yaml
