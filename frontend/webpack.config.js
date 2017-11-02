@@ -4,10 +4,31 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-/* --- CONFIG --- */
+/* --- configuration --- */
 const env = process.env.NODE_ENV;
 const buildPath = path.resolve(__dirname, '../light-modules/main/webresources/app/');
 const publicPath = `${env === 'production' ? '' : '/author'}/.resources/main/webresources/app/`;
+
+/* --- options --- */
+let postcssUse = [
+    {loader: 'css-loader', options: {importLoaders: 1, camelCase: true, sourceMap: true}},
+    {loader: 'postcss-loader', options: {
+        sourceMap: true,
+        ident: 'postcss',
+        plugins: (loader) => {
+            let plugins = [
+                require('postcss-import')(),
+                require('postcss-url')({url: 'rebase'}),
+                require('postcss-cssnext')({ browsers: ['last 3 versions'], warnForDuplicates: false }),
+            ];
+
+            if (env === 'production') { plugins.push(require('cssnano')()); }
+
+            return plugins;
+        },
+    }},
+];
+
 
 module.exports = {
     entry: {
@@ -20,9 +41,6 @@ module.exports = {
         publicPath: publicPath,
     },
     plugins: [
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: 'common' // Specify the common bundle's name.
-        // }),
         new CleanWebpackPlugin(
             [buildPath],
             {
@@ -51,11 +69,9 @@ module.exports = {
                 loader: 'vue-loader',
                 options: {
                     loaders: {
-                        css: ExtractTextPlugin.extract({
+                        postcss: ExtractTextPlugin.extract({
                             fallback: 'vue-style-loader',
-                            use: [
-                                {loader: 'css-loader', options: {sourceMap: true}},
-                            ],
+                            use: postcssUse,
                         })
                     }
                 }
@@ -64,10 +80,7 @@ module.exports = {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: [
-                        {loader: 'css-loader', options: {importLoaders: 1, camelCase: true, sourceMap: true}},
-                        {loader: 'postcss-loader', options: {sourceMap: true}},
-                    ]
+                    use: postcssUse,
                 }),
             },
             {
