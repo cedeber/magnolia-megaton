@@ -14,7 +14,7 @@
         [#if !cmsfn.isEditMode()]
             [#assign imageMap = damfn.getAssetMap(content.image)]
             <lazy-media inline-template>
-                [#if imageMap.metadata.dc.format?starts_with("image")]
+            [#if imageMap.metadata.dc.format?starts_with("image")]
                 <picture v-bind:class="{ 'js-loaded': source }" class="container [#if hasRatio]has-fixed-ratio[/#if]">
                     [#if !(cmsfn.fileExtension(imageMap.name) == "gif")]
                         <source media="(max-width: 376px)" srcset="${damfn.getRendition(content.image, "hero-375").getLink()!}, ${damfn.getRendition(content.image, "hero-375-2x").getLink()!} 2x">
@@ -30,19 +30,19 @@
                         <svg class="media" width="${(imageMap.metadata.mgnl.width * 100)?string.computer}px" height="${(imageMap.metadata.mgnl.height * 100)?string.computer}px" viewBox="0 0 1 1"></svg>
                     </template>
                 </picture>
-                [#elseif imageMap.metadata.dc.format?starts_with("video")]
+            [#elseif imageMap.metadata.dc.format?starts_with("video")]
                 <div>
                     <picture hidden><source srcset="${damfn.getAssetLink(content.image)!}"></picture>
                     <template v-if="source">
-                        <video autoplay loop muted playsinline v-bind:class="{ 'js-loaded': source }" class="container">
-                            <source class="media [#if isCover == true]is-cover[/#if]" v-bind:src="source" type="${imageMap.metadata.dc.format}">
+                        <video autoplay loop muted playsinline v-bind:class="{ 'js-loaded': source }" class="container [#if hasRatio]has-fixed-ratio[/#if] media is-${content.position!"center"} [#if isCover == true]is-cover[/#if]">
+                            <source v-bind:src="source" type="${imageMap.metadata.dc.format}">
                         </video>
                     </template>
                     <template v-else>
                         <div class="container"><svg class="media" width="12800px" height="7200px" viewBox="0 0 1 1"></svg></div>
                     </template>
                 </div>
-                [/#if]
+            [/#if]
             </lazy-media>
         [#else]
             <picture class="container js-loaded [#if hasRatio]has-fixed-ratio[/#if]">
