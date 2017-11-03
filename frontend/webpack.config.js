@@ -9,27 +9,6 @@ const env = process.env.NODE_ENV;
 const buildPath = path.resolve(__dirname, '../light-modules/main/webresources/app/');
 const publicPath = `${env === 'production' ? '' : '/author'}/.resources/main/webresources/app/`;
 
-/* --- options --- */
-let postcssUse = [
-    {loader: 'css-loader', options: {importLoaders: 1, camelCase: true, sourceMap: true}},
-    {loader: 'postcss-loader', options: {
-        sourceMap: true,
-        ident: 'postcss',
-        plugins: (loader) => {
-            let plugins = [
-                require('postcss-import')(),
-                require('postcss-url')({url: 'rebase'}),
-                require('postcss-cssnext')({ browsers: ['last 3 versions'], warnForDuplicates: false }),
-            ];
-
-            if (env === 'production') { plugins.push(require('cssnano')()); }
-
-            return plugins;
-        },
-    }},
-];
-
-
 module.exports = {
     entry: {
         main: './src/main.ts',
@@ -68,19 +47,44 @@ module.exports = {
                 test: /\.vue$/,
                 loader: 'vue-loader',
                 options: {
-                    loaders: {
-                        postcss: ExtractTextPlugin.extract({
-                            fallback: 'vue-style-loader',
-                            use: postcssUse,
-                        })
-                    }
+                    extractCSS: true,
+                    postcss: [
+                        require('postcss-import')(),
+                        require('postcss-url')({url: 'rebase'}),
+                        require('postcss-cssnext')({ browsers: ['last 3 versions'], warnForDuplicates: false }),
+                    ],
                 }
             },
             {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: postcssUse,
+                    use: [
+                        {loader: 'css-loader', options: {importLoaders: 1, camelCase: true, sourceMap: true}},
+                        {loader: 'postcss-loader', options: {
+                            sourceMap: true,
+                            ident: 'postcss',
+                            plugins: (loader) => {
+                                let plugins = [
+                                    require('postcss-import')(),
+                                    require('postcss-url')({url: 'rebase'}),
+                                    require('postcss-cssnext')({ browsers: ['last 3 versions'], warnForDuplicates: false }),
+                                ];
+
+                                if (env === 'production') { plugins.push(require('cssnano')({
+                                    zindex: false,
+                                    normalizeUrl: false,
+                                    normalizeCharset: false,
+                                    autoprefixer: false,
+                                    calc: false,
+                                    convertValues: false,
+                                    discardUnused: false,
+                                })); }
+
+                                return plugins;
+                            },
+                        }},
+                    ],
                 }),
             },
             {
