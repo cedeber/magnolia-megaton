@@ -64,7 +64,7 @@ module.exports = {
                         {loader: 'postcss-loader', options: {
                             sourceMap: true,
                             ident: 'postcss',
-                            plugins: (loader) => {
+                            plugins: () => {
                                 let plugins = [
                                     require('postcss-import')(),
                                     require('postcss-url')({url: 'rebase'}),
