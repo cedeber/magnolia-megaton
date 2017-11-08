@@ -6,8 +6,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 /* --- configuration --- */
 const env = process.env.NODE_ENV;
-const buildPath = path.resolve(__dirname, '../light-modules/main/webresources/app/');
-const publicPath = `${env === 'production' ? '' : '/author'}/.resources/main/webresources/app/`;
+const buildPath = env === 'prototype' ? path.resolve(__dirname, '../prototype/app/') : path.resolve(__dirname, '../magnolia/light-modules/main/webresources/app/');
+const publicPath = env === 'prototype' ? './' : `${env === 'production' ? '' : '/author'}/.resources/main/webresources/app/`;
 
 module.exports = {
     entry: {

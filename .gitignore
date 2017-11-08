@@ -1,10 +1,12 @@
 ### Project ###
-light-modules/**/webresources/app
-!light-modules/**/external
+prototype/**/app/
 
-*-webapp/**/repositories/
-*-webapp/**/overlays/
-*-webapp/**/cache/
+magnolia/light-modules/**/webresources/app/
+!magnolia/light-modules/**/external/
+
+magnolia/*-webapp/**/repositories/
+magnolia/*-webapp/**/overlays/
+magnolia/*-webapp/**/cache/
 
 ### Temp ###
 tmp/
