@@ -53,6 +53,9 @@ module.exports = {
                         require('postcss-url')({url: 'rebase'}),
                         require('postcss-cssnext')({ browsers: ['last 3 versions'], warnForDuplicates: false }),
                     ],
+                    loaders: {
+                        i18n: '@kazupon/vue-i18n-loader',
+                    },
                 }
             },
             {

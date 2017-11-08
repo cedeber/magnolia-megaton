@@ -6,6 +6,7 @@
     "build": "cross-env NODE_ENV=production webpack --hide-modules --progress"
   },
   "dependencies": {
+    "@kazupon/vue-i18n-loader": "^0.2.1",
     "@types/animejs": "^2.0.0",
     "@types/googlemaps": "^3.29.2",
     "@types/lodash-es": "^4.17.0",
@@ -35,6 +36,7 @@
     "typescript": "^2.5.3",
     "uglifyjs-webpack-plugin": "^1.0.1",
     "vue": "^2.5.2",
+    "vue-i18n": "^7.3.2",
     "vue-loader": "^13.3.0",
     "vue-property-decorator": "^6.0.0",
     "vue-router": "^3.0.1",
