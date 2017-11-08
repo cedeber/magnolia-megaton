@@ -16,7 +16,6 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "outDir": "../light-modules/main/webresources/js/",
     "preserveConstEnums": true,
     "removeComments": true,
     "sourceMap": true,

@@ -60,12 +60,4 @@
     --three-per-em-space: 0.3333em;        /* 1/3  em | Width of space in a wide font */
     --en-space: 0.5em;                     /* 1/2  em | Recommended maximum width of space */
     --em-space: 1em;                       /*   1  em | One */
-
-    /* Themes: @apply --theme */
-    --danger-theme: {
-        color: white;
-        background-color: red;
-    }
 }
-
-@custom-media --for-medium-screen (width >= 500px) and (width <= 1200px);
