@@ -1,4 +1,4 @@
-package mgnl.starter.kit;
+package ch.openinteractive.main;
 
 /**
  * This class is optional and represents the configuration for the magnolia-starter-kit module.

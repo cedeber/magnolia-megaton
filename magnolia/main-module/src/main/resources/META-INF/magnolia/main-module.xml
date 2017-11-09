@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module SYSTEM "module.dtd" >
 <module>
-  <name>my-module</name>
+  <name>main-module</name>
   <displayName>${project.name}</displayName>
   <description>${project.description}</description>
-  <class>mgnl.starter.kit.StarterKit</class>
-  <versionHandler>mgnl.starter.kit.setup.StarterKitVersionHandler</versionHandler>
+  <class>ch.openinteractive.main.StarterKit</class>
+  <versionHandler>ch.openinteractive.main.setup.StarterKitVersionHandler</versionHandler>
   <version>${project.version}</version>
 
   <dependencies>
     <dependency>
       <name>core</name>
-      <version>5.5.6/*</version>
+      <version>5.5.7/*</version>
     </dependency>
     <!--  Add other dependencies here, e.g the mte (magnolia templating essentials).
     <dependency>

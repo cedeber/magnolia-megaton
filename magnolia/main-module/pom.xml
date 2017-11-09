@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>magnolia-starter-kit</artifactId>
-    <groupId>mgnl.starter.kit</groupId>
+    <groupId>ch.openinteractive.main</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <groupId>mgnl.starter.kit</groupId>
-  <artifactId>my-module</artifactId>
+  <groupId>ch.openinteractive.main</groupId>
+  <artifactId>main-module</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Magnolia Starter Kit Module</name>
@@ -15,7 +15,7 @@
   <description>Please uncomment and fill in ...</description>
   -->
   <properties>
-    <magnoliaVersion>5.5.6</magnoliaVersion>
+    <magnoliaVersion>5.5.7</magnoliaVersion>
     <javaVersion>1.8</javaVersion>
   </properties>
 
