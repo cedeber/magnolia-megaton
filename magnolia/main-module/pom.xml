@@ -15,7 +15,7 @@
   <description>Please uncomment and fill in ...</description>
   -->
   <properties>
-    <magnoliaVersion>5.5.6</magnoliaVersion>
+    <magnoliaVersion>5.5.7</magnoliaVersion>
     <javaVersion>1.8</javaVersion>
   </properties>
 
