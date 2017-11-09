@@ -1,0 +1,29 @@
+form:
+  label: Carousel Slide
+  tabs:
+    - name: tabMain
+      label: Content
+      fields:
+        - name: foregroundText
+          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+          label: Foreground text
+          height: 130
+          configJsFile: /.resources/main/dialogs/include/config/simple.js
+          i18n: true
+        - name: image
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          targetWorkspace: dam
+          appName: assets
+          required: true
+          label: Image
+          identifierToPathConverter:
+            class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+          contentPreviewDefinition:
+            contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+        - name: isCover
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          label: Image as cover
+          buttonLabel: The image covers the whole container (like a background)
+          defaultValue: true
+
+actions: !include:/main/dialogs/include/commonActions.yaml

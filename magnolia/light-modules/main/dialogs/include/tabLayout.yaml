@@ -1,0 +1,25 @@
+name: tabLayout
+label: Layout
+fields:
+  - name: sectionLayout
+    class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+    label: Section layout
+    layout: horizontal
+    sortOptions: false
+    options:
+      - name: standard
+        label: standard
+        selected: true
+      - name: large
+        label: large
+  - name: space
+    class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+    multiselect: true
+    label: Vertical spaces
+    sortOptions: false
+    options:
+      - name: top
+        label: Remove top space
+      - name: bottom
+        label: Remove bottom space
+  - !include:/main/dialogs/include/cssTheme.yaml

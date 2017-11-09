@@ -1,0 +1,60 @@
+form:
+  label: Media
+  tabs:
+    - name: tabMain
+      label: Media
+      fields:
+        - name: image
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          targetWorkspace: dam
+          appName: assets
+          label: Image or Video
+          required: true
+          identifierToPathConverter:
+            class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+          contentPreviewDefinition:
+            contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+        - name: isCover
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          label: Media as cover
+          buttonLabel: The media covers the whole container (like a background)
+          defaultValue: true
+        - name: ratio
+          class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
+          transformerClass: info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
+          label: Fixed ratio
+          description: For instance, 16 / 9 for videos or 4 / 3 for images.
+          fields:
+            - name: width
+              class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              label: Width unit
+            - name: height
+              class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              label: Height unit
+        - name: position
+          class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+          layout: horizontal
+          sortOptions: false
+          label: Position
+          description: If cropped, this is the part of the media which will be shown.
+          options:
+            - name: center
+              selected: true
+              label: Center
+            - name: top
+              label: Top
+            - name: right
+              label: Right
+            - name: bottom
+              label: Bottom
+            - name: left
+              label: Left
+
+    - !include:/main/dialogs/include/tabLayout.yaml
+      fields:
+        - name: sectionLayout
+          options:
+            - name: wide
+              label: as wide as the viewport
+
+actions: !include:/main/dialogs/include/commonActions.yaml

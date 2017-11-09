@@ -1,0 +1,30 @@
+form:
+  label: Editorial
+  tabs:
+    - name: tabMain
+      label: Content
+      fields:
+        - name: preHeader
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: Pre-header
+          i18n: true
+        - name: title
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: Article Title
+          i18n: true
+        - name: intro
+          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+          label: Article introduction
+          i18n: true
+          height: 180
+          configJsFile: /.resources/main/dialogs/include/config/simple.js
+        - name: body
+          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+          label: Article body
+          i18n: true
+          height: 450
+          configJsFile: /.resources/main/dialogs/include/config/editorial.js
+
+    - !include:/main/dialogs/include/tabLayout.yaml
+
+actions: !include:/main/dialogs/include/commonActions.yaml

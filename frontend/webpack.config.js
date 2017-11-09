@@ -4,10 +4,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-/* --- CONFIG --- */
+/* --- configuration --- */
 const env = process.env.NODE_ENV;
-const buildPath = path.resolve(__dirname, '../light-modules/main/webresources/app/');
-const publicPath = `${env === 'production' ? '' : '/author'}/.resources/main/webresources/app/`;
+const buildPath = env === 'prototype' ? path.resolve(__dirname, '../prototype/app/') : path.resolve(__dirname, '../magnolia/light-modules/main/webresources/app/');
+const publicPath = env === 'prototype' ? './' : `${env === 'production' ? '' : '/author'}/.resources/main/webresources/app/`;
 
 module.exports = {
     entry: {
@@ -20,9 +20,6 @@ module.exports = {
         publicPath: publicPath,
     },
     plugins: [
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: 'common' // Specify the common bundle's name.
-        // }),
         new CleanWebpackPlugin(
             [buildPath],
             {
@@ -50,14 +47,15 @@ module.exports = {
                 test: /\.vue$/,
                 loader: 'vue-loader',
                 options: {
+                    extractCSS: true,
+                    postcss: [
+                        require('postcss-import')(),
+                        require('postcss-url')({url: 'rebase'}),
+                        require('postcss-cssnext')({ browsers: ['last 3 versions'], warnForDuplicates: false }),
+                    ],
                     loaders: {
-                        css: ExtractTextPlugin.extract({
-                            fallback: 'vue-style-loader',
-                            use: [
-                                {loader: 'css-loader', options: {sourceMap: true}},
-                            ],
-                        })
-                    }
+                        i18n: '@kazupon/vue-i18n-loader',
+                    },
                 }
             },
             {
@@ -66,8 +64,30 @@ module.exports = {
                     fallback: 'style-loader',
                     use: [
                         {loader: 'css-loader', options: {importLoaders: 1, camelCase: true, sourceMap: true}},
-                        {loader: 'postcss-loader', options: {sourceMap: true}},
-                    ]
+                        {loader: 'postcss-loader', options: {
+                            sourceMap: true,
+                            ident: 'postcss',
+                            plugins: () => {
+                                let plugins = [
+                                    require('postcss-import')(),
+                                    require('postcss-url')({url: 'rebase'}),
+                                    require('postcss-cssnext')({ browsers: ['last 3 versions'], warnForDuplicates: false }),
+                                ];
+
+                                if (env === 'production') { plugins.push(require('cssnano')({
+                                    zindex: false,
+                                    normalizeUrl: false,
+                                    normalizeCharset: false,
+                                    autoprefixer: false,
+                                    calc: false,
+                                    convertValues: false,
+                                    discardUnused: false,
+                                })); }
+
+                                return plugins;
+                            },
+                        }},
+                    ],
                 }),
             },
             {

@@ -66,8 +66,8 @@ class LazyMedia extends Vue {
                     const svg = fileAsSvg.getElementsByTagName("svg")[0];
 
                     if (svg) {
-                        width = svg.width.baseVal.value;
-                        height = svg.height.baseVal.value;
+                        width = svg.width.baseVal.value || svg.viewBox.baseVal.width;
+                        height = svg.height.baseVal.value || svg.viewBox.baseVal.height;
                     }
                 }
 

@@ -1,0 +1,51 @@
+form:
+  label: Page properties
+  tabs:
+    - name: tabMain
+      label: Page infos
+      fields:
+        - name: title
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          i18n: true
+          label: Title
+          required: true
+        - name: navigationTitle
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          i18n: true
+          label: Navigation title
+        - name: windowTitle
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          i18n: true
+          label: Window title
+        - name: hideInNav
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          defaultValue: false
+          i18n: false
+          type: Boolean
+          label:  Hide in navigation
+          buttonLabel: hide
+        - name: redirect
+          required: true
+          class: info.magnolia.ui.form.field.definition.SwitchableFieldDefinition
+          label: Redirect Page
+          options:
+            - name: internal
+              label: Internal link
+              selected: true
+              value: internal
+            - name: external
+              label: External link
+              value: external
+          fields:
+            - name: internal
+              class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+              label: Internal link
+              targetWorkspace: website
+              appName: pages
+              identifierToPathConverter:
+                class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+            - name: external
+              class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              label: External link
+              
+actions: !include:/main/dialogs/include/commonActions.yaml
