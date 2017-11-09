@@ -1,4 +1,4 @@
-package mgnl.starter.kit.setup;
+package ch.openinteractive.main.setup;
 
 import info.magnolia.module.DefaultModuleVersionHandler;
 

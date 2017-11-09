@@ -4,8 +4,8 @@
   <name>main-module</name>
   <displayName>${project.name}</displayName>
   <description>${project.description}</description>
-  <class>mgnl.starter.kit.StarterKit</class>
-  <versionHandler>mgnl.starter.kit.setup.StarterKitVersionHandler</versionHandler>
+  <class>ch.openinteractive.main.StarterKit</class>
+  <versionHandler>ch.openinteractive.main.setup.StarterKitVersionHandler</versionHandler>
   <version>${project.version}</version>
 
   <dependencies>
