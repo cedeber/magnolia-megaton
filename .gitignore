@@ -54,6 +54,25 @@ modules.xml
 out
 gen
 
+### Eclipse ###
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+.externalToolBuilders/
+*.launch
+.factorypath
+.tern-project
+.project
+.classpath
+
 ### SublimeText ###
 *.tmlanguage.cache
 *.tmPreferences.cache
@@ -72,7 +91,7 @@ oscrypto-ca-bundle.crt
 bh_unicode_properties.cache
 
 ### VisualStudioCode ###
-.vscode/
+**/.vscode/
 
 ### Vim ###
 [._]*.s[a-v][a-z]
