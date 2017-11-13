@@ -91,7 +91,11 @@ oscrypto-ca-bundle.crt
 bh_unicode_properties.cache
 
 ### VisualStudioCode ###
+.vscode/
+.settings/
 **/.vscode/
+**/.settings/
+*.code-workspace
 
 ### Vim ###
 [._]*.s[a-v][a-z]
