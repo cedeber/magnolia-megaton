@@ -14,7 +14,20 @@
         [#if !cmsfn.isEditMode()]
             [#assign imageMap = damfn.getAssetMap(content.image)]
             <lazy-media inline-template>
-            [#if imageMap.metadata.dc.format?starts_with("image")]
+            [#if content.video?has_content]
+                [#assign videoMap = damfn.getAssetMap(content.video)!]
+                <div>
+                    <picture hidden><source srcset="${damfn.getAssetLink(content.video)!}"></picture>
+                    <template v-if="source">
+                        <video autoplay loop muted playsinline poster="${damfn.getAssetLink(content.image)!}" v-bind:class="{ 'js-loaded': source }" class="container [#if hasRatio]has-fixed-ratio[/#if] media is-${content.position!"center"} [#if isCover == true]is-cover[/#if]">
+                            <source v-bind:src="source" type="${videoMap.metadata.dc.format}">
+                        </video>
+                    </template>
+                    <template v-else>
+                        <div class="container"><svg class="media" width="12800px" height="7200px" viewBox="0 0 1 1"></svg></div>
+                    </template>
+                </div>
+            [#else]
                 <picture v-bind:class="{ 'js-loaded': source }" class="container [#if hasRatio]has-fixed-ratio[/#if]">
                     [#if !(cmsfn.fileExtension(imageMap.name) == "gif")]
                         <source media="(max-width: 376px)" srcset="${damfn.getRendition(content.image, "hero-375").getLink()!}, ${damfn.getRendition(content.image, "hero-375-2x").getLink()!} 2x">
@@ -24,24 +37,12 @@
                         <source srcset="${damfn.getAssetLink(content.image)!}">
                     [/#if]
                     <template v-if="source">
-                        <img class="media is-${content.position!"center"} [#if isCover == true]is-cover[/#if]" data-object-fit v-bind:src="source" alt="${imageMap.caption!imageMap.description!}">
+                        <img class="media is-${content.position!"center"} [#if isCover == true]is-cover[/#if]" data-object-fit :src="source" :width="width" :height="height" alt="${imageMap.caption!imageMap.description!}">
                     </template>
                     <template v-else>
                         <svg class="media" width="${(imageMap.metadata.mgnl.width * 100)?string.computer}px" height="${(imageMap.metadata.mgnl.height * 100)?string.computer}px" viewBox="0 0 1 1"></svg>
                     </template>
                 </picture>
-            [#elseif imageMap.metadata.dc.format?starts_with("video")]
-                <div>
-                    <picture hidden><source srcset="${damfn.getAssetLink(content.image)!}"></picture>
-                    <template v-if="source">
-                        <video autoplay loop muted playsinline v-bind:class="{ 'js-loaded': source }" class="container [#if hasRatio]has-fixed-ratio[/#if] media is-${content.position!"center"} [#if isCover == true]is-cover[/#if]">
-                            <source v-bind:src="source" type="${imageMap.metadata.dc.format}">
-                        </video>
-                    </template>
-                    <template v-else>
-                        <div class="container"><svg class="media" width="12800px" height="7200px" viewBox="0 0 1 1"></svg></div>
-                    </template>
-                </div>
             [/#if]
             </lazy-media>
         [#else]
