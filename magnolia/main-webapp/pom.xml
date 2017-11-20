@@ -28,23 +28,19 @@
     <dependency>
       <groupId>info.magnolia.rest</groupId>
       <artifactId>magnolia-rest-services</artifactId>
-      <version>1.2.2</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia.rest</groupId>
       <artifactId>magnolia-rest-integration</artifactId>
-      <version>1.2.2</version>
     </dependency>
     <dependency>
       <groupId>info.magnolia.rest</groupId>
       <artifactId>magnolia-rest-tools</artifactId>
-      <version>1.2.2</version>
     </dependency>
 
     <dependency>
       <groupId>info.magnolia.javascript-models</groupId>
       <artifactId>magnolia-module-javascript-models</artifactId>
-      <version>1.0</version>
     </dependency>
 
     <!-- option i - magnolia-empty-webapp -->
