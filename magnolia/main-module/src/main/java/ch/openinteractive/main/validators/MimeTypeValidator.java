@@ -1,7 +1,7 @@
 package ch.openinteractive.main.validators;
 
 import com.google.inject.Inject;
-import com.vaadin.data.validator.RegexpValidator;
+import com.vaadin.v7.data.validator.RegexpValidator;
 import info.magnolia.dam.api.Asset;
 import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
 import org.slf4j.Logger;

@@ -2,7 +2,7 @@ package ch.openinteractive.main.validators;
 
 
 import com.google.inject.Inject;
-import com.vaadin.data.Validator;
+import com.vaadin.v7.data.Validator;
 import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
 import info.magnolia.ui.form.validator.factory.AbstractFieldValidatorFactory;
 
