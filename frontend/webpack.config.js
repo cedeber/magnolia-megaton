@@ -7,7 +7,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 /* --- configuration --- */
 const env = process.env.NODE_ENV;
 const buildPath = env === 'prototype' ? path.resolve(__dirname, '../prototype/app/') : path.resolve(__dirname, '../magnolia/light-modules/main/webresources/app/');
-const publicPath = env === 'prototype' ? './' : `${env === 'production' ? '' : '/author'}/.resources/main/webresources/app/`;
+const publicPath = env === 'prototype' ? '/app/' : `${env === 'production' ? '' : '/author'}/.resources/main/webresources/app/`;
 
 module.exports = {
     entry: {
@@ -50,11 +50,17 @@ module.exports = {
                     extractCSS: true,
                     postcss: [
                         require('postcss-import')(),
-                        require('postcss-url')({url: 'rebase'}),
+                        require('postcss-url')({ url: 'rebase' }),
                         require('postcss-cssnext')({ browsers: ['last 3 versions'], warnForDuplicates: false }),
                     ],
                     loaders: {
                         i18n: '@kazupon/vue-i18n-loader',
+                    },
+                    transformToRequire: {
+                        video: 'src',
+                        source: 'src',
+                        img: 'src',
+                        image: 'xlink:href',
                     },
                 }
             },
@@ -63,26 +69,28 @@ module.exports = {
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: [
-                        {loader: 'css-loader', options: {importLoaders: 1, camelCase: true, sourceMap: true}},
-                        {loader: 'postcss-loader', options: {
+                        { loader: 'css-loader', options: { importLoaders: 1, camelCase: true, sourceMap: true } },
+                        { loader: 'postcss-loader', options: {
                             sourceMap: true,
                             ident: 'postcss',
                             plugins: () => {
                                 let plugins = [
                                     require('postcss-import')(),
-                                    require('postcss-url')({url: 'rebase'}),
+                                    require('postcss-url')({ url: 'rebase' }),
                                     require('postcss-cssnext')({ browsers: ['last 3 versions'], warnForDuplicates: false }),
                                 ];
 
-                                if (env === 'production') { plugins.push(require('cssnano')({
-                                    zindex: false,
-                                    normalizeUrl: false,
-                                    normalizeCharset: false,
-                                    autoprefixer: false,
-                                    calc: false,
-                                    convertValues: false,
-                                    discardUnused: false,
-                                })); }
+                                if (env === 'production') {
+                                    plugins.push(require('cssnano')({
+                                        zindex: false,
+                                        normalizeUrl: false,
+                                        normalizeCharset: false,
+                                        autoprefixer: false,
+                                        calc: false,
+                                        convertValues: false,
+                                        discardUnused: false,
+                                    }));
+                                }
 
                                 return plugins;
                             },
