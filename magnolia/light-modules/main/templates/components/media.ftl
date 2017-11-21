@@ -32,12 +32,12 @@
                 [#assign imageWidth = imageMap.metadata.mgnl.width!0]
                 [#assign imageHeight = imageMap.metadata.mgnl.height!0]
                 <picture v-bind:class="{ 'js-loaded': isLoaded }" class="container [#if hasRatio]has-fixed-ratio[/#if]">
-                    [#if !(cmsfn.fileExtension(imageMap.name) == "gif")]
+                    [#if cmsfn.fileExtension(imageMap.name) == "gif"]
+                        <source srcset="${damfn.getAssetLink(content.image)!}">
+                    [#else]
                         <source media="(max-width: 376px)" srcset="${damfn.getRendition(content.image, "hero-375").getLink()!}, ${damfn.getRendition(content.image, "hero-375-2x").getLink()!} 2x">
                         <source media="(max-width: 668px)" srcset="${damfn.getRendition(content.image, "hero-667").getLink()!}, ${damfn.getRendition(content.image, "hero-667-2x").getLink()!} 2x">
                         <source srcset="${damfn.getRendition(content.image, "hero-1024").getLink()!}, ${damfn.getRendition(content.image, "hero-1024-2x").getLink()!} 2x">
-                    [#else]
-                        <source srcset="${damfn.getAssetLink(content.image)!}">
                     [/#if]
                     <template v-if="source">
                         <img class="media is-${content.position!"center"} [#if isCover == true]is-cover[/#if]" :src="source" :width="width" :height="height" alt="${imageMap.caption!imageMap.description!}">
