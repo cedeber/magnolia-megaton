@@ -38,8 +38,7 @@ class LazyMedia extends Vue {
                 let width = image.naturalWidth;
                 let height = image.naturalHeight;
 
-                // Firefox doesn't support .natural* getter for SVG
-                if (width === 0 && height === 0) {
+                if (ext === "svg") {
                     const parser = new DOMParser();
                     const file = await fetch(this.source, { credentials: "include" });
                     const fileAsText = await file.text();
