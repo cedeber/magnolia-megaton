@@ -1,15 +1,7 @@
-import Vue from "vue";
-import Component from "vue-class-component";
-
 import "./lazy-media.css";
 
-/*
-interface LazyResult {
-    height: number; // Height of the fetched image
-    source: string; // Source of the fetched image
-    width: number; // Width of the fetched image
-}
-*/
+import { Vue, Component } from "vue-property-decorator";
+import { isOutdatedBrowser } from "../helpers/outdated-browser";
 
 @Component
 class LazyMedia extends Vue {
@@ -17,50 +9,34 @@ class LazyMedia extends Vue {
     public width: string | number = "100%";
     public height: string | number = "100%";
 
+    public isLoaded = false;
+
     public mounted() {
         const observer = new IntersectionObserver(entries => {
             // [FIXME] remove <any> once IntersectionObserver will be valid
             if (!(<any>entries[0]).isIntersecting) { return; }
 
             observer.disconnect();
-
             this.source = this.getSource();
-
-            /*
-            this.fetch().then(result => {
-                this.source = result.source;
-                this.width = result.width;
-                this.height = result.height;
-            });
-            */
         });
         observer.observe(this.$el);
     }
 
-    /*
     public updated() {
-        if (typeof window.objectFitPolyfill === "function") {
-            const image = this.$el.querySelector("img");
-            if (image) { window.objectFitPolyfill(image); }
-        }
-    }
-    */
+        const image = this.$el.querySelector("img");
 
-    /*
-    public fetch(): Promise<LazyResult> {
-        const source = this.getSource();
+        if (image) {
+            const source = image.getAttribute("src") || "";
+            const ext = source.slice((source.lastIndexOf(".") - 1 >>> 0) + 2);
 
-        return new Promise((resolve, reject) => {
-            const image = new Image();
-
-            async function onLoad(this: HTMLImageElement) {
-                let width = this.naturalWidth;
-                let height = this.naturalHeight;
+            image.addEventListener("load", async () => {
+                let width = image.naturalWidth;
+                let height = image.naturalHeight;
 
                 // Firefox doesn't support .natural* getter for SVG
                 if (width === 0 && height === 0) {
                     const parser = new DOMParser();
-                    const file = await fetch(this.src, { credentials: "include" });
+                    const file = await fetch(this.source, { credentials: "include" });
                     const fileAsText = await file.text();
                     const fileAsSvg = parser.parseFromString(fileAsText, "image/svg+xml");
                     const svg = fileAsSvg.getElementsByTagName("svg")[0];
@@ -71,15 +47,18 @@ class LazyMedia extends Vue {
                     }
                 }
 
-                resolve({ height, source, width } as LazyResult);
-            }
+                this.width = width;
+                this.height = height;
 
-            image.addEventListener("load", onLoad);
-            image.addEventListener("error", reject);
-            image.src = source;
-        });
+                // object-fit polyfill for IEdge <= 15
+                if (typeof window.objectFitPolyfill === "function" && isOutdatedBrowser && ext !== "svg") {
+                    window.objectFitPolyfill(image);
+                }
+
+                this.isLoaded = true;
+            });
+        }
     }
-    */
 
     public getSource(): string {
         const sources = this.$el.querySelectorAll("source");
@@ -157,4 +136,4 @@ class LazyMedia extends Vue {
     }
 }
 
-export { LazyMedia };
+export default LazyMedia;

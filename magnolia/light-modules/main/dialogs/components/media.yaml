@@ -8,12 +8,31 @@ form:
           class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
           targetWorkspace: dam
           appName: assets
-          label: Image or Video
+          label: Image, Poster
           required: true
+          i18n: true
           identifierToPathConverter:
             class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
           contentPreviewDefinition:
             contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+          validators:
+            - name: image
+              class: ch.openinteractive.main.validators.MimeTypeValidatorDefinition
+              pattern: image/*
+              errorMessage: Choose an image
+        - name: video
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          targetWorkspace: dam
+          appName: assets
+          label: Video
+          i18n: true
+          identifierToPathConverter:
+            class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+          validators:
+            - name: video
+              class: ch.openinteractive.main.validators.MimeTypeValidatorDefinition
+              pattern: video/*
+              errorMessage: Choose a video
         - name: isCover
           class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
           label: Media as cover

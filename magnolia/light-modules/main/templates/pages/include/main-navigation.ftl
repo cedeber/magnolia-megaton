@@ -1,22 +1,13 @@
+[#include "../../macros/link.ftl"]
+
 [#assign openOnly = true]
 [#assign depth = 1]
 [#assign listClass = "o-flex-inline is-vertical"]
 
 [#macro navItem currentNode level]
     [#if !navfn.isHiddenInNav(currentNode)]
-        [#if currentNode.redirect?has_content]
-            [#if currentNode.redirect == "internal" && currentNode.redirectinternal?has_content]
-                [#assign redirectLinkInternal = navfn.link(currentNode.redirectinternal)!]
-            [#elseif currentNode.redirect == "external" && currentNode.redirectexternal?has_content]
-                [#assign redirectLinkExternal = currentNode.redirectexternal!]
-            [/#if]
-        [/#if]
         <li>
-            <a class="link[#if navfn.isActive(content, currentNode)] is-active[/#if][#if navfn.isOpen(content, currentNode)] is-parent[/#if] is-level-${level}"
-                [#if redirectLinkExternal?has_content]target="_blank" rel="noopener external"[/#if]
-                href="${redirectLinkExternal!redirectLinkInternal!cmsfn.link(currentNode)!}">
-                ${currentNode.navigationTitle!currentNode.title!}
-            </a>
+            [@link node=currentNode cnt=content lvl=level /]
 
             [#if level < depth && (openOnly == true && (navfn.isActive(content, currentNode) || navfn.isOpen(content, currentNode)) || openOnly == false)]
             [#assign children = navfn.navItems(currentNode)]

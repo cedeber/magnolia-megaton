@@ -12,7 +12,7 @@ const publicPath = env === 'prototype' ? './' : `${env === 'production' ? '' : '
 module.exports = {
     entry: {
         main: './src/main.ts',
-        polyfills: ['es6-shim', 'whatwg-fetch', 'matchmedia-polyfill', 'intersection-observer', 'objectFitPolyfill']
+        polyfills: ['es6-shim', 'whatwg-fetch', 'matchmedia-polyfill', 'intersection-observer', 'objectFitPolyfill', './polyfills']
     },
     output: {
         filename: env === 'production' ? '[name].bundle.js' : '[name].debug.js',
