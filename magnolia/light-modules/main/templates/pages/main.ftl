@@ -14,9 +14,9 @@
         <header>
             <section class="o-section">
                 <div class="o-group is-large o-flex-space">
-                    <div>
+                    <a id="logo" href="/${navfn.rootPage(content)!}">
                         logo
-                    </div>
+                    </a>
                     [#include "include/main-navigation.ftl"]
                     [#include "include/languages.ftl"]
                 </div>
