@@ -1,8 +1,6 @@
 var Main = function() {
-    this.text = "%";
-    this.getRandomNumber = function() {
-        return Math.ceil(100 * Math.random());
-    }
+    this.getMin = function(v1, v2) { return Math.min(v1, v2); }
+    this.getMax = function(v1, v2) { return Math.max(v1, v2); }
 };
 
 new Main();

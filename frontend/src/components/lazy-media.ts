@@ -1,6 +1,7 @@
 import "./lazy-media.css";
 
 import { Vue, Component } from "vue-property-decorator";
+import { isOutdatedBrowser } from "../helpers/outdated-browser";
 
 @Component
 class LazyMedia extends Vue {
@@ -25,6 +26,9 @@ class LazyMedia extends Vue {
         const image = this.$el.querySelector("img");
 
         if (image) {
+            const source = image.getAttribute("src") || "";
+            const ext = source.slice((source.lastIndexOf(".") - 1 >>> 0) + 2);
+
             image.addEventListener("load", async () => {
                 let width = image.naturalWidth;
                 let height = image.naturalHeight;
@@ -45,11 +49,14 @@ class LazyMedia extends Vue {
 
                 this.width = width;
                 this.height = height;
+
+                // object-fit polyfill for IEdge <= 15
+                if (typeof window.objectFitPolyfill === "function" && isOutdatedBrowser && ext !== "svg") {
+                    window.objectFitPolyfill(image);
+                }
+
                 this.isLoaded = true;
             });
-
-            // object-fit polyfill for IEdge <= 15
-            if (typeof window.objectFitPolyfill === "function") { window.objectFitPolyfill(image); }
         }
     }
 

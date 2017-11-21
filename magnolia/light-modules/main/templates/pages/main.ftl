@@ -15,7 +15,7 @@
             <section class="o-section">
                 <div class="o-group is-large o-flex-space">
                     <div>
-                        logo: ${model.getRandomNumber()!}${model.text!}
+                        logo
                     </div>
                     [#include "include/main-navigation.ftl"]
                     [#include "include/languages.ftl"]

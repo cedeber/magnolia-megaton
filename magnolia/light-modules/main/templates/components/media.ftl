@@ -12,7 +12,6 @@
     <div class="o-group [#if isFullWidth == true]is-full-width[#elseif isLarge == true]is-large[/#if]">
         <div class="o-lazy-media" [#if hasRatio]style="padding-top:calc(1 / (${content.width} / ${content.height}) * 100%)"[/#if]>
         [#if !cmsfn.isEditMode()]
-            [#assign imageMap = damfn.getAssetMap(content.image)]
             <lazy-media inline-template>
             [#if content.video?has_content]
                 [#assign videoMap = damfn.getAssetMap(content.video)!]
@@ -28,7 +27,10 @@
                     </template>
                 </div>
             [#else]
-                <picture v-bind:class="{ 'js-loaded': source }" class="container [#if hasRatio]has-fixed-ratio[/#if]">
+                [#assign imageMap = damfn.getAssetMap(content.image)!]
+                [#assign imageWidth = imageMap.metadata.mgnl.width!0]
+                [#assign imageHeight = imageMap.metadata.mgnl.height!0]
+                <picture v-bind:class="{ 'js-loaded': isLoaded }" class="container [#if hasRatio]has-fixed-ratio[/#if]">
                     [#if !(cmsfn.fileExtension(imageMap.name) == "gif")]
                         <source media="(max-width: 376px)" srcset="${damfn.getRendition(content.image, "hero-375").getLink()!}, ${damfn.getRendition(content.image, "hero-375-2x").getLink()!} 2x">
                         <source media="(max-width: 668px)" srcset="${damfn.getRendition(content.image, "hero-667").getLink()!}, ${damfn.getRendition(content.image, "hero-667-2x").getLink()!} 2x">
@@ -37,10 +39,10 @@
                         <source srcset="${damfn.getAssetLink(content.image)!}">
                     [/#if]
                     <template v-if="source">
-                        <img class="media is-${content.position!"center"} [#if isCover == true]is-cover[/#if]" data-object-fit :src="source" :width="width" :height="height" alt="${imageMap.caption!imageMap.description!}">
+                        <img class="media is-${content.position!"center"} [#if isCover == true]is-cover[/#if]" :src="source" :width="width" :height="height" alt="${imageMap.caption!imageMap.description!}">
                     </template>
                     <template v-else>
-                        <svg class="media" width="${(imageMap.metadata.mgnl.width * 100)?string.computer}px" height="${(imageMap.metadata.mgnl.height * 100)?string.computer}px" viewBox="0 0 1 1"></svg>
+                        <svg class="media" width="${model.getMax((imageWidth * 100), 1)?string.computer}px" height="${model.getMax((imageHeight * 100), 1)?string.computer}px" viewBox="0 0 1 1"></svg>
                     </template>
                 </picture>
             [/#if]
