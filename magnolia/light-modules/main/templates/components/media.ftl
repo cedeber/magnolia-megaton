@@ -2,6 +2,7 @@
 [#assign isLarge = content.sectionLayout?? && content.sectionLayout == "large"]
 [#assign isFullWidth = content.sectionLayout?? && content.sectionLayout == "wide"]
 [#assign isCover = content.isCover?? && content.isCover == true]
+[#assign isInstantly = content.isInstantly?? && content.isInstantly == true]
 [#assign hasRatio = content.width?has_content && content.height?has_content]
 [#assign hasBackground = content.backgroundTheme?has_content && content.backgroundTheme != "default"]
 [#assign hasNoTopSpace = content.space?? && content.space?seq_contains("top") || hasBackground]
@@ -12,7 +13,7 @@
     <div class="o-group [#if isFullWidth == true]is-full-width[#elseif isLarge == true]is-large[/#if]">
         <div class="o-lazy-media" [#if hasRatio]style="padding-top:calc(1 / (${content.width} / ${content.height}) * 100%)"[/#if]>
         [#if !cmsfn.isEditMode()]
-            <lazy-media inline-template>
+            <lazy-media inline-template :instantly="${isInstantly?string!}">
             [#if content.video?has_content]
                 [#assign videoMap = damfn.getAssetMap(content.video)!]
                 <div>

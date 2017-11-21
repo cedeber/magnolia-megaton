@@ -33,6 +33,11 @@ form:
               class: ch.openinteractive.main.validators.MimeTypeValidatorDefinition
               pattern: video/*
               errorMessage: Choose a video
+        - name: isInstantly
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          label: Instantly
+          buttonLabel: The media loads as soon as possible (no Intersection Observer)
+          defaultValue: false
         - name: isCover
           class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
           label: Media as cover

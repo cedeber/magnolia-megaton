@@ -1,10 +1,12 @@
 import "./lazy-media.css";
 
-import { Vue, Component } from "vue-property-decorator";
+import { Vue, Component, Prop } from "vue-property-decorator";
 import { isOutdatedBrowser } from "../helpers/outdated-browser";
 
 @Component
 class LazyMedia extends Vue {
+    @Prop({type: Boolean, default: false}) public instantly: boolean;
+
     public source = "";
     public width: string | number = "100%";
     public height: string | number = "100%";
@@ -12,14 +14,17 @@ class LazyMedia extends Vue {
     public isLoaded = false;
 
     public mounted() {
-        const observer = new IntersectionObserver(entries => {
-            // [FIXME] remove <any> once IntersectionObserver will be valid
-            if (!(<any>entries[0]).isIntersecting) { return; }
+        if (this.instantly) { this.source = this.getSource(); }
+        else {
+            const observer = new IntersectionObserver(entries => {
+                // [FIXME] remove <any> once IntersectionObserver will be valid
+                if (!(<any>entries[0]).isIntersecting) { return; }
 
-            observer.disconnect();
-            this.source = this.getSource();
-        });
-        observer.observe(this.$el);
+                observer.disconnect();
+                this.source = this.getSource();
+            });
+            observer.observe(this.$el);
+        }
     }
 
     public updated() {
