@@ -11,7 +11,7 @@
 - [ ] Pagetitles & Descriptions
 - [ ] App + Mobile Favicons
 - [ ] Correct `<head>`: App name, etc...
-- Cookie compliance (only for political Europe right now)
+- [ ] Cookie compliance (only for political Europe right now)
 
 # Magnolia Configurations
 - [ ] Anonymous password (public)
