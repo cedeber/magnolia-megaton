@@ -1,9 +1,9 @@
 # Hosting
 - [ ] Order hosting
 - [ ] SSL Certificate
+- [ ] DNS handling
 
 # General
-- [ ] DNS handling
 - [ ] Google Analytics
 - [ ] Impressum
 - [ ] Disclaimer
@@ -16,6 +16,8 @@
 # Magnolia Configurations
 - [ ] Anonymous password (public)
 - [ ] Anonymous role access to required workspaces (public)
+- [ ] Admin user (author/public) check workspaces!
+- [ ] Visitor user (public)
 - [ ] Set `defaultBaseUrl` in Magnolia server config (author/public)
 - [ ] Set correct compression contentType for JS files `application/javascript` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
 See: https://jira.magnolia-cms.com/browse/MAGNOLIA-6682
