@@ -1,6 +1,6 @@
 {
   "name": "magnolia-megaton",
-  "version": "1.1.0",
+  "version": "1.2.0-beta",
   "scripts": {
     "watch:prototype": "cross-env NODE_ENV=prototype webpack --hide-modules --watch",
     "watch:author": "cross-env NODE_ENV=development webpack --hide-modules --watch",
