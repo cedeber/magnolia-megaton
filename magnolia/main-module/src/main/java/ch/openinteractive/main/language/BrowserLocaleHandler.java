@@ -16,8 +16,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Created by daliborsimic on 07.02.17.
- * Updated by daliborsimic on 27.10.17.
+ * Created by daliborsimic on 22.11.17.
  */
 public class BrowserLocaleHandler implements VirtualURIMapping {
 
