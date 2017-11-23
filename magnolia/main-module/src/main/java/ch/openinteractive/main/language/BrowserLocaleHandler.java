@@ -15,15 +15,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by daliborsimic on 22.11.17.
- */
 public class BrowserLocaleHandler implements VirtualURIMapping {
 
     private SiteFunctions sitefn;
     private TemplatingFunctions cmsfn;
     private final Logger log = LoggerFactory.getLogger(getClass());
-
 
     public BrowserLocaleHandler(SiteFunctions sitefn, TemplatingFunctions cmsfn) {
         this.sitefn = sitefn;
@@ -31,7 +27,9 @@ public class BrowserLocaleHandler implements VirtualURIMapping {
     }
 
     public MappingResult mapURI(final String uri) {
-        if (cmsfn.isEditMode()) return null;
+        if (cmsfn.isEditMode()) {
+            return null;
+        }
 
         boolean isWebsiteUri;
         try {
@@ -40,19 +38,25 @@ public class BrowserLocaleHandler implements VirtualURIMapping {
             return null;
         }
 
-        if (!(isWebsiteUri || uri.equals("/"))) return null;
+        if (!(isWebsiteUri || uri.equals("/"))) {
+            return null;
+        }
 
         Locale preferredLocale = MgnlContext.getWebContext().getRequest().getLocale();
         Site site = sitefn.site();
 
-        if (site.getI18n() == null) return null;
+        if (site.getI18n() == null) {
+            return null;
+        }
 
         // Shorten the language. Example: en_GB --> en
         String preferredLanguage = preferredLocale.toLanguageTag().substring(0, 2);
         String defaultLocale = site.getI18n().getDefaultLocale().toLanguageTag();
         String originalBrowserURI = StringUtils.defaultIfEmpty(MgnlContext.getAggregationState().getOriginalBrowserURI(), "");
 
-        if (originalBrowserURI.equals("/") && (defaultLocale.equals(preferredLanguage) && defaultLocale.equals(preferredLocale.toLanguageTag()))) return null;
+        if (originalBrowserURI.equals("/") && (defaultLocale.equals(preferredLanguage) && defaultLocale.equals(preferredLocale.toLanguageTag()))) {
+            return null;
+        }
 
         boolean uriContainsLocale = false;
         boolean isValidLanguage = false;
@@ -66,13 +70,26 @@ public class BrowserLocaleHandler implements VirtualURIMapping {
                 break;
             }
 
-            if (locale.toLanguageTag().contains(preferredLanguage)) isValidLanguage = true;
+            if (locale.toLanguageTag().contains(preferredLanguage)) {
+                isValidLanguage = true;
+            }
         }
 
-        if (!uriContainsLocale && preferredLanguage.equals(defaultLocale)) return null;
-        if (uriContainsLocale && !(originalBrowserURI.contains("/" + defaultLocale + "/") && defaultLocale.equals(preferredLanguage))) return null;
-        if (!isValidLanguage) preferredLanguage = defaultLocale;
-        if (originalBrowserURI.contains("/" + preferredLanguage) && !preferredLanguage.equals(defaultLocale)) return null;
+        if (!uriContainsLocale && preferredLanguage.equals(defaultLocale)) {
+            return null;
+        }
+
+        if (uriContainsLocale && !(originalBrowserURI.contains("/" + defaultLocale + "/") && defaultLocale.equals(preferredLanguage))) {
+            return null;
+        }
+
+        if (!isValidLanguage) {
+            preferredLanguage = defaultLocale;
+        }
+
+        if (originalBrowserURI.contains("/" + preferredLanguage) && !preferredLanguage.equals(defaultLocale)) {
+            return null;
+        }
 
         String toURI;
         if (preferredLanguage.equals(defaultLocale) && originalBrowserURI.contains("/" + defaultLocale)) {
@@ -104,13 +121,17 @@ public class BrowserLocaleHandler implements VirtualURIMapping {
      */
     private boolean isFromWebsiteRepository(Node rootNode, String uri) {
         try {
-          List<Node> nodes = cmsfn.children(rootNode, "mgnl:page");
+            List<Node> nodes = cmsfn.children(rootNode, "mgnl:page");
 
-          for(Node node : nodes) {
-              if (node.hasNodes() && isFromWebsiteRepository(node, uri)) return true;
+            for (Node node : nodes) {
+                if (node.hasNodes() && isFromWebsiteRepository(node, uri)) {
+                    return true;
+                }
 
-              if (uri.contains(cmsfn.link(node)) || cmsfn.link(node).contains(uri)) return true;
-          }
+                if (uri.contains(cmsfn.link(node)) || cmsfn.link(node).contains(uri)) {
+                    return true;
+                }
+            }
         } catch (RepositoryException e) {
             log.error("An error occurred while checking if the uri is part of the website workspace", e);
         }

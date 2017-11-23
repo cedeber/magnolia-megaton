@@ -29,9 +29,9 @@ public class MimeTypeValidator extends RegexpValidator {
     protected boolean isValidValue(String value) {
         String mimeType = null;
         Asset asset = damfn.getAsset(value);
-        if(asset!=null) {
+        if (asset != null) {
             mimeType = asset.getMimeType();
-        } else if(damfn.getFolder(value) != null) {
+        } else if (damfn.getFolder(value) != null) {
             mimeType = "folder";
         }
 
