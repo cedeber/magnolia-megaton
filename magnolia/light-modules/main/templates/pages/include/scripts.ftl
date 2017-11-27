@@ -20,21 +20,7 @@
         });
     </script>
     [/#if]
-
-    <!-- Cookies EU Banner -->
-    [#if !devMode]
-    <div id="cookies-eu-banner" style="display: none;">
-        By continuing your visit to this site, you accept the use of cookies by Google Analytics to make visits statistics.
-        <a href="./read-more.html" id="cookies-eu-more">Read more</a>
-        <button id="cookies-eu-reject">Reject</button>
-        <button id="cookies-eu-accept">Accept</button>
-    </div>
-    ${resfn.js(["/main/webresources/external/cookies-eu-banner.min.js"])!}
-    ${resfn.css(["/main/webresources/external/cookies-eu-banner.css"])!}
-    <script>
-        new CookiesEuBanner(function(){
-            // Your anti-privacy scripts
-        }, false);
-    </script>
-    [/#if]
 [/#if]
+
+<!-- Cookies EU Banner -->
+[@cms.area name="tagManager" /]

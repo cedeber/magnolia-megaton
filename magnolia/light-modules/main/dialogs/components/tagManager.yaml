@@ -1,0 +1,48 @@
+wide: true
+form:
+  label: Tag Manager
+  tabs:
+    - name: tabMain
+      label: Main
+      fields:
+        - name: explanations
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: Explanations
+          type: String
+          required: true
+          i18n: true
+        - name: readmore
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: Read more label
+          type: String
+          required: true
+          i18n: true
+        - name: readmorehref
+          appName: pages
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          label: Read more page
+          targetWorkspace: website
+          identifierToPathConverter: 
+            class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+        - name: reject
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: Reject
+          type: String
+          required: true
+          i18n: true
+        - name: accept
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: Accept
+          type: String
+          required: true
+          i18n: true
+        - name: code
+          class: info.magnolia.ui.form.field.definition.CodeFieldDefinition
+          language: javascript
+          label: Tags code
+        
+actions: 
+  commit: 
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+  cancel: 
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition

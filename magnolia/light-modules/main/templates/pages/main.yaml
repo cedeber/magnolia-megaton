@@ -35,6 +35,8 @@ areas:
           templateId: main:components/editorial
       generatorClass: info.magnolia.rendering.generator.CopyGenerator
 
+  tagManager: !include:/main/templates/pages/include/tagManagerArea.yaml
+
 variations:
   txt:
     templateScript: /main/templates/variations/txt.ftl
