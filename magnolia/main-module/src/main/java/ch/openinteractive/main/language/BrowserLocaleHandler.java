@@ -8,7 +8,6 @@ import info.magnolia.templating.functions.TemplatingFunctions;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import java.util.Collection;
@@ -16,7 +15,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class BrowserLocaleHandler implements VirtualURIMapping {
-
     private SiteFunctions sitefn;
     private TemplatingFunctions cmsfn;
     private final Logger log = LoggerFactory.getLogger(getClass());

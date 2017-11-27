@@ -6,7 +6,6 @@ import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
 import info.magnolia.ui.form.validator.factory.AbstractFieldValidatorFactory;
 
 public class MimeTypeValidatorFactory extends AbstractFieldValidatorFactory<MimeTypeValidatorDefinition> {
-
     private DamTemplatingFunctions damfn;
 
     @Inject

@@ -6,15 +6,11 @@ import info.magnolia.dam.api.Asset;
 import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MimeTypeValidator extends RegexpValidator {
-
-    private static final Logger log = LoggerFactory.getLogger(MimeTypeValidator.class);
     private DamTemplatingFunctions damfn;
-    private String regexp;
     private Pattern pattern;
     private transient Matcher matcher;
 
@@ -29,6 +25,7 @@ public class MimeTypeValidator extends RegexpValidator {
     protected boolean isValidValue(String value) {
         String mimeType = null;
         Asset asset = damfn.getAsset(value);
+
         if (asset != null) {
             mimeType = asset.getMimeType();
         } else if (damfn.getFolder(value) != null) {
