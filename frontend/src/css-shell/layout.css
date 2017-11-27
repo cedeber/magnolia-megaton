@@ -1,12 +1,16 @@
 /* View */
 .o-view {
-    position: absolute;
+    position: relative;
     width: 100%;
     min-height: 100vh;
-    top: 0;
-    left: 0;
     z-index: 3;
     overflow: hidden;
+}
+
+.o-view.is-absolute {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 /* Sections and Groups */
