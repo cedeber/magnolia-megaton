@@ -44,6 +44,11 @@
             <artifactId>magnolia-ui-form</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>info.magnolia.site</groupId>
+            <artifactId>magnolia-site</artifactId>
+        </dependency>
+
         <!-- TEST -->
         <dependency>
             <groupId>junit</groupId>
