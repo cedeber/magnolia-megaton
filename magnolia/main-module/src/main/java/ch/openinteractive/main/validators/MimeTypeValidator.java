@@ -4,8 +4,7 @@ import com.google.inject.Inject;
 import com.vaadin.v7.data.validator.RegexpValidator;
 import info.magnolia.dam.api.Asset;
 import info.magnolia.dam.templating.functions.DamTemplatingFunctions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

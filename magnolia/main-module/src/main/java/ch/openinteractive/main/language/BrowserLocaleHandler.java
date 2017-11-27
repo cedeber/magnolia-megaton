@@ -8,6 +8,7 @@ import info.magnolia.templating.functions.TemplatingFunctions;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import java.util.Collection;
@@ -104,8 +105,6 @@ public class BrowserLocaleHandler implements VirtualURIMapping {
 
     /**
      * Calls isFromWebsiteRepository(Node rootNode, String uri)
-     * @param uri
-     * @return
      */
     private boolean isFromWebsiteRepository(String uri) {
         return isFromWebsiteRepository(cmsfn.nodeByPath("/", "website"), uri);
@@ -113,9 +112,6 @@ public class BrowserLocaleHandler implements VirtualURIMapping {
 
     /**
      * This method checks if the given uri links to the website repository
-     * @param rootNode
-     * @param uri
-     * @return
      */
     private boolean isFromWebsiteRepository(Node rootNode, String uri) {
         try {
