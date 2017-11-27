@@ -21,6 +21,8 @@ interface Object {
  * Add information about vertical position depending on the viewport
  */
 Object.defineProperty(Element.prototype, "verticalState", {
+    configurable: true,
+
     /**
      * Vertical state object
      * @todo SPLIT into contained & spanning
