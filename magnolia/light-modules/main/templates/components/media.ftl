@@ -1,3 +1,5 @@
+[#include "../macros/alt.ftl"]
+
 [#if content.image?? && damfn.getAsset(content.image)??]
 [#assign isLarge = content.sectionLayout?? && content.sectionLayout == "large"]
 [#assign isFullWidth = content.sectionLayout?? && content.sectionLayout == "wide"]
@@ -40,7 +42,7 @@
                         <source srcset="${damfn.getRendition(content.image, "hero-1024").getLink()!}, ${damfn.getRendition(content.image, "hero-1024-2x").getLink()!} 2x">
                     [/#if]
                     <template v-if="source">
-                        <img class="media is-${content.position!"center"} [#if isCover == true]is-cover[/#if]" :src="source" :width="width" :height="height" alt="${imageMap.caption!imageMap.description!}">
+                        <img class="media is-${content.position!"center"} [#if isCover == true]is-cover[/#if]" :src="source" :width="width" :height="height" [@alt map=imageMap /]>
                     </template>
                     <template v-else>
                         <svg class="media" width="${model.getMax((imageWidth * 100), 1)?string.computer}px" height="${model.getMax((imageHeight * 100), 1)?string.computer}px" viewBox="0 0 1 1"></svg>
