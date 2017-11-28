@@ -42,7 +42,7 @@ form:
           class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
           label: Media as cover
           buttonLabel: The media covers the whole container (like a background)
-          defaultValue: true
+          defaultValue: false
         - name: ratio
           class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
           transformerClass: info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer

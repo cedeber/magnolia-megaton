@@ -6,11 +6,11 @@ import { isOutdatedBrowser } from "../helpers/outdated-browser";
 @Component
 class LazyMedia extends Vue {
     @Prop({type: Boolean, default: false}) public instantly: boolean;
+    @Prop({type: Boolean, default: false}) public isCover: boolean;
 
     public source = "";
     public width: string | number = "100%";
     public height: string | number = "100%";
-
     public isLoaded = false;
 
     public mounted() {
@@ -55,7 +55,7 @@ class LazyMedia extends Vue {
                 this.height = height;
 
                 // object-fit polyfill for IEdge <= 15
-                if (typeof window.objectFitPolyfill === "function" && isOutdatedBrowser && ext !== "svg") {
+                if (typeof window.objectFitPolyfill === "function" && isOutdatedBrowser && ext !== "svg" && this.isCover) {
                     window.objectFitPolyfill(image);
                 }
 

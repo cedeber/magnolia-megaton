@@ -8,7 +8,6 @@
         width: 100%;
         height: 100%;
         opacity: 0;
-        transform: scale(0.95);
         transition: var(--default-timing) 50ms;
     }
 
@@ -27,12 +26,12 @@
 
     & .container.js-loaded {
         opacity: 1;
-        transform: scale(1);
     }
 
     & .media {
         display: block;
         max-width: 100%;
+        width: 100%;
         height: auto;
     }
 
