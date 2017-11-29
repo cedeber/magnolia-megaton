@@ -18,8 +18,7 @@
             this.element = this.$slots.default[0].elm as HTMLElement;
 
             if (this.element) {
-                window.addEventListener("scroll", this.stickToTop);
-                this.stickToTop();
+                window.requestAnimationFrame(this.stickToTop);
             }
         }
 
@@ -35,6 +34,8 @@
                     this.element.style.position = "";
                     this.element.style.top = "";
                 }
+
+                window.requestAnimationFrame(this.stickToTop);
             }
         }
     }
