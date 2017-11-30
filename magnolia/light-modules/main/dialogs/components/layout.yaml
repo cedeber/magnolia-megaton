@@ -1,0 +1,40 @@
+form:
+  label: Layout
+  tabs:
+    - name: tabMain
+      label: Content
+      fields:
+        - name: layout
+          class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+          multiselect: false
+          type: String
+          label: Cell
+          options:
+            - name: 1of1
+              label: 1of1
+              value: cell-1of1
+              selected: true
+              
+            - name: 1of2
+              label: 1of2
+              value: cell-1of2
+              
+            - name: 1of3
+              label: 1of3
+              value: cell-1of3
+              
+            - name: 1of4
+              label: 1of4
+              value: cell-1of4
+              
+    - !include:/main/dialogs/include/tabLayout.yaml
+      fields:
+        - name: sectionLayout
+          options:
+            - name: hasGutter
+              label: has gutter
+              
+            - name: wide
+              label: as wide as the viewport
+
+actions: !include:/main/dialogs/include/commonActions.yaml
