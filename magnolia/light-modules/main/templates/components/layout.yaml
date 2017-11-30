@@ -1,0 +1,12 @@
+title: Layout
+renderType: freemarker
+templateScript: /main/templates/components/layout.ftl
+dialog: main:components/layout
+
+areas:
+  content:
+    renderType: freemarker
+    templateScript: /main/templates/areas/indexed.ftl
+    availableComponents:
+      editorial:
+        id: main:components/editorial

@@ -22,8 +22,8 @@ areas:
     renderType: freemarker
     templateScript: /main/templates/areas/indexed.ftl
     availableComponents:
-      editorial:
-        id: main:components/editorial
+      layout:
+        id: main:components/layout
       media:
         id: main:components/media
       carousel:
