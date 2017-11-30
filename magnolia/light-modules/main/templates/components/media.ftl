@@ -41,7 +41,7 @@
                         <source media="(max-width: 668px)" srcset="${damfn.getRendition(content.image, "hero-667").getLink()!}, ${damfn.getRendition(content.image, "hero-667-2x").getLink()!} 2x">
                         <source srcset="${damfn.getRendition(content.image, "hero-1024").getLink()!}, ${damfn.getRendition(content.image, "hero-1024-2x").getLink()!} 2x">
                     [/#if]
-                    <template v-if="source">
+                    <template v-if="isLoaded">
                         <img class="media is-${content.position!"center"} [#if isCover]is-cover[/#if]" :src="source" :width="width" :height="height" [@alt map=imageMap /]>
                     </template>
                     <template v-else>
