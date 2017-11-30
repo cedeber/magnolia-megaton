@@ -6,10 +6,8 @@ class ImportAsync extends Vue {
     @Prop({ type: String, required: true }) public href: string;
 
     public render(createElement: CreateElement): VNode | undefined {
-        const url: string = (<any>window).encodeURI(this.href);
-
-        if (url != undefined) {
-            // get file extension
+        if (this.href != undefined) {
+            const url: string = (<any>window).encodeURI(this.href);
             const ext = url.slice((url.lastIndexOf(".") - 1 >>> 0) + 2);
 
             switch (ext) {

@@ -16,6 +16,11 @@ ${resfn.css(["/main/webresources/external/cookies-eu-banner.css"])!}
 </script>
 [/#if]
 [#if cmsfn.isEditMode()]
+[#if !content.code?has_content || !content.explanations?has_content]
+<div style="padding:8px;background:red;color:white">
+    Please fill code and explanations.
+</div>
+[/#if]
 <div style="padding:8px;background:darkslateblue;color:white">
     Tag Manager is activated through the Cookies compliance banner, which means:<br>
     <br>

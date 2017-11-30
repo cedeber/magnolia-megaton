@@ -6,13 +6,3 @@ inheritance:
 availableComponents:
   tagManager:
     id: main:components/tagManager
-autoGeneration:
-  generatorClass: info.magnolia.rendering.generator.CopyGenerator
-  content:
-    tag:
-      nodeType: mgnl:component
-      templateId: main:components/tagManager
-      explanations: By continuing your visit to this site, you accept the use of cookies to make visits statistics.
-      readmore: Read more
-      reject: Reject
-      accept: Accept

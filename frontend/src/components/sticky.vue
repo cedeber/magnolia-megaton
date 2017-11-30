@@ -18,6 +18,7 @@
             this.element = this.$slots.default[0].elm as HTMLElement;
 
             if (this.element) {
+                this.$el.style.height = `${this.element.offsetHeight}px`;
                 window.requestAnimationFrame(this.stickToTop);
             }
         }

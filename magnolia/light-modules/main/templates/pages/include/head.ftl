@@ -10,12 +10,12 @@
 
 <!-- Android / Standard: 192x192px -->
 <meta name="application-name" content="${content.app!root.app!}">
-<meta name="mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="no">
 <meta name="theme-color" content="${content.color!root.color!'#000000'}">
 <link rel="icon" sizes="192x192" href="${ctx.contextPath}/.resources/main/webresources/icons/touch-icon.png">
 
 <!-- iOS: 152x152px (180x180px) -->
-<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="no">
 <meta name="apple-mobile-web-app-title" content="${content.app!root.app!}">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="format-detection" content="telephone=no">
