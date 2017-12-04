@@ -1,5 +1,5 @@
 interface Element {
-    scrollIntoViewport({}: { speed?: number, marginTop?: number, callback?: string | Function, scrollable?: Element | Window }): Function | number;
+    scrollIntoViewport({}?: { speed?: number, marginTop?: number, callback?: string | Function, scrollable?: Element | Window }): Function | number;
 }
 
 interface Window {
