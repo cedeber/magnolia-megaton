@@ -1,5 +1,5 @@
 title: Redirect
-templateScript: /main/templates/pages/main.ftl
+templateScript: /main/templates/pages/redirect.ftl
 renderType: freemarker
 dialog: main:pages/redirect
 visible: true
