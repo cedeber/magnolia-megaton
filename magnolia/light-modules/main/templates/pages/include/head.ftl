@@ -56,7 +56,11 @@
     <meta name="twitter:image:alt" content="${imageMap.caption!imageMap.description!}">
 [/#if]
 
-[#if cmsfn.isEditMode()]<style>.no-edit{display:none}</style>[/#if]
+[#if cmsfn.isEditMode()]
+<style>
+    .no-edit { display: none; }
+    .o-flex > .mgnlEditorBar { flex-basis: 100%; }
+</style>[/#if]
 
 <!-- Application -->
 [#assign app = def.parameters.app!"main"]
