@@ -35,7 +35,16 @@ areas:
           templateId: main:components/editorial
       generatorClass: info.magnolia.rendering.generator.CopyGenerator
 
-  tagManager: !include:/main/templates/pages/include/tagManagerArea.yaml
+  tagManager:
+    renderType: freemarker
+    type: single
+    inheritance:
+      components: all
+      enabled: true
+    availableComponents:
+      tagManager:
+        id: main:components/tagManager
+
 
 variations:
   txt:

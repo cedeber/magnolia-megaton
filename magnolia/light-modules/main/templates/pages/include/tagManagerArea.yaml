@@ -1,8 +1,0 @@
-renderType: freemarker
-type: single
-inheritance:
-  components: all
-  enabled: true
-availableComponents:
-  tagManager:
-    id: main:components/tagManager
