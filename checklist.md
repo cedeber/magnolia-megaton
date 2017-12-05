@@ -26,6 +26,7 @@ See: https://jira.magnolia-cms.com/browse/MAGNOLIA-6682
 - [ ] Add woff2 mimetype (/server/MIMEMapping/)
 - [ ] Does Magnolia Search find pages/assets/news/events etc.
 - [ ] Check Form submissions
+- [ ] Check for yaml errors in Definitions App
 
 # Testings
 Chrome and Firefox should technically behave the same way whatever the operating system is.
