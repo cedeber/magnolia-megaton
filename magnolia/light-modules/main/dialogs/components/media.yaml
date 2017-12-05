@@ -74,11 +74,12 @@ form:
             - name: left
               label: Left
 
-    - !include:/main/dialogs/include/tabLayout.yaml
+    - name: tabLayout
+      label: Layout
       fields:
-        - name: sectionLayout
-          options:
-            - name: wide
-              label: as wide as the viewport
+        - name: layoutOverride
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          label: Layout override
+          buttonLabel: This component must use the whole width of the section
 
 actions: !include:/main/dialogs/include/commonActions.yaml

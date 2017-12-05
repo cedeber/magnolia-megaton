@@ -1,4 +1,4 @@
-title: Article (1 column)
+title: Article
 renderType: freemarker
 templateScript: /main/templates/components/editorial.ftl
 dialog: main:components/editorial
