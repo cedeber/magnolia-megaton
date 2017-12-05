@@ -56,6 +56,8 @@
     <meta name="twitter:image:alt" content="${imageMap.caption!imageMap.description!}">
 [/#if]
 
+[#if cmsfn.isEditMode()]<style>.no-edit{display:none}</style>[/#if]
+
 <!-- Application -->
 [#assign app = def.parameters.app!"main"]
 ${resfn.css(["/main/webresources/app/" + app + ".*.css"])!}
