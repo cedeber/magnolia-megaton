@@ -10,15 +10,13 @@
 [/#if]
 
 <!DOCTYPE html>
-<html lang="${cmsfn.language()}">
+<html lang="en">
     <head>
     [@cms.page /]
     [#if !cmsfn.isEditMode() && redirectLink?has_content]
         <meta http-equiv="refresh" content="0; url=${redirectLink}">
     [/#if]
     </head>
-
-
     <body>
         <main id="view" class="o-view">
             [#if cmsfn.isEditMode()]
