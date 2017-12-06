@@ -17,14 +17,14 @@
     --violet: #cc99cc;
     --magenta: #d27b53;
 
-    /* Text - default */
+    /* Text - Default */
     --default-font-family: system-ui, sans-serif;
     --default-text-color: var(--base00);
     --default-font-size: calc(14px + (16 - 14) * (100vw - 320px) / (1440 - 320)); /* 1.6rem @ 1440px -> 1.4rem @ 320px */
     --default-font-weight: 400;
     --default-line-height: 1.5;
 
-    /* Headings */
+    /* Text - Headings */
     --headings-font-family: var(--default-font-family);
     --headings-color: var(--base00);
     --h1-font-size: calc(28px + (50 - 28) * (100vw - 320px) / (1440 - 320)); /* 5rem @ 1440px -> 2.8rem @ 320px */
@@ -35,25 +35,35 @@
     --headings-font-weight: 700;
     --headings-line-height: 1.17;
 
-    /* Timings */
-    --default-timing: 350ms;
+    --headings-margin-bottom: 0.4em;
+    --h1-margin-top: 0;
+    --h1-margin-bottom: 0.4em;
+    --h2-margin-top: 0;
+    --h2-margin-bottom: 0.4em;
+    --h3-margin-top: 0;
+    --h3-margin-bottom: 0.4em;
+    --p-margin-bottom: 1.75em;
+    --media-margin-height: 2em;
 
     /* Page - default, layout */
     --page-background: linear-gradient(45deg, var(--base07), var(--base06));
-    --page-width: 64rem;
-    --page-width-large: 98rem;
+    --page-maxwidth: 64rem;
+    --page-maxwidth-large: 98rem;
     --page-gutter-width: 1.5rem;
-    --section-splitter-height: 6.25vmin;
-    --content-horizontal-step: 1rem;
-    --content-vertical-step: 1rem;
-    --content-gutter-width: calc(2 * var(--content-horizontal-step));
+
+    --section-margin-height: 6.25vmin;
+    --layout-gutter-width: 2rem;
+    --layout-gutter-height: 2rem;
 
     /* Form */
     --form-fieldset-splitter-height: 4.4rem;
     --form-input-default-color: var(--base02);
     --form-input-active-color: var(--blue);
 
-    /* Spaces */
+    /* Timings */
+    --default-timing: 350ms;
+
+    /* Default space units */
     --zero-width-space: 0;                 /*   0  em | Allows line break, like <wbr> */
     --hair-space: 0.0417em;                /* 1/24 em | Width varies, but narrower than thin space */
     --fine-space: 0.125em;                 /* 1/8  em | For French punctuation */

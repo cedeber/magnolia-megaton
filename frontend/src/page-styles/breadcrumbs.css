@@ -5,7 +5,7 @@
 }
 
 .o-breadcrumbs {
-    margin-bottom: var(--content-horizontal-step);
+    margin-bottom: 1.5em;
 
     & li.splitter { margin: 0 var(--breadcrumb-space); }
     & li:last-child { display:none; }
