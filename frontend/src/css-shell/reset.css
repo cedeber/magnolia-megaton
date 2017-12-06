@@ -49,16 +49,4 @@ table {
     border-spacing: 0;
 }
 
-svg { max-width: 100%; }
-
-a, button { cursor: pointer; }
-a, button, input { color: inherit; }
-
-input { border-radius: 0; }
-input, textarea { font-family: inherit; }
-
-[type="number"] { -moz-appearance: textfield; }
-[type="number"]::-webkit-inner-spin-button,
-[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-}
+svg { max-width: 100%; height: auto; }

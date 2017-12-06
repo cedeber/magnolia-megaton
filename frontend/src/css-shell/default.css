@@ -56,6 +56,7 @@ html { font-size: 62.5%; }
 body { font-size: var(--default-font-size); }
 
 p { hyphens: auto; }
+a { text-decoration: none; }
 
 .has-async-css {
     opacity: 0;

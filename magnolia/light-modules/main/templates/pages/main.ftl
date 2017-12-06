@@ -6,17 +6,17 @@
 </head>
 <body class="[#if navfn.isActive(content, navfn.rootPage(content))]-home[#else]-main[/#if]">
     <div class="skip-links">
-        <a href="#article">Content</a>
-        <a href="#mainNavigation">Navigation</a>
+        <a href="#mainNavigation" accesskey="1">Navigation</a>
+        <a href="#mainContent" accesskey="2">Content</a>
     </div>
 
     <main id="view" class="o-view">
         <header>
             <section class="o-section">
                 <div class="o-group is-large o-flex-space">
-                    <div>
-                        logo: ${model.getRandomNumber()!}${model.text!}
-                    </div>
+                    <a id="logo" href="/${navfn.rootPage(content)!}" accesskey="0">
+                        logo
+                    </a>
                     [#include "include/main-navigation.ftl"]
                     [#include "include/languages.ftl"]
                 </div>
@@ -24,7 +24,7 @@
             [@cms.area name="hero" /]
         </header>
         [#include "include/breadcrumbs.ftl"]
-        <article>
+        <article id="mainContent">
             [@cms.area name="main" /]
         </article>
         <footer class="o-section has-no-bottom-space">

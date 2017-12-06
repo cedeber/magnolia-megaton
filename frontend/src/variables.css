@@ -48,6 +48,11 @@
     --content-vertical-step: 1rem;
     --content-gutter-width: calc(2 * var(--content-horizontal-step));
 
+    /* Form */
+    --form-fieldset-splitter-height: 4.4rem;
+    --form-input-default-color: var(--base02);
+    --form-input-active-color: var(--blue);
+
     /* Spaces */
     --zero-width-space: 0;                 /*   0  em | Allows line break, like <wbr> */
     --hair-space: 0.0417em;                /* 1/24 em | Width varies, but narrower than thin space */
