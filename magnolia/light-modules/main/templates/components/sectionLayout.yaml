@@ -1,0 +1,16 @@
+title: Section layout
+renderType: freemarker
+templateScript: /main/templates/components/sectionLayout.ftl
+dialog: main:components/sectionLayout
+
+areas:
+  content:
+    renderType: freemarker
+    templateScript: /main/templates/areas/indexed.ftl
+    availableComponents:
+      editorial:
+        id: main:components/editorial
+      media:
+        id: main:components/media
+      carousel:
+        id: main:components/carousel

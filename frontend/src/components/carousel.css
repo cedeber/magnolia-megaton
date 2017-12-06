@@ -14,12 +14,11 @@
    └──────────────┘
 */
 .o-carousel {
-    width: 100%;
-    min-height: var(--carousel-min-height);
-
     opacity: 0;
     will-change: opacity;
     transition: opacity 0s;
+    width: 100%;
+    min-height: var(--carousel-min-height);
 
     &.js-loaded {
         opacity: 1;
@@ -30,7 +29,6 @@
 .o-carousel,
 .o-carousel .slider {
     display: block;
-    width: 100%;
     position: relative;
 }
 
@@ -44,6 +42,11 @@
     height: 100%;
     top: 0;
     left: 0;
+}
+
+.o-carousel[class*="cell-"] .slider {
+    width: calc(100% - var(--layout-gutter-width));
+    left: calc(var(--layout-gutter-width) / 2);
 }
 
 .o-carousel .swipe-layer { z-index: 1; }

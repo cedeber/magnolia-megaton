@@ -33,10 +33,23 @@
                 [@splitter /]
 
                 [#-- Ancestors --]
-                [#list cmsfn.ancestors(content, "mgnl:page") as ancestor]
+                [#assign ancestors = cmsfn.ancestors(content, "mgnl:page")]
+                [#assign ancestorsSize = ancestors?size]
+                [#assign index = 1]
+                [#assign maxAncestorsToShow = 1]
+
+                [#if maxAncestorsToShow < ancestorsSize - 1]
+                    ...
+                    [@splitter /]
+                [/#if]
+
+                [#list ancestors as ancestor]
                     [#if cmsfn.asJCRNode(ancestor).depth > 1]
-                        [@link href=navfn.link(ancestor) label=ancestor.navigationTitle!ancestor.title /]
-                        [@splitter /]
+                        [#if maxAncestorsToShow <= ancestorsSize && index gte ancestorsSize - maxAncestorsToShow]
+                            [@link href=navfn.link(ancestor) label=ancestor.navigationTitle!ancestor.title /]
+                            [@splitter /]
+                        [/#if]
+                        [#assign index = index + 1]
                     [/#if]
                 [/#list]
 

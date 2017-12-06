@@ -1,5 +1,5 @@
 [#assign index = 0]
 [#list components as component ]
-   [@cms.component content=component contextAttributes={"orderIndex":index} /]
-   [#assign index = index + 1 /]
+    [@cms.component content=component contextAttributes={"orderIndex": index, "cell": ctx.cell!, "parentOrderIndex": ctx.orderIndex!} /]
+    [#assign index = index + 1 /]
 [/#list]

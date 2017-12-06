@@ -1,6 +1,6 @@
 {
   "name": "magnolia-megaton",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "scripts": {
     "watch:prototype": "cross-env NODE_ENV=prototype webpack --hide-modules --watch",
     "watch:author": "cross-env NODE_ENV=development webpack --hide-modules --watch",
@@ -21,7 +21,7 @@
     "eslint": "^4.12.1",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.5",
-    "intersection-observer": "^0.4.3",
+    "intersection-observer": "^0.5.0",
     "lodash-es": "^4.17.4",
     "matchmedia-polyfill": "^0.3.0",
     "objectFitPolyfill": "^2.1.0",
@@ -32,7 +32,7 @@
     "postcss-url": "^7.3.0",
     "style-loader": "^0.19.0",
     "stylelint": "^8.3.1",
-    "stylelint-config-standard": "^17.0.0",
+    "stylelint-config-standard": "^18.0.0",
     "ts-loader": "^3.2.0",
     "tslint": "^5.8.0",
     "typescript": "^2.6.2",

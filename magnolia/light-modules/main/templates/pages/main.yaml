@@ -22,18 +22,15 @@ areas:
     renderType: freemarker
     templateScript: /main/templates/areas/indexed.ftl
     availableComponents:
-      editorial:
-        id: main:components/editorial
-      media:
-        id: main:components/media
-      carousel:
-        id: main:components/carousel
-    autoGeneration:
-      content:
-        editorial:
-          nodeType: mgnl:component
-          templateId: main:components/editorial
-      generatorClass: info.magnolia.rendering.generator.CopyGenerator
+      sectionLayout:
+        id: main:components/sectionLayout
+   # [TODO] select default value (standard and 1 column)
+   # autoGeneration:
+   #   content:
+   #     sectionLayout:
+   #       nodeType: mgnl:component
+   #       templateId: main:components/sectionLayout
+   #   generatorClass: info.magnolia.rendering.generator.CopyGenerator
 
   tagManager:
     renderType: freemarker
@@ -44,7 +41,6 @@ areas:
     availableComponents:
       tagManager:
         id: main:components/tagManager
-
 
 variations:
   txt:

@@ -21,7 +21,11 @@
                     [#include "include/languages.ftl"]
                 </div>
             </section>
-            [@cms.area name="hero" /]
+            <section class="o-section is-full-width has-no-top-space has-no-bottom-space">
+                <div class="o-group is-full-width">
+                    [@cms.area name="hero" /]
+                </div>
+            </section>
         </header>
         [#include "include/breadcrumbs.ftl"]
         <article id="mainContent">

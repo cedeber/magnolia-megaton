@@ -1,0 +1,30 @@
+form:
+  label: Section
+  tabs:
+   - !include:/main/dialogs/include/tabLayout.yaml
+      fields:
+        - name: sectionLayout
+          options:
+            - name: wide
+              label: as wide as the viewport
+        - name: cell
+          class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+          multiselect: false
+          type: String
+          label: Page Layout
+          options:
+            - name: 1of1
+              label: 1 column
+              selected: true
+            - name: 1of2
+              label: 2 columns
+            - name: 1of3
+              label: 3 columns
+            - name: 1of4
+              label: 4 columns
+        - name: hasGutter
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          label: Gutters
+          buttonLabel: Add gutters between columns
+
+actions: !include:/main/dialogs/include/commonActions.yaml
