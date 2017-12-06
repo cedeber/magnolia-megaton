@@ -1,0 +1,3 @@
+class: info.magnolia.virtualuri.mapping.DefaultVirtualUriMapping
+fromUri: /sw.js
+toUri: forward:/.resources/main/webresources/app/sw.js

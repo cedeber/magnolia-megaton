@@ -18,3 +18,17 @@ Vue.component("multi-carousel", Carousel);
 Vue.component("loading-page", LoadingPage);
 
 vm.$mount("#view");
+
+/* Service Workers */
+async function registerServiceWorker() {
+    try {
+        const registration = await navigator.serviceWorker.register("/sw.js", {scope: "/"});
+
+        console.log(`ServiceWorker registration successful with scope: ${registration.scope}`);
+    }
+    catch (error) {
+        console.log(`ServiceWorker registration failed: ${error}`);
+    }
+}
+
+if ("serviceWorker" in navigator) { registerServiceWorker(); }
