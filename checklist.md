@@ -8,9 +8,10 @@
 - [ ] Impressum
 - [ ] Disclaimer
 - [ ] Custom error pages
-- [ ] Pagetitles & Descriptions
+- [ ] Page titles & Descriptions
 - [ ] App + Mobile Favicons
 - [ ] Correct `<head>`: App name, etc...
+- [ ] Fill Web App Manifest
 - [ ] Cookie compliance (only for political Europe right now)
 
 # Magnolia Configurations
@@ -20,7 +21,7 @@
 - [ ] Visitor user (public)
 - [ ] Set `defaultBaseUrl` in Magnolia server config (author/public)
 - [ ] Set correct compression contentType for JS files `application/javascript` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
-See: https://jira.magnolia-cms.com/browse/MAGNOLIA-6682
+      See: https://jira.magnolia-cms.com/browse/MAGNOLIA-6682
 - [ ] Imaging Module (Is /modules/site/config/site/theme set correctly on public?)
 - [ ] Set /server/security/userManagers/system@lockTimePeriod to 5(minutes)
 - [ ] Add woff2 mimetype (/server/MIMEMapping/)
@@ -31,8 +32,6 @@ See: https://jira.magnolia-cms.com/browse/MAGNOLIA-6682
 # Testings
 Chrome and Firefox should technically behave the same way whatever the operating system is.
 But graphically, it is very different because of OS's way of doing graphics.
-
-- [ ] From Firefox 57 (currently Nightly), the DOM and CSS engines will drastically change.
 
 ## macOS (MacBook || iMac)
 Don't forget Retina vs Standard resolution => Graphical rendering
@@ -55,14 +54,9 @@ Don't forget touch screens on Microsoft Surface.
 - [ ] Chrome
 - [ ] Firefox
 
-## Windows Phone
-Has been disconnected from Windows 10 dev branch at Microsoft.
-So, it's now a lonely (dead?) opearting system, but officially still alive...
-- [ ] Edge
-
 ## Special attention
 - [ ] Flexbox on IE
-- [ ] `object-fit` polyfill for IE/Edge (Carousel, etc...)
+- [ ] `object-fit` polyfill for IE < 16 (Carousel, etc...)
 
 # Validators, Audits, Performance
 - [ ] [totally](https://khan.github.io/tota11y/) (integrated while on Author instance)
