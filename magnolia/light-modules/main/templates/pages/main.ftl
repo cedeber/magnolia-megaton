@@ -30,6 +30,7 @@
         [#include "include/breadcrumbs.ftl"]
         <article id="mainContent">
             [@cms.area name="main" /]
+            <img src="inexistant.png">
         </article>
         <footer class="o-section has-no-bottom-space">
             <div class="o-group is-large">
