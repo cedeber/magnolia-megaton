@@ -1,6 +1,5 @@
 const currentCache = "cache-v1";
-
-const fallbackImageUrl = "/.resources/main/webresources/errors/error-connection-failure.svg";
+const fallbackImageUrl = "/sw-assets/error-connection-failure.svg";
 
 async function fetchImageOrFallback(fetchEvent) {
     try {
@@ -10,7 +9,7 @@ async function fetchImageOrFallback(fetchEvent) {
 
         return response;
     }
-    catch {
+    catch (_error) {
         return caches.match(fallbackImageUrl, {cacheName: currentCache});
     }
 }

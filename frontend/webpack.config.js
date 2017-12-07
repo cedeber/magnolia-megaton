@@ -9,7 +9,16 @@ const env = process.env.NODE_ENV;
 const buildPath = env === 'prototype' ? path.resolve(__dirname, '../prototype/app/') : path.resolve(__dirname, '../magnolia/light-modules/main/webresources/app/');
 const publicPath = env === 'prototype' ? '/app/' : `${env === 'production' ? '' : '/author'}/.resources/main/webresources/app/`;
 
-const config = {
+module.exports = {
+    entry: {
+        main: './src/main.ts',
+        polyfills: ['es6-shim', 'whatwg-fetch', 'matchmedia-polyfill', 'intersection-observer', 'objectFitPolyfill', './polyfills']
+    },
+    output: {
+        filename: env === 'production' ? '[name].bundle.js' : '[name].debug.js',
+        path: buildPath,
+        publicPath: publicPath,
+    },
     plugins: [
         new CleanWebpackPlugin(
             [buildPath],
@@ -92,7 +101,7 @@ const config = {
             {
                 test: /\.(png|svg|jpg|gif|woff|woff2)$/,
                 loader: 'file-loader',
-            },
+            }
         ]
     },
     resolve: {
@@ -104,33 +113,10 @@ const config = {
     devtool: '#source-map'
 };
 
-const configApp = Object.assign({}, config, {
-    entry: {
-        main: './src/main.ts',
-        polyfills: ['es6-shim', 'whatwg-fetch', 'matchmedia-polyfill', 'intersection-observer', 'objectFitPolyfill', './polyfills']
-    },
-    output: {
-        filename: env === 'production' ? '[name].bundle.js' : '[name].debug.js',
-        path: buildPath,
-        publicPath: publicPath,
-    },
-});
-
-const configServiceWorkers = Object.assign({}, config, {
-    entry: {
-        sw: './src/service-workers/main.ts',
-    },
-    output: {
-        filename: '[name].js',
-        path: buildPath,
-        publicPath: publicPath,
-    },
-});
-
 if (env === 'production') {
     // module.exports.devtool = '#source-map';
     // http://vue-loader.vuejs.org/en/workflow/production.html
-    configApp.plugins = (module.exports.plugins || []).concat([
+    module.exports.plugins = (module.exports.plugins || []).concat([
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: '"production"'
@@ -145,5 +131,3 @@ if (env === 'production') {
         }),
     ])
 }
-
-module.exports = [configApp, configServiceWorkers];

@@ -21,5 +21,5 @@ vm.$mount("#view");
 
 /* Service Workers */
 if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/sw.js", {scope: "/"})
+    navigator.serviceWorker.register("/sw-default.js", {scope: "/"})
 }

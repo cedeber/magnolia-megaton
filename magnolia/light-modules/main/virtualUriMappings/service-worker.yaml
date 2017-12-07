@@ -1,3 +1,3 @@
-class: info.magnolia.virtualuri.mapping.DefaultVirtualUriMapping
-fromUri: /sw.js
-toUri: forward:/.resources/main/webresources/app/sw.js
+class: info.magnolia.virtualuri.mapping.RegexpVirtualUriMapping
+fromUri: /sw-(.*)
+toUri: forward:/.resources/main/webresources/service-workers/$1
