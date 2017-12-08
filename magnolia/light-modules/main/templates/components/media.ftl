@@ -4,7 +4,7 @@
 [#assign isCover = content.isCover?? && content.isCover == true]
 [#assign isInstantly = content.isInstantly?? && content.isInstantly == true]
 [#assign hasRatio = content.width?has_content && content.height?has_content]
-[#assign hasCell = ctx.cell?? && ctx.cell != "1of1"]
+[#assign hasCell = ctx.cell?has_content && ctx.cell != "1of1"]
 [#assign cellOverride = content.layoutOverride?? && content.layoutOverride == true]
 
 <!-- Media -->
