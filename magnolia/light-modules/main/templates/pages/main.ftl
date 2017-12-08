@@ -1,4 +1,4 @@
-[#assign root = navfn.rootPage(content)]
+[#assign root = navfn.rootPage(content)!]
 
 <!DOCTYPE html>
 <html lang="${cmsfn.language()!'en'}">
