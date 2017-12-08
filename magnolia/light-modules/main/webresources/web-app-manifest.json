@@ -1,14 +1,14 @@
 {
     "name": "Magnolia Megaton PWA",
     "short_name": "Megaton",
-    "start_url": "/home.html",
+    "start_url": "/",
     "icons": [
         {
-            "src": "./icons/touch-icon.png",
+            "src": "/icns-touch-icon.png",
             "sizes": "192x192",
             "type": "image/png"
         }, {
-            "src": "./icons/startup-screen.png",
+            "src": "/icns-startup-screen.png",
             "sizes": "512x512",
             "type": "image/png"
         }

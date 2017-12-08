@@ -3,9 +3,13 @@
 
     <!-- Application -->
     [#assign app = def.parameters.app!"main"]
-    ${resfn.js(["/main/webresources/app/polyfills.*.js"])!}
-    ${resfn.js(["/main/webresources/app/" + app + ".*.js"])!}
-
+    [#if devMode]
+    <script src="/app/polyfills.debug.js"></script>
+    <script src="/app/${app!}.debug.js"></script>
+    [#else]
+    <script src="/app/polyfills.bundle.js"></script>
+    <script src="/app/${app!}.bundle.js"></script>
+    [/#if]
     <!-- Outdated Browsers -->
     [#if !devMode]
     <div id="outdated"></div>
