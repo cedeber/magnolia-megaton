@@ -18,10 +18,10 @@
     --magenta: #d27b53;
 
     /* Text - Default */
-    --default-font-family: system-ui, sans-serif;
+    --default-font-family: "PTSans", system-ui, sans-serif;
     --default-text-color: var(--base00);
     --default-font-size: calc(14px + (16 - 14) * (100vw - 320px) / (1440 - 320)); /* 1.6rem @ 1440px -> 1.4rem @ 320px */
-    --default-font-weight: 400;
+    --default-font-weight: 500;
     --default-line-height: 1.5;
 
     /* Text - Headings */

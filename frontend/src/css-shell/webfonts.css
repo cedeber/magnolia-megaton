@@ -1,0 +1,27 @@
+@font-face {
+    font-family: "PTSans";
+    src: url(../assets/fonts/PTS55F_W.woff) format("woff");
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "PTSans";
+    src: url(../assets/fonts/PTS56F_W.woff) format("woff");
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "PTSans";
+    src: url(../assets/fonts/PTS75F_W.woff) format("woff");
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "PTSans";
+    src: url(../assets/fonts/PTS76F_W.woff) format("woff");
+    font-weight: 700;
+    font-style: italic;
+}
