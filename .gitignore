@@ -1,7 +1,7 @@
 ### Project ###
 prototype/**/app/
 
-magnolia/light-modules/**/webresources/app/
+magnolia/light-modules/**/webresources/build/
 !magnolia/light-modules/**/external/
 
 magnolia/*-webapp/**/repositories/
