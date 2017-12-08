@@ -1,3 +1,5 @@
+[#assign root = navfn.rootPage(content)]
+
 <!DOCTYPE html>
 <html lang="${cmsfn.language()!'en'}">
 <head>
@@ -14,7 +16,7 @@
         <header>
             <section class="o-section">
                 <div class="o-group is-large o-flex-space">
-                    <a id="logo" href="/${navfn.rootPage(content)!}" accesskey="0">
+                    <a id="logo" href="${navfn.link(root)!}" accesskey="0">
                         logo
                     </a>
                     [#include "include/main-navigation.ftl"]
