@@ -36,8 +36,6 @@ function preCache(cacheName, urlMap) {
  * @param {IterableIterator|Array} fallbacks
  * @param {string} cacheName
  * @returns {Promise<Response>|undefined}
- *
- * @todo do it with iterator
  */
 async function fetchOrFallback(fetchEvent, fallbacks, cacheName) {
     try {
