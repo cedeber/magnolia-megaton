@@ -3,13 +3,8 @@
 
     <!-- Application -->
     [#assign app = def.parameters.app!"main"]
-    [#if devMode]
-    <script src="/app/polyfills.debug.js"></script>
-    <script src="/app/${app!}.debug.js"></script>
-    [#else]
-    <script src="/app/polyfills.bundle.js"></script>
-    <script src="/app/${app!}.bundle.js"></script>
-    [/#if]
+    <script src="/app/polyfills.js"></script>
+    <script src="/app/${app!}.js"></script>
     <!-- Outdated Browsers -->
     [#if !devMode]
     <div id="outdated"></div>

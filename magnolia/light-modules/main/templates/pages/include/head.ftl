@@ -1,6 +1,5 @@
 [#assign root = navfn.rootPage(content)!content!]
 [#assign baseUrl = state.originalBrowserURL?replace(state.currentURI, '')!]
-[#assign devMode = cmsfn.authorInstance!false]
 
 [#assign webAppShortName = "Megaton"]
 [#assign webAppThemeColor = "#000000"]
@@ -62,13 +61,9 @@
 [/#if]
 
 <!-- Web Application -->
-<link rel="manifest" href="/manifest.json">
 [#assign app = def.parameters.app!"main"]
-[#if devMode]
-    <link rel="stylesheet" href="/app/${app!}.debug.css">
-[#else]
-    <link rel="stylesheet" href="/app/${app!}.bundle.css">
-[/#if]
+<link rel="manifest" href="/manifest.json">
+<link rel="stylesheet" href="/app/${app!}.css">
 
 [#if cmsfn.isEditMode()]
 <style>
