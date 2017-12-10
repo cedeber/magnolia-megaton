@@ -33,11 +33,11 @@ function preCache(cacheName, urlMap) {
 /**
  *
  * @param {FetchEvent} fetchEvent
- * @param {IterableIterator|Array} fallbacks
- * @param {string} cacheName
+ * @param {string} fallback
+ * @param {string|undefined} cacheName
  * @returns {Promise<Response>|undefined}
  */
-async function fetchOrFallback(fetchEvent, fallbacks, cacheName) {
+async function fetchOrFallback(fetchEvent, fallback, cacheName) {
     try {
         const response = await fetch(fetchEvent.request);
 
@@ -46,12 +46,28 @@ async function fetchOrFallback(fetchEvent, fallbacks, cacheName) {
         return response;
     }
     catch (_error) {
-        for (const fallback of fallbacks) {
-            console.log(fallback);
-            const match = cacheName ? await caches.match(fallback, { cacheName }) : await caches.match(fallback);
+        return cacheName ? caches.match(fallback, { cacheName }) : caches.match(fallback);
+    }
+}
 
-            if (match) { return match; }
-        }
+/**
+ *
+ * @param {FetchEvent} fetchEvent
+ * @param {string} cacheName
+ * @returns {Promise<Response>|undefined}
+ */
+async function fetchAndCache(fetchEvent, cacheName) {
+    try {
+        const response = await fetch(fetchEvent.request);
+        const cache = await caches.open(cacheName);
+
+        if (!response.ok) { throw new Error(); }
+        await cache.put(fetchEvent.request, response.clone());
+
+        return response;
+    }
+    catch (_error) {
+        return caches.match(fetchEvent.request, { cacheName });
     }
 }
 
@@ -79,8 +95,8 @@ fallbackImagesMap.set("error", "/sw-assets/error-connection-failure.svg");
 const appCacheName = "app-cache-v1";
 const pageCacheMap = new Map();
 
-pageCacheMap.set("contact", "/contact.html");
-pageCacheMap.set("home", "/home.html");
+pageCacheMap.set("offline", "/offline");
+pageCacheMap.set("manifest", "/manifest.json");
 
 
 /*
@@ -111,13 +127,16 @@ self.addEventListener("fetch", event => {
     const acceptHeader = event.request.headers.get("accept");
     const url = new URL(event.request.url);
 
-    // images
-    if (acceptHeader.indexOf("image/*") >= 0) {
-        event.respondWith(fetchOrFallback(event, [fallbackImagesMap.get("error")], fallbackCacheName));
+    // web pages fallback
+    if (acceptHeader.indexOf("text/html") >= 0) {
+        event.respondWith(fetchOrFallback(event, pageCacheMap.get("offline"), appCacheName));
     }
-    // web pages
-    else if (acceptHeader.indexOf("text/html") >= 0) {
-        event.respondWith(fetchOrFallback(event, pageCacheMap.values(), appCacheName));
+    // app assets
+    else if (url.pathname.match(/^\/app\/[\w0-9\-_]+.(css|js|woff|woff2|svg|png|jpg)$/)) {
+        event.respondWith(fetchAndCache(event, appCacheName));
+    }
+    // images fallback
+    else if (acceptHeader.indexOf("image/*") >= 0) {
+        event.respondWith(fetchOrFallback(event, fallbackImagesMap.get("error"), fallbackCacheName));
     }
 });
-
