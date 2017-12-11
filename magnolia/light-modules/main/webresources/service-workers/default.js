@@ -32,31 +32,33 @@ function preCache(cacheName, urlMap) {
 
 /**
  *
+ * @param {string} cacheName
  * @param {FetchEvent} fetchEvent
  * @param {string} fallback
- * @param {string|undefined} cacheName
  * @returns {Promise<Response>|undefined}
  */
-async function fetchOrFallback(fetchEvent, fallback, cacheName) {
+async function fetchOrFallback(cacheName, fetchEvent, fallback) {
+    console.log("fetchOrFallback", fetchEvent.request.url);
     try {
         const response = await fetch(fetchEvent.request);
 
-        if (!response.ok) { throw new Error(); }
+        // Magnolia admin returns an error 401 if not logged in
+        if (!response.ok && fetchEvent.request.url.indexOf("magnolia") === -1) { throw new Error(); }
 
         return response;
     }
     catch (_error) {
-        return cacheName ? caches.match(fallback, { cacheName }) : caches.match(fallback);
+        return caches.match(fallback, { cacheName });
     }
 }
 
 /**
  *
- * @param {FetchEvent} fetchEvent
  * @param {string} cacheName
+ * @param {FetchEvent} fetchEvent
  * @returns {Promise<Response>|undefined}
  */
-async function fetchAndCache(fetchEvent, cacheName) {
+async function fetchAndCache(cacheName, fetchEvent) {
     try {
         const response = await fetch(fetchEvent.request);
         const cache = await caches.open(cacheName);
@@ -69,6 +71,18 @@ async function fetchAndCache(fetchEvent, cacheName) {
     catch (_error) {
         return caches.match(fetchEvent.request, { cacheName });
     }
+}
+
+/**
+ *
+ * @param {string} cacheName
+ * @param {FetchEvent} fetchEvent
+ * @returns {Promise<Response>|undefined}
+ */
+function cacheOrFetch(cacheName, fetchEvent) {
+    return caches.match(fetchEvent.request, { cacheName }).then(
+        response => response || fetchAndCache(fetchEvent, cacheName)
+    );
 }
 
 
@@ -129,14 +143,14 @@ self.addEventListener("fetch", event => {
 
     // web pages fallback
     if (acceptHeader.indexOf("text/html") >= 0) {
-        event.respondWith(fetchOrFallback(event, pageCacheMap.get("offline"), appCacheName));
+        event.respondWith(fetchOrFallback(appCacheName, event, pageCacheMap.get("offline")));
     }
     // app assets
     else if (url.pathname.match(/^\/app\/[\w0-9\-_]+.(css|js|woff|woff2|svg|png|jpg)$/)) {
-        event.respondWith(fetchAndCache(event, appCacheName));
+        event.respondWith(cacheOrFetch(appCacheName, event));
     }
     // images fallback
     else if (acceptHeader.indexOf("image/*") >= 0) {
-        event.respondWith(fetchOrFallback(event, fallbackImagesMap.get("error"), fallbackCacheName));
+        event.respondWith(fetchOrFallback(fallbackCacheName, event, fallbackImagesMap.get("error")));
     }
 });
