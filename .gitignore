@@ -46,7 +46,8 @@ typings/
 .env
 
 ### IntelliJ ###
-.idea/
+.idea/*
+!/.idea/deployment.xml
 *.iws
 *.iml
 *.ipr
