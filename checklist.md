@@ -19,7 +19,7 @@
 - [ ] Admin user (author/public) check workspaces!
 - [ ] Visitor user (public)
 - [ ] Set `defaultBaseUrl` in Magnolia server config (author/public)
-- [ ] Set correct compression contentType for JS files `application/javascript` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
+- [ ] Set correct compression contentType for JS files `application/javascript` and SVG `image/svg+xml` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
 See: https://jira.magnolia-cms.com/browse/MAGNOLIA-6682
 - [ ] Imaging Module (Is /modules/site/config/site/theme set correctly on public?)
 - [ ] Set /server/security/userManagers/system@lockTimePeriod to 5(minutes)
