@@ -3,24 +3,26 @@
 
 <!-- Editorial -->
 <div class="o-editorial cell-[#if cellOverride]1of1[#else]${ctx.cell!'no'}[/#if]">
+    [#if content.preHeader?has_content || content.title?has_content || ctx.orderIndex == 0]
     <header>
         [#if content.preHeader?has_content]
             <p class="pre-header">${content.preHeader!}</p>
         [/#if]
         [#if ctx.orderIndex > 0]
             [#if content.title?has_content]
-                <h2 class="title h2">${content.title!}</h2>
+                <h1 class="title">${cmsfn.decode(content).title!}</h1>
             [/#if]
         [#else]
-            <h1 class="title h1">
+            <h1 class="title">
                 [#if ctx.parentOrderIndex! > 0]
-                    ${content.title!}
+                    ${cmsfn.decode(content).title!}
                 [#else]
-                    ${content.title!parent.title!}
+                    ${cmsfn.decode(content).title!parent.title!}
                 [/#if]
             </h1>
         [/#if]
     </header>
+    [/#if]
 
     [#if content.intro?has_content]
     <p class="intro">${cmsfn.decode(content).intro!}</p>

@@ -28,7 +28,5 @@ CKEDITOR.editorConfig = function(config) {
     config.toolbar = "Magnolia";
     config.toolbar_Magnolia = [
         { name: "basicstyles", items: [ "Bold", "Italic", "SpecialChar" ] },
-        { name: "paragraph",   items: [ "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock" ] },
-        { name: "links",       items: [ "Link", "InternalLink", "DamLink", "Unlink" ] },
     ];
 };
