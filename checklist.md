@@ -27,9 +27,9 @@ See: https://jira.magnolia-cms.com/browse/MAGNOLIA-6682
 - [ ] Does Magnolia Search find pages/assets/news/events etc.
 - [ ] Check Form submissions
 - [ ] Check for yaml errors in Definitions App
-- [ ] Cache optimization
-        - remove dontCachePage policy (/modules/cache/config/contentCaching/defaultPageCache/browserCachePolicy/policies)
-        - Set expiration to one week (10080) (/modules/cache/config/contentCaching/defaultPageCache/browserCachePolicy/policies/resources@expirationMinutes)
+Cache Optimization:
+- [ ] remove dontCachePage policy (/modules/cache/config/contentCaching/defaultPageCache/browserCachePolicy/policies)
+- [ ] Set expiration to one week (10080) (/modules/cache/config/contentCaching/defaultPageCache/browserCachePolicy/policies/resources@expirationMinutes)
 
 # Testings
 Chrome and Firefox should technically behave the same way whatever the operating system is.
