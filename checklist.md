@@ -27,10 +27,10 @@
 - [ ] Add woff2 mimetype (/server/MIMEMapping/)
 
 Cache Optimization:
-- [ ] Set correct compression contentType for JS files `application/javascript` and SVG `image/svg+xml` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
+- [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
 See: https://jira.magnolia-cms.com/browse/MAGNOLIA-6682
 - [ ] remove dontCachePage policy (/modules/cache/config/contentCaching/defaultPageCache/browserCachePolicy/policies)
-- [ ] Set expiration to one week (10080) (/modules/cache/config/contentCaching/defaultPageCache/browserCachePolicy/policies/resources@expirationMinutes)
+- [ ] ON PUBLIC: Set expiration to one week (10080) (/modules/cache/config/contentCaching/defaultPageCache/browserCachePolicy/policies/resources@expirationMinutes)
 
 # Testings
 Chrome and Firefox should technically behave the same way whatever the operating system is.
