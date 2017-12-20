@@ -100,7 +100,10 @@ module.exports = {
             },
             {
                 test: /\.(png|svg|jpg|gif|woff|woff2)$/,
-                loader: 'file-loader',
+                use: [{
+                    loader: 'file-loader',
+                    options: { name: "[name].[hash].cache.[ext]" },
+                }],
             }
         ]
     },
