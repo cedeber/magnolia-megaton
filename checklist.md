@@ -30,8 +30,6 @@ Cache Optimization:
 - [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
 - [ ] MAGNOLIA 5.6.1+ Also for JS files `application/javascript`
 See: https://jira.magnolia-cms.com/browse/MAGNOLIA-6682
-- [ ] remove dontCachePage policy (/modules/cache/config/contentCaching/defaultPageCache/browserCachePolicy/policies)
-- [ ] ONLY ON PUBLIC: Set expiration to one week (10080) (/modules/cache/config/contentCaching/defaultPageCache/browserCachePolicy/policies/resources@expirationMinutes)
 
 # Testings
 Chrome and Firefox should technically behave the same way whatever the operating system is.
