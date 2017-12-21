@@ -1,6 +1,6 @@
 function loadJS(src: string): Promise<any> {
     return new Promise((resolve, reject) => {
-        const script = window.document.createElement( "script" );
+        const script = window.document.createElement("script");
 
         script.src = src;
         script.async = true;
