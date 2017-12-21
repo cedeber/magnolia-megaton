@@ -18,7 +18,8 @@
         <div>
             <picture hidden><source srcset="${damfn.getAssetLink(content.video)!}"></picture>
             <template v-if="source">
-                <video autoplay loop muted playsinline poster="${damfn.getAssetLink(content.image)!}" v-bind:class="{ 'js-loaded': source }" class="container [#if hasRatio]has-fixed-ratio[/#if] media is-${content.position!"center"} [#if isCover == true]is-cover[/#if]">
+                <video autoplay loop muted playsinline poster="${damfn.getRendition(content.image, "hero-1024").getLink()!}" v-bind:class="{ 'js-loaded': source }"
+                       class="container [#if hasRatio]has-fixed-ratio[/#if] media is-${content.position!"center"} [#if isCover == true]is-cover[/#if]">
                     <source v-bind:src="source" type="${videoMap.metadata.dc.format}">
                 </video>
             </template>

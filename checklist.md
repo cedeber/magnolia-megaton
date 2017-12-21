@@ -19,14 +19,17 @@
 - [ ] Admin user (author/public) check workspaces!
 - [ ] Visitor user (public)
 - [ ] Set `defaultBaseUrl` in Magnolia server config (author/public)
-- [ ] Set correct compression contentType for JS files `application/javascript` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
-See: https://jira.magnolia-cms.com/browse/MAGNOLIA-6682
 - [ ] Imaging Module (Is /modules/site/config/site/theme set correctly on public?)
 - [ ] Set /server/security/userManagers/system@lockTimePeriod to 5(minutes)
-- [ ] Add woff2 mimetype (/server/MIMEMapping/)
 - [ ] Does Magnolia Search find pages/assets/news/events etc.
 - [ ] Check Form submissions
 - [ ] Check for yaml errors in Definitions App
+- [ ] Add woff2 mimetype (/server/MIMEMapping/)
+
+Cache Optimization:
+- [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
+- [ ] MAGNOLIA 5.6.1+ Also for JS files `application/javascript`
+See: https://jira.magnolia-cms.com/browse/MAGNOLIA-6682
 
 # Testings
 Chrome and Firefox should technically behave the same way whatever the operating system is.
