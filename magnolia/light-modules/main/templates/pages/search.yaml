@@ -12,6 +12,13 @@ parameters:
   app: main
 
 areas:
+  searchBar:
+    renderType: freemarker
+    templateScript: /main/templates/areas/searchBar.ftl
+    editable: false
+    inheritance:
+      enabled: true
+
   hero:
     renderType: freemarker
     type: single

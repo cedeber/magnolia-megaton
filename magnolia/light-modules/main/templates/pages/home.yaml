@@ -18,6 +18,12 @@ areas:
     availableComponents:
       carousel:
         id: main:components/carousel
+        
+  searchBar:
+    renderType: freemarker
+    templateScript: /main/templates/areas/searchBar.ftl
+    dialog: main:areas/searchBar
+      
   main:
     renderType: freemarker
     templateScript: /main/templates/areas/indexed.ftl

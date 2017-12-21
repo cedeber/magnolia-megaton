@@ -12,12 +12,23 @@ parameters:
   app: main
 
 areas:
+  
+  searchBar:
+    renderType: freemarker
+    templateScript: /main/templates/areas/searchBar.ftl
+    editable: false
+    inheritance:
+      enabled: true
+      
+      
   hero:
     renderType: freemarker
     type: single
     availableComponents:
       carousel:
         id: main:components/carousel
+        
+        
   main:
     renderType: freemarker
     templateScript: /main/templates/areas/indexed.ftl
@@ -31,6 +42,7 @@ areas:
    #       nodeType: mgnl:component
    #       templateId: main:components/sectionLayout
    #   generatorClass: info.magnolia.rendering.generator.CopyGenerator
+
 
   tagManager:
     renderType: freemarker

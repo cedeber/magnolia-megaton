@@ -21,6 +21,7 @@
                     </a>
                     [#include "include/main-navigation.ftl"]
                     [#include "include/languages.ftl"]
+                    [@cms.area name="searchBar" /]
                 </div>
             </section>
             <section class="o-section is-full-width has-no-top-space has-no-bottom-space">
