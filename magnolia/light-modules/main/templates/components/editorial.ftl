@@ -14,10 +14,14 @@
             [/#if]
         [#else]
             <h1 class="title">
-                [#if ctx.parentOrderIndex! > 0]
+                [#if ctx.parentOrderIndex > 0]
                     ${cmsfn.decode(content).title!}
                 [#else]
-                    ${cmsfn.decode(content).title!parent.title!}
+                    [#if content.title?has_content]
+                        ${cmsfn.decode(content).title!}
+                    [#else]
+                        ${parent.title!}
+                    [/#if]
                 [/#if]
             </h1>
         [/#if]
