@@ -1,0 +1,21 @@
+wide: true
+form:
+  label: Search results
+  tabs:
+    - name: tabMain
+      label: Main
+      fields:
+        - name: searchFor
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: Search for
+          i18n: true
+        - name: noResults
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: No results
+          i18n: true
+        
+actions: 
+  commit: 
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+  cancel: 
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition

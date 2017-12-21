@@ -1,0 +1,33 @@
+title: Search
+templateScript: /main/templates/pages/main.ftl
+renderType: freemarker
+dialog: main:pages/main
+visible: true
+
+modelClass: info.magnolia.module.jsmodels.rendering.JavascriptRenderingModel
+class: info.magnolia.module.jsmodels.rendering.JavascriptTemplateDefinition
+modelPath: /main/templates/pages/main.js
+
+parameters:
+  app: main
+
+areas:
+  hero:
+    renderType: freemarker
+    type: single
+    availableComponents:
+      carousel:
+        id: main:components/carousel
+  main:
+    title: Search results
+    renderType: freemarker
+    templateScript: /main/templates/areas/searchResults.ftl
+    dialog: main:areas/searchResults
+
+  tagManager:
+    renderType: freemarker
+    templateScript: /main/templates/areas/tagManager.ftl
+    editable: false
+    inheritance:
+      components: all
+      enabled: true
