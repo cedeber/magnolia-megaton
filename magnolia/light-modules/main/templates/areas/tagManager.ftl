@@ -1,5 +1,4 @@
-[#assign devMode = cmsfn.authorInstance || cmsfn.isEditMode()]
-[#if !devMode && content.code?has_content]
+[#if !cmsfn.isEditMode() && content.code?has_content]
 <div id="cookies-eu-banner" style="display: none;">
     ${content.explanations!'By continuing your visit to this site, you accept the use of cookies to make visits statistics.'}
     [#if content.readmorehref?has_content]

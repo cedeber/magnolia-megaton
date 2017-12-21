@@ -1,4 +1,4 @@
-title: Article
+title: Home
 templateScript: /main/templates/pages/main.ftl
 renderType: freemarker
 dialog: main:pages/main
@@ -12,15 +12,6 @@ parameters:
   app: main
 
 areas:
-  
-  searchBar:
-    renderType: freemarker
-    templateScript: /main/templates/areas/searchBar.ftl
-    editable: false
-    inheritance:
-      enabled: true
-      
-      
   hero:
     renderType: freemarker
     type: single
@@ -28,7 +19,11 @@ areas:
       carousel:
         id: main:components/carousel
         
-        
+  searchBar:
+    renderType: freemarker
+    templateScript: /main/templates/areas/searchBar.ftl
+    dialog: main:areas/searchBar
+      
   main:
     renderType: freemarker
     templateScript: /main/templates/areas/indexed.ftl
@@ -43,13 +38,11 @@ areas:
    #       templateId: main:components/sectionLayout
    #   generatorClass: info.magnolia.rendering.generator.CopyGenerator
 
-
   tagManager:
     renderType: freemarker
     templateScript: /main/templates/areas/tagManager.ftl
-    editable: false
-    inheritance:
-      enabled: true
+    dialog: main:areas/tagManager
+    editable: true
 
 variations:
   txt:

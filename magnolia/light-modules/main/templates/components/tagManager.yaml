@@ -1,8 +1,0 @@
-title: Tag Manager (Cookies banner)
-renderType: freemarker
-templateScript: /main/templates/components/tagManager.ftl
-dialog: main:components/tagManager
-
-modelClass: info.magnolia.module.jsmodels.rendering.JavascriptRenderingModel
-class: info.magnolia.module.jsmodels.rendering.JavascriptTemplateDefinition
-modelPath: /main/templates/pages/main.js
