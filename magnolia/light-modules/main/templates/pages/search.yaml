@@ -25,6 +25,7 @@ areas:
     availableComponents:
       carousel:
         id: main:components/carousel
+
   main:
     title: Search results
     renderType: freemarker
