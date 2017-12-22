@@ -60,7 +60,12 @@
                     y: moveEvent.clientY - this.swipe.y,
                 };
 
-                this.blockClickEventDistance = Math.max(Math.abs(detail.x), Math.abs(detail.y), this.blockClickEventDistance);
+                this.blockClickEventDistance = Math.max(
+                    Math.abs(detail.x),
+                    Math.abs(detail.y),
+                    this.blockClickEventDistance
+                );
+
                 this.$emit("swipemove", detail);
             }
         }
@@ -77,13 +82,21 @@
                 };
 
                 if (Math.abs(endEvent.clientY - this.swipe.y) < 30 && now - this.swipe.time < 1000) {
-                    if (detail.x > 30) { this.$emit("swiperight"); }
-                    else if (detail.x < -30) { this.$emit("swipeleft"); }
+                    if (detail.x > 30) {
+                        this.$emit("swiperight");
+                    }
+                    else if (detail.x < -30) {
+                        this.$emit("swipeleft");
+                    }
                 }
 
                 if (Math.abs(endEvent.clientX - this.swipe.x) < 30 && now - this.swipe.time < 1000) {
-                    if (detail.y > 30) { this.$emit("swipedown"); }
-                    else if (detail.y < -30) { this.$emit("swipeup"); }
+                    if (detail.y > 30) {
+                        this.$emit("swipedown");
+                    }
+                    else if (detail.y < -30) {
+                        this.$emit("swipeup");
+                    }
                 }
 
                 this.$emit("swipeend", detail);
@@ -92,8 +105,12 @@
         }
 
         public onWheel(event: WheelEvent) {
-            if ( event.deltaY > 0 ) { this.$emit("swipeup"); }
-            else if ( event.deltaY < 0 ) { this.$emit("swipedown"); }
+            if (event.deltaY > 0) {
+                this.$emit("swipeup");
+            }
+            else if (event.deltaY < 0) {
+                this.$emit("swipedown");
+            }
         }
     }
 

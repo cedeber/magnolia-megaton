@@ -6,8 +6,8 @@ import taggr from "../devtools/taggr";
 
 @Component
 class LazyMedia extends Vue {
-    @Prop({type: Boolean, default: false}) public instantly: boolean;
-    @Prop({type: Boolean, default: false}) public isCover: boolean;
+    @Prop({ type: Boolean, default: false }) public instantly: boolean;
+    @Prop({ type: Boolean, default: false }) public isCover: boolean;
 
     public source = "";
     public width: string | number = "100%";

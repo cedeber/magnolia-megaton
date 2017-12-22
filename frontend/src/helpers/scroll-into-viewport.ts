@@ -57,9 +57,9 @@ HTMLElement.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0,
     const offset = scrollable === window ? window.pageYOffset : (scrollable as HTMLElement).scrollTop; // or pageYOffset=scrollY
     const goTo = getTopPosition(this, scrollable) - marginTop - (scrollable === window ? 0 : getTopPosition(scrollable as HTMLElement, scrollable));
     const pageHeight = scrollable === window ? Math.max(
-            document.body.scrollHeight,
-            document.documentElement.scrollHeight) :
-            (scrollable as HTMLElement).scrollHeight;
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight) :
+        (scrollable as HTMLElement).scrollHeight;
     const windowHeight = scrollable === window ? window.innerHeight : (scrollable as HTMLElement).clientHeight;
     const next = pageHeight - goTo;
 
