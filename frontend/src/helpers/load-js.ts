@@ -13,12 +13,12 @@ function loadJS(src: string): Promise<any> {
         script.onload = function(event) {
             log.success(`${src} loaded`);
             resolve(event);
-        }
+        };
 
         script.onerror = function(event) {
             log.error(`${src} fails to load`);
             reject(event);
-        }
+        };
     });
 }
 
