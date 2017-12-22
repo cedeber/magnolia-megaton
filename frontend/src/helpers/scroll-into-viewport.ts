@@ -1,13 +1,11 @@
-// tslint:disable:ban-types
-
 declare global {
-    interface Element {
+    interface HTMLElement {
         scrollIntoViewport({}?: { speed?: number, marginTop?: number, callback?: string | Function, scrollable?: Element | Window }): Function | number;
     }
-}
 
-interface Window {
-    [callback: string]: any;
+    interface Window {
+        [callback: string]: any;
+    }
 }
 
 import taggr from "../devtools/taggr";
@@ -51,18 +49,18 @@ function easeOutCubic(time: number, begin: number, change: number, duration: num
  * @param scrollable Element to scroll
  * @returns the callback if any
  */
-Element.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0, callback = null, scrollable = window }:
+HTMLElement.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0, callback = null, scrollable = window }:
     { speed?: number, marginTop?: number, callback?: string | Function, scrollable?: HTMLElement | Window } = {}): Function | number {
     log = log.keep(this);
 
     const start = Date.now();
-    const offset = scrollable === window ? window.pageYOffset : scrollable.scrollTop; // or pageYOffset=scrollY
+    const offset = scrollable === window ? window.pageYOffset : (scrollable as HTMLElement).scrollTop; // or pageYOffset=scrollY
     const goTo = getTopPosition(this, scrollable) - marginTop - (scrollable === window ? 0 : getTopPosition(scrollable as HTMLElement, scrollable));
     const pageHeight = scrollable === window ? Math.max(
             document.body.scrollHeight,
             document.documentElement.scrollHeight) :
-            scrollable.scrollHeight;
-    const windowHeight = scrollable === window ? window.innerHeight : scrollable.clientHeight;
+            (scrollable as HTMLElement).scrollHeight;
+    const windowHeight = scrollable === window ? window.innerHeight : (scrollable as HTMLElement).clientHeight;
     const next = pageHeight - goTo;
 
     let toGo = offset;
@@ -72,7 +70,7 @@ Element.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0, cal
     let timeStart = 0;
 
     // Prevent win declaration to an element without Y scroll overflow
-    if (scrollable !== window && scrollable.clientHeight === scrollable.scrollHeight) {
+    if (scrollable !== window && (scrollable as HTMLElement).clientHeight === (scrollable as HTMLElement).scrollHeight) {
         scrollable = window;
     }
 
@@ -88,7 +86,7 @@ Element.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0, cal
      * @returns the callback if any
      */
     function step(): Function | number {
-        const whereAmI = scrollable === window ? window.pageYOffset : scrollable.scrollTop;
+        const whereAmI = scrollable === window ? window.pageYOffset : (scrollable as HTMLElement).scrollTop;
 
         if (toGo < whereAmI - 1 || toGo > whereAmI + 1) {
             log.error("Scroll animation cancelled");
@@ -109,7 +107,7 @@ Element.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0, cal
 
         if (Math.abs(Math.abs(delta) - Math.abs(change)) < Math.abs(delta) - 1) {
             if (scrollable === window) { window.scrollTo(0, toGo); } // or scroll()
-            else { scrollable.scrollTop = toGo; }
+            else { (scrollable as HTMLElement).scrollTop = toGo; }
             scrollIntoViewportAnimationId = window.requestAnimationFrame(step);
         }
         else {
