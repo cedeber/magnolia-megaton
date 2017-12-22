@@ -7,7 +7,7 @@ class EmbedAsync extends Vue {
     public content: string = ""; // File content
 
     public mounted() {
-        fetch(this.href, { credentials: 'include' })
+        fetch(this.href, { credentials: "include" })
             .then(response => (response.ok ? response.text() : Promise.reject(response.statusText)))
             .then(text => (this.content = text))
             .catch(_unusedError => { /* empty */ });
