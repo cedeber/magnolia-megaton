@@ -2,6 +2,7 @@ import "./lazy-media.css";
 
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { isOutdatedBrowser } from "../helpers/outdated-browser";
+import taggr from "../devtools/taggr";
 
 @Component
 class LazyMedia extends Vue {
@@ -13,13 +14,21 @@ class LazyMedia extends Vue {
     public height: string | number = "100%";
     public isLoaded = false;
 
+    private log = taggr("lazy-media");
+
     public mounted() {
-        if (this.instantly) { this.source = this.getSource(); }
+        this.log = this.log.keep(this.$el);
+
+        if (this.instantly) {
+            this.log.warning("Loads instantly");
+            this.source = this.getSource();
+        }
         else {
             const observer = new IntersectionObserver(entries => {
                 // [FIXME] remove <any> once IntersectionObserver will be valid
                 if (!(<any>entries[0]).isIntersecting) { return; }
 
+                this.log.info("Visible in the viewport");
                 observer.disconnect();
                 this.source = this.getSource();
             });
@@ -60,6 +69,7 @@ class LazyMedia extends Vue {
                 }
 
                 this.isLoaded = true;
+                this.log.success(`${this.source} loaded`);
             });
         }
     }
@@ -80,7 +90,10 @@ class LazyMedia extends Vue {
             }
         }
 
-        if (srcset === "") { return ""; }
+        if (srcset === "") {
+            this.log.error("No srcset have been found");
+            return "";
+        }
 
         // Split the srcset between pixel ratio rules
         const sourceDefinitions = srcset.split(",");
@@ -136,6 +149,7 @@ class LazyMedia extends Vue {
             return ret;
         }
 
+        this.log.list(sources, sourcesInfos).error("No sources have been found");
         return "";
     }
 }
