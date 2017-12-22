@@ -35,7 +35,7 @@
 
                 this.isHidden = false;
                 setTimeout(() => { resolve(); }, delay);
-                log.warning(`Loads the new page in ${delay}ms`);
+                log.info(`Loads the new page in ${delay}ms`);
             });
         }
     }
