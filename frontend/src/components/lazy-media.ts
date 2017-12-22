@@ -41,6 +41,7 @@ class LazyMedia extends Vue {
 
         if (image) {
             const source = image.getAttribute("src") || "";
+            // tslint:disable-next-line:no-bitwise
             const ext = source.slice((source.lastIndexOf(".") - 1 >>> 0) + 2);
 
             image.addEventListener("load", async () => {

@@ -74,6 +74,7 @@ class Carousel extends Vue {
                 let element = this.$el;
                 let top = (<HTMLElement>element).offsetTop;
 
+                // tslint:disable-next-line:no-conditional-assignment
                 while ((element = element.offsetParent as HTMLElement) !== null && element !== document.body) {
                     top += element.offsetTop;
                 }
