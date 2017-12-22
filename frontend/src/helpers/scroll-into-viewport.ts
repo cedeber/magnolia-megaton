@@ -1,5 +1,9 @@
-interface Element {
-    scrollIntoViewport({}?: { speed?: number, marginTop?: number, callback?: string | Function, scrollable?: Element | Window }): Function | number;
+// tslint:disable:ban-types
+
+declare global {
+    interface Element {
+        scrollIntoViewport({}?: { speed?: number, marginTop?: number, callback?: string | Function, scrollable?: Element | Window }): Function | number;
+    }
 }
 
 interface Window {
@@ -15,11 +19,12 @@ let scrollIntoViewportAnimationId: number = 0;
  * Get top position of an element in the page
  * @returns the top position in pixels
  */
-function getTopPosition(element: Element, boundary: Element | Window = window): number {
-    let top = (<HTMLElement>element).offsetTop;
+function getTopPosition(element: HTMLElement, boundary: Element | Window = window): number {
+    let top = element.offsetTop;
 
-    while ((element = (<HTMLElement>element).offsetParent) !== null && element !== boundary) {
-        top += (<HTMLElement>element).offsetTop;
+    // tslint:disable-next-line:no-conditional-assignment
+    while ((element = element.offsetParent as HTMLElement) !== null && element !== boundary) {
+        top += element.offsetTop;
     }
 
     return top;
@@ -47,17 +52,17 @@ function easeOutCubic(time: number, begin: number, change: number, duration: num
  * @returns the callback if any
  */
 Element.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0, callback = null, scrollable = window }:
-    { speed?: number, marginTop?: number, callback?: string | Function, scrollable?: Element | Window } = {}): Function | number {
+    { speed?: number, marginTop?: number, callback?: string | Function, scrollable?: HTMLElement | Window } = {}): Function | number {
     log = log.keep(this);
 
     const start = Date.now();
-    const offset = scrollable === window ? window.pageYOffset : (<Element>scrollable).scrollTop; // or pageYOffset=scrollY
-    const goTo = getTopPosition(this, scrollable) - marginTop - (scrollable === window ? 0 : getTopPosition((<Element>scrollable), scrollable));
+    const offset = scrollable === window ? window.pageYOffset : scrollable.scrollTop; // or pageYOffset=scrollY
+    const goTo = getTopPosition(this, scrollable) - marginTop - (scrollable === window ? 0 : getTopPosition(scrollable as HTMLElement, scrollable));
     const pageHeight = scrollable === window ? Math.max(
             document.body.scrollHeight,
             document.documentElement.scrollHeight) :
-            (<Element>scrollable).scrollHeight;
-    const windowHeight = scrollable === window ? window.innerHeight : (<Element>scrollable).clientHeight;
+            scrollable.scrollHeight;
+    const windowHeight = scrollable === window ? window.innerHeight : scrollable.clientHeight;
     const next = pageHeight - goTo;
 
     let toGo = offset;
@@ -67,7 +72,7 @@ Element.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0, cal
     let timeStart = 0;
 
     // Prevent win declaration to an element without Y scroll overflow
-    if (scrollable !== window && (<Element>scrollable).clientHeight === (<Element>scrollable).scrollHeight) {
+    if (scrollable !== window && scrollable.clientHeight === scrollable.scrollHeight) {
         scrollable = window;
     }
 
@@ -83,7 +88,7 @@ Element.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0, cal
      * @returns the callback if any
      */
     function step(): Function | number {
-        const whereAmI = scrollable === window ? window.pageYOffset : (<Element>scrollable).scrollTop;
+        const whereAmI = scrollable === window ? window.pageYOffset : scrollable.scrollTop;
 
         if (toGo < whereAmI - 1 || toGo > whereAmI + 1) {
             log.error("Scroll animation cancelled");
@@ -104,7 +109,7 @@ Element.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0, cal
 
         if (Math.abs(Math.abs(delta) - Math.abs(change)) < Math.abs(delta) - 1) {
             if (scrollable === window) { window.scrollTo(0, toGo); } // or scroll()
-            else { (<Element>scrollable).scrollTop = toGo; }
+            else { scrollable.scrollTop = toGo; }
             scrollIntoViewportAnimationId = window.requestAnimationFrame(step);
         }
         else {
