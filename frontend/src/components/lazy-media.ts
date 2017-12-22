@@ -68,7 +68,7 @@ class LazyMedia extends Vue {
         const sources = this.$el.querySelectorAll("source");
         const pixelRatio = window.devicePixelRatio || 1;
         const sourcesInfos: Array<{pxr: number, src: string}> = [];
-        let srcset: string = "";
+        let srcset = "";
 
         // Get the srcset that match the media query
         for (const source of <HTMLSourceElement[]><any>sources) {
