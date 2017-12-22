@@ -6,6 +6,9 @@ interface Window {
     [callback: string]: any;
 }
 
+import taggr from "../devtools/taggr";
+
+let log = taggr("scroll-into-viewport");
 let scrollIntoViewportAnimationId: number = 0;
 
 /**
@@ -36,6 +39,7 @@ function easeOutCubic(time: number, begin: number, change: number, duration: num
 
 /**
  * like element.scrollIntoView({block: "top", behavior: "smooth"});
+ * @todo return a Promise
  * @param speed Average pixel per frame (~ 60fps)
  * @param marginTop Top margin decal in pixel
  * @param callback Callback function
@@ -44,6 +48,8 @@ function easeOutCubic(time: number, begin: number, change: number, duration: num
  */
 Element.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0, callback = null, scrollable = window }:
     { speed?: number, marginTop?: number, callback?: string | Function, scrollable?: Element | Window } = {}): Function | number {
+    log = log.keep(this);
+
     const start = Date.now();
     const offset = scrollable === window ? window.pageYOffset : (<Element>scrollable).scrollTop; // or pageYOffset=scrollY
     const goTo = getTopPosition(this, scrollable) - marginTop - (scrollable === window ? 0 : getTopPosition((<Element>scrollable), scrollable));
@@ -57,6 +63,8 @@ Element.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0, cal
     let toGo = offset;
     let delta = goTo - offset;
     let change = delta;
+
+    let timeStart = 0;
 
     // Prevent win declaration to an element without Y scroll overflow
     if (scrollable !== window && (<Element>scrollable).clientHeight === (<Element>scrollable).scrollHeight) {
@@ -78,12 +86,14 @@ Element.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0, cal
         const whereAmI = scrollable === window ? window.pageYOffset : (<Element>scrollable).scrollTop;
 
         if (toGo < whereAmI - 1 || toGo > whereAmI + 1) {
+            log.error("Scroll animation cancelled");
+
             // for high definition screens, some browsers doesn't return a integer if
             // the screen's definition is not an integer, unlike Retina displays.
             try {
                 scrollable.dispatchEvent(new Event("scrollcancel"));
             }
-            catch (e) { }
+            catch (_error) { /* empty */ }
 
             return 1;
         }
@@ -97,17 +107,26 @@ Element.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0, cal
             else { (<Element>scrollable).scrollTop = toGo; }
             scrollIntoViewportAnimationId = window.requestAnimationFrame(step);
         }
-        else if (typeof callback === "function") { return callback(); }
-        else if (typeof callback === "string" && typeof window[callback] === "function") { return window[callback](); }
+        else {
+            log.success(`Scroll animation done is ${(performance.now() - timeStart).toFixed()}ms`);
+
+            if (typeof callback === "function") { return callback(); }
+            if (typeof callback === "string" && typeof window[callback] === "function") { return window[callback](); }
+        }
 
         return 1;
     }
 
     if (change === 0) {
+        log.success("Scroll animation already on position");
+
         if (typeof callback === "function") { return callback(); }
         if (typeof callback === "string" && typeof window[callback] === "function") { return window[callback](); }
     }
     else {
+        log.info(`Will scroll from position ${offset}px to ${goTo}px (${delta}px) with a top margin of ${marginTop}px and at ${speed}px per frame`);
+        timeStart = performance.now();
+
         scrollIntoViewportAnimationId = window.requestAnimationFrame(step);
     }
 
