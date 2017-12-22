@@ -1,3 +1,5 @@
+// tslint:disable:no-console
+
 declare var process: any;
 
 function getStyle(lvl: number) {
@@ -8,7 +10,7 @@ function getStyle(lvl: number) {
         : `background: ${bgColor[lvl] || bgColor[0]}; color: ${txtColor[lvl] || txtColor[0]}; padding: 2px 0.7em 2px 0.9em; border-top-left-radius: 1.5em; border-bottom-left-radius: 1.5em; font-weight: bold; margin-right: 1px;`;
 }
 
-function paint(level: number, tag: string | undefined, message: string | undefined, ...args: any[]) {
+function spray(level: number, tag: string | undefined, message: string | undefined, ...args: any[]) {
     const defaultLogArgs = [
         `%cfrontools%c${tag || "…"}%c${message || ""}`,
         getStyle(0),
@@ -41,17 +43,17 @@ class Tagger {
         this.keptArgs = [];
     }
 
-    private spray(level: number, message?: string) {
-        paint(level, this.tag, message, ...[...this.keptArgs, ...this.args]);
+    private print(level: number, message?: string) {
+        spray(level, this.tag, message, ...[...this.keptArgs, ...this.args]);
         this.args = [];
 
         return this;
     }
 
-    public info(message?: string) { return this.spray(1, message); }
-    public success(message?: string) { return this.spray(2, message); }
-    public warning(message?: string) { return this.spray(3, message); }
-    public error(message?: string) { return this.spray(4, message); }
+    public info(message?: string) { return this.print(1, message); }
+    public success(message?: string) { return this.print(2, message); }
+    public warning(message?: string) { return this.print(3, message); }
+    public error(message?: string) { return this.print(4, message); }
 
     public list(...args: any[]) { this.args.push(...args); return this; }
     public keep(...args: any[]) { this.keptArgs.push(...args); return this; }
