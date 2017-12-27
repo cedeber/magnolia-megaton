@@ -11,7 +11,12 @@ ${resfn.js(["/main/webresources/external/cookies-eu-banner.min.js"])!}
 ${resfn.css(["/main/webresources/external/cookies-eu-banner.css"])!}
 
 <script>
-    new CookiesEuBanner(function(){ ${cmsfn.decode(content).code!} }, false);
+    [#if cmsfn.isPublicInstance()]
+        //Only track public instance
+        new CookiesEuBanner(function(){ ${cmsfn.decode(content).code!} }, false);
+    [#else]
+        new CookiesEuBanner(function(){ console.log("Cookies banner: Only run code on public.") }, false);
+    [/#if]
 </script>
 [/#if]
 [#if cmsfn.isEditMode()]
