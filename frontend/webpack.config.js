@@ -31,9 +31,19 @@ module.exports = {
             filename: env === 'production' ? '[name].bundle.css' : '[name].debug.css',
             allChunks: true,
         }),
+        new webpack.DefinePlugin({
+            "process.env": {
+                NODE_ENV: JSON.stringify(env),
+            },
+        }),
     ],
     module: {
         rules: [
+            {
+                test: /\.ts$/,
+                enforce: 'pre',
+                loader: 'tslint-loader',
+            },
             {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',

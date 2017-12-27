@@ -61,6 +61,7 @@ Object.defineProperty(Element.prototype, "verticalState", {
                     let element = self;
                     let top: number = element.offsetTop;
 
+                    // tslint:disable-next-line:no-conditional-assignment
                     while ((element = element.offsetParent as HTMLElement) !== null && element !== properties.current) {
                         top += element.offsetTop;
                     }

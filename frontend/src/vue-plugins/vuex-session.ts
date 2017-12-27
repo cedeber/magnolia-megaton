@@ -1,11 +1,22 @@
 import { Payload, Store } from "vuex";
-import _ from "lodash-es";
+import set from "lodash-es/set";
+import merge from "lodash-es/merge";
+import isObject from "lodash-es/isObject";
+import taggr from "../devtools/taggr";
+
+const log = taggr("vuex-session");
 
 function createSessionStorage(key?: string) {
     function doSubscribe(_mutation: Payload, state: any) {
         const data = key ? (state[key]) : state;
 
-        window.sessionStorage.setItem("vuex", JSON.stringify(data));
+        try {
+            window.sessionStorage.setItem("vuex", JSON.stringify(data));
+            log.success(`vuex store with the key '${key}' saved into sessionStorage`);
+        }
+        catch {
+            log.list(data).error("Can't save the vuex store into sessionStorage. Safari in private mode?");
+        }
     }
 
     return function(store: Store<any>) {
@@ -15,13 +26,19 @@ function createSessionStorage(key?: string) {
             try {
                 const parsedData = JSON.parse(sessionData);
 
-                if (_.isObject(parsedData)) {
-                    const data = key ? _.set({}, key, parsedData) : parsedData;
+                if (isObject(parsedData)) {
+                    const data = key ? set({}, key, parsedData) : parsedData;
 
-                    store.replaceState(_.merge(store.state, data));
+                    store.replaceState(merge(store.state, data));
+                    log.success("vuex sessionStorage data saved into the vuex store");
                 }
             }
-            catch (_unusedError) { /* empty */ }
+            catch {
+                log.list(sessionData).error("vuex sessionStorage import fails");
+            }
+        }
+        else {
+            log.warning("vuex sessionStorage doesn't exist");
         }
 
         store.subscribe(doSubscribe);

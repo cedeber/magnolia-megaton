@@ -10,7 +10,7 @@
 
     @Component
     class Sticky extends Vue {
-        @Prop({type: Number, default: 0}) public marginTop: number;
+        @Prop({ type: Number, default: 0 }) public marginTop: number;
 
         public element: HTMLElement | null = null;
 

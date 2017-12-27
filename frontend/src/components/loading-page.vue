@@ -6,35 +6,7 @@
     </div>
 </template>
 
-<script lang="ts">
-    import { Vue, Component } from "vue-property-decorator";
-    import { applyBeforeQuit, simulateLoading, pageLoaded } from "../helpers/loading";
-
-    @Component
-    class LoadingPage extends Vue {
-        public isLoading = true;
-        public isHidden = false;
-
-        mounted() {
-            applyBeforeQuit(this.animateQuit);
-            Promise.all([simulateLoading(), pageLoaded()]).then(this.animateEnter);
-        }
-
-        private animateEnter() {
-            this.isHidden = true;
-            this.isLoading = false;
-        }
-
-        private animateQuit() {
-            return new Promise((resolve, _reject) => {
-                this.isHidden = false;
-                setTimeout(() => { resolve(); }, 135);
-            });
-        }
-    }
-
-    export default LoadingPage;
-</script>
+<script lang="ts" src="./loading-page.ts"></script>
 
 <style scoped>
     @import url(../variables.css);
