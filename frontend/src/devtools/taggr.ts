@@ -11,19 +11,21 @@ function getStyle(lvl: number) {
 }
 
 function spray(level: number, tag: string | undefined, message: string | undefined, ...args: any[]) {
-    const defaultLogArgs = [
-        `%cfrontools%c${tag || "…"}%c${message || ""}`,
-        getStyle(0),
-        getStyle(level),
-        "color: #2d2d2d; font-weight: bold",
-    ];
-
     if (process.env.NODE_ENV === "development") {
+        const defaultLogArgs = [
+            `%cfrontools%c${tag || "…"}%c${message || ""}`,
+            getStyle(0),
+            getStyle(level),
+            "color: #2d2d2d; font-weight: bold",
+        ];
+
         if (args.length > 0) {
             console.groupCollapsed(...defaultLogArgs);
+
             for (const arg of args) {
                 console.log(arg);
             }
+
             console.groupEnd();
         }
         else {
