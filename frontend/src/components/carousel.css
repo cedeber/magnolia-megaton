@@ -201,16 +201,6 @@
     stroke: black;
 }
 
-@media screen and (width < 1420px){
-    .o-carousel .previous-button {
-        display: none;
-    }
-
-    .o-carousel .next-button {
-        display: none;
-    }
-}
-
 .o-carousel .bullets {
     position: absolute;
     z-index: 5;
@@ -257,32 +247,4 @@
 
 .o-carousel .bullet.js-active::after {
      opacity: 1 !important;
-}
-
-/*
-   ┌────────────┐
-   │   MOBILE   │
-   └────────────┘
- */
-
-@media screen and (width < 768px){
-    .o-carousel .bullets {
-        position: absolute;
-        top: 100%;
-        z-index: 5;
-        bottom: auto;
-        left: auto;
-        transform: translate(0);
-        overflow: hidden;
-        height: 6rem;
-        padding: 1rem 0 0 0;
-    }
-
-    .detail-carousel .bullet {
-        /*border: 1px solid var(--grey);*/
-        border-radius: 7.5px;
-        width: 11px;
-        height: 11px;
-        margin: 6px;
-    }
 }
