@@ -1,12 +1,10 @@
 @import url(../variables.css);
 
-article {
-    & hr {
-        border: 0;
-        border-top: 1px solid color(var(--base05) alpha(70%));
-        border-bottom: 1px solid var(--base07);
-        margin: 1.75em 10rem;
-    }
+article hr {
+    border: 0;
+    border-top: 1px solid color(var(--base05) alpha(70%));
+    border-bottom: 1px solid var(--base07);
+    margin: 1.75em 10rem;
 }
 
 article ol,
@@ -15,11 +13,9 @@ article ul {
     list-style-position: inside;
 }
 
-.o-editorial {
-    & .pre-header {
-        opacity: 0.35;
-        font-size: 90%;
-    }
-
-    & .intro { font-size: 120%; }
+.o-editorial .pre-header {
+    opacity: 0.35;
+    font-size: 90%;
 }
+
+.o-editorial .intro { font-size: 120%; }
