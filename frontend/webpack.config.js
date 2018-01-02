@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 /* --- configuration --- */
 const env = process.env.NODE_ENV;
@@ -134,6 +135,9 @@ if (env === 'production') {
                 mangle: true,
                 compress: true,
             }
+        }),
+        new BundleAnalyzerPlugin({
+            analyzerMode: "static",
         }),
     ]);
 }
