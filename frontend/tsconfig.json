@@ -22,7 +22,7 @@
     "strictNullChecks": true,
     "target": "es5",
     "plugins": [
-      { "name": "tslint-language-service"}
+      { "name": "tslint-language-service" }
     ]
   },
   "include": [
