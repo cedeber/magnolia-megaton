@@ -9,9 +9,11 @@ form:
           label: Pre-header
           i18n: true
         - name: title
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
           label: Article Title
           i18n: true
+          height: 120
+          configJsFile: /.resources/main/dialogs/include/config/title.js
         - name: intro
           class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
           label: Article introduction

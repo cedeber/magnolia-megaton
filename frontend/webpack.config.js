@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 /* --- configuration --- */
 const env = process.env.NODE_ENV;
@@ -10,7 +11,7 @@ const buildPath = env === 'prototype' ? path.resolve(__dirname, '../prototype/ap
 // const publicPath = env === 'prototype' ? '/app/' : `${env === 'production' ? '' : '/author'}/.resources/main/webresources/app/`;
 const publicPath = '/app/';
 
-module.exports = {
+const config = {
     entry: {
         main: './src/main.ts',
         polyfills: ['es6-shim', 'whatwg-fetch', 'matchmedia-polyfill', 'intersection-observer', 'objectFitPolyfill', './polyfills']
@@ -32,9 +33,19 @@ module.exports = {
             filename:'[name].css',
             allChunks: true,
         }),
+        new webpack.DefinePlugin({
+            "process.env": {
+                NODE_ENV: JSON.stringify(env),
+            },
+        }),
     ],
     module: {
         rules: [
+            {
+                test: /\.ts$/,
+                enforce: 'pre',
+                loader: 'tslint-loader',
+            },
             {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
@@ -101,7 +112,10 @@ module.exports = {
             },
             {
                 test: /\.(png|svg|jpg|gif|woff|woff2)$/,
-                loader: 'file-loader',
+                use: [{
+                    loader: 'file-loader',
+                    options: { name: "[name].[hash].cache.[ext]" },
+                }],
             }
         ]
     },
@@ -115,14 +129,7 @@ module.exports = {
 };
 
 if (env === 'production') {
-    // module.exports.devtool = '#source-map';
-    // http://vue-loader.vuejs.org/en/workflow/production.html
-    module.exports.plugins = (module.exports.plugins || []).concat([
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: '"production"'
-            }
-        }),
+    config.plugins = (config.plugins || []).concat([
         new UglifyJSPlugin({
             sourceMap: true,
             uglifyOptions: {
@@ -130,5 +137,10 @@ if (env === 'production') {
                 compress: true,
             }
         }),
-    ])
+        new BundleAnalyzerPlugin({
+            analyzerMode: "static",
+        }),
+    ]);
 }
+
+module.exports = config;

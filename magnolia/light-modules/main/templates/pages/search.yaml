@@ -1,4 +1,4 @@
-title: Article
+title: Search
 templateScript: /main/templates/pages/main.ftl
 renderType: freemarker
 dialog: main:pages/main
@@ -27,26 +27,15 @@ areas:
         id: main:components/carousel
 
   main:
+    title: Search results
     renderType: freemarker
-    templateScript: /main/templates/areas/indexed.ftl
-    availableComponents:
-      sectionLayout:
-        id: main:components/sectionLayout
-   # [TODO] select default value (standard and 1 column)
-   # autoGeneration:
-   #   content:
-   #     sectionLayout:
-   #       nodeType: mgnl:component
-   #       templateId: main:components/sectionLayout
-   #   generatorClass: info.magnolia.rendering.generator.CopyGenerator
+    templateScript: /main/templates/areas/searchResults.ftl
+    dialog: main:areas/searchResults
 
   tagManager:
     renderType: freemarker
     templateScript: /main/templates/areas/tagManager.ftl
     editable: false
     inheritance:
+      components: all
       enabled: true
-
-variations:
-  txt:
-    templateScript: /main/templates/variations/txt.ftl
