@@ -72,7 +72,7 @@ class Carousel extends Vue {
         const setHeroHeight = function(this: Carousel) {
             const carouselTop: number = (function(this: Carousel) {
                 let element = this.$el;
-                let top = (<HTMLElement>element).offsetTop;
+                let top = (element as HTMLElement).offsetTop;
 
                 // tslint:disable-next-line:no-conditional-assignment
                 while ((element = element.offsetParent as HTMLElement) !== null && element !== document.body) {
