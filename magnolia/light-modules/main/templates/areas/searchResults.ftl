@@ -1,6 +1,6 @@
 [#assign queryStr = ctx.getParameter('q')!?html]
 [#if queryStr?has_content]
-    [#assign searchResults = searchfn.searchPages(queryStr, cmsfn.asJCRNode(navfn.rootPage(content)).getPath(), 100, 0) /]
+    [#assign searchResults = searchfn.searchPages(queryStr+"*", cmsfn.asJCRNode(navfn.rootPage(content)).getPath(), 100, 0) /]
     [#assign recordsFound = searchResults?size /]
     <div id="results" class="o-group o-links">
         <h1 class="subtitle">${content.searchFor!'Suche nach'} &laquo;${queryStr}&raquo;</h1>
