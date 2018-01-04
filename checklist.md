@@ -65,11 +65,10 @@ So, it's now a lonely (dead?) opearting system, but officially still alive...
 
 ## Special attention
 - [ ] Flexbox on IE
-- [ ] `object-fit` polyfill for IE/Edge (Carousel, etc...)
+- [ ] `object-fit` polyfill for IE/Edge (Carousel, etc...) or [SVG fix](http://www.sarasoueidan.com/blog/svg-object-fit/)
 
 # Validators, Audits, Performance
-- [ ] [totally](https://khan.github.io/tota11y/) (integrated while on Author instance)
-- [ ] [W3C Markup Validation](https://validator.w3.org) (Vue errors are OK)
+- [ ] [W3C Markup Validation](https://validator.w3.org) (Vue errors are OK. You can also check HTML mistakes in Firefox "View Page Source")
 - [ ] [Google Lighthouse: Webpage](https://developers.google.com/web/tools/lighthouse/) (inside Chrome 60+ Dev Tools)
 - [ ] [Web Page Test](https://www.webpagetest.org) (can be done with Chrome dev tools, simulate slow connection and under-powered device)
 
@@ -77,8 +76,6 @@ So, it's now a lonely (dead?) opearting system, but officially still alive...
 - [Mozilla Observatory: Security](https://observatory.mozilla.org) (Server Security)
 - [WCAG 2.0 Checklist](http://webaim.org/standards/wcag/checklist)
 - [WAWE Web Accessibility Tool](http://wave.webaim.org) (also available in Firefox as plugin)
-- [opquast desktop](https://desktop.opquast.com/en/) (firefox)
-- [AInspector Sidebar](https://addons.mozilla.org/fr/firefox/addon/ainspector-sidebar/) (firefox plugin)
 
 # Golive & End
 - [ ] Golive planned with whole team available
