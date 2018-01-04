@@ -31,21 +31,26 @@
         [#assign imageMap = damfn.getAssetMap(content.image)!]
         [#assign imageWidth = imageMap.metadata.mgnl.width!0]
         [#assign imageHeight = imageMap.metadata.mgnl.height!0]
-        <picture v-bind:class="{ 'js-loaded': isLoaded }" class="container [#if hasRatio]has-fixed-ratio[/#if]">
-            [#if cmsfn.fileExtension(imageMap.name) == "gif"]
-                <source srcset="${damfn.getAssetLink(content.image)!}">
-            [#else]
-                <source media="(max-width: 376px)" srcset="${damfn.getRendition(content.image, "hero-375").getLink()!}, ${damfn.getRendition(content.image, "hero-375-2x").getLink()!} 2x">
-                <source media="(max-width: 668px)" srcset="${damfn.getRendition(content.image, "hero-667").getLink()!}, ${damfn.getRendition(content.image, "hero-667-2x").getLink()!} 2x">
-                <source srcset="${damfn.getRendition(content.image, "hero-1024").getLink()!}, ${damfn.getRendition(content.image, "hero-1024-2x").getLink()!} 2x">
+        <figure>
+            <picture v-bind:class="{ 'js-loaded': isLoaded }" class="container [#if hasRatio]has-fixed-ratio[/#if]">
+                [#if cmsfn.fileExtension(imageMap.name) == "gif"]
+                    <source srcset="${damfn.getAssetLink(content.image)!}">
+                [#else]
+                    <source media="(max-width: 376px)" srcset="${damfn.getRendition(content.image, "hero-375").getLink()!}, ${damfn.getRendition(content.image, "hero-375-2x").getLink()!} 2x">
+                    <source media="(max-width: 668px)" srcset="${damfn.getRendition(content.image, "hero-667").getLink()!}, ${damfn.getRendition(content.image, "hero-667-2x").getLink()!} 2x">
+                    <source srcset="${damfn.getRendition(content.image, "hero-1024").getLink()!}, ${damfn.getRendition(content.image, "hero-1024-2x").getLink()!} 2x">
+                [/#if]
+                <template v-if="source">
+                    <img class="media is-${content.position!"center"} [#if isCover == true]is-cover[/#if]" :src="source" :width="width" :height="height" [@alt map=imageMap /]>
+                </template>
+                <template v-else>
+                    <svg class="media" width="${model.getMax((imageWidth * 100), 1)?string.computer}px" height="${model.getMax((imageHeight * 100), 1)?string.computer}px" viewBox="0 0 1 1"></svg>
+                </template>
+            </picture>
+            [#if imageMap.caption?has_content]
+                <figcaption class="caption">${imageMap.caption}</figcaption>
             [/#if]
-            <template v-if="source">
-                <img class="media is-${content.position!"center"} [#if isCover == true]is-cover[/#if]" :src="source" :width="width" :height="height" [@alt map=imageMap /]>
-            </template>
-            <template v-else>
-                <svg class="media" width="${model.getMax((imageWidth * 100), 1)?string.computer}px" height="${model.getMax((imageHeight * 100), 1)?string.computer}px" viewBox="0 0 1 1"></svg>
-            </template>
-        </picture>
+        </figure>
     [/#if]
     </lazy-media>
 [#else]
