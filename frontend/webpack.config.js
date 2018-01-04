@@ -1,23 +1,28 @@
-const path = require('path');
-const webpack = require('webpack');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// tslint:disable:max-line-length object-literal-sort-keys
+
+const path = require("path");
+const webpack = require("webpack");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ManifestPlugin = require("webpack-manifest-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 /* --- configuration --- */
 const env = process.env.NODE_ENV;
-const buildPath = env === 'prototype' ? path.resolve(__dirname, '../prototype/app/') : path.resolve(__dirname, '../magnolia/light-modules/main/webresources/build/');
+const buildPath = env === "prototype" ? path.resolve(__dirname, "../prototype/app/") : path.resolve(__dirname, "../magnolia/light-modules/main/webresources/build/");
 // const publicPath = env === 'prototype' ? '/app/' : `${env === 'production' ? '' : '/author'}/.resources/main/webresources/app/`;
-const publicPath = '/app/';
+const publicPath = "/app/"; // see `magnolia/virtualUriMappings`
+const reportFilename = "../../../../../frontend/report.html"; // must be relative to `buildPath` and saved into `frontend`
 
 const config = {
     entry: {
-        main: './src/main.ts',
-        polyfills: ['es6-shim', 'whatwg-fetch', 'matchmedia-polyfill', 'intersection-observer', 'objectFitPolyfill', './polyfills']
+        main: "./src/main.ts",
+        polyfills: ["es6-shim", "whatwg-fetch", "matchmedia-polyfill", "intersection-observer", "objectFitPolyfill", "./polyfills"],
     },
     output: {
-        filename: '[name].js',
+        filename: "[name].js",
+        chunkFilename: "[name].js",
         path: buildPath,
         publicPath: publicPath,
     },
@@ -27,11 +32,24 @@ const config = {
             {
                 root: path.resolve(__dirname, "../"),
                 verbose: false,
-            }
+            },
+        ),
+        // Only if you have multiple entry points (except polyfills)
+        /* new webpack.optimize.CommonsChunkPlugin({
+            name: "common",
+            minChunks: Infinity,
+        }), */
+        new webpack.NamedChunksPlugin(
+            chunk => chunk.name || chunk.mapModules(m => path.basename(m.request, ".ts")).join("_"),
         ),
         new ExtractTextPlugin({
-            filename:'[name].css',
+            filename: "[name].css",
             allChunks: true,
+        }),
+        new ManifestPlugin({
+            filter(value) {
+                return !value.name.endsWith(".map");
+            },
         }),
         new webpack.DefinePlugin({
             "process.env": {
@@ -43,57 +61,57 @@ const config = {
         rules: [
             {
                 test: /\.ts$/,
-                enforce: 'pre',
-                loader: 'tslint-loader',
+                enforce: "pre",
+                loader: "tslint-loader",
             },
             {
                 test: /\.tsx?$/,
-                loader: 'ts-loader',
+                loader: "ts-loader",
                 exclude: /node_modules/,
                 options: {
                     appendTsSuffixTo: [/\.vue$/],
                     silent: true,
-                }
+                },
             },
             {
                 test: /\.vue$/,
-                loader: 'vue-loader',
+                loader: "vue-loader",
                 options: {
                     extractCSS: true,
                     postcss: [
-                        require('postcss-import')(),
-                        require('postcss-url')({ url: 'rebase' }),
-                        require('postcss-cssnext')({ browsers: ['last 3 versions'], warnForDuplicates: false }),
+                        require("postcss-import")(),
+                        require("postcss-url")({ url: "rebase" }),
+                        require("postcss-cssnext")({ browsers: ["last 3 versions"], warnForDuplicates: false }),
                     ],
                     loaders: {
-                        i18n: '@kazupon/vue-i18n-loader',
+                        i18n: "@kazupon/vue-i18n-loader",
                     },
                     transformToRequire: {
-                        video: 'src',
-                        source: 'src',
-                        img: 'src',
-                        image: 'xlink:href',
+                        video: "src",
+                        source: "src",
+                        img: "src",
+                        image: "xlink:href",
                     },
-                }
+                },
             },
             {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
+                    fallback: "style-loader",
                     use: [
-                        { loader: 'css-loader', options: { importLoaders: 1, camelCase: true, sourceMap: true } },
-                        { loader: 'postcss-loader', options: {
+                        { loader: "css-loader", options: { importLoaders: 1, camelCase: true, sourceMap: true } },
+                        { loader: "postcss-loader", options: {
                             sourceMap: true,
-                            ident: 'postcss',
+                            ident: "postcss",
                             plugins: () => {
                                 let plugins = [
-                                    require('postcss-import')(),
-                                    require('postcss-url')({ url: 'rebase' }),
-                                    require('postcss-cssnext')({ browsers: ['last 3 versions'], warnForDuplicates: false }),
+                                    require("postcss-import")(),
+                                    require("postcss-url")({ url: "rebase" }),
+                                    require("postcss-cssnext")({ browsers: ["last 3 versions"], warnForDuplicates: false }),
                                 ];
 
-                                if (env === 'production') {
-                                    plugins.push(require('cssnano')({
+                                if (env === "production") {
+                                    plugins.push(require("cssnano")({
                                         zindex: false,
                                         normalizeUrl: false,
                                         normalizeCharset: false,
@@ -113,34 +131,37 @@ const config = {
             {
                 test: /\.(png|svg|jpg|gif|woff|woff2)$/,
                 use: [{
-                    loader: 'file-loader',
+                    loader: "file-loader",
                     options: { name: "[name].[hash].cache.[ext]" },
                 }],
-            }
-        ]
+            },
+        ],
     },
     resolve: {
         extensions: [".ts", ".js", ".vue"],
         alias: {
-            'vue$': 'vue/dist/vue.esm.js'
-        }
+            "vue$": "vue/dist/vue.esm.js",
+        },
     },
-    devtool: '#source-map'
+    devtool: "source-map",
 };
 
-if (env === 'production') {
+if (env === "production") {
     config.plugins = (config.plugins || []).concat([
         new UglifyJSPlugin({
             sourceMap: true,
             uglifyOptions: {
                 mangle: true,
                 compress: true,
-            }
+            },
         }),
         new BundleAnalyzerPlugin({
             analyzerMode: "static",
+            reportFilename,
         }),
     ]);
+
+    config.devtool = undefined;
 }
 
 module.exports = config;

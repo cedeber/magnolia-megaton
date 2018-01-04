@@ -1,6 +1,8 @@
 ### Project ###
 prototype/**/app/
 
+frontend/report.html
+
 magnolia/light-modules/**/webresources/build/
 !magnolia/light-modules/**/external/
 
