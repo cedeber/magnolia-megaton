@@ -1,0 +1,3 @@
+class: info.magnolia.virtualuri.mapping.DefaultVirtualUriMapping
+fromUri: /app-manifest.json
+toUri: forward:/.resources/main/webresources/build/manifest.json
