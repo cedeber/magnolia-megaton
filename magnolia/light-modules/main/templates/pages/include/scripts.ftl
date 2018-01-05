@@ -3,12 +3,8 @@
 
     <!-- Application -->
     [#assign app = def.parameters.app!"main"]
-
-    [#-- Only if you have multiple entry points (see webpack config) --]
-    [#-- <script src="/app/common.js"></script> --]
-
-    <script src="/app/polyfills.js"></script>
-    <script src="/app/${app!}.js"></script>
+    <script src="/app/commons.js"></script>
+    <script async defer src="/app/${app!}.js"></script>
     <!-- Outdated Browsers -->
     [#if !devMode]
     <div id="outdated"></div>

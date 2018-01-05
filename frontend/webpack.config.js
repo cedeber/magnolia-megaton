@@ -35,11 +35,6 @@ const config = {
                 verbose: false,
             },
         ),
-        // Only if you have multiple entry points (except polyfills)
-        /* new webpack.optimize.CommonsChunkPlugin({
-            name: "common",
-            minChunks: Infinity,
-        }), */
         new webpack.NamedChunksPlugin(
             chunk => chunk.name || chunk.mapModules(m => path.basename(m.request, ".ts")).join("_"),
         ),
@@ -56,6 +51,11 @@ const config = {
             "process.env": {
                 NODE_ENV: JSON.stringify(env),
             },
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "polyfills",
+            filename: "commons.js",
+            chunks: ["main"],
         }),
     ],
     module: {
