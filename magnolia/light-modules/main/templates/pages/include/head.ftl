@@ -12,6 +12,10 @@
 <meta name="description" content="${content.description!root.description!}">
 <meta name="keywords" content="${content.keywords!root.keywords!}">
 
+<!-- Web Application -->
+<style media="screen">
+    [#include "/main/webresources/build/shell.css"]
+</style>
 <!-- Android / Standard: 192x192px -->
 <meta name="application-name" content="${webAppShortName!}">
 <meta name="mobile-web-app-capable" content="yes">

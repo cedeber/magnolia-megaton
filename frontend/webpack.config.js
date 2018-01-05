@@ -18,6 +18,7 @@ const reportFilename = "../../../../../frontend/report.html"; // must be relativ
 const config = {
     entry: {
         main: "./src/main.ts",
+        shell: "./src/shell.css",
         polyfills: ["es6-shim", "whatwg-fetch", "matchmedia-polyfill", "intersection-observer", "objectFitPolyfill", "./polyfills"],
     },
     output: {
