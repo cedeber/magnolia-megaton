@@ -12,7 +12,7 @@
                         <a class="o-flex-inline link" href="${cmsfn.link(item)!}">
                             <p>
                                 <span class="link-title h2">${item.title!}</span>
-                                <br><span class="link-description">${item.excerpt?replace('<[^>]*>', '', 'r')?replace(queryStr, "<strong>"+queryStr+"</strong>", "i")!}</span>
+                                <br><span class="link-description">${item.excerpt?replace('<[^>]*>', '', 'r')?replace('...[^>]*>', '...', 'r')?replace(queryStr, "<strong>"+queryStr+"</strong>", "i")!}</span>
                             </p>
                         </a>
                     </li>
