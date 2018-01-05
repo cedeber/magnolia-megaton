@@ -16,6 +16,29 @@
 <style media="screen">
     [#include "/main/webresources/build/shell.css"]
 </style>
+
+[#if cmsfn.isEditMode()]
+<style>
+    .no-edit { display: none; }
+    .o-flex > .mgnlEditorBar { flex-basis: 100%; }
+</style>
+[/#if]
+
+[#assign app = def.parameters.app!"main"]
+<script>
+    (function() {
+        var linkElement = document.createElement("link");
+
+        linkElement.setAttribute("rel", "stylesheet");
+        linkElement.setAttribute("media", "screen");
+        linkElement.setAttribute("href", "/app/${app!}.css");
+
+        document.head.appendChild(linkElement);
+    })();
+</script>
+
+<link rel="manifest" href="/manifest.json">
+
 <!-- Android / Standard: 192x192px -->
 <meta name="application-name" content="${webAppShortName!}">
 <meta name="mobile-web-app-capable" content="yes">
@@ -62,16 +85,4 @@
     <meta property="og:image:height" content="${imageMap.metadata.mgnl.height?round?string.computer!}">
     <meta name="twitter:image" content="${imageLink!}">
     <meta name="twitter:image:alt" content="${imageMap.caption!imageMap.description!}">
-[/#if]
-
-<!-- Web Application -->
-[#assign app = def.parameters.app!"main"]
-<link rel="manifest" href="/manifest.json">
-<link rel="stylesheet" href="/app/${app!}.css">
-
-[#if cmsfn.isEditMode()]
-<style>
-    .no-edit { display: none; }
-    .o-flex > .mgnlEditorBar { flex-basis: 100%; }
-</style>
 [/#if]
