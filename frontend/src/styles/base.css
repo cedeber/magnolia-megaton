@@ -1,0 +1,5 @@
+@import url(../variables.css);
+
+/* --- Themes --- */
+.has-background.-grey { background: var(--base05); }
+.has-background.-white { background: white; }
