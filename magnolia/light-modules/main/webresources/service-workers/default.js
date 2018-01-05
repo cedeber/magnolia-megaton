@@ -1,8 +1,16 @@
-/**
+/*
+ * ┌──────────────────────┐
+ * │                      │
+ * │     Worker Utils     │
+ * │                      │
+ * └──────────────────────┘
+ */
+
+ /**
  *
  * @param {string} cacheName
  * @param {Map<string, string>} urlMap
- * @returns {Promise<true|Error>}
+ * @returns {Promise<boolean|Error>}
  */
 function preCache(cacheName, urlMap) {
     return new Promise( async (resolve, reject) => {
@@ -38,7 +46,6 @@ function preCache(cacheName, urlMap) {
  * @returns {Promise<Response>|undefined}
  */
 async function fetchOrFallback(cacheName, fetchEvent, fallback) {
-    console.log("fetchOrFallback", fetchEvent.request.url);
     try {
         const response = await fetch(fetchEvent.request);
 
@@ -81,7 +88,7 @@ async function fetchAndCache(cacheName, fetchEvent) {
  */
 function cacheOrFetch(cacheName, fetchEvent) {
     return caches.match(fetchEvent.request, { cacheName }).then(
-        response => response || fetchAndCache(fetchEvent, cacheName)
+        response => response || fetchAndCache(cacheName, fetchEvent)
     );
 }
 
@@ -110,7 +117,21 @@ const appCacheName = "app-cache-v1";
 const pageCacheMap = new Map();
 
 pageCacheMap.set("offline", "/offline");
-pageCacheMap.set("manifest", "/manifest.json");
+// pageCacheMap.set("manifest", "/manifest.json");
+
+async function preCacheApp() {
+    const appData = await fetch("/app-manifest.json").then(response => response.json());
+
+    for (const key in appData) {
+        if (appData.hasOwnProperty(key)) {
+            const url = `/app/${appData[key]}`;
+
+            pageCacheMap.set(url, url);
+        }
+    }
+
+    return preCache(appCacheName, pageCacheMap);
+}
 
 
 /*
@@ -124,7 +145,7 @@ pageCacheMap.set("manifest", "/manifest.json");
 self.addEventListener("install", event => {
     event.waitUntil(Promise.all([
         preCache(fallbackCacheName, fallbackImagesMap),
-        preCache(appCacheName, pageCacheMap),
+        preCacheApp(),
     ]));
 });
 
@@ -141,12 +162,18 @@ self.addEventListener("fetch", event => {
     const acceptHeader = event.request.headers.get("accept");
     const url = new URL(event.request.url);
 
+    // Bypass for Author Instance
+    if (url.pathname.indexOf("/author/") >= 0) {
+        event.respondWith(fetch(event.request));
+        return;
+    }
+
     // web pages fallback
     if (acceptHeader.indexOf("text/html") >= 0) {
         event.respondWith(fetchOrFallback(appCacheName, event, pageCacheMap.get("offline")));
     }
     // app assets
-    else if (url.pathname.match(/^\/app\/[\w0-9\-_]+.(css|js|woff|woff2|svg|png|jpg)$/)) {
+    else if (url.pathname.match(/([\w0-9\-_\/]*)\/app\/([\w0-9\-_\/]+).(css|js|woff|woff2|svg|png|jpg)$/)) {
         event.respondWith(cacheOrFetch(appCacheName, event));
     }
     // images fallback
