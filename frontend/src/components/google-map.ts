@@ -71,6 +71,7 @@ class GoogleMap extends Vue {
             position: { lat: 0, lng: 0 },
             icon,
             map: this.map,
+            optimized: false,
         });
 
         if (icon) { log.info(`Personalized marker (${this.markerWidth}×${this.markerHeight}px)`); }
