@@ -54,9 +54,15 @@
     [/#if]
     </lazy-media>
 [#else]
-    <picture class="container js-loaded [#if hasRatio]has-fixed-ratio[/#if]">
-        <img class="media [#if isCover == true]is-cover[/#if]" src="${damfn.getAssetLink(content.image)!}" style="display:block;max-width:100%">
-    </picture>
+    <figure>
+        <picture class="container js-loaded [#if hasRatio]has-fixed-ratio[/#if]">
+            <img class="media [#if isCover == true]is-cover[/#if]" src="${damfn.getAssetLink(content.image)!}" style="display:block;max-width:100%">
+        </picture>
+        [#assign imageMap = damfn.getAssetMap(content.image)!]
+        [#if imageMap.caption?has_content]
+            <figcaption class="caption">${imageMap.caption}</figcaption>
+        [/#if]
+    </figure>
 [/#if]
 </div>
 
