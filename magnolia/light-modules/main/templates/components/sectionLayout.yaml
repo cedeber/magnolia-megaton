@@ -15,4 +15,4 @@ areas:
       carousel:
         id: main:components/carousel
       map:
-        id: main:components/gmap
+        id: main:components/googleMap

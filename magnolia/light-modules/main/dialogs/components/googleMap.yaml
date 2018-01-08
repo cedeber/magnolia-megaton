@@ -3,15 +3,6 @@ form:
     - name: tabMain
       label: Map
       fields:
-        - name: title
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-          label: Title
-          i18n: true
-        - name: text
-          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
-          label: Text
-          height: 300
-          i18n: true
         - name: apiKey
           class: info.magnolia.ui.form.field.definition.TextFieldDefinition
           label: API Key
@@ -49,13 +40,11 @@ form:
               class: ch.openinteractive.main.validators.MimeTypeValidatorDefinition
               pattern: image/*
               errorMessage: Choose an image
-        - name: infoWindow
+        - name: info
           class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
           label: Info window content
-          height: 300
+          height: 180
+          configJsFile: /.resources/main/dialogs/include/config/simple.js
           i18n: true
-actions:
-  commit: 
-    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
-  cancel:
-    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
+
+actions: !include:/main/dialogs/include/commonActions.yaml

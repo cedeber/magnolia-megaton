@@ -1,25 +1,26 @@
 import Vue from "vue";
 import { Component, Prop, Watch } from "vue-property-decorator";
 import loadJS from "../helpers/load-js";
+import taggr from "../devtools/taggr";
 
-import "./gmap.css";
+const log = taggr("google-map");
+
+/* [TODO] Watch slot changes */
 
 @Component
-class GMap extends Vue {
+class GoogleMap extends Vue {
     @Prop({ type: Number, default: 0 }) public lat: number;
     @Prop({ type: Number, default: 0 }) public long: number;
     @Prop({ type: Number, default: 50 }) public scale: number;
     @Prop({ type: Number, default: 15 }) public zoom: number;
     @Prop({ type: String, default: null }) public apiKey: string | null;
-    @Prop({ type: String, default: null }) public infoWindowContent: string | null;
     @Prop({ type: String, default: null }) public markerIcon: string | null;
-    @Prop({ type: Number, default: 20 }) public markerWidth: number;
-    @Prop({ type: Number, default: 30 }) public markerHeight: number;
+    @Prop({ type: Number, default: 0 }) public markerWidth: number;
+    @Prop({ type: Number, default: 0 }) public markerHeight: number;
 
     public isLoaded: boolean = false;
     public map: google.maps.Map;
     public marker: google.maps.Marker;
-    public icon: google.maps.Icon;
 
     @Watch("lat")
     public onLatChanged(newVal: number) {
@@ -32,7 +33,10 @@ class GMap extends Vue {
     }
 
     public async mounted() {
-        if (!this.apiKey) { return; }
+        if (!this.apiKey) {
+            log.error("You didn't provide an API key. https://console.developers.google.com/apis/");
+            return;
+        }
 
         window.google = {};
         await loadJS(`https://maps.googleapis.com/maps/api/js?key=${this.apiKey!}`);
@@ -47,59 +51,49 @@ class GMap extends Vue {
     }
 
     public initMap() {
-        this.map = new google.maps.Map(this.$el, {
+        // Create Map
+        this.map = new google.maps.Map(this.$el.querySelector("#googleMap"), {
             gestureHandling: "cooperative",
             clickableIcons: false,
             zoom: this.zoom,
             center: { lat: 0, lng: 0 },
-            // Add custom styling with https://mapstyle.withgoogle.com/
-            /* styles: [
-                {
-                    elementType: "geometry",
-                    stylers: [
-                        {
-                            color: "#f5f5f5",
-                        },
-                    ],
-                },
-             ], */
+            // Custom styling from https://mapstyle.withgoogle.com/
+            // styles: [],
         });
 
-        if(this.markerIcon !== null) {
-            this.icon = {
-                url: window.$$currentPath + this.markerIcon,
+        // Create Icon
+        const icon = this.markerIcon && typeof this.markerIcon === "string" ? {
+                url: this.markerIcon,
                 scaledSize: new google.maps.Size(this.markerWidth, this.markerHeight),
-            };
-        }
+            } as google.maps.Icon : undefined;
 
-
-        // Create markers.
         this.marker = new google.maps.Marker({
             position: { lat: 0, lng: 0 },
-            icon: this.icon,
+            icon,
             map: this.map,
         });
 
+        if (icon) { log.info(`Personalized marker (${this.markerWidth}×${this.markerHeight}px)`); }
 
-        // Create info window
-        if (this.infoWindowContent !== null){
-            const infoWindow = new google.maps.InfoWindow({
-                content: this.infoWindowContent,
-            });
+        // Create Info Window
+        const infoElement = this.$slots.default[0].elm as HTMLElement;
 
-            const marker = this.marker;
-            const map = this.map;
-            const infoWindowContent = this.infoWindowContent;
-            google.maps.event.addListener(this.marker, "click", function() {
-                map.setCenter(marker.getPosition());
-                infoWindow.setContent(infoWindowContent);
-                infoWindow.open(map, marker);
-            });
+        if (infoElement && infoElement.innerText.trim() !== "") {
+            const content = infoElement.cloneNode(true) as HTMLElement;
+            content.removeAttribute("hidden");
+
+            const infoWindow = new google.maps.InfoWindow({ content });
+
+            google.maps.event.addListener(this.marker, "click", () => infoWindow.open(this.map, this.marker));
+
+            log.list(content).info("Info Window");
         }
+
+        log.list(this.$el).success("Initialized");
 
         this.isLoaded = true;
         if (this.lat !== 0 && this.long !== 0) { this.moveMap(); }
     }
 }
 
-export default GMap;
+export default GoogleMap;
