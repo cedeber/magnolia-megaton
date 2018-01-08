@@ -22,8 +22,4 @@ form:
           label: Placeholder
           i18n: true
 
-actions:
-  commit:
-    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
-  cancel:
-    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
+actions: !include:/main/dialogs/include/commonActions.yaml
