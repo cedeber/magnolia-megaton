@@ -1,0 +1,50 @@
+form: 
+  tabs:
+    - name: tabMain
+      label: Map
+      fields:
+        - name: apiKey
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: API Key
+          description: Google Maps API Key
+          i18n: true
+          required: true
+        - name: zoom
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: Zoom
+          description: The zoom of the Google Map
+          i18n: true
+        - name: lat
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: Latitude
+          description: The latitude of the center and marker point.
+          i18n: true
+          required: true
+        - name: long
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: Longitude
+          description: The longitude of the center and the marker point.
+          i18n: true
+          required: true
+        - name: markerIcon
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          targetWorkspace: dam
+          appName: assets
+          label: Marker icon
+          identifierToPathConverter:
+            class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+          contentPreviewDefinition:
+            contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+          validators:
+            - name: png
+              class: ch.openinteractive.main.validators.MimeTypeValidatorDefinition
+              pattern: image/*
+              errorMessage: Choose an image
+        - name: info
+          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+          label: Info window content
+          height: 180
+          configJsFile: /.resources/main/dialogs/include/config/simple.js
+          i18n: true
+
+actions: !include:/main/dialogs/include/commonActions.yaml

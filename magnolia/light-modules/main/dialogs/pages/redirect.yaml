@@ -1,29 +1,8 @@
 form:
   label: Page properties
   tabs:
-    - name: tabMain
-      label: Page infos
+    - !include:/main/dialogs/include/tabPage.yaml
       fields:
-        - name: title
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-          i18n: true
-          label: Title
-          required: true
-        - name: navigationTitle
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-          i18n: true
-          label: Navigation title
-        - name: windowTitle
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-          i18n: true
-          label: Window title
-        - name: hideInNav
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-          defaultValue: false
-          i18n: false
-          type: Boolean
-          label:  Hide in navigation
-          buttonLabel: hide
         - name: redirect
           required: true
           class: info.magnolia.ui.form.field.definition.SwitchableFieldDefinition

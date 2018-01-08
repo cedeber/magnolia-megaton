@@ -8,6 +8,7 @@ class ImportAsync extends Vue {
     public render(createElement: CreateElement): VNode | undefined {
         if (this.href != undefined) {
             const url: string = (<any>window).encodeURI(this.href);
+            // tslint:disable-next-line:no-bitwise
             const ext = url.slice((url.lastIndexOf(".") - 1 >>> 0) + 2);
 
             switch (ext) {
