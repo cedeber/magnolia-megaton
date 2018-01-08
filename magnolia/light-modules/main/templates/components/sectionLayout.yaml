@@ -14,3 +14,5 @@ areas:
         id: main:components/media
       carousel:
         id: main:components/carousel
+      map:
+        id: main:components/gmap
