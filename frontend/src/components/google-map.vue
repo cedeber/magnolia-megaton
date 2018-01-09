@@ -1,6 +1,6 @@
 <template>
     <div class="o-google-map">
-        <div id="googleMap" class="map"></div>
+        <div class="map"></div>
         <slot></slot>
     </div>
 </template>

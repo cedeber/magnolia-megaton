@@ -52,7 +52,7 @@ class GoogleMap extends Vue {
 
     public initMap() {
         // Create Map
-        this.map = new google.maps.Map(this.$el.querySelector("#googleMap"), {
+        this.map = new google.maps.Map(this.$el.querySelector(".map"), {
             gestureHandling: "cooperative",
             clickableIcons: false,
             zoom: this.zoom,
