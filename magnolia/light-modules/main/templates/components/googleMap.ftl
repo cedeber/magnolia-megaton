@@ -26,3 +26,9 @@
     [/#if]
     </p>
 </google-map>
+
+[#if cmsfn.isEditMode()]
+    <div style="width: 100%; height: 200px; background-color: lightgrey" class="o-google-map">
+        Google map only visible in Preview mode.
+    </div>
+[/#if]
