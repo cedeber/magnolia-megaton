@@ -13,6 +13,7 @@ const env = process.env.NODE_ENV;
 const buildPath = env === "prototype" ? path.resolve(__dirname, "../prototype/app/") : path.resolve(__dirname, "../magnolia/light-modules/main/webresources/build/");
 // const publicPath = env === 'prototype' ? '/app/' : `${env === 'production' ? '' : '/author'}/.resources/main/webresources/app/`;
 const publicPath = "/app/"; // see `magnolia/virtualUriMappings`
+const appChunks = ["main"];
 const reportFilename = "../../../../../frontend/report.html"; // must be relative to `buildPath` and saved into `frontend`
 
 const config = {
@@ -23,7 +24,6 @@ const config = {
     },
     output: {
         filename: "[name].js",
-        chunkFilename: "[name].js",
         path: buildPath,
         publicPath: publicPath,
     },
@@ -55,7 +55,7 @@ const config = {
         new webpack.optimize.CommonsChunkPlugin({
             name: "polyfills",
             filename: "commons.js",
-            chunks: ["main"],
+            chunks: appChunks,
         }),
     ],
     module: {
