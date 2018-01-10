@@ -1,0 +1,4 @@
+title: Google Map
+renderType: freemarker
+templateScript: /main/templates/components/googleMap.ftl
+dialog: main:components/googleMap

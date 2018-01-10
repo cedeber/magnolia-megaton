@@ -19,8 +19,7 @@ class Carousel extends Vue {
     @Prop({ type: String, default: "linear" }) public renderType: RenderType; // "linear" | "continue" | "async"
     @Prop({ type: Number, default: 0 }) public startAt: number; // first item to show
     @Prop({ type: Number, default: 1500 }) public transitionDelay: number; // duration of the transition animation
-
-    @Prop({type: Array}) public slides: any[];
+    @Prop({ type: Array }) public slides: any[];
 
     // Variables
     public carouselWidth = 0; // used to control the resize event
@@ -73,8 +72,9 @@ class Carousel extends Vue {
         const setHeroHeight = function(this: Carousel) {
             const carouselTop: number = (function(this: Carousel) {
                 let element = this.$el;
-                let top = (<HTMLElement>element).offsetTop;
+                let top = (element as HTMLElement).offsetTop;
 
+                // tslint:disable-next-line:no-conditional-assignment
                 while ((element = element.offsetParent as HTMLElement) !== null && element !== document.body) {
                     top += element.offsetTop;
                 }
@@ -142,7 +142,7 @@ class Carousel extends Vue {
             const rest = this.itemsQuantity % this.itemsPerPage;
             const itemWidth = 100 / ((this.pagesQuantity > 1 ? this.itemsPerPage : this.itemsQuantity) * this.pagesQuantity);
 
-            for (let i = 0; i < this.itemsQuantity; ) {
+            for (let i = 0; i < this.itemsQuantity;) {
                 for (let j = 0; j < this.itemsPerPage && i < this.itemsQuantity; j += 1) {
                     const item = this.items[i];
 
@@ -155,7 +155,7 @@ class Carousel extends Vue {
                     switch (this.renderType) {
                         case "linear":
                             itemStyles.position = "relative";
-                            itemStyles.flex = `0 1 ${ itemWidth }%`;
+                            itemStyles.flex = `0 1 ${itemWidth}%`;
                             itemStyles.left = "";
                             break;
 
@@ -163,12 +163,12 @@ class Carousel extends Vue {
                             itemStyles.position = "absolute";
 
                             if (i < this.itemsQuantity - rest) {
-                                itemStyles.width = `${ this.carouselWidth / this.itemsPerPage }px`;
-                                itemStyles.left = `${ this.carouselWidth / this.itemsPerPage * j }px`;
+                                itemStyles.width = `${this.carouselWidth / this.itemsPerPage}px`;
+                                itemStyles.left = `${this.carouselWidth / this.itemsPerPage * j}px`;
                             }
                             else {
-                                itemStyles.width = `${ this.carouselWidth / rest }px`;
-                                itemStyles.left = `${ this.carouselWidth / rest * j }px`;
+                                itemStyles.width = `${this.carouselWidth / rest}px`;
+                                itemStyles.left = `${this.carouselWidth / rest * j}px`;
                             }
 
                             break;

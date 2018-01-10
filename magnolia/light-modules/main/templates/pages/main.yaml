@@ -1,4 +1,4 @@
-title: Article (default)
+title: Article
 templateScript: /main/templates/pages/main.ftl
 renderType: freemarker
 dialog: main:pages/main
@@ -12,12 +12,20 @@ parameters:
   app: main
 
 areas:
+  searchBar:
+    renderType: freemarker
+    templateScript: /main/templates/areas/searchBar.ftl
+    editable: false
+    inheritance:
+      enabled: true
+
   hero:
     renderType: freemarker
     type: single
     availableComponents:
       carousel:
         id: main:components/carousel
+
   main:
     renderType: freemarker
     templateScript: /main/templates/areas/indexed.ftl
@@ -34,13 +42,10 @@ areas:
 
   tagManager:
     renderType: freemarker
-    type: single
+    templateScript: /main/templates/areas/tagManager.ftl
+    editable: false
     inheritance:
-      components: all
       enabled: true
-    availableComponents:
-      tagManager:
-        id: main:components/tagManager
 
 variations:
   txt:

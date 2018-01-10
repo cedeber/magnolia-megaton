@@ -30,7 +30,5 @@ CKEDITOR.editorConfig = function(config) {
         { name: "basicstyles", items: [ "Bold", "Italic", "SpecialChar" ] },
         { name: "paragraph",   items: [ "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock" ] },
         { name: "links",       items: [ "Link", "InternalLink", "DamLink", "Unlink" ] },
-        // { name: "clipboard",   items: [ "Cut", "Copy", "Paste", "PasteText" ] },
-        // { name: "undo",        items: [ "Undo", "Redo" ] },
     ];
 };

@@ -1,0 +1,25 @@
+form:
+  label: Search Bar
+  tabs:
+    - name: tabMain
+      label: Main
+      fields:
+        - name: searchPage
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          targetWorkspace: website
+          appName: pages
+          label: Search Page
+          required: true
+          identifierToPathConverter:
+            class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+        - name: label
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          required: true
+          label: Label
+          i18n: true
+        - name: placeholder
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: Placeholder
+          i18n: true
+
+actions: !include:/main/dialogs/include/commonActions.yaml

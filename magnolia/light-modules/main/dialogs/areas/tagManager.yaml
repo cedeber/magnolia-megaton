@@ -41,8 +41,4 @@ form:
           language: javascript
           label: Tags code
         
-actions: 
-  commit: 
-    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
-  cancel: 
-    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
+actions: !include:/main/dialogs/include/commonActions.yaml

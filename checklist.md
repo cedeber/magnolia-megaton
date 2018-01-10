@@ -19,14 +19,17 @@
 - [ ] Admin user (author/public) check workspaces!
 - [ ] Visitor user (public)
 - [ ] Set `defaultBaseUrl` in Magnolia server config (author/public)
-- [ ] Set correct compression contentType for JS files `application/javascript` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
-See: https://jira.magnolia-cms.com/browse/MAGNOLIA-6682
 - [ ] Imaging Module (Is /modules/site/config/site/theme set correctly on public?)
 - [ ] Set /server/security/userManagers/system@lockTimePeriod to 5(minutes)
-- [ ] Add woff2 mimetype (/server/MIMEMapping/)
 - [ ] Does Magnolia Search find pages/assets/news/events etc.
 - [ ] Check Form submissions
 - [ ] Check for yaml errors in Definitions App
+- [ ] Add woff2 mimetype (/server/MIMEMapping/)
+
+Cache Optimization:
+- [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
+- [ ] MAGNOLIA 5.6.1+ Also for JS files `application/javascript`
+See: https://jira.magnolia-cms.com/browse/MAGNOLIA-6682
 
 # Testings
 Chrome and Firefox should technically behave the same way whatever the operating system is.
@@ -62,11 +65,10 @@ So, it's now a lonely (dead?) opearting system, but officially still alive...
 
 ## Special attention
 - [ ] Flexbox on IE
-- [ ] `object-fit` polyfill for IE/Edge (Carousel, etc...)
+- [ ] `object-fit` polyfill for IE/Edge (Carousel, etc...) or [SVG fix](http://www.sarasoueidan.com/blog/svg-object-fit/)
 
 # Validators, Audits, Performance
-- [ ] [totally](https://khan.github.io/tota11y/) (integrated while on Author instance)
-- [ ] [W3C Markup Validation](https://validator.w3.org) (Vue errors are OK)
+- [ ] [W3C Markup Validation](https://validator.w3.org) (Vue errors are OK. You can also check HTML mistakes in Firefox "View Page Source")
 - [ ] [Google Lighthouse: Webpage](https://developers.google.com/web/tools/lighthouse/) (inside Chrome 60+ Dev Tools)
 - [ ] [Web Page Test](https://www.webpagetest.org) (can be done with Chrome dev tools, simulate slow connection and under-powered device)
 
@@ -74,8 +76,6 @@ So, it's now a lonely (dead?) opearting system, but officially still alive...
 - [Mozilla Observatory: Security](https://observatory.mozilla.org) (Server Security)
 - [WCAG 2.0 Checklist](http://webaim.org/standards/wcag/checklist)
 - [WAWE Web Accessibility Tool](http://wave.webaim.org) (also available in Firefox as plugin)
-- [opquast desktop](https://desktop.opquast.com/en/) (firefox)
-- [AInspector Sidebar](https://addons.mozilla.org/fr/firefox/addon/ainspector-sidebar/) (firefox plugin)
 
 # Golive & End
 - [ ] Golive planned with whole team available

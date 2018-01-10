@@ -2,24 +2,33 @@ import "./lazy-media.css";
 
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { isOutdatedBrowser } from "../helpers/outdated-browser";
+import taggr from "../devtools/taggr";
 
 @Component
 class LazyMedia extends Vue {
-    @Prop({type: Boolean, default: false}) public instantly: boolean;
-    @Prop({type: Boolean, default: false}) public isCover: boolean;
+    @Prop({ type: Boolean, default: false }) public instantly: boolean;
+    @Prop({ type: Boolean, default: false }) public isCover: boolean;
 
     public source = "";
     public width: string | number = "100%";
     public height: string | number = "100%";
     public isLoaded = false;
 
+    private log = taggr("lazy-media");
+
     public mounted() {
-        if (this.instantly) { this.source = this.getSource(); }
+        this.log = this.log.keep(this.$el);
+
+        if (this.instantly) {
+            this.log.warning("Loads instantly");
+            this.source = this.getSource();
+        }
         else {
             const observer = new IntersectionObserver(entries => {
                 // [FIXME] remove <any> once IntersectionObserver will be valid
                 if (!(<any>entries[0]).isIntersecting) { return; }
 
+                this.log.info("Visible in the viewport");
                 observer.disconnect();
                 this.source = this.getSource();
             });
@@ -32,6 +41,7 @@ class LazyMedia extends Vue {
 
         if (image) {
             const source = image.getAttribute("src") || "";
+            // tslint:disable-next-line:no-bitwise
             const ext = source.slice((source.lastIndexOf(".") - 1 >>> 0) + 2);
 
             image.addEventListener("load", async () => {
@@ -60,6 +70,7 @@ class LazyMedia extends Vue {
                 }
 
                 this.isLoaded = true;
+                this.log.success(`${this.source} loaded`);
             });
         }
     }
@@ -68,7 +79,7 @@ class LazyMedia extends Vue {
         const sources = this.$el.querySelectorAll("source");
         const pixelRatio = window.devicePixelRatio || 1;
         const sourcesInfos: Array<{pxr: number, src: string}> = [];
-        let srcset: string = "";
+        let srcset = "";
 
         // Get the srcset that match the media query
         for (const source of <HTMLSourceElement[]><any>sources) {
@@ -80,7 +91,10 @@ class LazyMedia extends Vue {
             }
         }
 
-        if (srcset === "") { return ""; }
+        if (srcset === "") {
+            this.log.error("No srcset have been found");
+            return "";
+        }
 
         // Split the srcset between pixel ratio rules
         const sourceDefinitions = srcset.split(",");
@@ -136,6 +150,7 @@ class LazyMedia extends Vue {
             return ret;
         }
 
+        this.log.list(sources, sourcesInfos).error("No sources have been found");
         return "";
     }
 }

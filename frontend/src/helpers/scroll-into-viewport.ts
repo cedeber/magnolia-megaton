@@ -1,22 +1,28 @@
-interface Element {
-    scrollIntoViewport({}?: { speed?: number, marginTop?: number, callback?: string | Function, scrollable?: Element | Window }): Function | number;
+declare global {
+    interface HTMLElement {
+        scrollIntoViewport({}?: { speed?: number, marginTop?: number, callback?: string | Function, scrollable?: Element | Window }): Function | number;
+    }
+
+    interface Window {
+        [callback: string]: any;
+    }
 }
 
-interface Window {
-    [callback: string]: any;
-}
+import taggr from "../devtools/taggr";
 
+let log = taggr("scroll-into-viewport");
 let scrollIntoViewportAnimationId: number = 0;
 
 /**
  * Get top position of an element in the page
  * @returns the top position in pixels
  */
-function getTopPosition(element: Element, boundary: Element | Window = window): number {
-    let top = (<HTMLElement>element).offsetTop;
+function getTopPosition(element: HTMLElement, boundary: Element | Window = window): number {
+    let top = element.offsetTop;
 
-    while ((element = (<HTMLElement>element).offsetParent) !== null && element !== boundary) {
-        top += (<HTMLElement>element).offsetTop;
+    // tslint:disable-next-line:no-conditional-assignment
+    while ((element = element.offsetParent as HTMLElement) !== null && element !== boundary) {
+        top += element.offsetTop;
     }
 
     return top;
@@ -36,30 +42,35 @@ function easeOutCubic(time: number, begin: number, change: number, duration: num
 
 /**
  * like element.scrollIntoView({block: "top", behavior: "smooth"});
+ * @todo return a Promise
  * @param speed Average pixel per frame (~ 60fps)
  * @param marginTop Top margin decal in pixel
  * @param callback Callback function
  * @param scrollable Element to scroll
  * @returns the callback if any
  */
-Element.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0, callback = null, scrollable = window }:
-    { speed?: number, marginTop?: number, callback?: string | Function, scrollable?: Element | Window } = {}): Function | number {
+HTMLElement.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0, callback = null, scrollable = window }:
+    { speed?: number, marginTop?: number, callback?: string | Function, scrollable?: HTMLElement | Window } = {}): Function | number {
+    log = log.keep(this);
+
     const start = Date.now();
-    const offset = scrollable === window ? window.pageYOffset : (<Element>scrollable).scrollTop; // or pageYOffset=scrollY
-    const goTo = getTopPosition(this, scrollable) - marginTop - (scrollable === window ? 0 : getTopPosition((<Element>scrollable), scrollable));
+    const offset = scrollable === window ? window.pageYOffset : (scrollable as HTMLElement).scrollTop; // or pageYOffset=scrollY
+    const goTo = getTopPosition(this, scrollable) - marginTop - (scrollable === window ? 0 : getTopPosition(scrollable as HTMLElement, scrollable));
     const pageHeight = scrollable === window ? Math.max(
-            document.body.scrollHeight,
-            document.documentElement.scrollHeight) :
-            (<Element>scrollable).scrollHeight;
-    const windowHeight = scrollable === window ? window.innerHeight : (<Element>scrollable).clientHeight;
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight) :
+        (scrollable as HTMLElement).scrollHeight;
+    const windowHeight = scrollable === window ? window.innerHeight : (scrollable as HTMLElement).clientHeight;
     const next = pageHeight - goTo;
 
     let toGo = offset;
     let delta = goTo - offset;
     let change = delta;
 
+    let timeStart = 0;
+
     // Prevent win declaration to an element without Y scroll overflow
-    if (scrollable !== window && (<Element>scrollable).clientHeight === (<Element>scrollable).scrollHeight) {
+    if (scrollable !== window && (scrollable as HTMLElement).clientHeight === (scrollable as HTMLElement).scrollHeight) {
         scrollable = window;
     }
 
@@ -75,15 +86,17 @@ Element.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0, cal
      * @returns the callback if any
      */
     function step(): Function | number {
-        const whereAmI = scrollable === window ? window.pageYOffset : (<Element>scrollable).scrollTop;
+        const whereAmI = scrollable === window ? window.pageYOffset : (scrollable as HTMLElement).scrollTop;
 
         if (toGo < whereAmI - 1 || toGo > whereAmI + 1) {
+            log.error("Scroll animation cancelled");
+
             // for high definition screens, some browsers doesn't return a integer if
             // the screen's definition is not an integer, unlike Retina displays.
             try {
                 scrollable.dispatchEvent(new Event("scrollcancel"));
             }
-            catch (e) { }
+            catch (_error) { /* empty */ }
 
             return 1;
         }
@@ -94,20 +107,29 @@ Element.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0, cal
 
         if (Math.abs(Math.abs(delta) - Math.abs(change)) < Math.abs(delta) - 1) {
             if (scrollable === window) { window.scrollTo(0, toGo); } // or scroll()
-            else { (<Element>scrollable).scrollTop = toGo; }
+            else { (scrollable as HTMLElement).scrollTop = toGo; }
             scrollIntoViewportAnimationId = window.requestAnimationFrame(step);
         }
-        else if (typeof callback === "function") { return callback(); }
-        else if (typeof callback === "string" && typeof window[callback] === "function") { return window[callback](); }
+        else {
+            log.success(`Scroll animation done is ${(performance.now() - timeStart).toFixed()}ms`);
+
+            if (typeof callback === "function") { return callback(); }
+            if (typeof callback === "string" && typeof window[callback] === "function") { return window[callback](); }
+        }
 
         return 1;
     }
 
     if (change === 0) {
+        log.success("Scroll animation already on position");
+
         if (typeof callback === "function") { return callback(); }
         if (typeof callback === "string" && typeof window[callback] === "function") { return window[callback](); }
     }
     else {
+        log.info(`Will scroll from position ${offset}px to ${goTo}px (${delta}px) with a top margin of ${marginTop}px and at ${speed}px per frame`);
+        timeStart = performance.now();
+
         scrollIntoViewportAnimationId = window.requestAnimationFrame(step);
     }
 

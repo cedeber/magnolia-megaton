@@ -1,0 +1,49 @@
+title: Home
+templateScript: /main/templates/pages/main.ftl
+renderType: freemarker
+dialog: main:pages/main
+visible: true
+
+modelClass: info.magnolia.module.jsmodels.rendering.JavascriptRenderingModel
+class: info.magnolia.module.jsmodels.rendering.JavascriptTemplateDefinition
+modelPath: /main/templates/pages/main.js
+
+parameters:
+  app: main
+
+areas:
+  hero:
+    renderType: freemarker
+    type: single
+    availableComponents:
+      carousel:
+        id: main:components/carousel
+        
+  searchBar:
+    renderType: freemarker
+    templateScript: /main/templates/areas/searchBar.ftl
+    dialog: main:areas/searchBar
+      
+  main:
+    renderType: freemarker
+    templateScript: /main/templates/areas/indexed.ftl
+    availableComponents:
+      sectionLayout:
+        id: main:components/sectionLayout
+   # [TODO] select default value (standard and 1 column)
+   # autoGeneration:
+   #   content:
+   #     sectionLayout:
+   #       nodeType: mgnl:component
+   #       templateId: main:components/sectionLayout
+   #   generatorClass: info.magnolia.rendering.generator.CopyGenerator
+
+  tagManager:
+    renderType: freemarker
+    templateScript: /main/templates/areas/tagManager.ftl
+    dialog: main:areas/tagManager
+    editable: true
+
+variations:
+  txt:
+    templateScript: /main/templates/variations/txt.ftl
