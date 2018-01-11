@@ -1,5 +1,4 @@
-/* Responsive visibility */
-
+/* Responsive invisibility */
 @media (--for-xs) { .hidden-xs { display: none; } }
 @media (--for-sm) { .hidden-sm { display: none; } }
 @media (--for-md) { .hidden-md { display: none; } }

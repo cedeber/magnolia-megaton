@@ -1,5 +1,3 @@
-@import url(../../variables.css);
-
 /* --- Reset --- */
 a, button { cursor: pointer; }
 a, button, input { color: inherit; }

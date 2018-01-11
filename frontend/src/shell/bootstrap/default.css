@@ -1,5 +1,3 @@
-@import url(../../variables.css);
-
 /* Default settings */
 *, *::before, *::after {
     box-sizing: inherit;

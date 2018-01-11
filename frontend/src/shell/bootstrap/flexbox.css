@@ -1,5 +1,3 @@
-@import url(../../variables.css);
-
 /* Simple automatic inline flexbox grid layout */
 .o-flex, .o-flex-inline { display: flex; }
 
