@@ -1,9 +1,8 @@
 [#assign root = navfn.rootPage(content)!content!]
 [#assign baseUrl = state.originalBrowserURL?replace(state.currentURI, '')!]
 <meta charset="utf-8">
-[#-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> --]
-[#-- <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"> --]
-<meta name="viewport" content="initial-scale=1[#--, viewport-fit=cover--]">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no[#--, viewport-fit=cover--]">
 <title>${content.windowTitle!content.title!}</title>
 <meta name="description" content="${content.description!root.description!}">
 <meta name="keywords" content="${content.keywords!root.keywords!}">
