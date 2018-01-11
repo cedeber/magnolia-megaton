@@ -75,4 +75,26 @@
     --three-per-em-space: 0.3333em;        /* 1/3  em | Width of space in a wide font */
     --en-space: 0.5em;                     /* 1/2  em | Recommended maximum width of space */
     --em-space: 1em;                       /*   1  em | One */
+
+    /* Breakpoints */
+    --bp-sm: 544px;
+    --bp-md: 768px;
+    --bp-lg: 992px;
+    --bp-xl: 1200px;
+
 }
+
+/* Media queries */
+@custom-media --for-xs (width < 544px);
+@custom-media --for-sm (width >= 544px) and (width < 768px);
+@custom-media --for-md (width >= 768px) and (width < 992px);
+@custom-media --for-lg (width >= 992px) and (width < 1200px);
+@custom-media --for-xl (width >= 1200px);
+
+@custom-media --for-sm-up (width >= 544px);
+@custom-media --for-md-up (width >= 768px);
+@custom-media --for-lg-up (width >= 992px);
+
+@custom-media --for-sm-down (width < 768px);
+@custom-media --for-md-down (width < 992px);
+@custom-media --for-lg-down (width < 1200px);

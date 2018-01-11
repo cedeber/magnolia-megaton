@@ -15,6 +15,7 @@
 
 /* --- Partials --- */
 @import url(../variables.css);
+@import url(responsive.css);
 
 /* --- Layout --- */
 @import url(reset.css);
