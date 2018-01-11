@@ -15,7 +15,6 @@
 
 /* --- Partials --- */
 @import url(../variables.css);
-@import url(responsive.css);
 
 /* --- Layout --- */
 @import url(reset.css);
@@ -23,6 +22,7 @@
 @import url(accessibility.css);
 @import url(layout.css);
 @import url(flexbox.css);
+@import url(responsive.css);
 @import url(text.css);
 @import url(images.css);
 @import url(form.css);
