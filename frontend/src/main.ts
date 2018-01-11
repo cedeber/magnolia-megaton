@@ -1,8 +1,8 @@
 /* --- Styles --- */
-import "./css-shell/main.css";
-import "./page-styles/base.css";
-import "./page-styles/article.css";
-import "./page-styles/breadcrumbs.css";
+import "./styles/webfonts.css";
+import "./styles/base.css";
+import "./styles/article.css";
+import "./styles/breadcrumbs.css";
 
 /* --- Application --- */
 import Vue from "vue";

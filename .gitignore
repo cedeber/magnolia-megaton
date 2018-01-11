@@ -1,7 +1,9 @@
 ### Project ###
 prototype/**/app/
 
-magnolia/light-modules/**/webresources/app/
+frontend/report.html
+
+magnolia/light-modules/**/webresources/build/
 !magnolia/light-modules/**/external/
 
 magnolia/light-modules/**/virtualUriMappings/localhost.yaml
@@ -48,7 +50,7 @@ typings/
 .env
 
 ### IntelliJ ###
-.idea/*
+.idea
 !/.idea/deployment.xml
 *.iws
 *.iml

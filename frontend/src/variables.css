@@ -1,3 +1,18 @@
+/**
+ * ╒═══════════════════════════════════════╕
+ * │           HoW tO wrItE CoDE           │
+ * ╞═══════════════════╤═══════════════════╡
+ * │          variable │ --like-this       │
+ * │ cust. media query │ --[for|when]-[..] │
+ * ├───────────────────┼───────────────────┤
+ * │      layout, obj. │ .o-[..]           │
+ * │    element, cmpt. │ .like-this        │
+ * │         CSS state │ .[is|has]-[..]    │
+ * │          JS state │ .js-[..]          │
+ * │       theme, mod. │ .-like-this       │
+ * └───────────────────┴───────────────────┘
+ */
+
 :root {
     /* Colors - Base 16 Eighties */
     --base00: #2d2d2d;
@@ -18,10 +33,10 @@
     --magenta: #d27b53;
 
     /* Text - Default */
-    --default-font-family: system-ui, sans-serif;
+    --default-font-family: "PTSans", system-ui, sans-serif;
     --default-text-color: var(--base00);
-    --default-font-size: calc(14px + (16 - 14) * (100vw - 320px) / (1440 - 320)); /* 1.6rem @ 1440px -> 1.4rem @ 320px */
-    --default-font-weight: 400;
+    --default-font-size: calc(16px + (18 - 16) * (100vw - 320px) / (1440 - 320)); /* 18px @ 1440px -> 16px @ 320px */
+    --default-font-weight: 500;
     --default-line-height: 1.5;
 
     /* Text - Headings */

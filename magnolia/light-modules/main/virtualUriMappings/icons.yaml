@@ -1,0 +1,3 @@
+class: info.magnolia.virtualuri.mapping.RegexpVirtualUriMapping
+fromUri: /icns-(.*)
+toUri: forward:/.resources/main/webresources/icons/$1

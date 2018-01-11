@@ -1,6 +1,6 @@
 {
   "name": "magnolia-megaton",
-  "version": "3.1.0",
+  "version": "4.0.0-beta",
   "scripts": {
     "watch:prototype": "cross-env NODE_ENV=prototype webpack --hide-modules --watch",
     "watch:author": "cross-env NODE_ENV=development webpack --hide-modules --watch",
@@ -21,6 +21,7 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
     "intersection-observer": "^0.5.0",
+    "localforage": "^1.5.5",
     "lodash-es": "^4.17.4",
     "matchmedia-polyfill": "^0.3.0",
     "objectFitPolyfill": "^2.1.0",
