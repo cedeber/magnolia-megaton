@@ -4,6 +4,8 @@ prototype/**/app/
 magnolia/light-modules/**/webresources/app/
 !magnolia/light-modules/**/external/
 
+magnolia/light-modules/**/virtualUriMappings/localhost.yaml
+
 magnolia/*-webapp/**/repositories/
 magnolia/*-webapp/**/overlays/
 magnolia/*-webapp/**/cache/
