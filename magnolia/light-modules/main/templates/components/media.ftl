@@ -1,6 +1,6 @@
 [#include "../macros/alt.ftl"]
 
-[#if content.image?? && damfn.getAsset(content.image)??]
+[#if content.image?has_content && damfn.getAsset(content.image)??]
 [#assign isCover = content.isCover?? && content.isCover == true]
 [#assign isInstantly = content.isInstantly?? && content.isInstantly == true]
 [#assign hasRatio = content.width?has_content && content.height?has_content]
