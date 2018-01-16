@@ -1,3 +1,6 @@
+/* --- Shell --- */
+import "./shell.css"; // Extracted separatly by webpack, see webpack.config.js. Injected by FreeMarker
+
 /* --- Styles --- */
 import "./styles/webfonts.css";
 import "./styles/base.css";

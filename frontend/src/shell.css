@@ -1,3 +1,10 @@
+/**
+ * Shell CSS
+ *
+ * Injected in <HEAD>
+ * It has to be common of all applications, if more than one
+ */
+
 @import url(./variables.css);
 
 /* --- Bootstrap --- */
