@@ -51,7 +51,6 @@ typings/
 
 ### IntelliJ ###
 .idea
-!/.idea/deployment.xml
 *.iws
 *.iml
 *.ipr
@@ -96,10 +95,8 @@ oscrypto-ca-bundle.crt
 bh_unicode_properties.cache
 
 ### VisualStudioCode ###
-.vscode/
-.settings/
-**/.vscode/
-**/.settings/
+vscode
+.settings
 *.code-workspace
 
 ### Vim ###
