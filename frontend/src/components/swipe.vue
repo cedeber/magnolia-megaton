@@ -1,19 +1,19 @@
 <template>
     <div
-        v-on:touchstart="touchStart"
-        v-on:touchmove="touchMove"
-        v-on:touchend="touchEnd"
+        @touchstart="touchStart"
+        @touchmove="touchMove"
+        @touchend="touchEnd"
 
-        v-on:mousedown="touchStart"
-        v-on:mousemove="touchMove"
-        v-on:mouseup="touchEnd"
-        v-on:mouseleave="touchEnd"
+        @mousedown="touchStart"
+        @mousemove="touchMove"
+        @mouseup="touchEnd"
+        @mouseleave="touchEnd"
 
-        v-on:click.capture="blockClick"
-        v-on:wheel="onWheel"
-        v-on:dragstart.prevent
+        @click.capture="blockClick"
+        @wheel="onWheel"
+        @dragstart.prevent
 
-        v-bind:class='{ "js-cursor-down": hasCursorDown }'
+        :class='{ "js-cursor-down": hasCursorDown }'
     ></div>
 </template>
 
