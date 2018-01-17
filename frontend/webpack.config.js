@@ -2,6 +2,8 @@
 
 const path = require("path");
 const webpack = require("webpack");
+const lodash = require("lodash");
+const env = process.env.NODE_ENV;
 const CleanWebpackPlugin = require("clean-webpack-plugin"); // Clean build folders
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin"); // Minify JS
 const ExtractTextPlugin = require("extract-text-webpack-plugin"); // Extract CSS
@@ -13,55 +15,50 @@ const shellCSS = new ExtractTextPlugin("shell.css");
 const appsCSS = new ExtractTextPlugin("[name].css");
 
 /* --- configuration --- */
-const env = process.env.NODE_ENV;
-const buildPath = env === "prototype" ? path.resolve(__dirname, "../prototype/app/") : path.resolve(__dirname, "../magnolia/light-modules/main/webresources/build/");
-const publicPath = "/app/"; // we do redirecting, see `magnolia/virtualUriMappings`
+const extractCSS = false; // Should CSS be extracted from JS or injected via JS? Except for shell.css which is always extracted
 const appChunks = ["main"]; // You can have multiple applications in case you do multi page websites. They will share common plugins in commons.js wich includes the polyfills
+
+const buildPath = env === "prototype" ? path.resolve(__dirname, "../prototype/app/") : path.resolve(__dirname, "../magnolia/light-modules/main/webresources/build/");
+const publicPath = "/app/"; // we do redirecting for Magnolia, see `magnolia/virtualUriMappings`
 const reportFilename = "../../../../../frontend/report.html"; // must be relative to `buildPath` and saved into `frontend`
 
-/**
- * PostCSS plugins
- * @returns {*[]}
- */
-function getPostCSSPlugins() {
-    let plugins = [
-        require("postcss-import")(),
-        require("postcss-cssnext")({
-            browsers: ["last 3 versions"],
-            warnForDuplicates: false,
-        }),
-    ];
+// cssnano options, integrated into css-loader
+const cssnanoOptions = env === "production" ? {
+    zindex: false,
+    normalizeUrl: false,
+    normalizeCharset: false,
+    autoprefixer: false,
+    calc: false,
+    convertValues: false,
+    discardUnused: false,
+} : false;
 
-    return plugins;
-}
+// PostCSS plugins
+const postcssPlugins = [
+    require("postcss-import")(),
+    require("postcss-cssnext")({
+        browsers: ["last 3 versions"],
+        warnForDuplicates: false,
+    }),
+];
 
-/**
- * CSS loader integrates cssnano
- * This is the cssnano options if in production
- * @returns {*}
- */
-function getCSSNanoOptions() {
-    return env === "production" ? {
-        zindex: false,
-        normalizeUrl: false,
-        normalizeCharset: false,
-        autoprefixer: false,
-        calc: false,
-        convertValues: false,
-        discardUnused: false,
-    } : false;
-}
+// css-loader configuration
+const cssLoaderConfig = {
+    loader: "css-loader",
+    options: {
+        camelCase: true,
+        sourceMap: env !== "production",
+        minimize: cssnanoOptions,
+    },
+};
 
-/**
- * CSS loaders with PostCSS
- * @type {*[]}
- */
-const cssExtractUse = [
-    { loader: "css-loader", options: { importLoaders: 1, camelCase: true, sourceMap: true, minimize: getCSSNanoOptions() } },
+// css-loader with PostCSS configuration
+const cssLoaderUse = [
+    lodash.defaultsDeep({ options: { importLoaders: 1 }}, cssLoaderConfig),
     { loader: "postcss-loader", options: {
-        sourceMap: true,
+        sourceMap: env !== "production",
         ident: "postcss",
-        plugins: getPostCSSPlugins(),
+        plugins: postcssPlugins,
     }},
 ];
 
@@ -134,17 +131,17 @@ const config = {
                 options: {
                     postcss: {
                         useConfigFile: false,
-                        plugins: getPostCSSPlugins(),
+                        plugins: postcssPlugins,
                     },
                     loaders: {
                         i18n: "@kazupon/vue-i18n-loader",
-                        css: appsCSS.extract({
+                        css: extractCSS ? appsCSS.extract({
                             fallback: "vue-style-loader",
-                            use: {
-                                loader: "css-loader",
-                                options: { camelCase: true, sourceMap: true, minimize: getCSSNanoOptions() },
-                            },
-                        }),
+                            use: cssLoaderConfig,
+                        }) : [
+                            "vue-style-loader",
+                            cssLoaderConfig,
+                        ],
                     },
 
                     // Transforms asset paths in Vue templates to require expressions that webpack can handle
@@ -161,20 +158,23 @@ const config = {
                 test: /\b(?=shell\b)\w+\.css$/,
                 use: shellCSS.extract({
                     fallback: "style-loader",
-                    use: cssExtractUse,
+                    use: cssLoaderUse,
                 }),
             },
             {
                 // Default CSS, except shell.css
                 test: /\b(?!shell\b)\w+\.css$/,
-                use: appsCSS.extract({
+                use: extractCSS ? appsCSS.extract({
                     fallback: "style-loader",
-                    use: cssExtractUse,
-                }),
+                    use: cssLoaderUse,
+                }) : [
+                    { loader: "style-loader" },
+                    ...cssLoaderUse,
+                ],
             },
             {
                 // All assets that have to be packaged
-                test: /\.(png|svg|jpg|gif|woff|woff2)$/,
+                test: /\.(png|svg|jpg|gif|ttf|otf|woff|woff2)$/,
                 use: [{
                     loader: "file-loader",
 
@@ -198,7 +198,7 @@ if (env === "production") {
     config.plugins = (config.plugins || []).concat([
         // Compress JS if in production
         new UglifyJSPlugin({
-            sourceMap: true,
+            sourceMap: false,
             uglifyOptions: {
                 mangle: true,
                 compress: true,
