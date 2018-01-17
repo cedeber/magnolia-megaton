@@ -18,7 +18,7 @@ const appsCSS = new ExtractTextPlugin("[name].css");
 const extractCSS = false; // Should CSS be extracted from JS or injected via JS? Except for shell.css which is always extracted
 const appChunks = ["main"]; // You can have multiple applications in case you do multi page websites. They will share common plugins in commons.js wich includes the polyfills
 
-const buildPath = env === "prototype" ? path.resolve(__dirname, "../prototype/app/") : path.resolve(__dirname, "../magnolia/light-modules/main/webresources/build/");
+const buildPath = path.resolve(__dirname, "../magnolia/light-modules/main/webresources/build/");
 const publicPath = "/app/"; // we do redirecting for Magnolia, see `magnolia/virtualUriMappings`
 const reportFilename = "../../../../../frontend/report.html"; // must be relative to `buildPath` and saved into `frontend`
 
