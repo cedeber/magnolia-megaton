@@ -7,31 +7,41 @@ const env = process.env.NODE_ENV;
 const CleanWebpackPlugin = require("clean-webpack-plugin"); // Clean build folders
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin"); // Minify JS
 const ExtractTextPlugin = require("extract-text-webpack-plugin"); // Extract CSS
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin; // Analyze bundle modules size
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+    .BundleAnalyzerPlugin; // Analyze bundle modules size
+
+/* --- configuration --- */
+// Should CSS be extracted from JS or injected via JS? Except for shell.css which is always extracted
+// For Single Page App it's nicer if CSS is asynchronously injected on demand
+const extractCSS = true;
+
+// You can have multiple applications in case you do multi page websites
+// They will share common plugins in commons.js wich includes the polyfills
+const appChunks = ["main"];
 
 // We create a "shell.css" file which is injected in <HEAD> thanks to FreeMarker.
 // This is optimized for Single Page App and Progressive Web App
 const shellCSS = new ExtractTextPlugin("shell.css");
-const appsCSS = new ExtractTextPlugin("[name].css");
+const appsCSS = new ExtractTextPlugin("[name].css"); // unused if extractCSS == false
 
-/* --- configuration --- */
-const extractCSS = false; // Should CSS be extracted from JS or injected via JS? Except for shell.css which is always extracted
-const appChunks = ["main"]; // You can have multiple applications in case you do multi page websites. They will share common plugins in commons.js wich includes the polyfills
-
+// Paths
 const buildPath = path.resolve(__dirname, "../magnolia/light-modules/main/webresources/build/");
 const publicPath = "/app/"; // we do redirecting for Magnolia, see `magnolia/virtualUriMappings`
 const reportFilename = "../../../../../frontend/report.html"; // must be relative to `buildPath` and saved into `frontend`
 
 // cssnano options, integrated into css-loader
-const cssnanoOptions = env === "production" ? {
-    zindex: false,
-    normalizeUrl: false,
-    normalizeCharset: false,
-    autoprefixer: false,
-    calc: false,
-    convertValues: false,
-    discardUnused: false,
-} : false;
+const cssnanoOptions =
+    env === "production"
+        ? {
+            zindex: false,
+            normalizeUrl: false,
+            normalizeCharset: false,
+            autoprefixer: false,
+            calc: false,
+            convertValues: false,
+            discardUnused: false,
+        }
+        : false;
 
 // PostCSS plugins
 const postcssPlugins = [
@@ -54,12 +64,15 @@ const cssLoaderConfig = {
 
 // css-loader with PostCSS configuration
 const cssLoaderUse = [
-    lodash.defaultsDeep({ options: { importLoaders: 1 }}, cssLoaderConfig),
-    { loader: "postcss-loader", options: {
-        sourceMap: env !== "production",
-        ident: "postcss",
-        plugins: postcssPlugins,
-    }},
+    lodash.defaultsDeep({options: { importLoaders: 1 }}, cssLoaderConfig),
+    {
+        loader: "postcss-loader",
+        options: {
+            sourceMap: env !== "production",
+            ident: "postcss",
+            plugins: postcssPlugins,
+        },
+    },
 ];
 
 const config = {
@@ -67,7 +80,14 @@ const config = {
         main: "./src/main.ts",
 
         // polyfills is declared here but will be included within commons.js, see CommonsChunkPlugin
-        polyfills: ["es6-shim", "whatwg-fetch", "matchmedia-polyfill", "intersection-observer", "objectFitPolyfill", "./polyfills"],
+        polyfills: [
+            "es6-shim",
+            "whatwg-fetch",
+            "matchmedia-polyfill",
+            "intersection-observer",
+            "objectFitPolyfill",
+            "./polyfills",
+        ],
     },
     output: {
         // We don't use [hash] because we import scripts with Magnolia
@@ -76,17 +96,16 @@ const config = {
         publicPath: publicPath,
     },
     plugins: [
-        new CleanWebpackPlugin(
-            [buildPath],
-            {
-                root: path.resolve(__dirname, "../"),
-                verbose: false,
-            },
-        ),
+        new CleanWebpackPlugin([buildPath], {
+            root: path.resolve(__dirname, "../"),
+            verbose: false,
+        }),
 
         // Used for asynchronously loaded modules => `import().then()`
         new webpack.NamedChunksPlugin(
-            chunk => chunk.name || chunk.mapModules(m => path.basename(m.request, ".ts")).join("_"),
+            chunk =>
+                chunk.name ||
+                chunk.mapModules(m => path.basename(m.request, ".ts")).join("_"),
         ),
         shellCSS,
         appsCSS,
@@ -135,13 +154,12 @@ const config = {
                     },
                     loaders: {
                         i18n: "@kazupon/vue-i18n-loader",
-                        css: extractCSS ? appsCSS.extract({
-                            fallback: "vue-style-loader",
-                            use: cssLoaderConfig,
-                        }) : [
-                            "vue-style-loader",
-                            cssLoaderConfig,
-                        ],
+                        css: extractCSS
+                            ? appsCSS.extract({
+                                fallback: "vue-style-loader",
+                                use: cssLoaderConfig,
+                            })
+                            : ["vue-style-loader", cssLoaderConfig],
                     },
 
                     // Transforms asset paths in Vue templates to require expressions that webpack can handle
@@ -164,23 +182,24 @@ const config = {
             {
                 // Default CSS, except shell.css
                 test: /\b(?!shell\b)\w+\.css$/,
-                use: extractCSS ? appsCSS.extract({
-                    fallback: "style-loader",
-                    use: cssLoaderUse,
-                }) : [
-                    { loader: "style-loader" },
-                    ...cssLoaderUse,
-                ],
+                use: extractCSS
+                    ? appsCSS.extract({
+                          fallback: "style-loader",
+                          use: cssLoaderUse,
+                      })
+                    : [{ loader: "style-loader" }, ...cssLoaderUse],
             },
             {
                 // All assets that have to be packaged
                 test: /\.(png|svg|jpg|gif|ttf|otf|woff|woff2)$/,
-                use: [{
-                    loader: "file-loader",
+                use: [
+                    {
+                        loader: "file-loader",
 
-                    // We add a `*.cache.*` so that Magnolia cache it for a very long time
-                    options: { name: "[name].[hash].cache.[ext]" },
-                }],
+                        // We add a `*.cache.*` so that Magnolia cache it for a very long time
+                        options: { name: "[name].[hash].cache.[ext]" },
+                    },
+                ],
             },
         ],
     },
@@ -188,7 +207,7 @@ const config = {
         // We use the ESM version of Vue
         extensions: [".ts", ".js", ".vue"],
         alias: {
-            "vue$": "vue/dist/vue.esm.js",
+            vue$: "vue/dist/vue.esm.js",
         },
     },
     devtool: "source-map",
