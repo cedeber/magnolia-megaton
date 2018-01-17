@@ -3,3 +3,11 @@ declare module "*.vue" {
     import Vue from "vue";
     export default Vue;
 }
+
+// Web fonts && Font Loading API
+declare module "*.ttf" {
+    const font: any;
+    export default font;
+}
+
+declare const FontFace: any;
