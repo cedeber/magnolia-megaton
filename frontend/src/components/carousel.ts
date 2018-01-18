@@ -346,4 +346,4 @@ class Carousel extends Vue {
     }
 }
 
-export { Carousel };
+export default Carousel;
