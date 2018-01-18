@@ -21,7 +21,7 @@ function applyBeforeQuit(callback: () => Promise<any>) {
 
             try {
                 await callback();
-            } catch (_unusedError) {
+            } catch {
                 /* empty */
             }
 

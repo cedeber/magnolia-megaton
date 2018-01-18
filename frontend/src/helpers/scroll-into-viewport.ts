@@ -101,7 +101,7 @@ HTMLElement.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0,
             // the screen's definition is not an integer, unlike Retina displays.
             try {
                 scrollable.dispatchEvent(new Event("scrollcancel"));
-            } catch (_error) {
+            } catch {
                 /* empty */
             }
 

@@ -39,7 +39,7 @@ class InfiniteCascade extends Vue {
                 this.items = concat(this.items, await this.getItem(i));
                 i = i + 1;
             }
-            catch (error) { i = -1; }
+            catch { i = -1; }
         }
     }
 
