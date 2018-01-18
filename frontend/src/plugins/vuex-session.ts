@@ -1,15 +1,23 @@
 import { Payload, Store } from "vuex";
+import taggr from "../devtools/taggr";
 import set from "lodash-es/set";
 import merge from "lodash-es/merge";
 import isObject from "lodash-es/isObject";
-import taggr from "../devtools/taggr";
 
 const log = taggr("vuex-session");
 
+/**
+ * Save the store into session storage so that you can share it between pages
+ * @param {string?} key You can save only a part of the store if needed => store[key]
+ * @returns {(store: Store<any>) => void}
+ * @example new Vuex.Store({ plugins: [ createSessionStorage("[KEY]") ], .. });
+ */
 function createSessionStorage(key?: string) {
     function doSubscribe(_mutation: Payload, state: any) {
+        // Retrieve the data from the store
         const data = key ? state[key] : state;
 
+        // Try to save it into the session storage called "vuex"
         try {
             window.sessionStorage.setItem("vuex", JSON.stringify(data));
             log.success(`vuex store with the key '${key}' saved into sessionStorage`);
@@ -19,6 +27,7 @@ function createSessionStorage(key?: string) {
     }
 
     return function(store: Store<any>) {
+        // Retrive the data from the session storage
         const sessionData = window.sessionStorage.getItem("vuex");
 
         if (sessionData) {
@@ -26,10 +35,12 @@ function createSessionStorage(key?: string) {
                 const parsedData = JSON.parse(sessionData);
 
                 if (isObject(parsedData)) {
+                    // If a key is defined, create a void store object in order to merge it
                     const data = key ? set({}, key, parsedData) : parsedData;
 
+                    // Merge the current store with the retrieved data from session storage
                     store.replaceState(merge(store.state, data));
-                    log.success("vuex sessionStorage data saved into the vuex store");
+                    log.success("vuex sessionStorage data saved into the vuex store with the key '${key}'");
                 }
             } catch {
                 log.list(sessionData).error("vuex sessionStorage import fails");
@@ -42,4 +53,4 @@ function createSessionStorage(key?: string) {
     };
 }
 
-export { createSessionStorage };
+export default createSessionStorage;
