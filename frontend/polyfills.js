@@ -1,3 +1,6 @@
+/**
+ * Mouse Event polyfill
+ */
 try {
     new MouseEvent('test');
 } catch (e) {
