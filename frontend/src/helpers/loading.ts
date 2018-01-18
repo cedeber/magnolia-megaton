@@ -1,6 +1,9 @@
 function applyBeforeQuit(callback: () => Promise<any>) {
     document.addEventListener("click", async (event: MouseEvent) => {
-        if (event.button !== 0) { return; }
+        if (event.button !== 0) {
+            return;
+        }
+
         let element = event.target as Element | null;
 
         while (element && !element.hasAttribute("href")) {
@@ -10,13 +13,21 @@ function applyBeforeQuit(callback: () => Promise<any>) {
         if (element) {
             const location = element.getAttribute("href");
 
-            if (location && /^((mailto|tel):|#)/.test(location) || element.hasAttribute("target")) { return; }
+            if ((location && /^((mailto|tel):|#)/.test(location)) || element.hasAttribute("target")) {
+                return;
+            }
+
             event.preventDefault();
 
-            try { await callback(); }
-            catch (_unusedError) { /* empty */ }
+            try {
+                await callback();
+            } catch (_unusedError) {
+                /* empty */
+            }
 
-            if (location) { window.location.assign(location); }
+            if (location) {
+                window.location.assign(location);
+            }
         }
     });
 }
@@ -30,8 +41,11 @@ function simulateLoading(): Promise<any> {
 
 function pageLoaded(): Promise<any> {
     return new Promise(resolve => {
-        if (document.readyState === "complete") { resolve(); }
-        else { window.addEventListener("load", resolve); }
+        if (document.readyState === "complete") {
+            resolve();
+        } else {
+            window.addEventListener("load", resolve);
+        }
     });
 }
 

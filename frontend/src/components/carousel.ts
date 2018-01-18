@@ -10,16 +10,47 @@ type RenderType = "linear" | "continue" | "async";
 @Component
 class Carousel extends Vue {
     // Properties
-    @Prop({ type: Boolean, default: false }) public asHero: boolean; // calculate height from top position, at render
-    @Prop({ type: Boolean, default: false }) public autoplay: boolean; // play automatically
-    @Prop({ type: Number, default: 0 }) public columns: number; // number of colums, overwrite minWidth
-    @Prop({ type: Number, default: 5000 }) public delay: number; // time to show a slide
-    @Prop({ type: Number, default: 0, validator(value: number) { return value >= 0; } }) public maxWidth: number; // items maximum width
-    @Prop({ type: Number, default: 0, validator(value: number) { return value >= 0; } }) public minWidth: number; // items minimum width
-    @Prop({ type: String, default: "linear" }) public renderType: RenderType; // "linear" | "continue" | "async"
-    @Prop({ type: Number, default: 0 }) public startAt: number; // first item to show
-    @Prop({ type: Number, default: 1500 }) public transitionDelay: number; // duration of the transition animation
-    @Prop({ type: Array }) public slides: any[];
+    @Prop({ type: Boolean, default: false })
+    public asHero: boolean; // calculate height from top position, at render
+
+    @Prop({ type: Boolean, default: false })
+    public autoplay: boolean; // play automatically
+
+    @Prop({ type: Number, default: 0 })
+    public columns: number; // number of colums, overwrite minWidth
+
+    @Prop({ type: Number, default: 5000 })
+    public delay: number; // time to show a slide
+
+    @Prop({
+        type: Number,
+        default: 0,
+        validator(value: number) {
+            return value >= 0;
+        },
+    })
+    public maxWidth: number; // items maximum width
+
+    @Prop({
+        type: Number,
+        default: 0,
+        validator(value: number) {
+            return value >= 0;
+        },
+    })
+    public minWidth: number; // items minimum width
+
+    @Prop({ type: String, default: "linear" })
+    public renderType: RenderType; // "linear" | "continue" | "async"
+
+    @Prop({ type: Number, default: 0 })
+    public startAt: number; // first item to show
+
+    @Prop({ type: Number, default: 1500 })
+    public transitionDelay: number; // duration of the transition animation
+
+    @Prop({ type: Array })
+    public slides: any[];
 
     // Variables
     public carouselWidth = 0; // used to control the resize event
@@ -28,7 +59,7 @@ class Carousel extends Vue {
     public decal = 0; // used to calculate page start position depending on items per page
     public doDecal = true;
     public itemsPerPage = 1; // number of items per page depending on min-width
-    public itemsQuantity = 0;  // number of items
+    public itemsQuantity = 0; // number of items
     public itemWidth = 0; // items min width
     public occurrence = 0; // number of changes. Used to detect "js-first"
     public pagesQuantity = 1; // number of pages depending on min-width
@@ -70,7 +101,7 @@ class Carousel extends Vue {
     public mounted() {
         // As Hero (property)
         const setHeroHeight = function(this: Carousel) {
-            const carouselTop: number = (function(this: Carousel) {
+            const carouselTop: number = function(this: Carousel) {
                 let element = this.$el;
                 let top = (element as HTMLElement).offsetTop;
 
@@ -80,14 +111,17 @@ class Carousel extends Vue {
                 }
 
                 return top;
-            }).call(this);
+            }.call(this);
 
             this.$el.style.height = `${window.innerHeight - carouselTop}px`;
         };
 
         if (this.asHero) {
-            if (document.readyState !== "complete") { window.addEventListener("load", setHeroHeight.bind(this)); }
-            else { setHeroHeight.call(this); }
+            if (document.readyState !== "complete") {
+                window.addEventListener("load", setHeroHeight.bind(this));
+            } else {
+                setHeroHeight.call(this);
+            }
         }
 
         // slides ? JSON Carousel : DOM Carousel
@@ -119,11 +153,21 @@ class Carousel extends Vue {
     }
 
     public init() {
-        if (this.carouselWidth <= 0) { this.isLoaded = true; return; }
+        if (this.carouselWidth <= 0) {
+            this.isLoaded = true;
+            return;
+        }
 
-        const getWidth = (n: number) => Math.min(this.columns > 0 ? this.carouselWidth / this.columns : n || this.carouselWidth, this.carouselWidth);
+        const getWidth = (n: number) =>
+            Math.min(
+                this.columns > 0 ? this.carouselWidth / this.columns : n || this.carouselWidth,
+                this.carouselWidth,
+            );
 
-        this.itemsPerPage = Math.max(Math.floor(this.carouselWidth / getWidth(this.minWidth)), Math.ceil(this.carouselWidth / getWidth(this.maxWidth)));
+        this.itemsPerPage = Math.max(
+            Math.floor(this.carouselWidth / getWidth(this.minWidth)),
+            Math.ceil(this.carouselWidth / getWidth(this.maxWidth)),
+        );
         this.pagesQuantity = Math.ceil(this.itemsQuantity / this.itemsPerPage);
         this.itemWidth = this.carouselWidth / this.itemsPerPage;
 
@@ -140,9 +184,10 @@ class Carousel extends Vue {
         // [TODO] Could have been done with another component or template?
         if (!(this.items == undefined)) {
             const rest = this.itemsQuantity % this.itemsPerPage;
-            const itemWidth = 100 / ((this.pagesQuantity > 1 ? this.itemsPerPage : this.itemsQuantity) * this.pagesQuantity);
+            const itemWidth =
+                100 / ((this.pagesQuantity > 1 ? this.itemsPerPage : this.itemsQuantity) * this.pagesQuantity);
 
-            for (let i = 0; i < this.itemsQuantity;) {
+            for (let i = 0; i < this.itemsQuantity; ) {
                 for (let j = 0; j < this.itemsPerPage && i < this.itemsQuantity; j += 1) {
                     const item = this.items[i];
 
@@ -165,8 +210,7 @@ class Carousel extends Vue {
                             if (i < this.itemsQuantity - rest) {
                                 itemStyles.width = `${this.carouselWidth / this.itemsPerPage}px`;
                                 itemStyles.left = `${this.carouselWidth / this.itemsPerPage * j}px`;
-                            }
-                            else {
+                            } else {
                                 itemStyles.width = `${this.carouselWidth / rest}px`;
                                 itemStyles.left = `${this.carouselWidth / rest * j}px`;
                             }
@@ -187,7 +231,10 @@ class Carousel extends Vue {
     }
 
     public gotoPage(page: number) {
-        if (this.isTransitioning && this.renderType !== "linear") { return; }
+        if (this.isTransitioning && this.renderType !== "linear") {
+            return;
+        }
+
         this.isTransitioning = true;
 
         // Reverse mode
@@ -197,19 +244,26 @@ class Carousel extends Vue {
         this.currentPage = page < 0 ? this.pagesQuantity - 1 : page >= this.pagesQuantity ? 0 : page;
 
         // Do we show the last page?
-        const lastPage = this.currentPage >= this.pagesQuantity - (this.itemWidth === 0 ? 0 : 1)
-            && this.itemsQuantity % this.itemsPerPage !== 0;
+        const lastPage =
+            this.currentPage >= this.pagesQuantity - (this.itemWidth === 0 ? 0 : 1) &&
+            this.itemsQuantity % this.itemsPerPage !== 0;
 
         // Calculate the last page decal depending on haw many least item do we have. Sometimes there are less than itemsPerPage
-        this.decal = lastPage ? 100 / this.itemsPerPage * (this.itemsQuantity % this.itemsPerPage) : this.currentPage === 0 ? 100 : this.decal;
+        this.decal = lastPage
+            ? 100 / this.itemsPerPage * (this.itemsQuantity % this.itemsPerPage)
+            : this.currentPage === 0 ? 100 : this.decal;
         this.doDecal = lastPage ? true : this.currentPage === 0 ? false : this.doDecal;
 
         // Move the slider
         switch (this.renderType) {
             case "linear":
                 const move = -((this.currentPage - 1) * 100 + this.decal);
-                this.currentItem = this.currentPage * this.itemsPerPage - (this.doDecal ? (this.itemsQuantity % this.itemsPerPage) : 0);
-                this.itemsContainerStyles.transform = `translateX(${this.pagesQuantity > 1 ? move / this.pagesQuantity : 0}%)`;
+
+                this.currentItem =
+                    this.currentPage * this.itemsPerPage - (this.doDecal ? this.itemsQuantity % this.itemsPerPage : 0);
+                this.itemsContainerStyles.transform = `translateX(${
+                    this.pagesQuantity > 1 ? move / this.pagesQuantity : 0
+                }%)`;
                 break;
 
             case "async":
@@ -220,7 +274,8 @@ class Carousel extends Vue {
 
         // Page Style
         this.onFirstPage = this.currentPage <= 0;
-        this.onLastPage = this.pagesQuantity === 1 || this.currentPage >= this.pagesQuantity - (this.itemWidth === 0 ? 0 : 1);
+        this.onLastPage =
+            this.pagesQuantity === 1 || this.currentPage >= this.pagesQuantity - (this.itemWidth === 0 ? 0 : 1);
 
         // Set current active item, independant from visible elements
         // [TODO] forEach + single component?
@@ -236,8 +291,7 @@ class Carousel extends Vue {
                     } else {
                         item.classList.add("js-active");
                     }
-                }
-                else if (item.classList.contains("js-active")) {
+                } else if (item.classList.contains("js-active")) {
                     item.classList.add("js-last");
                     item.classList.remove("js-active");
 
@@ -274,17 +328,19 @@ class Carousel extends Vue {
     }
 
     public nextPage(event: Event): void {
-        const page = event instanceof MouseEvent || this.renderType === "async" ?
-            this.currentPage + 1 :
-            this.currentPage + (this.currentPage < this.pagesQuantity - 1 ? 1 : 0);
+        const page =
+            event instanceof MouseEvent || this.renderType === "async"
+                ? this.currentPage + 1
+                : this.currentPage + (this.currentPage < this.pagesQuantity - 1 ? 1 : 0);
 
         this.gotoPage(page);
     }
 
     public previousPage(event: Event): void {
-        const page = event instanceof MouseEvent || this.renderType === "async" ?
-            this.currentPage - 1 :
-            this.currentPage - (this.currentPage > 0 ? 1 : 0);
+        const page =
+            event instanceof MouseEvent || this.renderType === "async"
+                ? this.currentPage - 1
+                : this.currentPage - (this.currentPage > 0 ? 1 : 0);
 
         this.gotoPage(page);
     }

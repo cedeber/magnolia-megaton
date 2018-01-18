@@ -3,7 +3,8 @@ import "../helpers/vertical-state";
 
 @Component
 class Sticky extends Vue {
-    @Prop({ type: Number, default: 0 }) public marginTop: number;
+    @Prop({ type: Number, default: 0 })
+    public marginTop: number;
 
     public element: HTMLElement | null = null;
 
@@ -23,8 +24,7 @@ class Sticky extends Vue {
             if (topProgress >= 1) {
                 this.element.style.position = "fixed";
                 this.element.style.top = `${this.marginTop}px`;
-            }
-            else {
+            } else {
                 this.element.style.position = "";
                 this.element.style.top = "";
             }

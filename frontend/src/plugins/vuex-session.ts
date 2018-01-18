@@ -8,13 +8,12 @@ const log = taggr("vuex-session");
 
 function createSessionStorage(key?: string) {
     function doSubscribe(_mutation: Payload, state: any) {
-        const data = key ? (state[key]) : state;
+        const data = key ? state[key] : state;
 
         try {
             window.sessionStorage.setItem("vuex", JSON.stringify(data));
             log.success(`vuex store with the key '${key}' saved into sessionStorage`);
-        }
-        catch {
+        } catch {
             log.list(data).error("Can't save the vuex store into sessionStorage. Safari in private mode?");
         }
     }
@@ -32,12 +31,10 @@ function createSessionStorage(key?: string) {
                     store.replaceState(merge(store.state, data));
                     log.success("vuex sessionStorage data saved into the vuex store");
                 }
-            }
-            catch {
+            } catch {
                 log.list(sessionData).error("vuex sessionStorage import fails");
             }
-        }
-        else {
+        } else {
             log.warning("vuex sessionStorage doesn't exist");
         }
 

@@ -14,7 +14,9 @@ const Scroll = {
             bind(el: HTMLElement, binding: any) {
                 const goto = document.querySelector(binding.value);
 
-                if (!goto) { return; }
+                if (!goto) {
+                    return;
+                }
 
                 el.addEventListener("click", event => {
                     event.preventDefault();

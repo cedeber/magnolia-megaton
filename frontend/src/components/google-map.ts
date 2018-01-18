@@ -9,14 +9,29 @@ const log = taggr("google-map");
 
 @Component
 class GoogleMap extends Vue {
-    @Prop({ type: Number, default: 0 }) public lat: number;
-    @Prop({ type: Number, default: 0 }) public long: number;
-    @Prop({ type: Number, default: 50 }) public scale: number;
-    @Prop({ type: Number, default: 15 }) public zoom: number;
-    @Prop({ type: String, default: null }) public apiKey: string | null;
-    @Prop({ type: String, default: null }) public markerIcon: string | null;
-    @Prop({ type: Number, default: 0 }) public markerWidth: number;
-    @Prop({ type: Number, default: 0 }) public markerHeight: number;
+    @Prop({ type: Number, default: 0 })
+    public lat: number;
+
+    @Prop({ type: Number, default: 0 })
+    public long: number;
+
+    @Prop({ type: Number, default: 50 })
+    public scale: number;
+
+    @Prop({ type: Number, default: 15 })
+    public zoom: number;
+
+    @Prop({ type: String, default: null })
+    public apiKey: string | null;
+
+    @Prop({ type: String, default: null })
+    public markerIcon: string | null;
+
+    @Prop({ type: Number, default: 0 })
+    public markerWidth: number;
+
+    @Prop({ type: Number, default: 0 })
+    public markerHeight: number;
 
     public isLoaded: boolean = false;
     public map: google.maps.Map;
@@ -24,12 +39,16 @@ class GoogleMap extends Vue {
 
     @Watch("lat")
     public onLatChanged(newVal: number) {
-        if (this.isLoaded && newVal !== 0 && this.long !== 0) { this.moveMap(); }
+        if (this.isLoaded && newVal !== 0 && this.long !== 0) {
+            this.moveMap();
+        }
     }
 
     @Watch("long")
     public onLongChanged(newVal: number) {
-        if (this.isLoaded && newVal !== 0 && this.lat !== 0) { this.moveMap(); }
+        if (this.isLoaded && newVal !== 0 && this.lat !== 0) {
+            this.moveMap();
+        }
     }
 
     public async mounted() {
@@ -62,10 +81,13 @@ class GoogleMap extends Vue {
         });
 
         // Create Icon
-        const icon = this.markerIcon && typeof this.markerIcon === "string" ? {
-                url: this.markerIcon,
-                scaledSize: new google.maps.Size(this.markerWidth, this.markerHeight),
-            } as google.maps.Icon : undefined;
+        const icon =
+            this.markerIcon && typeof this.markerIcon === "string"
+                ? {
+                      url: this.markerIcon,
+                      scaledSize: new google.maps.Size(this.markerWidth, this.markerHeight),
+                  } as google.maps.Icon
+                : undefined;
 
         this.marker = new google.maps.Marker({
             position: { lat: 0, lng: 0 },
@@ -74,7 +96,9 @@ class GoogleMap extends Vue {
             optimized: false,
         });
 
-        if (icon) { log.info(`Personalized marker (${this.markerWidth}×${this.markerHeight}px)`); }
+        if (icon) {
+            log.info(`Personalized marker (${this.markerWidth}×${this.markerHeight}px)`);
+        }
 
         // Create Info Window
         const infoElement = this.$slots.default[0].elm as HTMLElement;
@@ -93,7 +117,9 @@ class GoogleMap extends Vue {
         log.list(this.$el).success("Initialized");
 
         this.isLoaded = true;
-        if (this.lat !== 0 && this.long !== 0) { this.moveMap(); }
+        if (this.lat !== 0 && this.long !== 0) {
+            this.moveMap();
+        }
     }
 }
 

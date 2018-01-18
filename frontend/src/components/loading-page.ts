@@ -25,7 +25,9 @@ class LoadingPage extends Vue {
             const delay = 135;
 
             this.isHidden = false;
-            setTimeout(() => { resolve(); }, delay);
+            setTimeout(() => {
+                resolve();
+            }, delay);
             log.info(`Loads the new page in ${delay}ms`);
         });
     }

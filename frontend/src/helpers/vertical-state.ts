@@ -37,7 +37,8 @@ Object.defineProperty(Element.prototype, "verticalState", {
         /**
          * Get verticalState properties delimited with margins
          * @param stateName - verticalState property name
-         * @param [marginTop, marginBottom] - viewport top/bottom desired margin
+         * @param marginTop - viewport top desired margin
+         * @param marginBottom - viewport top desired margin
          * @param scrollable - scrollable container
          * @returns all properties, modified by the options
          */
@@ -75,10 +76,20 @@ Object.defineProperty(Element.prototype, "verticalState", {
                  * 0 a the bottom, 1 at the top
                  */
                 get(): number {
-                    const wTop: number = properties.current === window ? window.pageYOffset : (<HTMLElement>properties.current).scrollTop;
-                    const wHeight: number = properties.current === window ? window.innerHeight : (<HTMLElement>properties.current).offsetHeight;
+                    const wTop: number =
+                        properties.current === window
+                            ? window.pageYOffset
+                            : (<HTMLElement>properties.current).scrollTop;
+                    const wHeight: number =
+                        properties.current === window
+                            ? window.innerHeight
+                            : (<HTMLElement>properties.current).offsetHeight;
 
-                    return 1 - (properties.top - (wTop + properties.margins[0])) / (wHeight - properties.margins[0] - properties.margins[1]);
+                    return (
+                        1 -
+                        (properties.top - (wTop + properties.margins[0])) /
+                            (wHeight - properties.margins[0] - properties.margins[1])
+                    );
                 },
             },
             bottomProgress: {
@@ -87,11 +98,20 @@ Object.defineProperty(Element.prototype, "verticalState", {
                  * 0 a the bottom, 1 at the top
                  */
                 get(): number {
-                    const wTop: number = properties.current === window ? window.pageYOffset : (<HTMLElement>properties.current).scrollTop;
-                    const wHeight: number = properties.current === window ? window.innerHeight : (<HTMLElement>properties.current).offsetHeight;
+                    const wTop: number =
+                        properties.current === window
+                            ? window.pageYOffset
+                            : (<HTMLElement>properties.current).scrollTop;
+                    const wHeight: number =
+                        properties.current === window
+                            ? window.innerHeight
+                            : (<HTMLElement>properties.current).offsetHeight;
 
-                    return 1 - (properties.top + self.offsetHeight - (wTop +
-                        properties.margins[0])) / (wHeight - properties.margins[0] - properties.margins[1]);
+                    return (
+                        1 -
+                        (properties.top + self.offsetHeight - (wTop + properties.margins[0])) /
+                            (wHeight - properties.margins[0] - properties.margins[1])
+                    );
                 },
             },
             ahead: {
@@ -99,8 +119,14 @@ Object.defineProperty(Element.prototype, "verticalState", {
                  * @returns true if the element is below the fold
                  */
                 get(): boolean {
-                    const wTop: number = properties.current === window ? window.pageYOffset : (<HTMLElement>properties.current).scrollTop;
-                    const wHeight: number = properties.current === window ? window.innerHeight : (<HTMLElement>properties.current).offsetHeight;
+                    const wTop: number =
+                        properties.current === window
+                            ? window.pageYOffset
+                            : (<HTMLElement>properties.current).scrollTop;
+                    const wHeight: number =
+                        properties.current === window
+                            ? window.innerHeight
+                            : (<HTMLElement>properties.current).offsetHeight;
 
                     return wTop - properties.margins[1] + wHeight < properties.top;
                 },
@@ -111,8 +137,15 @@ Object.defineProperty(Element.prototype, "verticalState", {
                  */
                 get(): boolean {
                     const top: number = properties.top;
-                    const wHeight: number = (properties.current === window ? window.innerHeight : (<HTMLElement>properties.current).offsetHeight) - properties.margins[1];
-                    const wTop: number = properties.current === window ? window.pageYOffset : (<HTMLElement>properties.current).scrollTop;
+                    const wHeight: number =
+                        (properties.current === window
+                            ? window.innerHeight
+                            : (<HTMLElement>properties.current).offsetHeight)
+                        - properties.margins[1];
+                    const wTop: number =
+                        properties.current === window
+                            ? window.pageYOffset
+                            : (<HTMLElement>properties.current).scrollTop;
                     const height: number = Math.min(self.offsetHeight, wHeight);
 
                     return wTop + wHeight > top && wTop + wHeight < top + height;
@@ -125,12 +158,21 @@ Object.defineProperty(Element.prototype, "verticalState", {
                 get(): boolean {
                     const elTop: number = properties.top;
                     const elHeight: number = self.offsetHeight;
-                    const wTop: number = properties.current === window ? window.pageYOffset : (<HTMLElement>properties.current).scrollTop;
-                    const wHeight: number = properties.current === window ? window.innerHeight : (<HTMLElement>properties.current).offsetHeight;
+                    const wTop: number =
+                        properties.current === window
+                            ? window.pageYOffset
+                            : (<HTMLElement>properties.current).scrollTop;
+                    const wHeight: number =
+                        properties.current === window
+                            ? window.innerHeight
+                            : (<HTMLElement>properties.current).offsetHeight;
                     const diff: number = elHeight > wHeight ? elHeight - wHeight : 0;
 
-                    return wTop + wHeight - properties.margins[1] + diff > elTop + elHeight &&
-                        wTop + properties.margins[0] - diff < elTop || this.entering && this.exiting;
+                    return (
+                        (wTop + wHeight - properties.margins[1] + diff > elTop + elHeight &&
+                            wTop + properties.margins[0] - diff < elTop) ||
+                        (this.entering && this.exiting)
+                    );
                 },
             },
             exiting: {
@@ -140,9 +182,15 @@ Object.defineProperty(Element.prototype, "verticalState", {
                 get(): boolean {
                     const elTop: number = properties.top;
                     const elHeight: number = self.offsetHeight;
-                    const wHeight: number = properties.current === window ? window.innerHeight : (<HTMLElement>properties.current).offsetHeight;
+                    const wHeight: number =
+                        properties.current === window
+                            ? window.innerHeight
+                            : (<HTMLElement>properties.current).offsetHeight;
                     const top: number = Math.max(elTop - properties.margins[0], elTop + elHeight - wHeight);
-                    const wTop: number = properties.current === window ? window.pageYOffset : (<HTMLElement>properties.current).scrollTop;
+                    const wTop: number =
+                        properties.current === window
+                            ? window.pageYOffset
+                            : (<HTMLElement>properties.current).scrollTop;
 
                     return wTop > top && wTop + properties.margins[0] < elTop + elHeight;
                 },
@@ -152,7 +200,10 @@ Object.defineProperty(Element.prototype, "verticalState", {
                  * @returns true if the element is above the fold.
                  */
                 get(): boolean {
-                    const wTop: number = properties.current === window ? window.pageYOffset : (<HTMLElement>properties.current).scrollTop;
+                    const wTop: number =
+                        properties.current === window
+                            ? window.pageYOffset
+                            : (<HTMLElement>properties.current).scrollTop;
 
                     return wTop + properties.margins[0] > properties.top + self.offsetHeight;
                 },

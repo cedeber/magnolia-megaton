@@ -6,8 +6,11 @@ import taggr from "../devtools/taggr";
 
 @Component
 class LazyMedia extends Vue {
-    @Prop({ type: Boolean, default: false }) public instantly: boolean;
-    @Prop({ type: Boolean, default: false }) public isCover: boolean;
+    @Prop({ type: Boolean, default: false })
+    public instantly: boolean;
+
+    @Prop({ type: Boolean, default: false })
+    public isCover: boolean;
 
     public source = "";
     public width: string | number = "100%";
@@ -22,11 +25,12 @@ class LazyMedia extends Vue {
         if (this.instantly) {
             this.log.warning("Loads instantly");
             this.source = this.getSource();
-        }
-        else {
+        } else {
             const observer = new IntersectionObserver(entries => {
                 // [FIXME] remove <any> once IntersectionObserver will be valid
-                if (!(<any>entries[0]).isIntersecting) { return; }
+                if (!(<any>entries[0]).isIntersecting) {
+                    return;
+                }
 
                 this.log.info("Visible in the viewport");
                 observer.disconnect();
@@ -42,7 +46,7 @@ class LazyMedia extends Vue {
         if (image) {
             const source = image.getAttribute("src") || "";
             // tslint:disable-next-line:no-bitwise
-            const ext = source.slice((source.lastIndexOf(".") - 1 >>> 0) + 2);
+            const ext = source.slice(((source.lastIndexOf(".") - 1) >>> 0) + 2);
 
             image.addEventListener("load", async () => {
                 let width = image.naturalWidth;
@@ -65,7 +69,12 @@ class LazyMedia extends Vue {
                 this.height = height;
 
                 // object-fit polyfill for IEdge <= 15
-                if (typeof window.objectFitPolyfill === "function" && isOutdatedBrowser && ext !== "svg" && this.isCover) {
+                if (
+                    typeof window.objectFitPolyfill === "function" &&
+                    isOutdatedBrowser &&
+                    ext !== "svg" &&
+                    this.isCover
+                ) {
                     window.objectFitPolyfill(image);
                 }
 
@@ -82,7 +91,7 @@ class LazyMedia extends Vue {
         let srcset = "";
 
         // Get the srcset that match the media query
-        for (const source of <HTMLSourceElement[]><any>sources) {
+        for (const source of <HTMLSourceElement[]>(<any>sources)) {
             const media = source.getAttribute("media");
 
             if (window.matchMedia(media || "all").matches) {
@@ -109,8 +118,7 @@ class LazyMedia extends Vue {
                     pxr: 1,
                     src: rules[0],
                 });
-            }
-            else if (rules.length > 1) {
+            } else if (rules.length > 1) {
                 // Other pixel ratios
                 for (let i = 1, l = rules.length; i < l; i += 1) {
                     if (rules[i].endsWith("x")) {
@@ -129,8 +137,13 @@ class LazyMedia extends Vue {
                 const pxr1 = hash1.pxr;
                 const pxr2 = hash2.pxr;
 
-                if (pxr1 < pxr2) { return -1; }
-                if (pxr1 > pxr2) { return 1; }
+                if (pxr1 < pxr2) {
+                    return -1;
+                }
+
+                if (pxr1 > pxr2) {
+                    return 1;
+                }
 
                 return 0;
             });

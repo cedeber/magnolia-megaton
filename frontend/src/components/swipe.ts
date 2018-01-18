@@ -14,8 +14,7 @@ class Swipe extends Vue {
     public blockClick(event: MouseEvent) {
         if (this.blockClickEventDistance > 30) {
             event.preventDefault();
-        }
-        else {
+        } else {
             this.swipe.move = false;
             this.$emit("swipeend", { x: 0, y: 0 });
         }
@@ -64,8 +63,7 @@ class Swipe extends Vue {
             if (Math.abs(endEvent.clientY - this.swipe.y) < 30 && now - this.swipe.time < 1000) {
                 if (detail.x > 30) {
                     this.$emit("swiperight");
-                }
-                else if (detail.x < -30) {
+                } else if (detail.x < -30) {
                     this.$emit("swipeleft");
                 }
             }
@@ -73,8 +71,7 @@ class Swipe extends Vue {
             if (Math.abs(endEvent.clientX - this.swipe.x) < 30 && now - this.swipe.time < 1000) {
                 if (detail.y > 30) {
                     this.$emit("swipedown");
-                }
-                else if (detail.y < -30) {
+                } else if (detail.y < -30) {
                     this.$emit("swipeup");
                 }
             }
@@ -87,8 +84,7 @@ class Swipe extends Vue {
     public onWheel(event: WheelEvent) {
         if (event.deltaY > 0) {
             this.$emit("swipeup");
-        }
-        else if (event.deltaY < 0) {
+        } else if (event.deltaY < 0) {
             this.$emit("swipedown");
         }
     }
