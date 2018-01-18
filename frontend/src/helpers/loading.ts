@@ -39,7 +39,7 @@ function applyBeforeQuit(callback: () => Promise<any>) {
             try {
                 await callback();
             } catch {
-                log.error(`The callback '${callback.name}' failed`)
+                log.error(`The callback '${callback.name}' failed`);
             }
 
             // Once callback returns a promise, go to the new page
@@ -61,9 +61,9 @@ function simulateLoading(time?: number): Promise<any> {
 
     return new Promise(resolve => {
         setTimeout(() => {
-                log.success("simulated loading done");
-                resolve();
-            }, time || 600);
+            log.success("simulated loading done");
+            resolve();
+        }, time || 600);
     });
 }
 
