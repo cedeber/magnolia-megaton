@@ -1,4 +1,4 @@
-/* Hide content */
+/* --- Hide content --- */
 .is-visually-hidden:not(:focus):not(:active) {
     position: absolute !important;
     width: 1px !important;
@@ -12,6 +12,8 @@
     overflow: hidden !important;
 }
 
+/* --- Skip Links --- */
+// Skip links are shortcuts at the top of the page
 .skip-links {
     position: absolute;
     z-index: 1001;

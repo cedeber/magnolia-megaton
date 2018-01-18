@@ -46,8 +46,8 @@ html, body {
     box-sizing: border-box;
 
     /* App */
-    /* -webkit-touch-callout: none;
-    -webkit-user-select: none; */
+    /* -webkit-touch-callout: none; */
+    /* -webkit-user-select: none; */
 }
 
 html { font-size: 62.5%; }

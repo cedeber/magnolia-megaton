@@ -1,6 +1,7 @@
 /* Simple automatic inline flexbox grid layout */
 .o-flex, .o-flex-inline { display: flex; }
 
+/* Box width */
 .o-flex > * { flex: 1; }
 
 .o-flex > .is-box-2x { flex: 2; }
@@ -73,7 +74,7 @@
     [class*="o-flex"] > .cell-3of4 { min-width: 75%; }
 }
 
-/* Align */
+/* Alignement */
 .is-left:not(.is-vertical) {
     justify-content: flex-start;
     text-align: left;
