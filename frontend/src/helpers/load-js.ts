@@ -2,6 +2,11 @@ import taggr from "../devtools/taggr";
 
 const log = taggr("load-js");
 
+/**
+ * Load JS asynchronously.
+ * @param {string} src
+ * @returns {Promise<Event>}
+ */
 function loadJS(src: string): Promise<any> {
     return new Promise((resolve, reject) => {
         const script = window.document.createElement("script");
