@@ -7,8 +7,8 @@ const env = process.env.NODE_ENV;
 const CleanWebpackPlugin = require("clean-webpack-plugin"); // Clean build folders
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin"); // Minify JS
 const ExtractTextPlugin = require("extract-text-webpack-plugin"); // Extract CSS
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-    .BundleAnalyzerPlugin; // Analyze bundle modules size
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin; // Analyze bundle modules size
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 /* --- configuration --- */
 // Should CSS be extracted from JS or injected via JS? Except for shell.css which is always extracted
@@ -25,22 +25,23 @@ const shellCSS = new ExtractTextPlugin("shell.css");
 const appsCSS = new ExtractTextPlugin("[name].css"); // unused if extractCSS == false
 
 // Paths
-const buildPath = path.resolve(__dirname, "../magnolia/light-modules/main/webresources/build/");
 const publicPath = "/app/"; // we do redirecting for Magnolia, see `magnolia/virtualUriMappings`
+const buildPath = path.resolve(__dirname, "../magnolia/light-modules/main/webresources/build/");
+const workersPath = path.resolve(__dirname, "../magnolia/light-modules/main/webresources/workers/");
 const reportFilename = "../../../../../frontend/report.html"; // must be relative to `buildPath` and saved into `frontend`
 
 // cssnano options, integrated into css-loader
 const cssnanoOptions =
     env === "production"
         ? {
-            zindex: false,
-            normalizeUrl: false,
-            normalizeCharset: false,
-            autoprefixer: false,
-            calc: false,
-            convertValues: false,
-            discardUnused: false,
-        }
+              zindex: false,
+              normalizeUrl: false,
+              normalizeCharset: false,
+              autoprefixer: false,
+              calc: false,
+              convertValues: false,
+              discardUnused: false,
+          }
         : false;
 
 // PostCSS plugins
@@ -64,7 +65,7 @@ const cssLoaderConfig = {
 
 // css-loader with PostCSS configuration
 const cssLoaderUse = [
-    lodash.defaultsDeep({options: { importLoaders: 1 }}, cssLoaderConfig),
+    lodash.defaultsDeep({ options: { importLoaders: 1 } }, cssLoaderConfig),
     {
         loader: "postcss-loader",
         options: {
@@ -103,9 +104,7 @@ const config = {
 
         // Used for asynchronously loaded modules => `import().then()`
         new webpack.NamedChunksPlugin(
-            chunk =>
-                chunk.name ||
-                chunk.mapModules(m => path.basename(m.request, ".ts")).join("_"),
+            chunk => chunk.name || chunk.mapModules(m => path.basename(m.request, ".ts")).join("_"),
         ),
         shellCSS,
         appsCSS,
@@ -123,6 +122,14 @@ const config = {
             filename: "commons.js",
             chunks: appChunks,
         }),
+
+        // Copy Workers files
+        new CopyWebpackPlugin([
+            {
+                from: "./workers",
+                to: workersPath,
+            },
+        ]),
     ],
     module: {
         rules: [
@@ -156,9 +163,9 @@ const config = {
                         i18n: "@kazupon/vue-i18n-loader",
                         css: extractCSS
                             ? appsCSS.extract({
-                                fallback: "vue-style-loader",
-                                use: cssLoaderConfig,
-                            })
+                                  fallback: "vue-style-loader",
+                                  use: cssLoaderConfig,
+                              })
                             : ["vue-style-loader", cssLoaderConfig],
                     },
 
