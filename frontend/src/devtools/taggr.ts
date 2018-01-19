@@ -68,7 +68,7 @@ class Tagger {
      * Print to the console and clear the group list
      * @param {number} level
      * @param {string} message
-     * @returns {Tagger}
+     * @returns {Tagger} This Tagger instance
      */
     private print(level: number, message?: string) {
         spray(level, this.tag, message, ...[...this.keptArgs, ...this.args]);
@@ -80,7 +80,7 @@ class Tagger {
     /**
      * Print a simple default message
      * @param {string} message
-     * @returns {Tagger}
+     * @returns {Tagger} This Tagger instance
      */
     public info(message?: string) {
         return this.print(1, message);
@@ -89,7 +89,7 @@ class Tagger {
     /**
      * Print a success message
      * @param {string} message
-     * @returns {Tagger}
+     * @returns {Tagger} This Tagger instance
      */
     public success(message?: string) {
         return this.print(2, message);
@@ -98,7 +98,7 @@ class Tagger {
     /**
      * Print a warning message
      * @param {string} message
-     * @returns {Tagger}
+     * @returns {Tagger} This Tagger instance
      */
     public warning(message?: string) {
         return this.print(3, message);
@@ -107,7 +107,7 @@ class Tagger {
     /**
      * Print an error message
      * @param {string} message
-     * @returns {Tagger}
+     * @returns {Tagger} This Tagger instance
      */
     public error(message?: string) {
         return this.print(4, message);
@@ -117,9 +117,10 @@ class Tagger {
      * Add stuff to output into a console group
      * To output the group you need to send a message after having listed some other information
      * The list is cleaned each time you send a message
+     * @example
+     * log.list([SOMETHING]).list([SOMETHING ELSE]).info("[A MESSAGE]")
      * @param args
-     * @returns {Tagger}
-     * @example log.list([SOMETHING]).list([SOMETHING ELSE]).info("[A MESSAGE]")
+     * @returns {Tagger} This Tagger instance
      */
     public list(...args: any[]) {
         this.args.push(...args);
@@ -130,10 +131,11 @@ class Tagger {
      * Add stuff to output into a console group
      * To output the group you need to send a message after having listed some other information
      * The kept arguments won't be deleted after you send a message
+     * @example
+     * log.keep([SOMETHING]).list([SOMETHING ELSE]).info("[A MESSAGE]")
+     * log.info("[ANOTHER MESSAGE]") // => [SOMETHING] will be outputed into a group
      * @param args
-     * @returns {Tagger}
-     * @example log.keep([SOMETHING]).list([SOMETHING ELSE]).info("[A MESSAGE]")
-     *          log.info("[ANOTHER MESSAGE]") // => [SOMETHING] will be outputed into a group
+     * @returns {Tagger} This Tagger instance
      */
     public keep(...args: any[]) {
         this.keptArgs.push(...args);
@@ -143,9 +145,10 @@ class Tagger {
 
 /**
  * Create a new tagged Tagger
+ * @example
+ * const log = taggr("[A TAG]");
  * @param {string} tag
- * @returns {Tagger}
- * @example const log = taggr("[A TAG]");
+ * @returns {Tagger} A new Tagger instance
  */
 function taggr(tag?: string) {
     return new Tagger(tag);

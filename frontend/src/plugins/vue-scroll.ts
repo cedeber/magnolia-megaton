@@ -15,8 +15,9 @@ const log = taggr("vue-scroll");
  * Create a new v-scroll directive
  * Take the value as CSS selector and create a click event to the current DOM Node
  * On click, will scroll to the declared Element
+ * @example
+ * <div v-scroll="#anId .aClass">go to</div>
  * @type {PluginObject<Scroll>}
- * @example <div v-scroll="#anId .aClass">go to</div>
  */
 const Scroll: PluginObject<Scroll> = {
     install(Vue, options) {

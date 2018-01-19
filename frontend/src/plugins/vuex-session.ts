@@ -8,9 +8,10 @@ const log = taggr("vuex-session");
 
 /**
  * Save the store into session storage so that you can share it between pages
+ * @example
+ * new Vuex.Store({ plugins: [ createSessionStorage("[KEY]") ], .. });
  * @param {string?} key You can save only a part of the store if needed => store[key]
  * @returns {(store: Store<any>) => void}
- * @example new Vuex.Store({ plugins: [ createSessionStorage("[KEY]") ], .. });
  */
 function createSessionStorage(key?: string) {
     function doSubscribe(_mutation: Payload, state: any) {
