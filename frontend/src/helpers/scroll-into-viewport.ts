@@ -10,7 +10,6 @@ declare global {
 
 import taggr from "../devtools/taggr";
 
-let log = taggr("scroll-into-viewport");
 let scrollIntoViewportAnimationId: number = 0;
 
 /**
@@ -51,7 +50,7 @@ function easeOutCubic(time: number, begin: number, change: number, duration: num
  */
 HTMLElement.prototype.scrollIntoViewport = function({ speed = 35, marginTop = 0, callback = null, scrollable = window }:
     { speed?: number, marginTop?: number, callback?: string | Function, scrollable?: HTMLElement | Window } = {}): Function | number {
-    log = log.keep(this);
+    const log = taggr("scroll-into-viewport").keep(this);
 
     const start = Date.now();
     const offset = scrollable === window ? window.pageYOffset : (scrollable as HTMLElement).scrollTop; // or pageYOffset=scrollY
