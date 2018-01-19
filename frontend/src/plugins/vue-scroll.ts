@@ -32,7 +32,7 @@ const Scroll: PluginObject<Scroll> = {
                 }
 
                 el.addEventListener("click", event => {
-                    log.info("Go flight")
+                    log.list(goto).info("go flight");
                     event.preventDefault();
                     goto.scrollIntoViewport(options || {});
                 });
