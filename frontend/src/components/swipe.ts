@@ -21,7 +21,7 @@ class Swipe extends Vue {
     }
 
     public touchStart(event: MouseEvent | TouchEvent) {
-        const startEvent = event instanceof MouseEvent ? event : event.changedTouches[0];
+        const startEvent = event instanceof TouchEvent ? event.changedTouches[0] : event;
 
         this.swipe.x = startEvent.clientX;
         this.swipe.y = startEvent.clientY;
@@ -33,7 +33,7 @@ class Swipe extends Vue {
 
     public touchMove(event: MouseEvent | TouchEvent) {
         if (this.swipe.move) {
-            const moveEvent = event instanceof MouseEvent ? event : event.changedTouches[0];
+            const moveEvent = event instanceof TouchEvent ? event.changedTouches[0] : event;
             const detail = {
                 x: moveEvent.clientX - this.swipe.x,
                 y: moveEvent.clientY - this.swipe.y,
@@ -53,7 +53,7 @@ class Swipe extends Vue {
         this.hasCursorDown = false;
 
         if (this.swipe.move) {
-            const endEvent = event instanceof MouseEvent ? event : event.changedTouches[0];
+            const endEvent = event instanceof TouchEvent ? event.changedTouches[0] : event;
             const now = Date.now();
             const detail = {
                 x: endEvent.clientX - this.swipe.x,
