@@ -1,12 +1,31 @@
 @import url(../variables.css);
 
 @keyframes loadingAnimation {
-    0% { opacity: 0 }
-    10% { transform: translateX(-120px); opacity: 0; }
-    35% { opacity: 1; }
-    65% { opacity: 1; }
-    90% { transform: translateX(120px); opacity: 0; }
-    100% { opacity: 0 }
+    0% {
+        opacity: 0;
+    }
+
+    10% {
+        transform: translateX(-120px);
+        opacity: 0;
+    }
+
+    35% {
+        opacity: 1;
+    }
+
+    65% {
+        opacity: 1;
+    }
+
+    90% {
+        transform: translateX(120px);
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 .o-loading {
@@ -20,7 +39,9 @@
     opacity: 1;
 }
 
-.opaque-overlay, .transparent-overlay, .loading-overlay {
+.opaque-overlay,
+.transparent-overlay,
+.loading-overlay {
     position: absolute;
     top: 0;
     left: 0;
