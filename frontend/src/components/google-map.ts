@@ -53,7 +53,7 @@ class GoogleMap extends Vue {
 
     public async mounted() {
         if (!this.apiKey) {
-            log.error("You didn't provide an API key. https://console.developers.google.com/apis/");
+            log.error("no API key provided. https://console.developers.google.com/apis/");
             return;
         }
 
@@ -62,6 +62,9 @@ class GoogleMap extends Vue {
         this.initMap();
     }
 
+    /**
+     * Center the map in case lat, long or other properties changed
+     */
     public moveMap() {
         const coords = new google.maps.LatLng(this.lat, this.long);
         google.maps.event.trigger(this.map, "resize");
@@ -69,6 +72,9 @@ class GoogleMap extends Vue {
         this.marker.setPosition(coords);
     }
 
+    /**
+     * Setup Google Map
+     */
     public initMap() {
         // Create Map
         this.map = new google.maps.Map(this.$el.querySelector(".map"), {
@@ -83,10 +89,10 @@ class GoogleMap extends Vue {
         // Create Icon
         const icon =
             this.markerIcon && typeof this.markerIcon === "string"
-                ? {
-                      url: this.markerIcon,
-                      scaledSize: new google.maps.Size(this.markerWidth, this.markerHeight),
-                  } as google.maps.Icon
+                ? ({
+                    url: this.markerIcon,
+                    scaledSize: new google.maps.Size(this.markerWidth, this.markerHeight),
+                  } as google.maps.Icon)
                 : undefined;
 
         this.marker = new google.maps.Marker({
@@ -108,13 +114,12 @@ class GoogleMap extends Vue {
             content.removeAttribute("hidden");
 
             const infoWindow = new google.maps.InfoWindow({ content });
-
             google.maps.event.addListener(this.marker, "click", () => infoWindow.open(this.map, this.marker));
 
-            log.list(content).info("Info Window");
+            log.list(content).info("info window opened");
         }
 
-        log.list(this.$el).success("Initialized");
+        log.list(this.$el).success("initialized");
 
         this.isLoaded = true;
         if (this.lat !== 0 && this.long !== 0) {
