@@ -17,7 +17,7 @@ import taggr from "./devtools/taggr";
 /* --- Components --- */
 // If a Vue (*.vue) component exists, import only it.
 // The related CSS and TS are linked into the Vue component
-import LazyMedia from "./components/lazy-media";
+import Media from "./components/media.vue";
 import Carousel from "./components/carousel";
 import GoogleMap from "./components/google-map.vue";
 
@@ -28,7 +28,7 @@ taggr().info("Your application is running in development mode.");
 const vm = new Vue({});
 
 // Declare all components, on all pages
-Vue.component("lazy-media", LazyMedia);
+Vue.component("lazy-media", Media);
 Vue.component("multi-carousel", Carousel);
 Vue.component("google-map", GoogleMap);
 
