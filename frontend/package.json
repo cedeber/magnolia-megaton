@@ -10,6 +10,7 @@
     "@types/animejs": "^2.0.0",
     "@types/googlemaps": "^3.30.4",
     "@types/lodash-es": "^4.17.0",
+    "ajv": "^6.0.1",
     "animejs": "^2.2.0",
     "chalk": "^2.3.0",
     "clean-webpack-plugin": "^0.1.17",
