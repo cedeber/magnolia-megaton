@@ -1,5 +1,5 @@
 ### Project ###
-frontend/report.html
+frontend/**/report.html
 
 magnolia/light-modules/**/webresources/build/
 magnolia/light-modules/**/webresources/workers/
