@@ -11,3 +11,9 @@ declare module "*.ttf" {
 }
 
 declare const FontFace: any;
+
+// JSON
+declare module "*.json" {
+    const json: object | any[];
+    export default json;
+}
