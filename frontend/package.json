@@ -4,6 +4,7 @@
   "scripts": {
     "watch:application": "cross-env NODE_ENV=development webpack --config ./application/webpack.config.js --hide-modules --watch",
     "build:application": "cross-env NODE_ENV=production webpack --config ./application/webpack.config.js --hide-modules --progress",
+    "watch:web-workers": "tsc --project ./web-workers/tsconfig.json --watch",
     "build:web-workers": "tsc --project ./web-workers/tsconfig.json"
   },
   "dependencies": {
