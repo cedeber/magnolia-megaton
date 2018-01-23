@@ -1,7 +1,7 @@
-import validateJson from "./validate-json";
-import sourcesSchema from "./picture-source-schema.json";
+import validateSchema from "../schemas/validate";
+import sourcesSchema from "../schemas/picture-sources.json";
 
-const validateSources = validateJson(sourcesSchema);
+const validateSources = validateSchema(sourcesSchema);
 
 export default function(data: any): Promise<string> {
     return new Promise(async (resolve, reject) => {
