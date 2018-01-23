@@ -8,6 +8,7 @@ const CleanWebpackPlugin = require("clean-webpack-plugin"); // Clean build folde
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin"); // Minify JS
 const ExtractTextPlugin = require("extract-text-webpack-plugin"); // Extract CSS
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin; // Analyze bundle modules size
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 /* --- configuration --- */
 // Should CSS be extracted from JS or injected via JS? Except for shell.css which is always extracted
@@ -25,7 +26,8 @@ const appsCSS = new ExtractTextPlugin("[name].css"); // unused if extractCSS == 
 
 // Paths
 const publicPath = "/app/"; // we do redirecting for Magnolia, see `magnolia/virtualUriMappings`
-const buildPath = path.resolve(__dirname, "../../magnolia/light-modules/main/webresources/build/");
+const magnoliaResourcesPath = path.resolve(__dirname, "../../magnolia/light-modules/main/webresources");
+const buildPath = path.resolve(__dirname, "../../magnolia/light-modules/main/webresources/build");
 const reportFilename = "../../../../../frontend/application/report.html"; // must be relative to `buildPath` and saved into `frontend`
 
 // cssnano options, integrated into css-loader
@@ -120,6 +122,15 @@ const config = {
             filename: "commons.js",
             chunks: appChunks,
         }),
+
+        // Copy Manifest files
+        new CopyWebpackPlugin([
+            {
+                from: "./*-manifest.json",
+                context: "./application/",
+                to: magnoliaResourcesPath,
+            },
+        ]),
     ],
     module: {
         rules: [
