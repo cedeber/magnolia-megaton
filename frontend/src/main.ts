@@ -38,7 +38,7 @@ vm.$mount("#view");
 
 /* --- Web Worker --- */
 const helloWorker = new Worker("/worker-hello.js");
-const logw = taggr("worker");
+const logw = taggr("worker-demo");
 
 helloWorker.onmessage = (event: MessageEvent) => {
     logw.info(event.data);
