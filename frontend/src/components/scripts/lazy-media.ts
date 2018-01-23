@@ -1,11 +1,11 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { isOutdatedBrowser } from "../../helpers/outdated-browser";
 import getPictureSource from "../../helpers/picture-source";
-import validateJson from "../../helpers/validate-json";
-import mediaSchema from "../schemas/media-schema.json";
+import validateSchema from "../../schemas/validate";
+import mediaSchema from "../../schemas/media.json";
 import taggr from "../../devtools/taggr";
 
-const validateMediaJson = validateJson(mediaSchema);
+const validateMedia = validateSchema(mediaSchema);
 
 /**
  * @todo Save the result in a sessionStorage?
@@ -63,7 +63,7 @@ class LazyMedia extends Vue {
         }
 
         try {
-            await validateMediaJson(data);
+            await validateMedia(data);
             this.log.info("json is valid");
 
             this.video = data.video;
