@@ -1,7 +1,7 @@
 import Ajv from "ajv";
 
 export default function(schema: any) {
-    return function(data: any): Promise<boolean> {
+    return function(data: any) {
         return new Promise((resolve, reject) => {
             const ajv = new Ajv();
             const valid = ajv.validate(schema, data);
@@ -11,7 +11,7 @@ export default function(schema: any) {
                 return;
             }
 
-            resolve(true);
+            resolve(data);
         });
     }
 }
