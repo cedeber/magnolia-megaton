@@ -35,14 +35,3 @@ Vue.component("google-map", GoogleMap);
 // Connect the Vue intance to the whole <main id="view"> container
 // Avoid to use the standard DOM API as a virtual-dom will handle it
 vm.$mount("#view");
-
-/* --- Web Worker --- */
-// [TODO] implement Brightness Worker
-const helloWorker = new Worker("/worker-hello.js");
-const logw = taggr("worker-demo");
-
-helloWorker.onmessage = (event: MessageEvent) => {
-    logw.info(event.data);
-};
-
-helloWorker.postMessage("world");
