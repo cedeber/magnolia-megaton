@@ -1,3 +1,8 @@
+/**
+ * @todo replace with djv (smaller package) once the 'additionalProperties' bug will be solved
+ * @see https://github.com/korzio/djv/issues/46
+ */
+
 import Ajv from "ajv";
 
 export default function(schema: any) {

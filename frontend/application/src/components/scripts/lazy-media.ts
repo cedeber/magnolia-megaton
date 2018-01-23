@@ -85,8 +85,9 @@ class LazyMedia extends Vue {
         if (this.isInstantly) {
             this.source = source;
         } else {
+            // [TODO] Create only one observer for all lazy components
             const observer = new IntersectionObserver(entries => {
-                // [FIXME] remove <any> once IntersectionObserver will be valid
+                // [FIXME] remove <any> once IntersectionObserver will be valid
                 if (!(<any>entries[0]).isIntersecting) { return; }
 
                 observer.disconnect();
