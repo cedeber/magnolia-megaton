@@ -1,6 +1,6 @@
 import { Vue, Component } from "vue-property-decorator";
-import { simulateLoading, pageLoaded } from "../helpers/loading";
-import taggr from "../devtools/taggr";
+import { simulateLoading, pageLoaded } from "../../helpers/loading";
+import taggr from "../../devtools/taggr";
 
 const log = taggr("loading-page");
 

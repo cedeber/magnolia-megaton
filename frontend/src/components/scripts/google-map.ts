@@ -1,7 +1,7 @@
 import Vue from "vue";
 import { Component, Prop, Watch } from "vue-property-decorator";
-import loadJS from "../helpers/load-js";
-import taggr from "../devtools/taggr";
+import loadJS from "../../helpers/load-js";
+import taggr from "../../devtools/taggr";
 
 const log = taggr("google-map");
 
@@ -90,8 +90,8 @@ class GoogleMap extends Vue {
         const icon =
             this.markerIcon && typeof this.markerIcon === "string"
                 ? ({
-                    url: this.markerIcon,
-                    scaledSize: new google.maps.Size(this.markerWidth, this.markerHeight),
+                      url: this.markerIcon,
+                      scaledSize: new google.maps.Size(this.markerWidth, this.markerHeight),
                   } as google.maps.Icon)
                 : undefined;
 

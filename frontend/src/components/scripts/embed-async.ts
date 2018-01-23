@@ -1,5 +1,5 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
-import taggr from "../devtools/taggr";
+import taggr from "../../devtools/taggr";
 
 const log = taggr("embed-async");
 

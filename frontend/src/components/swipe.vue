@@ -17,4 +17,4 @@
     ></div>
 </template>
 
-<script lang="ts" src="./swipe.ts"></script>
+<script lang="ts" src="./scripts/swipe.ts"></script>

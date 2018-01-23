@@ -4,4 +4,4 @@
     </div>
 </template>
 
-<script lang="ts" src="./sticky.ts"></script>
+<script lang="ts" src="./scripts/sticky.ts"></script>

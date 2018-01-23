@@ -1,6 +1,6 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 import "../helpers/vertical-state";
-import taggr from "../devtools/taggr";
+import taggr from "../../devtools/taggr";
 
 /**
  * @example

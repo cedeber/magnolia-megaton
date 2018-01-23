@@ -5,5 +5,5 @@
     </div>
 </template>
 
-<script lang="ts" src="./google-map.ts"></script>
-<style scoped src="./google-map.css"></style>
+<script lang="ts" src="./scripts/google-map.ts"></script>
+<style scoped src="./styles/google-map.css"></style>
