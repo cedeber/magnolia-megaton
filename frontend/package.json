@@ -2,8 +2,9 @@
   "name": "magnolia-megaton",
   "version": "4.0.0-beta",
   "scripts": {
-    "watch:author": "cross-env NODE_ENV=development webpack --hide-modules --watch",
-    "build:public": "cross-env NODE_ENV=production webpack --hide-modules --progress"
+    "watch:application": "cross-env NODE_ENV=development webpack --config ./application/webpack.config.js --hide-modules --watch",
+    "build:application": "cross-env NODE_ENV=production webpack --config ./application/webpack.config.js --hide-modules --progress",
+    "build:web-workers": "tsc --project ./web-workers/tsconfig.json"
   },
   "dependencies": {
     "@kazupon/vue-i18n-loader": "^0.2.1",

@@ -10,10 +10,14 @@ declare module "*.ttf" {
     export default font;
 }
 
-declare const FontFace: any;
-
 // JSON
 declare module "*.json" {
     const json: object | any[];
     export default json;
 }
+
+// API Drafts
+declare const FontFace: any;
+
+// Modules without types definitions
+declare module "djv";
