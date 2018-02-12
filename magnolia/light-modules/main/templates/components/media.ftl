@@ -25,7 +25,7 @@
                     :is-autoplay="${isAutoplay?string!}"
                     :has-caption="${hasCaption?string!}"
                     class="o-lazy-media"
-                    style=" [#if hasRatio]padding-top: calc(1 / (${content.width} / ${content.height}) * 100%)[/#if]">
+                    style="[#if hasRatio]padding-top: calc(1 / (${content.width} / ${content.height}) * 100%)[/#if]">
             [#-- placeholder used before 'mounted' and before getting 'source' --]
             <svg class="media" width="${model.getMax((imageWidth * 100), 1)?string.computer}px" height="${model.getMax((imageHeight * 100), 1)?string.computer}px" viewBox="0 0 1 1"></svg>
         </lazy-media>
