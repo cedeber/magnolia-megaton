@@ -50,7 +50,6 @@ class LazyMedia extends Vue {
 
     public async created() {
         let data = this.content;
-        let source = "";
 
         try {
             if (data == undefined) {
@@ -73,9 +72,15 @@ class LazyMedia extends Vue {
             this.log.list(errors).error(`json not valid: ${errors[0].message} in ${errors[0].schemaPath}`);
             return;
         }
+    }
 
+    public async mounted() {
+        this.log.keep(this.$el);
+        
+        let source = "";
+        
         try {
-            source = this.video ? this.video.link || "" : await getPictureSource(data.picture.sources);
+            source = this.video ? this.video.link || "" : await getPictureSource(this.picture.sources);
             this.log.info(`default source: '${source}'`);
         } catch (error) {
             this.log.list(error).error("error while getting correct source");
@@ -97,10 +102,6 @@ class LazyMedia extends Vue {
             });
             observer.observe(this.$el);
         }
-    }
-
-    public mounted() {
-        this.log.keep(this.$el);
     }
 
     public updated() {
