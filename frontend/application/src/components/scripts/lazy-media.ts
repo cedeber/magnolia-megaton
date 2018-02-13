@@ -77,7 +77,7 @@ class LazyMedia extends Vue {
         try {
             source = this.video ? this.video.link || "" : await getPictureSource(data.picture.sources);
             this.log.info(`default source: '${source}'`);
-        } catch(error) {
+        } catch (error) {
             this.log.list(error).error("error while getting correct source");
             return;
         }
