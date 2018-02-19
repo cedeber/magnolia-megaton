@@ -10,32 +10,32 @@ const log = taggr("google-map");
 @Component
 class GoogleMap extends Vue {
     @Prop({ type: Number, default: 0 })
-    public lat: number;
+    public lat = 0;
 
     @Prop({ type: Number, default: 0 })
-    public long: number;
+    public long = 0;
 
     @Prop({ type: Number, default: 50 })
-    public scale: number;
+    public scale = 50;
 
     @Prop({ type: Number, default: 15 })
-    public zoom: number;
+    public zoom = 15;
 
     @Prop({ type: String, default: null })
-    public apiKey: string | null;
+    public apiKey: string | null = null;
 
     @Prop({ type: String, default: null })
-    public markerIcon: string | null;
+    public markerIcon: string | null = null;
 
     @Prop({ type: Number, default: 0 })
-    public markerWidth: number;
+    public markerWidth = 0;
 
     @Prop({ type: Number, default: 0 })
-    public markerHeight: number;
+    public markerHeight = 0;
 
     public isLoaded: boolean = false;
-    public map: google.maps.Map;
-    public marker: google.maps.Marker;
+    public map?: google.maps.Map;
+    public marker?: google.maps.Marker;
 
     @Watch("lat")
     public onLatChanged(newVal: number) {
@@ -68,8 +68,14 @@ class GoogleMap extends Vue {
     public moveMap() {
         const coords = new google.maps.LatLng(this.lat, this.long);
         google.maps.event.trigger(this.map, "resize");
-        this.map.setCenter(coords);
-        this.marker.setPosition(coords);
+
+        if (this.map) {
+            this.map.setCenter(coords);
+        }
+
+        if (this.marker) {
+            this.marker.setPosition(coords);
+        }
     }
 
     /**

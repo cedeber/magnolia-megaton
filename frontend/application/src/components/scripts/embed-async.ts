@@ -10,7 +10,7 @@ const log = taggr("embed-async");
 @Component
 class EmbedAsync extends Vue {
     @Prop({ type: String, required: true })
-    public href: string; // File link to load
+    public href?: string; // File link to load
 
     public content: string = ""; // File content
 

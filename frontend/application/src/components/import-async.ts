@@ -11,7 +11,7 @@ const log = taggr("import-async");
 @Component
 class ImportAsync extends Vue {
     @Prop({ type: String, required: true })
-    public href: string; // src or href, js or css
+    public href?: string; // src or href, js or css
 
     /**
      *

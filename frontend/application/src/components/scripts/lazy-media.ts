@@ -14,28 +14,29 @@ const validateMedia = validateSchema(mediaSchema);
 @Component
 class LazyMedia extends Vue {
     @Prop({type: Boolean, default: false})
-    public isInstantly: boolean;
+    public isInstantly = false;
 
     @Prop({type: Boolean, default: false})
-    public isCover: boolean;
+    public isCover = false;
+
+    // [FIXME] replace with hasCaption?
+    @Prop({type: Boolean, default: false})
+    public hasCaption = false;
 
     @Prop({type: Boolean, default: false})
-    public hasCaption: boolean;
-
-    @Prop({type: Boolean, default: false})
-    public isAutoplay: boolean;
+    public isAutoplay = false;
 
     @Prop({type: String, default: "is-center"})
-    public position: string;
+    public position = "is-center";
 
     @Prop({type: String, default: ""})
-    public path: string; // need to return JSON
+    public path = ""; // need to return JSON
 
     @Prop({type: Object, default: null})
-    public content: any; // if content == null, fetch the content with 'path' (JSON)
+    public content: any = null; // if content == null, fetch the content with 'path' (JSON)
 
     @Prop({type: Object, default: null})
-    public ratio: any;
+    public ratio: any = null;
 
     public source = "";
     public width: string | number = "100%";
@@ -76,9 +77,9 @@ class LazyMedia extends Vue {
 
     public async mounted() {
         this.log.keep(this.$el);
-        
+
         let source = "";
-        
+
         try {
             source = this.video ? this.video.link || "" : await getPictureSource(this.picture.sources);
             this.log.info(`default source: '${source}'`);
@@ -111,6 +112,8 @@ class LazyMedia extends Vue {
             const source = image.getAttribute("src") || "";
             // tslint:disable-next-line:no-bitwise
             const ext = source.slice((source.lastIndexOf(".") - 1 >>> 0) + 2);
+
+            // [TODO] Add @load with Vue?
 
             image.addEventListener("load", async () => {
                 let width = image.naturalWidth;

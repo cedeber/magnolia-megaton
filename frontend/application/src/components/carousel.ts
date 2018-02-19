@@ -11,16 +11,16 @@ type RenderType = "linear" | "continue" | "async";
 class Carousel extends Vue {
     // Properties
     @Prop({ type: Boolean, default: false })
-    public asHero: boolean; // calculate height from top position, at render
+    public asHero = false; // calculate height from top position, at render
 
     @Prop({ type: Boolean, default: false })
-    public autoplay: boolean; // play automatically
+    public autoplay = false; // play automatically
 
     @Prop({ type: Number, default: 0 })
-    public columns: number; // number of colums, overwrite minWidth
+    public columns = 0; // number of colums, overwrite minWidth
 
     @Prop({ type: Number, default: 5000 })
-    public delay: number; // time to show a slide
+    public delay = 5000; // time to show a slide
 
     @Prop({
         type: Number,
@@ -29,7 +29,7 @@ class Carousel extends Vue {
             return value >= 0;
         },
     })
-    public maxWidth: number; // items maximum width
+    public maxWidth = 0; // items maximum width
 
     @Prop({
         type: Number,
@@ -38,19 +38,19 @@ class Carousel extends Vue {
             return value >= 0;
         },
     })
-    public minWidth: number; // items minimum width
+    public minWidth = 0; // items minimum width
 
     @Prop({ type: String, default: "linear" })
-    public renderType: RenderType; // "linear" | "continue" | "async"
+    public renderType: RenderType = "linear"; // "linear" | "continue" | "async"
 
     @Prop({ type: Number, default: 0 })
-    public startAt: number; // first item to show
+    public startAt = 0; // first item to show
 
     @Prop({ type: Number, default: 1500 })
-    public transitionDelay: number; // duration of the transition animation
+    public transitionDelay = 1500; // duration of the transition animation
 
     @Prop({ type: Array })
-    public slides: any[];
+    public slides?: any[];
 
     // Variables
     public carouselWidth = 0; // used to control the resize event
@@ -75,7 +75,7 @@ class Carousel extends Vue {
     public onLastPage = false;
 
     // Content
-    public items: HTMLCollection | any[] | null = null;
+    public items?: HTMLCollection | any[];
     public itemsContainer: Element | null = null;
     public itemsContainerStyles = {
         width: "0px",
@@ -86,8 +86,8 @@ class Carousel extends Vue {
     public onSlidesChanged(value: any[]) {
         if (size(value) > 0) {
             this.carouselWidth = this.$el.offsetWidth;
-            this.items = this.slides;
-            this.itemsQuantity = this.slides.length;
+            this.items = value;
+            this.itemsQuantity = value.length;
 
             this.init();
         } else {
@@ -148,8 +148,8 @@ class Carousel extends Vue {
         this.carouselWidth = this.$el.offsetWidth;
 
         this.itemsContainer = this.$el.querySelector(".slides");
-        this.items = this.itemsContainer == undefined ? null : this.itemsContainer.children;
-        this.itemsQuantity = this.items === null ? 0 : this.items.length;
+        this.items = this.itemsContainer == undefined ? undefined : this.itemsContainer.children;
+        this.itemsQuantity = this.items == undefined ? 0 : this.items.length;
     }
 
     public init() {
