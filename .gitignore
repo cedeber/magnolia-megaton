@@ -4,6 +4,7 @@ frontend/**/report.html
 magnolia/light-modules/**/webresources/build/
 magnolia/light-modules/**/webresources/workers/
 magnolia/light-modules/**/webresources/*.json
+magnolia/light-modules/**/webresources/app/
 !magnolia/light-modules/**/external/
 
 magnolia/light-modules/**/virtualUriMappings/localhost.yaml
