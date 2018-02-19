@@ -29,7 +29,7 @@ function spray(level: number, tag: string | undefined, message: string | undefin
     // Only print message in development mode
     if (process.env.NODE_ENV === "development") {
         const defaultLogArgs = [
-            `%cfrontools%c${tag || "…"}%c${message || ""}`,
+            `%ctaggr%c${tag || "»"}%c${message || ""}`,
             getStyle(0),
             getStyle(level),
             "color: #2d2d2d; font-weight: bold",
