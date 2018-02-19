@@ -1,7 +1,7 @@
 <template>
     <figure class="figure">
         <!-- TODO :: explode in 2 separate components -->
-        <video v-if="video" :autoplay="isAutoplay" :loop="isAutoplay" :muted="isAutoplay" playsinline="isAutoplay" :controls="!isAutoplay" :poster="picture.link"
+        <video v-if="video" :autoplay="isAutoplay" :loop="isAutoplay" :muted="isAutoplay" :playsinline="isAutoplay" :controls="!isAutoplay" :poster="picture.link"
                class="container media" :class="[{'js-loaded': source, 'has-fixed-ratio': ratio, 'is-cover': isCover}, position ? position : '']"
                :src="source">
             <!--source :src="source" :type="metadata.mimetype"-->
