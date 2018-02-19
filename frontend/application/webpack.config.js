@@ -82,7 +82,7 @@ const config = {
 
         // polyfills is declared here but will be included within commons.js, see CommonsChunkPlugin
         polyfills: [
-            "es6-shim",
+            "core-js/shim",
             "whatwg-fetch",
             "matchmedia-polyfill",
             "intersection-observer",
