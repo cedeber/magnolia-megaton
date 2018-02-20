@@ -16,7 +16,7 @@ export default function(data: any): Promise<string> {
         let srcset: string = "";
 
         // Get the srcset that match the media query
-        for(const key of Object.keys(data)) {
+        for (const key of Object.keys(data)) {
             const media = key === "all" ? key : `(max-width:${key})`;
 
             if (window.matchMedia(media).matches) {
