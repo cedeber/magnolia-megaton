@@ -22,7 +22,7 @@ import LazyMedia from "./components/lazy-media.vue";
 import GoogleMap from "./components/google-map.vue";
 
 // Keep it! If you build the app with NODE_ENV == "production", it won't log.
-taggr().info("Your application is running in development mode.");
+taggr().warning("Your application is running in development mode.");
 
 // Create the vue instance
 const vm = new Vue({});
