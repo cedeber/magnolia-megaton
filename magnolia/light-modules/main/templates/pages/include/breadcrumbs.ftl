@@ -1,5 +1,5 @@
 [#macro splitter]
-    <li class="splitter has-svg-icon">
+    <li class="splitter has-svg-icon" aria-hidden="true">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
@@ -19,7 +19,7 @@
 <section class="o-section has-no-top-space has-no-bottom-space">
     <div class="o-group is-large">
         <nav class="o-breadcrumbs">
-            <ul class="o-flex-inline is-middle">
+            <ol class="o-flex-inline is-middle">
                 [#assign rootPage = navfn.rootPage(content)!]
                 <li>
                     <a class="link has-svg-icon" href="${navfn.link(rootPage)!}" aria-labelledby="homeIconBreadcrumbs">
@@ -58,7 +58,37 @@
                     [@link href="" label=content.navigationTitle!content.title /]
                     [@splitter /]
                 [/#if]
-            </ul>
+            </ol>
+            [#if cmsfn.asJCRNode(content).depth > 1]
+                <script type="application/ld+json">
+                [@compress single_line=true]
+                {
+                    "@context": "http://schema.org",
+                    "@type": "BreadcrumbList",
+                    "itemListElement":
+                    [
+                        [#assign ancestorsJSON = cmsfn.ancestors(content, "mgnl:page")]
+                        [#assign indexJSON = 1]
+                        [#list ancestorsJSON as ancestorJSON]
+                            [#if cmsfn.asJCRNode(ancestorJSON).depth > 1]
+                                [#if indexJSON > 1],[/#if]
+                                {
+                                    "@type": "ListItem",
+                                    "position": ${indexJSON},
+                                    "item":
+                                    {
+                                        "@id": "${navfn.link(ancestorJSON)!}",
+                                        "name": "${ancestorJSON.navigationTitle!ancestorJSON.title!}"
+                                    }
+                                }
+                                [#assign indexJSON = indexJSON + 1]
+                            [/#if]
+                        [/#list]
+                    ]
+                }
+                [/@compress]
+                </script>
+            [/#if]
         </nav>
     </div>
 </section>

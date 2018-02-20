@@ -66,6 +66,7 @@ Don't forget touch screens on Microsoft Surface.
 - [ ] [W3C Markup Validation](https://validator.w3.org) (Vue errors are OK. You can also check HTML mistakes in Firefox "View Page Source")
 - [ ] [Google Lighthouse: Webpage](https://developers.google.com/web/tools/lighthouse/) (inside Chrome 60+ Dev Tools)
 - [ ] [Web Page Test](https://www.webpagetest.org) (can be done with Chrome dev tools, simulate slow connection and under-powered device)
+- [ ] [Google Structured data testing tool](https://search.google.com/structured-data/testing-tool)
 
 ## Optionals tools
 - [Mozilla Observatory: Security](https://observatory.mozilla.org) (Server Security)
