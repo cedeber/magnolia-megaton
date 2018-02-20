@@ -18,6 +18,3 @@ declare module "*.json" {
 
 // API Drafts
 declare const FontFace: any;
-
-// Modules without types definitions
-declare module "djv";
