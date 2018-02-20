@@ -28,7 +28,7 @@ interface LazyJSON {
         title: string;
         description: string;
         caption: string;
-    }
+    };
 }
 
 const validateMedia = validateSchema(mediaSchema);
