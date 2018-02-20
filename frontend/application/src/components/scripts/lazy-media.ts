@@ -5,6 +5,32 @@ import validateSchema from "../../schemas/validate";
 import mediaSchema from "../../schemas/media.json";
 import taggr from "../../devtools/taggr";
 
+interface LazyJSON {
+    picture?: {
+        link: string;
+        id: string;
+        extension: string;
+        width: number;
+        height: number;
+        sources: {
+            [propName: string]: string;
+        }
+    };
+
+    video?: {
+        link: string;
+        id: string;
+        extension: string;
+    };
+
+    metadata: {
+        mimetype: string;
+        title: string;
+        description: string;
+        caption: string;
+    }
+}
+
 const validateMedia = validateSchema(mediaSchema);
 
 /**
@@ -19,7 +45,6 @@ class LazyMedia extends Vue {
     @Prop({type: Boolean, default: false})
     public isCover = false;
 
-    // [FIXME] replace with hasCaption?
     @Prop({type: Boolean, default: false})
     public hasCaption = false;
 
@@ -33,7 +58,7 @@ class LazyMedia extends Vue {
     public path = ""; // need to return JSON
 
     @Prop({type: Object, default: null})
-    public content: any = null; // if content == null, fetch the content with 'path' (JSON)
+    public content: LazyJSON | null = null; // if content == null, fetch the content with 'path' (JSON)
 
     @Prop({type: Object, default: null})
     public ratio: any = null;
@@ -63,6 +88,8 @@ class LazyMedia extends Vue {
         }
 
         try {
+            if (!data) { throw new Error("json is void") }
+
             await validateMedia(data);
             this.log.info("json is valid");
 
@@ -93,7 +120,7 @@ class LazyMedia extends Vue {
         } else {
             // [TODO] Create only one observer for all lazy components
             const observer = new IntersectionObserver(entries => {
-                // [FIXME] remove <any> once IntersectionObserver will be valid
+                // [FIXME] remove <any> once IntersectionObserver will be valid
                 if (!(<any>entries[0]).isIntersecting) { return; }
 
                 observer.disconnect();
