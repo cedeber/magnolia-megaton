@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "strict": true,
     "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
     "emitDecoratorMetadata": true,
@@ -16,6 +15,7 @@
     "preserveConstEnums": true,
     "removeComments": true,
     "sourceMap": true,
+    "strict": true,
     "target": "es5",
     "plugins": [
       { "name": "tslint-language-service" }
@@ -26,6 +26,6 @@
   ],
   "exclude": [
     "node_modules",
-    "**/*.bak.ts"
+    "**/*.bak.*"
   ]
 }
