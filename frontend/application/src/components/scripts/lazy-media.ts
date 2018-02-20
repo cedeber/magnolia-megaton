@@ -88,7 +88,7 @@ class LazyMedia extends Vue {
         }
 
         try {
-            if (!data) { throw new Error("json is void") }
+            if (!data) { throw new Error("json is void"); }
 
             await validateMedia(data);
             this.log.info("json is valid");
