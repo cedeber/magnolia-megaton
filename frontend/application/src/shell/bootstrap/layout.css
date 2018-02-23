@@ -28,9 +28,11 @@
 .o-section.is-full-width {
     margin: var(--section-margin-height) 0;
 }
-
-.o-section.has-inner-space {
+.o-section.has-top-inner-space {
     padding-top: var(--section-margin-height);
+}
+
+.o-section.has-bottom-inner-space {
     padding-bottom: var(--section-margin-height);
 }
 
@@ -65,9 +67,9 @@
 
 /* Layout Modifiers */
 .has-no-bottom-space { margin-bottom: 0 !important; }
-.has-no-bottom-space:not(.has-inner-space) { padding-bottom: 0 !important; }
+.has-no-bottom-space:not(.has-bottom-inner-space) { padding-bottom: 0 !important; }
 .has-no-top-space { margin-top: 0 !important; }
-.has-no-top-space:not(.has-inner-space) { padding-top: 0 !important; }
+.has-no-top-space:not(.has-top-inner-space) { padding-top: 0 !important; }
 
 /**
  * iPhone X :: viewport-fit=cover
