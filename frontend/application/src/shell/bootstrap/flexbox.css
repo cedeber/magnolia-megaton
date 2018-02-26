@@ -93,5 +93,6 @@
 }
 .is-right.is-vertical { align-items: flex-end; }
 
+[class*="o-flex"].is-bottom { align-items: flex-end; }
 .is-top { align-self: flex-start; }
 .is-bottom { align-self: flex-end; }
