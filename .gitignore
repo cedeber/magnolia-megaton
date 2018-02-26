@@ -16,8 +16,8 @@ magnolia/*-webapp/**/cache/
 ### Temp ###
 tmp/
 temp/
-*.tmp
-*.bak
+*.tmp*
+*.bak*
 .lock
 
 ### Java ###
