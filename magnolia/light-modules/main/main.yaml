@@ -1,0 +1,5 @@
+#YAML Module descriptor
+version: 1.0-SNAPSHOT
+dependencies:
+  main-module:
+    version: 1.0-SNAPSHOT
