@@ -28,8 +28,6 @@
 
 Cache Optimization:
 - [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
-- [ ] MAGNOLIA 5.6.1+ Also for JS files `application/javascript`
-See: https://jira.magnolia-cms.com/browse/MAGNOLIA-6682
 
 # Testings
 Chrome and Firefox should technically behave the same way whatever the operating system is.
