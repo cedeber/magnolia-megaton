@@ -2,6 +2,7 @@ title: Media (Image, Video)
 renderType: freemarker
 templateScript: /main/templates/components/media.ftl
 dialog: main:components/media
+
 variations:
   json:
     templateScript: /main/templates/variations/mediaJSON.ftl
