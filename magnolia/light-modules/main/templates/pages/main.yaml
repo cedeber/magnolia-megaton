@@ -4,9 +4,9 @@ renderType: freemarker
 dialog: main:pages/main
 visible: true
 
-modelClass: info.magnolia.module.jsmodels.rendering.JavascriptRenderingModel
-class: info.magnolia.module.jsmodels.rendering.JavascriptTemplateDefinition
-modelPath: /main/templates/pages/main.js
+#modelClass: info.magnolia.module.jsmodels.rendering.JavascriptRenderingModel
+#class: info.magnolia.module.jsmodels.rendering.JavascriptTemplateDefinition
+#modelPath: /main/templates/pages/model.js
 
 parameters:
   app: main
@@ -32,13 +32,6 @@ areas:
     availableComponents:
       sectionLayout:
         id: main:components/sectionLayout
-   # [TODO] select default value (standard and 1 column)
-   # autoGeneration:
-   #   content:
-   #     sectionLayout:
-   #       nodeType: mgnl:component
-   #       templateId: main:components/sectionLayout
-   #   generatorClass: info.magnolia.rendering.generator.CopyGenerator
 
   tagManager:
     renderType: freemarker
@@ -46,7 +39,3 @@ areas:
     editable: false
     inheritance:
       enabled: true
-
-variations:
-  txt:
-    templateScript: /main/templates/variations/txt.ftl

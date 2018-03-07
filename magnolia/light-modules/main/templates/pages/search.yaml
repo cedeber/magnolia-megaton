@@ -4,9 +4,9 @@ renderType: freemarker
 dialog: main:pages/main
 visible: true
 
-modelClass: info.magnolia.module.jsmodels.rendering.JavascriptRenderingModel
-class: info.magnolia.module.jsmodels.rendering.JavascriptTemplateDefinition
-modelPath: /main/templates/pages/main.js
+#modelClass: info.magnolia.module.jsmodels.rendering.JavascriptRenderingModel
+#class: info.magnolia.module.jsmodels.rendering.JavascriptTemplateDefinition
+#modelPath: /main/templates/pages/model.js
 
 parameters:
   app: main
