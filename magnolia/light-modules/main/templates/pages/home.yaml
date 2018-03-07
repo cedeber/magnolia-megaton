@@ -3,6 +3,7 @@ templateScript: /main/templates/pages/main.ftl
 renderType: freemarker
 dialog: main:pages/main
 visible: true
+type: home
 
 #modelClass: info.magnolia.module.jsmodels.rendering.JavascriptRenderingModel
 #class: info.magnolia.module.jsmodels.rendering.JavascriptTemplateDefinition
