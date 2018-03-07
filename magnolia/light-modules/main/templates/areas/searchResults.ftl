@@ -7,6 +7,7 @@
     [#assign totalRecordsFound = websiteResults?size /]
 
     [#--ASSETS--]
+    [#--Finds assets by their properties (title, caption etc). Not their content (pdfs are not parsed!)--]
     [#assign damResults = searchfn.searchContent("dam", queryStr+"*", '%', 'mgnl:asset', 100, 0) /]
     [#assign totalRecordsFound += damResults?size /]
 
