@@ -1,6 +1,8 @@
 [#include "../macros/alt.ftl"]
 
 [#if content.image?? && damfn.getAsset(content.image)??]
+[#assign isCover = content.isCover?? && content.isCover == true]
+
 <div class="slide">
     [#if content.foregroundText?has_content]
     <div class="foreground o-flex-middle is-vertical is-left">
@@ -10,7 +12,7 @@
     <div class="background">
         [#if !cmsfn.isEditMode()]
         [#assign imageMap = damfn.getAssetMap(content.image)!]
-        <lazy-media inline-template="true">
+        <lazy-media inline-template="true" :is-cover="${isCover?string!}">
             <picture v-bind:class="{ 'js-loaded': source }" class="picture">
                 [#if !(cmsfn.fileExtension(imageMap.name) == "gif")]
                     <source media="(max-width: 376px)" srcset="${damfn.getRendition(content.image, "hero-375").getLink()!}, ${damfn.getRendition(content.image, "hero-375-2x").getLink()!} 2x">
@@ -23,7 +25,7 @@
                     <source srcset="${damfn.getAssetLink(content.image)!}">
                 [/#if]
                 <template v-if="source">
-                    <img class="image [#if content.isCover == true]is-cover[/#if]" data-object-fit v-bind:src="source" [@alt map=imageMap /]>
+                    <img class="image [#if isCover == true]is-cover[/#if]" data-object-fit v-bind:src="source" [#if isCover == true]data-object-fit="cover" [/#if][@alt map=imageMap /]>
                 </template>
                 <template v-else>
                     <svg class="image" width="${imageMap.metadata.mgnl.width?string.computer}px" height="${imageMap.metadata.mgnl.height?string.computer}px" viewBox="0 0 1 1"></svg>

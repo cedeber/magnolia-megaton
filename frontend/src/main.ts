@@ -6,6 +6,7 @@ import "./page-styles/breadcrumbs.css";
 
 /* --- Application --- */
 import Vue from "vue";
+import "objectFitPolyfill";
 import LazyMedia from "./components/lazy-media";
 import { Carousel } from "./components/carousel";
 import LoadingPage from "./components/loading-page.vue";

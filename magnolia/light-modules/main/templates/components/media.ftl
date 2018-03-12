@@ -12,7 +12,7 @@
 
 <div class="o-lazy-media" [#if hasRatio]style="padding-top:calc(1 / (${content.width} / ${content.height}) * 100%)"[/#if]>
 [#if !cmsfn.isEditMode()]
-    <lazy-media inline-template :instantly="${isInstantly?string!}">
+    <lazy-media inline-template :instantly="${isInstantly?string!}" :is-cover="${isCover?string!}">
     [#if content.video?has_content]
         [#assign videoMap = damfn.getAssetMap(content.video)!]
         <div>
@@ -41,7 +41,7 @@
                     <source srcset="${damfn.getRendition(content.image, "hero-1024").getLink()!}, ${damfn.getRendition(content.image, "hero-1024-2x").getLink()!} 2x">
                 [/#if]
                 <template v-if="source">
-                    <img class="media is-${content.position!"center"} [#if isCover == true]is-cover[/#if]" :src="source" :width="width" :height="height" [@alt map=imageMap /]>
+                    <img class="media is-${content.position!"center"} [#if isCover == true]is-cover[/#if]" :src="source" :width="width" :height="height" [#if isCover == true]data-object-fit="cover" [/#if][@alt map=imageMap /]>
                 </template>
                 <template v-else>
                     <svg class="media" width="${model.getMax((imageWidth * 100), 1)?string.computer}px" height="${model.getMax((imageHeight * 100), 1)?string.computer}px" viewBox="0 0 1 1"></svg>
