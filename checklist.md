@@ -12,6 +12,7 @@
 - [ ] App + Mobile Favicons
 - [ ] Correct `<head>`: App name, etc...
 - [ ] Cookie compliance (only for political Europe right now)
+- [ ] Check Form submissions
 
 # Magnolia Configurations
 Project setup:
@@ -29,7 +30,6 @@ Project finalization:
 - [ ] Visitor user (public)
 - [ ] Imaging Module (Is `/modules/site/config/site/theme` set correctly on public?)
 - [ ] Does Magnolia Search find pages/assets/news/events etc.
-- [ ] Check Form submissions
 - [ ] Check for yaml errors in Definitions App
 
 After Go-Live:
