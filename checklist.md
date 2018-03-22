@@ -21,16 +21,19 @@ Project setup:
 - [ ] Add woff2 mimetype (/server/MIMEMapping/)
 - [ ] Set /server/security/userManagers/system@lockTimePeriod to 5(minutes)
 - [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
+- [ ] Set `defaultBaseUrl` in Magnolia server config (author/public)
 
 Project finalization:
 - [ ] Anonymous role access to required workspaces (public)
 - [ ] Admin user (author/public) check workspaces!
 - [ ] Visitor user (public)
-- [ ] Set `defaultBaseUrl` in Magnolia server config (author/public)
 - [ ] Imaging Module (Is /modules/site/config/site/theme set correctly on public?)
 - [ ] Does Magnolia Search find pages/assets/news/events etc.
 - [ ] Check Form submissions
 - [ ] Check for yaml errors in Definitions App
+
+After Go-Live:
+- [ ] Set `defaultBaseUrl` in Magnolia server config (author/public)
 
 
 # Testings
