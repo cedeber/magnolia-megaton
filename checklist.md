@@ -15,6 +15,9 @@
 
 # Magnolia Configurations
 - [ ] Anonymous password (public)
+- [ ] Add map /home to / (/server/URI2RepositoryMapping/mappings/website)
+- [ ] Add map /magnolia to /.magnolia/admincentral (/modules/ui-admincentral/virtualUriMappings/default)
+- [ ] Add woff2 mimetype (/server/MIMEMapping/)
 - [ ] Anonymous role access to required workspaces (public)
 - [ ] Admin user (author/public) check workspaces!
 - [ ] Visitor user (public)
@@ -24,7 +27,7 @@
 - [ ] Does Magnolia Search find pages/assets/news/events etc.
 - [ ] Check Form submissions
 - [ ] Check for yaml errors in Definitions App
-- [ ] Add woff2 mimetype (/server/MIMEMapping/)
+
 
 Cache Optimization:
 - [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
