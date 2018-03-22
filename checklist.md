@@ -20,6 +20,7 @@ Project setup:
 - [ ] Add map /magnolia to /.magnolia/admincentral (/modules/ui-admincentral/virtualUriMappings/default)
 - [ ] Add woff2 mimetype (/server/MIMEMapping/)
 - [ ] Set /server/security/userManagers/system@lockTimePeriod to 5(minutes)
+- [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
 
 Project finalization:
 - [ ] Anonymous role access to required workspaces (public)
@@ -31,9 +32,6 @@ Project finalization:
 - [ ] Check Form submissions
 - [ ] Check for yaml errors in Definitions App
 
-
-Cache Optimization:
-- [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
 
 # Testings
 Chrome and Firefox should technically behave the same way whatever the operating system is.
