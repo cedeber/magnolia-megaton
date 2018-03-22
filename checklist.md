@@ -20,6 +20,7 @@ Project setup:
 - [ ] Add map /magnolia to /.magnolia/admincentral (/modules/ui-admincentral/virtualUriMappings/default)
 - [ ] Add woff2 mimetype (/server/MIMEMapping/)
 - [ ] Set /server/security/userManagers/system@lockTimePeriod to 5(minutes)
+
 Project finalization:
 - [ ] Anonymous role access to required workspaces (public)
 - [ ] Admin user (author/public) check workspaces!
