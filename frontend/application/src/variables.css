@@ -34,7 +34,8 @@
 
     /* Text - Default */
     --default-font-family: "PTSans", system-ui, sans-serif;
-    --default-text-color: var(--base06);
+    --default-dark-text-color: var(--base00);
+    --default-light-text-color: var(--base06);
     --default-font-size: calc(16px + (18 - 16) * (100vw - 320px) / (1440 - 320)); /* 18px @ 1440px -> 16px @ 320px */
     --default-font-weight: 500;
     --default-line-height: 1.5;
@@ -61,7 +62,7 @@
     --media-margin-height: 2em;
 
     /* Page - default, layout */
-    --page-background: var(--base01); /* linear-gradient forces repaint, don't use it */
+    --page-background: var(--base07); /* linear-gradient forces repaint, don't use it */
     --page-maxwidth: 64rem;
     --page-maxwidth-large: 98rem;
     --page-gutter-width: 1.5rem;
