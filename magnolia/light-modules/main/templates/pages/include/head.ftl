@@ -35,6 +35,7 @@
         document.head.appendChild(linkElement);
     })();
 </script>
+<script>window.mgnlContextPath = "${ctx.contextPath}";</script>
 
 <link rel="manifest" href="/manifest.json">
 
