@@ -40,28 +40,28 @@ const validateMedia = validateSchema(mediaSchema);
 @Component
 class LazyMedia extends Vue {
     @Prop({type: Boolean, default: false})
-    public isInstantly = false;
+    public isInstantly!: boolean;
 
     @Prop({type: Boolean, default: false})
-    public isCover = false;
+    public isCover!: boolean;
 
     @Prop({type: Boolean, default: false})
-    public hasCaption = false;
+    public hasCaption!: boolean;
 
     @Prop({type: Boolean, default: false})
-    public isAutoplay = false;
+    public isAutoplay!: boolean;
 
     @Prop({type: String, default: "is-center"})
-    public position = "is-center";
+    public position!: string;
 
     @Prop({type: String, default: ""})
-    public path = ""; // need to return JSON
+    public path!: string; // need to return JSON
 
     @Prop({type: Object, default: null})
-    public content: LazyJSON | null = null; // if content == null, fetch the content with 'path' (JSON)
+    public content!: LazyJSON | null; // if content == null, fetch the content with 'path' (JSON)
 
     @Prop({type: Object, default: null})
-    public ratio: any = null;
+    public ratio!: any;
 
     public source = "";
     public width: string | number = "100%";
@@ -74,8 +74,11 @@ class LazyMedia extends Vue {
 
     private log = taggr("async-media");
 
-    public async created() {
+    public async mounted() {
+        this.log.keep(this.$el);
+
         let data = this.content;
+        let source = "";
 
         try {
             if (data == undefined) {
@@ -100,12 +103,6 @@ class LazyMedia extends Vue {
             this.log.list(errors).error(`json not valid: ${errors[0].message} in ${errors[0].schemaPath}`);
             return;
         }
-    }
-
-    public async mounted() {
-        this.log.keep(this.$el);
-
-        let source = "";
 
         try {
             source = this.video ? this.video.link || "" : await getPictureSource(this.picture.sources);
@@ -126,7 +123,7 @@ class LazyMedia extends Vue {
                 observer.disconnect();
                 this.source = source;
             }, {
-                rootMargin: "0px 0px 667px 0px", // 1 viewport height of an iPhone 7/8
+                rootMargin: "100px 100px 667px 100px", // 1 viewport height of an iPhone 7/8
             });
             observer.observe(this.$el);
         }
