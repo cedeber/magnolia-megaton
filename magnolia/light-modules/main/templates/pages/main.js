@@ -77,6 +77,17 @@ var Main = function() {
             return paragraph.trim();
         }
     };
+
+    this.brightness = function(hexColor) {
+        var color = hexColor.slice(1);
+        var red = parseInt(color.slice(0, 2), 16);
+        var green = parseInt(color.slice(2, 4), 16);
+        var blue = parseInt(color.slice(4, 6), 16);
+
+        return Math.floor((red * 299 + green * 587 + blue * 114) / 1000) > 128
+            ? "light"
+            : "dark";
+    }
 };
 
 new Main();
