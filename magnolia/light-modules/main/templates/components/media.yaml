@@ -2,10 +2,7 @@ title: Media (Image, Video)
 renderType: freemarker
 templateScript: /main/templates/components/media.ftl
 dialog: main:components/media
+
 variations:
   json:
     templateScript: /main/templates/variations/mediaJSON.ftl
-
-modelClass: info.magnolia.module.jsmodels.rendering.JavascriptRenderingModel
-class: info.magnolia.module.jsmodels.rendering.JavascriptTemplateDefinition
-modelPath: /main/templates/pages/main.js

@@ -1,4 +1,5 @@
 [#if content.searchPage?has_content]
+    [#assign queryStr = ctx.getParameter('q')!?html]
     <form action="${cmsfn.link('website', content.searchPage)!}" class="o-search-form o-flex-inline">
         <input type="search" name="q" placeholder="${content.placeholder!}" title="${i18n['search.title']!}" class="search-input" value="${queryStr!}" maxlength="1000" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
         <button class="has-svg-icon search-icon">

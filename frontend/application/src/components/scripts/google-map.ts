@@ -103,6 +103,7 @@ class GoogleMap extends Vue {
                 ? ({
                       url: this.markerIcon,
                       scaledSize: new google.maps.Size(this.markerWidth, this.markerHeight),
+                      anchor: new google.maps.Point(this.markerWidth / 2, this.markerHeight),
                   } as google.maps.Icon)
                 : undefined;
 
