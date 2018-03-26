@@ -10,16 +10,16 @@ var Main = function() {
     this.getMin = function(v1, v2) { return Math.min(v1, v2); };
     this.getMax = function(v1, v2) { return Math.max(v1, v2); };
 
-    this.cleanMinMax = function(min, max) {
-        max = max || min;
+    this.minMax = function(val1, val2) {
+        val2 = val2 || val1;
 
-        min = Math.abs(min);
-        max = Math.abs(max);
+        val1 = Math.abs(val1);
+        val2 = Math.abs(val2);
 
-        min = Math.min(min, max);
-        max = Math.max(min, max);
+        val1 = Math.min(val1, val2);
+        val2 = Math.max(val1, val2);
 
-        return [min, max];
+        return [val1, val2];
     };
 
     this.lipsum = function(minSentences, maxSentences, minWords, maxWords) {
@@ -38,8 +38,8 @@ var Main = function() {
 
         var self = this;
         var lorem = [];
-        var cleanedSentences = self.cleanMinMax(minSentences || 3, maxSentences || 5);
-        var cleanedWords = self.cleanMinMax(minWords || 10, maxWords || 20);
+        var cleanedSentences = self.minMax(minSentences || 3, maxSentences || 5);
+        var cleanedWords = self.minMax(minWords || 10, maxWords || 20);
 
         var numberOfSentences, i, count, wordIndex;
 
