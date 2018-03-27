@@ -9,15 +9,16 @@
         <picture v-else-if="picture" :class="{'js-loaded': isLoaded, 'has-fixed-ratio': ratio}" class="container">
             <source v-if="picture.extension === 'gif'" :srcset="picture.link">
             <source v-else v-for="(set, query) in picture.sources" :media="query === 'all' ? query : `(max-width:${query})`" :srcset="set">
-            <img v-if="source" class="media" :class="[{'is-cover': isCover, 'is-scaled': !isCover && ratio}, position ? position : '']"
+            <img v-if="source" class="media"
+                 :class="[{'is-cover': isCover, 'is-scaled': !isCover && ratio}, position ? position : '']"
                  :src="source"
                  :width="width"
                  :height="height"
-                 :title="metadata.title || metadata.description"
-                 :alt="metadata.description">
+                 :title="metadata ? (metadata.title || metadata.description || '') : ''"
+                 :alt="metadata ? metadata.description : ''">
             <slot v-else></slot>
         </picture>
-        <figcaption v-if="hasCaption && metadata.caption" class="caption">{{metadata.caption}}</figcaption>
+        <figcaption v-if="hasCaption && metadata && metadata.caption" class="caption">{{metadata.caption}}</figcaption>
     </figure>
 </template>
 
@@ -35,6 +36,12 @@
         height: 100%;
         opacity: 0;
         transition: var(--default-timing) 50ms;
+    }
+
+    .figure.is-absolute .container {
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 
     .container:not(.has-fixed-ratio) {
