@@ -9,45 +9,32 @@ type RenderType = "linear" | "continue" | "async";
 
 @Component
 class Carousel extends Vue {
-    // Properties
     @Prop({ type: Boolean, default: false })
-    public asHero = false; // calculate height from top position, at render
+    public asHero!: false; // calculate height from top position, at render
 
     @Prop({ type: Boolean, default: false })
-    public autoplay = false; // play automatically
+    public autoplay!: false; // play automatically
 
     @Prop({ type: Number, default: 0 })
-    public columns = 0; // number of colums, overwrite minWidth
+    public columns!: number; // number of colums, overwrite minWidth
 
     @Prop({ type: Number, default: 5000 })
-    public delay = 5000; // time to show a slide
+    public delay!: number; // time to show a slide
 
-    @Prop({
-        type: Number,
-        default: 0,
-        validator(value: number) {
-            return value >= 0;
-        },
-    })
-    public maxWidth = 0; // items maximum width
+    @Prop({ type: Number, default: 0, validator(value: number) { return value >= 0; } })
+    public maxWidth!: number; // items maximum width
 
-    @Prop({
-        type: Number,
-        default: 0,
-        validator(value: number) {
-            return value >= 0;
-        },
-    })
-    public minWidth = 0; // items minimum width
+    @Prop({ type: Number, default: 0, validator(value: number) { return value >= 0; } })
+    public minWidth !: number; // items minimum width
 
     @Prop({ type: String, default: "linear" })
-    public renderType: RenderType = "linear"; // "linear" | "continue" | "async"
+    public renderType!: RenderType; // "linear" | "continue" | "async"
 
     @Prop({ type: Number, default: 0 })
-    public startAt = 0; // first item to show
+    public startAt!: number; // first item to show
 
     @Prop({ type: Number, default: 1500 })
-    public transitionDelay = 1500; // duration of the transition animation
+    public transitionDelay!: number; // duration of the transition animation
 
     @Prop({ type: Array })
     public slides?: any[];
@@ -101,7 +88,7 @@ class Carousel extends Vue {
     public mounted() {
         // As Hero (property)
         const setHeroHeight = function(this: Carousel) {
-            const carouselTop: number = function(this: Carousel) {
+            const carouselTop: number = (function(this: Carousel) {
                 let element = this.$el;
                 let top = (element as HTMLElement).offsetTop;
 
@@ -111,7 +98,7 @@ class Carousel extends Vue {
                 }
 
                 return top;
-            }.call(this);
+            }).call(this);
 
             this.$el.style.height = `${window.innerHeight - carouselTop}px`;
         };

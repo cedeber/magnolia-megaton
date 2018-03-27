@@ -39,28 +39,30 @@ const validateMedia = validateSchema(mediaSchema);
 
 @Component
 class LazyMedia extends Vue {
-    @Prop({type: Boolean, default: false})
+    @Prop({ type: Boolean, default: false })
     public isInstantly!: boolean;
 
-    @Prop({type: Boolean, default: false})
+    @Prop({ type: Boolean, default: false })
     public isCover!: boolean;
 
-    @Prop({type: Boolean, default: false})
+    @Prop({ type: Boolean, default: false })
     public hasCaption!: boolean;
 
-    @Prop({type: Boolean, default: false})
+    @Prop({ type: Boolean, default: false })
     public isAutoplay!: boolean;
 
-    @Prop({type: String, default: "is-center"})
+    @Prop({ type: String, default: "is-center" })
     public position!: string;
 
-    @Prop({type: String, default: ""})
-    public path!: string; // need to return JSON
+    // need to return JSON
+    @Prop({ type: String, default: "" })
+    public path!: string;
 
-    @Prop({type: Object, default: null})
-    public content!: LazyJSON | null; // if content == null, fetch the content with 'path' (JSON)
+    // if content == null, fetch the content with 'path' (JSON)
+    @Prop({ type: Object, default: null })
+    public content!: LazyJSON | null;
 
-    @Prop({type: Object, default: null})
+    @Prop({ type: Object, default: null })
     public ratio!: any;
 
     public source = "";
@@ -82,7 +84,7 @@ class LazyMedia extends Vue {
 
         try {
             if (data == undefined) {
-                const response = await fetch(this.path);
+                const response = await fetch(this.path, { credentials: "include" });
                 data = await response.json();
             }
         } catch (error) {
@@ -105,7 +107,9 @@ class LazyMedia extends Vue {
         }
 
         try {
-            source = this.video ? this.video.link || "" : await getPictureSource(this.picture.sources);
+            source = this.video
+                ? this.video.link || ""
+                : await getPictureSource(this.picture.sources);
             this.log.info(`default source: '${source}'`);
         } catch (error) {
             this.log.list(error).error("error while getting correct source");
@@ -123,8 +127,8 @@ class LazyMedia extends Vue {
                 observer.disconnect();
                 this.source = source;
             }, {
-                rootMargin: "100px 100px 667px 100px", // 1 viewport height of an iPhone 7/8
-            });
+                    rootMargin: "100px 100px 667px 100px", // 1 viewport height of an iPhone 7/8
+                });
             observer.observe(this.$el);
         }
     }
@@ -160,7 +164,10 @@ class LazyMedia extends Vue {
                 this.height = height;
 
                 // object-fit polyfill for IEdge <= 15
-                if (typeof window.objectFitPolyfill === "function" && isOutdatedBrowser && ext !== "svg") {
+                if (
+                    typeof window.objectFitPolyfill === "function" &&
+                    isOutdatedBrowser && ext !== "svg" &&
+                    this.isCover) {
                     window.objectFitPolyfill(image);
                 }
 

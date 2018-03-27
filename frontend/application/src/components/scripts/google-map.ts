@@ -10,28 +10,28 @@ const log = taggr("google-map");
 @Component
 class GoogleMap extends Vue {
     @Prop({ type: Number, default: 0 })
-    public lat = 0;
+    public lat!: number;
 
     @Prop({ type: Number, default: 0 })
-    public long = 0;
+    public long!: number;
 
     @Prop({ type: Number, default: 50 })
-    public scale = 50;
+    public scale!: number;
 
     @Prop({ type: Number, default: 15 })
-    public zoom = 15;
+    public zoom!: number;
 
     @Prop({ type: String, default: null })
-    public apiKey: string | null = null;
+    public apiKey!: string | null;
 
     @Prop({ type: String, default: null })
-    public markerIcon: string | null = null;
+    public markerIcon!: string | null;
 
     @Prop({ type: Number, default: 0 })
-    public markerWidth = 0;
+    public markerWidth!: number;
 
     @Prop({ type: Number, default: 0 })
-    public markerHeight = 0;
+    public markerHeight!: number;
 
     public isLoaded: boolean = false;
     public map?: google.maps.Map;

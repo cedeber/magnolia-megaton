@@ -13,7 +13,7 @@ import taggr from "../../devtools/taggr";
 @Component
 class Sticky extends Vue {
     @Prop({ type: Number, default: 0 })
-    public marginTop = 0; // Detection is done with 'marginTop' pixels from the top of the viewport
+    public marginTop!: number; // Detection is done with 'marginTop' pixels from the top of the viewport
 
     public element: HTMLElement | null = null; // The slot single container
     private isSticky = false;
