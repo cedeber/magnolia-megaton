@@ -5,7 +5,6 @@ import "./shell.css";
 /* --- Styles --- */
 // In webpack.config.js you can choose to extract it thanks to the `extractCSS` var
 // If extractCSS == false, the CSS is injected into the HTML by style-loader
-import "./styles/webfonts.css";
 import "./styles/base.css";
 import "./styles/article.css";
 import "./styles/breadcrumbs.css";
