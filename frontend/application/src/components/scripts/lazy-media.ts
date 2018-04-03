@@ -30,6 +30,10 @@ interface LazyJSON {
     };
 }
 
+declare global {
+    interface Window { objectFitPolyfill: any; }
+}
+
 const validateMedia = validateSchema(mediaSchema);
 const IEdgeMatches = /(Edge|Trident)\/(\d.)/i.exec(navigator.userAgent);
 const isOutdatedBrowser = IEdgeMatches && parseInt(IEdgeMatches[2], 10) < 16;
