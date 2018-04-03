@@ -1,5 +1,4 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { isOutdatedBrowser } from "../../helpers/outdated-browser";
 import getPictureSource from "../../helpers/picture-source";
 import validateSchema from "../../schemas/validate";
 import mediaSchema from "../../schemas/media.json";
@@ -32,6 +31,8 @@ interface LazyJSON {
 }
 
 const validateMedia = validateSchema(mediaSchema);
+const IEdgeMatches = /(Edge|Trident)\/(\d.)/i.exec(navigator.userAgent);
+const isOutdatedBrowser = IEdgeMatches && parseInt(IEdgeMatches[2], 10) < 16;
 
 /**
  * @todo Save the result in a sessionStorage?
