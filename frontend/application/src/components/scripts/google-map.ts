@@ -2,6 +2,10 @@ import Vue from "vue";
 import { Component, Prop, Watch } from "vue-property-decorator";
 import taggr from "../../devtools/taggr";
 
+declare global {
+    interface Window { google: any; }
+}
+
 const log = taggr("google-map");
 
 /* [TODO] Watch slot changes */
