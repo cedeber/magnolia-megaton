@@ -1,12 +1,12 @@
 import { PluginObject } from "vue";
 import taggr from "../devtools/taggr";
-import "../helpers/scroll-into-viewport";
+import scrollIntoViewport from "../helpers/scroll-into-viewport";
 
 interface Scroll {
     speed?: number;
-    marginTop?: number;
-    callback?: string | Function;
-    scrollable?: Element | Window;
+    topMargin?: number;
+    bezier?: number[];
+    callback?: Function;
 }
 
 const log = taggr("vue-scroll");
@@ -35,7 +35,13 @@ const Scroll: PluginObject<Scroll> = {
                 el.addEventListener("click", event => {
                     log.list(goto).info("go flight");
                     event.preventDefault();
-                    goto.scrollIntoViewport(options || {});
+                    options = options || {};
+                    scrollIntoViewport(options.topMargin, options.speed, options.bezier)(goto)
+                        .then(done => {
+                            if (done && typeof (options as any).callback === "function") {
+                                (options as any).callback();
+                            }
+                        });
                 });
             },
         });
