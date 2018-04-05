@@ -9,7 +9,7 @@
     [/#if]
     <div class="background">
         [#if !cmsfn.isEditMode()]
-        <lazy-media path="${ctx.contextPath}/${cmsfn.language()!}${content.@path}.json"
+        <lazy-media path="${ctx.contextPath}${cmsfn.link(content)?replace('.html', '.json')}"
                     :is-cover="${content.isCover?string}"
                     :is-autoplay="true"
                     class="o-lazy-media">

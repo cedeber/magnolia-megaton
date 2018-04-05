@@ -19,7 +19,7 @@
         [/#if]
         [#if !cmsfn.isEditMode()]
             [@compress single_line=true]
-            <lazy-media path="${ctx.contextPath}/${cmsfn.language()!}${content.@path}.json"
+            <lazy-media path="${ctx.contextPath}${cmsfn.link(content)?replace('.html', '.json')}"
                         [#if hasRatio]:ratio="{w:${content.width!},h:${content.height}}"
                         [#elseif isCover]:ratio="{w:${imageWidth?string.computer!},h:${imageHeight?string.computer!}}"[/#if]
                         position="is-${content.position!'center'}"
