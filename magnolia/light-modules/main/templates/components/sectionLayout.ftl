@@ -16,7 +16,7 @@
                 [#if hasBackground && !hasNoTopSpace]has-top-inner-space[/#if]
                 [#if hasBackground && !hasNoBottomSpace]has-bottom-inner-space[/#if]
                 [#if !hasBackground && isFullWidth]is-full-width[/#if]
-                [#if hasBackground]is-${model.brightness(content.backgroundTheme)!}[/#if]
+                [#--if hasBackground]is-${model.brightness(content.backgroundTheme)!}[/#if--]
                 "
          [#if hasBackground]style="background-color:${content.backgroundTheme!}"[/#if]
 >
