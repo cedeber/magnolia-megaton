@@ -80,7 +80,7 @@ export default class LazyMedia extends Vue {
     public picture: any = null;
     public metadata: any = {};
 
-    private log = taggr("async-media");
+    private log = taggr("lazy-media");
 
     public async mounted() {
         this.log.keep(this.$el);
