@@ -11,8 +11,8 @@
                     "link": "${asset.getLink()}",
                     "id": "${asset.getItemKey().getAssetId()!}",
                     "extension": "${cmsfn.fileExtension(assetMap.name)?lower_case}",
-                    "width": ${assetMap.metadata.mgnl.width?string.computer},
-                    "height": ${assetMap.metadata.mgnl.height?string.computer},
+                    [#if assetMap.metadata.mgnl.width > 0]"width": ${assetMap.metadata.mgnl.width?string.computer},[/#if]
+                    [#if assetMap.metadata.mgnl.height > 0]"height": ${assetMap.metadata.mgnl.height?string.computer},[/#if]
                     "sources": {
                         "376px": "${damfn.getRendition(asset, "hero-375").getLink()!}, ${damfn.getRendition(asset, "hero-375-2x").getLink()!} 2x",
                         "668px": "${damfn.getRendition(asset, "hero-667").getLink()!}, ${damfn.getRendition(asset, "hero-667-2x").getLink()!} 2x",
