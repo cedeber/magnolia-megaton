@@ -37,10 +37,6 @@ After Go-Live:
 
 
 # Testings
-Chrome and Firefox should technically behave the same way whatever the operating system is.
-But graphically, it is very different because of OS's way of doing graphics.
-
-- [ ] From Firefox 57 (currently Nightly), the DOM and CSS engines will drastically change.
 
 ## macOS (MacBook || iMac)
 Don't forget Retina vs Standard resolution => Graphical rendering
@@ -62,11 +58,6 @@ Don't forget touch screens on Microsoft Surface.
 - [ ] Samsung Internet Browser (modified Chrome engine)
 - [ ] Chrome
 - [ ] Firefox
-
-## Windows Phone
-Has been disconnected from Windows 10 dev branch at Microsoft.
-So, it's now a lonely (dead?) opearting system, but officially still alive...
-- [ ] Edge
 
 ## Special attention
 - [ ] Flexbox on IE
