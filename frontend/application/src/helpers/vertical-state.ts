@@ -1,215 +1,78 @@
-interface PropertiesInterface {
-    [index: string]: any;
-    margins: number[];
-    current: HTMLElement | Window;
-    getBoundedState(stateName: string, [marginTop, marginBottom]: [number, number], scrollabe?: Element | Window): any;
-    top: number;
-    topProgress: number;
-    bottomProgress: number;
-    ahead: boolean;
-    entering: boolean;
-    contained: boolean;
-    exiting: boolean;
-    behind: boolean;
-}
+/**
+ * @param {number} [marginTop=0]
+ * @param {number} [marginBottom=marginTop]
+ * @returns {function(HTMLElement): Object}
+ */
+export default function verticalState(
+    marginTop: number = 0,
+    marginBottom: number = marginTop,
+): (arg0: HTMLElement) => Object {
+    /**
+     * @param {HTMLElement} domElement
+     * @returns {Object}
+     */
+    return function(domElement: HTMLElement): Object {
+        const wTop = window.pageYOffset;
+        const wHeight = window.innerHeight;
+        const topPosition = getTopPosition(domElement);
+        const topProgress = getTopProgress();
+        const bottomProgress = getBottomProgress();
 
-interface Object {
-    verticalState: PropertiesInterface;
+        return {
+            topPosition,
+            topProgress,
+            bottomProgress,
+            ahead: topProgress < 0,
+            entering: topProgress > 0 && topProgress < 1 && bottomProgress < 0,
+            contained:
+                (topProgress < 1 && bottomProgress > 0) ||
+                (topProgress > 1 && bottomProgress < 0),
+            exiting:
+                topProgress > 1 && bottomProgress > 0 && bottomProgress < 1,
+            behind: bottomProgress > 1,
+        };
+
+        /**
+         * Position of the top border of the element depending on the viewport visibility
+         * @return {number} 0 => bottom of the viewport, 1 => top of the viewport
+         */
+        function getTopProgress(): number {
+            return (
+                1 -
+                (topPosition - (wTop + marginTop)) /
+                    (wHeight - marginTop - marginBottom)
+            );
+        }
+
+        /**
+         * Position of the bottom border of the element depending on the viewport visibility
+         * @return {number} 0 => bottom of the viewport, 1 => top of the viewport
+         */
+        function getBottomProgress(): number {
+            return (
+                1 -
+                (topPosition + domElement.offsetHeight - (wTop + marginTop)) /
+                    (wHeight - marginTop - marginBottom)
+            );
+        }
+    };
 }
 
 /**
- * Add information about vertical position depending on the viewport
+ * Get top position of an element in the page
+ * @param {HTMLElement} element
+ * @param {Element|Window} [boundary=window]
+ * @returns {number} the top position in pixels
  */
-Object.defineProperty(Element.prototype, "verticalState", {
-    configurable: true,
+function getTopPosition(element: HTMLElement, boundary = window): number {
+    let top = element.offsetTop;
 
-    /**
-     * Vertical state object
-     * @todo SPLIT into contained & spanning
-     * @returns All properties
-     */
-    get(): PropertiesInterface {
-        const self = this as HTMLElement;
-        const properties = <PropertiesInterface>{};
-        properties.margins = [0, 0];
-        properties.current = window;
+    while (
+        (element = element.offsetParent as HTMLElement) !== null &&
+        (element as HTMLElement | Window) !== boundary
+    ) {
+        top += element.offsetTop;
+    }
 
-        /**
-         * Get verticalState properties delimited with margins
-         * @param stateName - verticalState property name
-         * @param marginTop - viewport top desired margin
-         * @param marginBottom - viewport top desired margin
-         * @param scrollable - scrollable container
-         * @returns all properties, modified by the options
-         */
-        properties.getBoundedState = function(
-            stateName: string,
-            [marginTop = 0, marginBottom = marginTop]: number[] = [],
-            scrollable: HTMLElement | Window = window,
-        ): PropertiesInterface {
-            this.margins = [marginTop, marginBottom];
-            this.current = scrollable;
-
-            return properties[stateName];
-        };
-
-        Object.defineProperties(properties, {
-            top: {
-                /**
-                 * @returns the Y top position in pixels of the element in the page.
-                 */
-                get(): number {
-                    let element = self;
-                    let top: number = element.offsetTop;
-
-                    // tslint:disable-next-line:no-conditional-assignment
-                    while ((element = element.offsetParent as HTMLElement) !== null && element !== properties.current) {
-                        top += element.offsetTop;
-                    }
-
-                    return top;
-                },
-            },
-            topProgress: {
-                /**
-                 * @returns current position progress on the page from the element's top
-                 * 0 a the bottom, 1 at the top
-                 */
-                get(): number {
-                    const wTop: number =
-                        properties.current === window
-                            ? window.pageYOffset
-                            : (<HTMLElement>properties.current).scrollTop;
-                    const wHeight: number =
-                        properties.current === window
-                            ? window.innerHeight
-                            : (<HTMLElement>properties.current).offsetHeight;
-
-                    return (
-                        1 -
-                        (properties.top - (wTop + properties.margins[0])) /
-                            (wHeight - properties.margins[0] - properties.margins[1])
-                    );
-                },
-            },
-            bottomProgress: {
-                /**
-                 * @returns current position progress on the page from the element's bottom
-                 * 0 a the bottom, 1 at the top
-                 */
-                get(): number {
-                    const wTop: number =
-                        properties.current === window
-                            ? window.pageYOffset
-                            : (<HTMLElement>properties.current).scrollTop;
-                    const wHeight: number =
-                        properties.current === window
-                            ? window.innerHeight
-                            : (<HTMLElement>properties.current).offsetHeight;
-
-                    return (
-                        1 -
-                        (properties.top + self.offsetHeight - (wTop + properties.margins[0])) /
-                            (wHeight - properties.margins[0] - properties.margins[1])
-                    );
-                },
-            },
-            ahead: {
-                /**
-                 * @returns true if the element is below the fold
-                 */
-                get(): boolean {
-                    const wTop: number =
-                        properties.current === window
-                            ? window.pageYOffset
-                            : (<HTMLElement>properties.current).scrollTop;
-                    const wHeight: number =
-                        properties.current === window
-                            ? window.innerHeight
-                            : (<HTMLElement>properties.current).offsetHeight;
-
-                    return wTop - properties.margins[1] + wHeight < properties.top;
-                },
-            },
-            entering: {
-                /**
-                 * @returns true if the element is entering the viewport.
-                 */
-                get(): boolean {
-                    const top: number = properties.top;
-                    const wHeight: number =
-                        (properties.current === window
-                            ? window.innerHeight
-                            : (<HTMLElement>properties.current).offsetHeight)
-                        - properties.margins[1];
-                    const wTop: number =
-                        properties.current === window
-                            ? window.pageYOffset
-                            : (<HTMLElement>properties.current).scrollTop;
-                    const height: number = Math.min(self.offsetHeight, wHeight);
-
-                    return wTop + wHeight > top && wTop + wHeight < top + height;
-                },
-            },
-            contained: {
-                /**
-                 * @returns true if the element is totally visible in the viewport.
-                 */
-                get(): boolean {
-                    const elTop: number = properties.top;
-                    const elHeight: number = self.offsetHeight;
-                    const wTop: number =
-                        properties.current === window
-                            ? window.pageYOffset
-                            : (<HTMLElement>properties.current).scrollTop;
-                    const wHeight: number =
-                        properties.current === window
-                            ? window.innerHeight
-                            : (<HTMLElement>properties.current).offsetHeight;
-                    const diff: number = elHeight > wHeight ? elHeight - wHeight : 0;
-
-                    return (
-                        (wTop + wHeight - properties.margins[1] + diff > elTop + elHeight &&
-                            wTop + properties.margins[0] - diff < elTop) ||
-                        (this.entering && this.exiting)
-                    );
-                },
-            },
-            exiting: {
-                /**
-                 * @returns true if the element is existing the viewport.
-                 */
-                get(): boolean {
-                    const elTop: number = properties.top;
-                    const elHeight: number = self.offsetHeight;
-                    const wHeight: number =
-                        properties.current === window
-                            ? window.innerHeight
-                            : (<HTMLElement>properties.current).offsetHeight;
-                    const top: number = Math.max(elTop - properties.margins[0], elTop + elHeight - wHeight);
-                    const wTop: number =
-                        properties.current === window
-                            ? window.pageYOffset
-                            : (<HTMLElement>properties.current).scrollTop;
-
-                    return wTop > top && wTop + properties.margins[0] < elTop + elHeight;
-                },
-            },
-            behind: {
-                /**
-                 * @returns true if the element is above the fold.
-                 */
-                get(): boolean {
-                    const wTop: number =
-                        properties.current === window
-                            ? window.pageYOffset
-                            : (<HTMLElement>properties.current).scrollTop;
-
-                    return wTop + properties.margins[0] > properties.top + self.offsetHeight;
-                },
-            },
-        });
-
-        return properties;
-    },
-});
+    return top;
+}
