@@ -13,7 +13,7 @@ const log = taggr("vuex-session");
  * @param {string?} key You can save only a part of the store if needed => store[key]
  * @returns {(store: Store<any>) => void}
  */
-function createSessionStorage(key?: string) {
+function createSessionStorage(key?: string): (store: Store<any>) => void {
     function doSubscribe(_mutation: Payload, state: any) {
         // Retrieve the data from the store
         const data = key ? state[key] : state;
@@ -21,9 +21,15 @@ function createSessionStorage(key?: string) {
         // Try to save it into the session storage called "vuex"
         try {
             window.sessionStorage.setItem("vuex", JSON.stringify(data));
-            log.success(`vuex store with the key '${key}' saved into sessionStorage`);
+            log.success(
+                `vuex store with the key '${key}' saved into sessionStorage`,
+            );
         } catch {
-            log.list(data).error("Can't save the vuex store into sessionStorage. Safari in private mode?");
+            log
+                .list(data)
+                .error(
+                    "Can't save the vuex store into sessionStorage. Safari in private mode?",
+                );
         }
     }
 
@@ -41,7 +47,9 @@ function createSessionStorage(key?: string) {
 
                     // Merge the current store with the retrieved data from session storage
                     store.replaceState(merge(store.state, data));
-                    log.success("vuex sessionStorage data saved into the vuex store with the key '${key}'");
+                    log.success(
+                        "vuex sessionStorage data saved into the vuex store with the key '${key}'",
+                    );
                 }
             } catch {
                 log.list(sessionData).error("vuex sessionStorage import fails");
