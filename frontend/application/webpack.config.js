@@ -98,8 +98,7 @@ const config = {
     },
     plugins: [
         new CleanWebpackPlugin([buildPath], {
-            root: path.resolve(__dirname, "../"),
-            verbose: false,
+            root: path.resolve(__dirname, "../../"),
         }),
 
         // Used for asynchronously loaded modules => `import().then()`
