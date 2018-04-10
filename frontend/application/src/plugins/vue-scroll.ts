@@ -39,7 +39,7 @@ const Scroll: PluginObject<Scroll> = {
                         options.topMargin,
                         options.speed,
                         options.bezier,
-                    )(goto).then(done => {
+                    )(goto).then((done: boolean) => {
                         if (
                             done &&
                             typeof (options as any).callback === "function"

@@ -11,7 +11,7 @@ export default function scrollIntoViewport(
     topMargin: number = 0,
     speed: number = 35,
     bezier: number[] = [0.23, 1, 0.32, 1],
-): Function | number {
+): Function {
     /**
      * @param {HTMLElement} element
      * @returns {Promise<boolean>} true: scrolled; false: already at destination
