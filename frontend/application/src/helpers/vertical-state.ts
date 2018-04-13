@@ -1,3 +1,5 @@
+/*! Vertical State v1.0 */
+
 /**
  * @param {number} [marginTop=0]
  * @param {number} [marginBottom=marginTop]
