@@ -1,3 +1,5 @@
+/*! Scroll Into Viewport v1.3 */
+
 let scrollIntoViewportAnimationId = 0;
 
 /**
@@ -104,7 +106,9 @@ export default function scrollIntoViewport(
                     return;
                 }
 
-                // Scroll done
+                // Scroll done, perfectly placed
+                window.scrollTo(0, goTo);
+
                 return resolve(true);
             }
         });
