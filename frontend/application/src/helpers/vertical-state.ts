@@ -81,6 +81,7 @@ function getTopPosition(element: HTMLElement, boundary = window): number {
     let top = element.offsetTop;
 
     while (
+        // tslint:disable-next-line:no-conditional-assignment
         (element = element.offsetParent as HTMLElement) !== null &&
         (element as HTMLElement | Window) !== boundary
     ) {
