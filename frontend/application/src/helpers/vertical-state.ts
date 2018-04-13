@@ -1,19 +1,30 @@
 /*! Vertical State v1.0 */
 
+export interface VerticalState {
+    topPosition: number;
+    topProgress: number;
+    bottomProgress: number;
+    ahead: boolean;
+    entering: boolean;
+    contained: boolean;
+    exiting: boolean;
+    behind: boolean;
+}
+
 /**
  * @param {number} [marginTop=0]
  * @param {number} [marginBottom=marginTop]
- * @returns {function(HTMLElement): Object}
+ * @returns {function(HTMLElement): VerticalState}
  */
 export default function verticalState(
     marginTop: number = 0,
     marginBottom: number = marginTop,
-): (arg0: HTMLElement) => Object {
+): (arg0: HTMLElement) => VerticalState {
     /**
      * @param {HTMLElement} domElement
-     * @returns {Object}
+     * @returns {VerticalState}
      */
-    return function(domElement: HTMLElement): Object {
+    return function(domElement: HTMLElement): VerticalState {
         const wTop = window.pageYOffset;
         const wHeight = window.innerHeight;
         const topPosition = getTopPosition(domElement);
