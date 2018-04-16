@@ -11,7 +11,21 @@
                     [#if content.maxWidth??]v-bind:max-width="${content.maxWidth!'0'}"[/#if]>
         <div v-bind:data-render="renderType" class="o-carousel cell-[#if cellOverride]1of1[#else]${ctx.cell!'no'}[/#if]"
              v-bind:class="{ 'js-loaded': isLoaded, 'js-first-page': onFirstPage, 'js-last-page': onLastPage, 'js-single-page': isSinglePage, 'js-reverse': isReverse, }">
-            <div class="slider">
+            <div class="slider"
+                 v-on:touchstart="touchStart"
+                 v-on:touchmove="touchMove"
+                 v-on:touchend="touchEnd"
+
+                 v-on:mousedown="touchStart"
+                 v-on:mousemove="touchMove"
+                 v-on:mouseup="touchEnd"
+                 v-on:mouseleave="touchEnd"
+
+                 v-on:click.capture="blockClick"
+                 v-on:wheel="onWheel"
+                 v-on:dragstart.prevent
+
+                 v-bind:class="{ 'js-cursor-down': hasCursorDown }">
                 <div class="slides o-flex" v-bind:style="itemsContainerStyles">
                     [@cms.area name="slides" /]
                 </div>

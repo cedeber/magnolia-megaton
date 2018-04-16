@@ -23,7 +23,7 @@
                         [#if hasRatio]:ratio="{w:${content.width!},h:${content.height}}"
                         [#elseif isCover && imageWidth > 0 && imageHeight > 0]:ratio="{w:${imageWidth?string.computer!},h:${imageHeight?string.computer!}}"[/#if]
                         position="is-${content.position!'center'}"
-                        :is-cover="${isCover?string}"
+                        :is-cover="${isCover?string!}"
                         :is-instantly="${isInstantly?string!}"
                         :is-autoplay="${isAutoplay?string!}"
                         :has-caption="${hasCaption?string!}"
