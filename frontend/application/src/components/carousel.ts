@@ -62,7 +62,7 @@ export default class Carousel extends Vue {
 
     // State
     public isLoaded = false;
-    public isMoving = false;
+    // public isMoving = false;
     public isReverse = false;
     public isSinglePage = false;
     public isTransitioning = false;
