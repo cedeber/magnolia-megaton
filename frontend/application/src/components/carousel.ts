@@ -7,7 +7,7 @@ import "./carousel.css";
 type RenderType = "linear" | "continue" | "async";
 
 @Component
-class Carousel extends Vue {
+export default class Carousel extends Vue {
     @Prop({ type: Boolean, default: false })
     public asHero!: boolean; // calculate height from top position, at render
 
@@ -503,5 +503,3 @@ class Carousel extends Vue {
         }
     }
 }
-
-export default Carousel;
