@@ -48,9 +48,6 @@ class Carousel extends Vue {
     @Prop({ type: Number, default: 1500 })
     public transitionDelay!: number; // duration of the transition animation
 
-    @Prop({ type: Array })
-    public slides?: any[];
-
     // Variables
     public carouselWidth = 0; // used to control the resize event
     public currentItem = -1; // currently shown item, currently badly used
@@ -91,22 +88,6 @@ class Carousel extends Vue {
     };
     public hasCursorDown = false;
 
-    @Watch("slides")
-    public onSlidesChanged(value: any[]) {
-        if (size(value) > 0) {
-            this.carouselWidth = this.$el.offsetWidth;
-            this.items = value;
-            this.itemsQuantity = value.length;
-
-            this.init();
-        } else {
-            this.items = [];
-            this.itemsQuantity = 0;
-
-            this.init();
-        }
-    }
-
     public mounted() {
         // As Hero (property)
         const setHeroHeight = function(this: Carousel) {
@@ -136,12 +117,8 @@ class Carousel extends Vue {
             }
         }
 
-        // slides ? JSON Carousel : DOM Carousel
-        // JSON Carousel is initialized via the "slides" watcher
-        if (size(this.slides) === 0) {
-            this.setupDOM();
-            this.init();
-        }
+        this.setupDOM();
+        this.init();
 
         // Reset the Carousel after the resize
         // The Carousel's height shouldn't be changed because making the window bigger means you want to see more content
