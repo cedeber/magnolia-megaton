@@ -470,8 +470,10 @@ export default class Carousel extends Vue {
                 now - this.swipe.time < 1000
             ) {
                 if (detail.x > 30) {
+                    this.autoplay = false;
                     this.previousPage(event);
                 } else if (detail.x < -30) {
+                    this.autoplay = false;
                     this.nextPage(event);
                 }
             }
