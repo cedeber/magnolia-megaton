@@ -76,15 +76,15 @@
         },
         "title": {
           "type": "string",
-          "pattern": "^[\\w\\d\\s]*$"
+          "pattern": "^[\\w\\d\\s\u00E0-\u00FC]*$"
         },
         "description": {
           "type": "string",
-          "pattern": "^[\\w\\d\\s]*$"
+          "pattern": "^[\\w\\d\\s\u00E0-\u00FC]*$"
         },
         "caption": {
           "type": "string",
-          "pattern": "^[\\w\\d\\s]*$"
+          "pattern": "^[\\w\\d\\s\u00E0-\u00FC]*$"
         }
       },
       "additionalProperties": false
