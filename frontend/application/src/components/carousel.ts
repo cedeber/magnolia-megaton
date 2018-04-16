@@ -68,6 +68,7 @@ class Carousel extends Vue {
     public isTransitioning = false;
     public onFirstPage = false;
     public onLastPage = false;
+    public isVisible = false;
 
     // Content
     public items?: HTMLCollection | any[];
@@ -130,6 +131,27 @@ class Carousel extends Vue {
         }
 
         window.addEventListener("resize", debounce(resize.bind(this), 300));
+
+        // Pause if not visible in the viewport
+        const observer = new IntersectionObserver(entries => {
+            const carousel = entries[0];
+
+            this.isVisible = carousel.isIntersecting;
+
+            clearInterval(this.playIntervalID);
+            if (this.isVisible) {
+                if (this.autoplay) {
+                    if (this.pagesQuantity > 1 && this.delay > 0) {
+                        this.playIntervalID = setInterval(
+                            this.nextPage.bind(this, new MouseEvent("void")),
+                            this.delay,
+                        );
+                    }
+                }
+            }
+        });
+
+        observer.observe(this.$el);
     }
 
     public setupDOM() {
@@ -357,7 +379,7 @@ class Carousel extends Vue {
         }
 
         clearInterval(this.playIntervalID);
-        if (this.autoplay) {
+        if (this.autoplay && this.isVisible) {
             if (this.pagesQuantity > 1 && this.delay > 0) {
                 this.playIntervalID = setInterval(
                     this.nextPage.bind(this, new MouseEvent("void")),
