@@ -125,7 +125,6 @@ export default class Carousel extends Vue {
         function resize(this: Carousel) {
             if (this.isLoaded) {
                 this.isLoaded = false;
-                this.carouselWidth = this.$el.offsetWidth;
                 this.init();
             }
         }
@@ -155,8 +154,6 @@ export default class Carousel extends Vue {
     }
 
     public setupDOM() {
-        this.carouselWidth = this.$el.offsetWidth;
-
         this.itemsContainer = this.$el.querySelector(".slides");
         this.items =
             this.itemsContainer == undefined
@@ -166,6 +163,8 @@ export default class Carousel extends Vue {
     }
 
     public init() {
+        this.carouselWidth = this.$el.offsetWidth;
+
         if (this.carouselWidth <= 0) {
             this.isLoaded = true;
             return;
