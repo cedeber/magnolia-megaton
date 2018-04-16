@@ -128,6 +128,7 @@ function getTopPosition(
     let top = element.offsetTop;
 
     while (
+        // tslint:disable-next-line:no-conditional-assignment
         (element = element.offsetParent as HTMLElement) !== null &&
         element !== boundary
     ) {
