@@ -200,12 +200,6 @@ export default class Carousel extends Vue {
         // [TODO] Could have been done with another component or template?
         if (!(this.items == undefined)) {
             const rest = this.itemsQuantity % this.itemsPerPage;
-            const itemWidth =
-                100 /
-                ((this.pagesQuantity > 1
-                    ? this.itemsPerPage
-                    : this.itemsQuantity) *
-                    this.pagesQuantity);
 
             for (let i = 0; i < this.itemsQuantity; ) {
                 for (
@@ -225,7 +219,12 @@ export default class Carousel extends Vue {
                     switch (this.renderType) {
                         case "linear":
                             itemStyles.position = "relative";
-                            itemStyles.flex = `0 1 ${itemWidth}%`;
+                            itemStyles.flex = "0 1 auto";
+                            itemStyles.width = `calc(100% / ${
+                                (this.pagesQuantity > 1
+                                    ? this.itemsPerPage
+                                    : this.itemsQuantity) *
+                                this.pagesQuantity})`;
                             itemStyles.left = "";
                             break;
 
