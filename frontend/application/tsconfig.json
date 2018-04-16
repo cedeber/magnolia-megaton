@@ -16,6 +16,7 @@
     "removeComments": true,
     "sourceMap": true,
     "strict": true,
+    "strictPropertyInitialization": false,
     "target": "es5",
     "plugins": [{ "name": "tslint-language-service" }]
   },
