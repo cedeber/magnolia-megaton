@@ -1,6 +1,5 @@
 import Vue from "vue";
-import { Component, Prop, Watch } from "vue-property-decorator";
-import size from "lodash-es/size";
+import { Component, Prop } from "vue-property-decorator";
 import debounce from "lodash-es/debounce";
 
 import "./carousel.css";
