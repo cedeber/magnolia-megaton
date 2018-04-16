@@ -413,7 +413,6 @@ export default class Carousel extends Vue {
             event.preventDefault();
         } else {
             this.swipe.move = false;
-            this.$emit("swipeend", { x: 0, y: 0 });
         }
     }
 
