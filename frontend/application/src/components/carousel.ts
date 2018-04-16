@@ -21,11 +21,23 @@ class Carousel extends Vue {
     @Prop({ type: Number, default: 5000 })
     public delay!: number; // time to show a slide
 
-    @Prop({ type: Number, default: 0, validator(value: number) { return value >= 0; } })
+    @Prop({
+        type: Number,
+        default: 0,
+        validator(value: number) {
+            return value >= 0;
+        },
+    })
     public maxWidth!: number; // items maximum width
 
-    @Prop({ type: Number, default: 0, validator(value: number) { return value >= 0; } })
-    public minWidth !: number; // items minimum width
+    @Prop({
+        type: Number,
+        default: 0,
+        validator(value: number) {
+            return value >= 0;
+        },
+    })
+    public minWidth!: number; // items minimum width
 
     @Prop({ type: String, default: "linear" })
     public renderType!: RenderType; // "linear" | "continue" | "async"
@@ -98,17 +110,20 @@ class Carousel extends Vue {
     public mounted() {
         // As Hero (property)
         const setHeroHeight = function(this: Carousel) {
-            const carouselTop: number = (function(this: Carousel) {
+            const carouselTop: number = function(this: Carousel) {
                 let element = this.$el;
                 let top = (element as HTMLElement).offsetTop;
 
-                // tslint:disable-next-line:no-conditional-assignment
-                while ((element = element.offsetParent as HTMLElement) !== null && element !== document.body) {
+                while (
+                    // tslint:disable-next-line:no-conditional-assignment
+                    (element = element.offsetParent as HTMLElement) !== null &&
+                    element !== document.body
+                ) {
                     top += element.offsetTop;
                 }
 
                 return top;
-            }).call(this);
+            }.call(this);
 
             this.$el.style.height = `${window.innerHeight - carouselTop}px`;
         };
@@ -145,7 +160,10 @@ class Carousel extends Vue {
         this.carouselWidth = this.$el.offsetWidth;
 
         this.itemsContainer = this.$el.querySelector(".slides");
-        this.items = this.itemsContainer == undefined ? undefined : this.itemsContainer.children;
+        this.items =
+            this.itemsContainer == undefined
+                ? undefined
+                : this.itemsContainer.children;
         this.itemsQuantity = this.items == undefined ? 0 : this.items.length;
     }
 
@@ -157,7 +175,9 @@ class Carousel extends Vue {
 
         const getWidth = (n: number) =>
             Math.min(
-                this.columns > 0 ? this.carouselWidth / this.columns : n || this.carouselWidth,
+                this.columns > 0
+                    ? this.carouselWidth / this.columns
+                    : n || this.carouselWidth,
                 this.carouselWidth,
             );
 
@@ -174,7 +194,8 @@ class Carousel extends Vue {
 
         switch (this.renderType) {
             case "linear":
-                this.itemsContainerStyles.width = `${this.pagesQuantity * 100}%`;
+                this.itemsContainerStyles.width =
+                    `${this.pagesQuantity * 100}%`;
                 break;
         }
 
@@ -182,17 +203,26 @@ class Carousel extends Vue {
         if (!(this.items == undefined)) {
             const rest = this.itemsQuantity % this.itemsPerPage;
             const itemWidth =
-                100 / ((this.pagesQuantity > 1 ? this.itemsPerPage : this.itemsQuantity) * this.pagesQuantity);
+                100 /
+                ((this.pagesQuantity > 1
+                    ? this.itemsPerPage
+                    : this.itemsQuantity) *
+                    this.pagesQuantity);
 
             for (let i = 0; i < this.itemsQuantity; ) {
-                for (let j = 0; j < this.itemsPerPage && i < this.itemsQuantity; j += 1) {
+                for (
+                    let j = 0;
+                    j < this.itemsPerPage && i < this.itemsQuantity;
+                    j += 1
+                ) {
                     const item = this.items[i];
 
                     if (!(item instanceof HTMLElement) && !("styles" in item)) {
                         item.styles = {};
                     }
 
-                    const itemStyles: HTMLElement["style"] = item instanceof HTMLElement ? item.style : item.styles;
+                    const itemStyles: HTMLElement["style"] =
+                        item instanceof HTMLElement ? item.style : item.styles;
 
                     switch (this.renderType) {
                         case "linear":
@@ -205,15 +235,20 @@ class Carousel extends Vue {
                             itemStyles.position = "absolute";
 
                             if (i < this.itemsQuantity - rest) {
-                                itemStyles.width = `${this.carouselWidth / this.itemsPerPage}px`;
-                                itemStyles.left = `${this.carouselWidth / this.itemsPerPage * j}px`;
+                                itemStyles.width = `${this.carouselWidth /
+                                    this.itemsPerPage}px`;
+                                itemStyles.left = `${this.carouselWidth /
+                                    this.itemsPerPage * j}px`;
                             } else {
-                                itemStyles.width = `${this.carouselWidth / rest}px`;
-                                itemStyles.left = `${this.carouselWidth / rest * j}px`;
+                                itemStyles.width =
+                                    `${this.carouselWidth / rest}px`;
+                                itemStyles.left =
+                                    `${this.carouselWidth / rest * j}px`;
                             }
 
                             break;
                     }
+
                     i += 1;
                 }
             }
@@ -224,7 +259,12 @@ class Carousel extends Vue {
 
         this.decal = 100;
         this.isLoaded = true;
-        this.gotoPage(Math.floor((this.currentItem < 0 ? this.startAt : this.currentItem) / this.itemsPerPage));
+        this.gotoPage(
+            Math.floor(
+                (this.currentItem < 0 ? this.startAt : this.currentItem) /
+                    this.itemsPerPage,
+            ),
+        );
     }
 
     public gotoPage(page: number) {
@@ -235,21 +275,30 @@ class Carousel extends Vue {
         this.isTransitioning = true;
 
         // Reverse mode
-        this.isReverse = page < 0 && this.renderType === "linear" ? false : page < this.currentPage;
+        this.isReverse =
+            page < 0 && this.renderType === "linear"
+                ? false
+                : page < this.currentPage;
 
         // Current page in the possible range
-        this.currentPage = page < 0 ? this.pagesQuantity - 1 : page >= this.pagesQuantity ? 0 : page;
+        this.currentPage =
+            page < 0
+                ? this.pagesQuantity - 1
+                : page >= this.pagesQuantity ? 0 : page;
 
         // Do we show the last page?
         const lastPage =
-            this.currentPage >= this.pagesQuantity - (this.itemWidth === 0 ? 0 : 1) &&
+            this.currentPage >=
+                this.pagesQuantity - (this.itemWidth === 0 ? 0 : 1) &&
             this.itemsQuantity % this.itemsPerPage !== 0;
 
         // Calculate the last page decal depending on haw many least item do we have. Sometimes there are less than itemsPerPage
         this.decal = lastPage
             ? 100 / this.itemsPerPage * (this.itemsQuantity % this.itemsPerPage)
             : this.currentPage === 0 ? 100 : this.decal;
-        this.doDecal = lastPage ? true : this.currentPage === 0 ? false : this.doDecal;
+        this.doDecal = lastPage
+            ? true
+            : this.currentPage === 0 ? false : this.doDecal;
 
         // Move the slider
         switch (this.renderType) {
@@ -257,7 +306,8 @@ class Carousel extends Vue {
                 const move = -((this.currentPage - 1) * 100 + this.decal);
 
                 this.currentItem =
-                    this.currentPage * this.itemsPerPage - (this.doDecal ? this.itemsQuantity % this.itemsPerPage : 0);
+                    this.currentPage * this.itemsPerPage -
+                    (this.doDecal ? this.itemsQuantity % this.itemsPerPage : 0);
                 this.itemsContainerStyles.transform = `translateX(${
                     this.pagesQuantity > 1 ? move / this.pagesQuantity : 0
                 }%)`;
@@ -272,7 +322,9 @@ class Carousel extends Vue {
         // Page Style
         this.onFirstPage = this.currentPage <= 0;
         this.onLastPage =
-            this.pagesQuantity === 1 || this.currentPage >= this.pagesQuantity - (this.itemWidth === 0 ? 0 : 1);
+            this.pagesQuantity === 1 ||
+            this.currentPage >=
+                this.pagesQuantity - (this.itemWidth === 0 ? 0 : 1);
 
         // Set current active item, independant from visible elements
         // [TODO] forEach + single component?
@@ -281,7 +333,10 @@ class Carousel extends Vue {
             for (let i = 0; i < this.itemsQuantity; i += 1) {
                 const item = this.items[i];
 
-                if (i >= this.currentItem && i < this.currentItem + this.itemsPerPage) {
+                if (
+                    i >= this.currentItem &&
+                    i < this.currentItem + this.itemsPerPage
+                ) {
                     if (item.classList.contains("js-active")) {
                         // Already there, so no transition at all
                         this.isTransitioning = false;
@@ -305,7 +360,10 @@ class Carousel extends Vue {
                 for (let i = 0; i < this.itemsQuantity; i += 1) {
                     const item = this.items[i];
 
-                    if (i >= this.currentItem && i < this.currentItem + this.itemsPerPage) {
+                    if (
+                        i >= this.currentItem &&
+                        i < this.currentItem + this.itemsPerPage
+                    ) {
                         item.classList.add("js-first");
                         setTimeout(() => {
                             item.classList.remove("js-first");
@@ -319,21 +377,25 @@ class Carousel extends Vue {
         clearInterval(this.playIntervalID);
         if (this.autoplay) {
             if (this.pagesQuantity > 1 && this.delay > 0) {
-                this.playIntervalID = setInterval(this.nextPage.bind(this, new MouseEvent("void")), this.delay);
+                this.playIntervalID = setInterval(
+                    this.nextPage.bind(this, new MouseEvent("void")),
+                    this.delay,
+                );
             }
         }
     }
 
-    public nextPage(event: Event): void {
+    public nextPage(event: MouseEvent | Touch) {
         const page =
             event instanceof MouseEvent || this.renderType === "async"
                 ? this.currentPage + 1
-                : this.currentPage + (this.currentPage < this.pagesQuantity - 1 ? 1 : 0);
+                : this.currentPage +
+                  (this.currentPage < this.pagesQuantity - 1 ? 1 : 0);
 
         this.gotoPage(page);
     }
 
-    public previousPage(event: Event): void {
+    public previousPage(event: MouseEvent | Touch) {
         const page =
             event instanceof MouseEvent || this.renderType === "async"
                 ? this.currentPage - 1
@@ -342,20 +404,21 @@ class Carousel extends Vue {
         this.gotoPage(page);
     }
 
-    /* Swipe */
-
+    /* --- Swipe --- */
     public blockClick(event: MouseEvent) {
         if (this.blockClickEventDistance > 30) {
             event.preventDefault();
-        }
-        else {
+        } else {
             this.swipe.move = false;
             this.$emit("swipeend", { x: 0, y: 0 });
         }
     }
 
-    public touchStart(event: MouseEvent | TouchEvent) {
-        const startEvent = "TouchEvent" in window && event instanceof TouchEvent ? event.changedTouches[0] : event;
+    public touchStart(event: MouseEvent | Touch) {
+        const startEvent =
+            "TouchEvent" in window && event instanceof TouchEvent
+                ? event.changedTouches[0]
+                : event;
 
         this.swipe.x = startEvent.clientX;
         this.swipe.y = startEvent.clientY;
@@ -365,9 +428,13 @@ class Carousel extends Vue {
         this.hasCursorDown = true;
     }
 
-    public touchMove(event: MouseEvent | TouchEvent) {
+    public touchMove(event: MouseEvent | Touch) {
         if (this.swipe.move) {
-            const moveEvent = "TouchEvent" in window && event instanceof TouchEvent ? event.changedTouches[0] : event;
+            const moveEvent =
+                "TouchEvent" in window && event instanceof TouchEvent
+                    ? event.changedTouches[0]
+                    : event;
+            // [TODO] Move the carousel to follow the touch/mouse move
             const detail = {
                 x: moveEvent.clientX - this.swipe.x,
                 y: moveEvent.clientY - this.swipe.y,
@@ -378,51 +445,57 @@ class Carousel extends Vue {
                 Math.abs(detail.y),
                 this.blockClickEventDistance,
             );
-
-            this.$emit("swipemove", detail);
         }
     }
 
-    public touchEnd(event: MouseEvent | TouchEvent) {
+    public touchEnd(event: MouseEvent | Touch) {
         this.hasCursorDown = false;
 
         if (this.swipe.move) {
-            const endEvent = "TouchEvent" in window && event instanceof TouchEvent ? event.changedTouches[0] : event;
+            const endEvent =
+                "TouchEvent" in window && event instanceof TouchEvent
+                    ? event.changedTouches[0]
+                    : event;
             const now = Date.now();
             const detail = {
                 x: endEvent.clientX - this.swipe.x,
                 y: endEvent.clientY - this.swipe.y,
             };
 
-            if (Math.abs(endEvent.clientY - this.swipe.y) < 30 && now - this.swipe.time < 1000) {
+            // Horizontal swipe
+            if (
+                Math.abs(endEvent.clientY - this.swipe.y) < 30 &&
+                now - this.swipe.time < 1000
+            ) {
                 if (detail.x > 30) {
                     this.previousPage(event);
-                }
-                else if (detail.x < -30) {
+                } else if (detail.x < -30) {
                     this.nextPage(event);
                 }
             }
 
-            if (Math.abs(endEvent.clientX - this.swipe.x) < 30 && now - this.swipe.time < 1000) {
+            // [TODO] Vertical Swipe
+            if (
+                Math.abs(endEvent.clientX - this.swipe.x) < 30 &&
+                now - this.swipe.time < 1000
+            ) {
                 if (detail.y > 30) {
-                    this.$emit("swipedown");
-                }
-                else if (detail.y < -30) {
-                    this.$emit("swipeup");
+                    // swipe down
+                } else if (detail.y < -30) {
+                    // swipe up
                 }
             }
 
-            this.$emit("swipeend", detail);
             this.swipe.move = false;
         }
     }
 
     public onWheel(event: WheelEvent) {
+        // [TODO] Vertical Swipe
         if (event.deltaY > 0) {
-            this.$emit("swipeup");
-        }
-        else if (event.deltaY < 0) {
-            this.$emit("swipedown");
+            // swipe up
+        } else if (event.deltaY < 0) {
+            // swipe down
         }
     }
 }
