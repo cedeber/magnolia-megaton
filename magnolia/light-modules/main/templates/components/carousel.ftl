@@ -23,11 +23,11 @@
                             <span class="is-visually-hidden">Show slide {{ index + 1 }} of {{ pagesQuantity }}</span>
                         </button>
                     </template>
-                    <button v-on:click="previousPage()">
+                    <button v-on:click="previousPage">
                         &lt;
                         <span class="is-visually-hidden">Show previous slide</span>
                     </button>
-                    <button v-on:click="nextPage()">
+                    <button v-on:click="nextPage">
                         &gt;
                         <span class="is-visually-hidden">Show next slide</span>
                     </button>
