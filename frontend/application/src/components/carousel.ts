@@ -284,7 +284,9 @@ class Carousel extends Vue {
         this.currentPage =
             page < 0
                 ? this.pagesQuantity - 1
-                : page >= this.pagesQuantity ? 0 : page;
+                : page >= this.pagesQuantity
+                    ? 0
+                    : page;
 
         // Do we show the last page?
         const lastPage =
@@ -295,10 +297,14 @@ class Carousel extends Vue {
         // Calculate the last page decal depending on haw many least item do we have. Sometimes there are less than itemsPerPage
         this.decal = lastPage
             ? 100 / this.itemsPerPage * (this.itemsQuantity % this.itemsPerPage)
-            : this.currentPage === 0 ? 100 : this.decal;
+            : this.currentPage === 0
+                ? 100
+                : this.decal;
         this.doDecal = lastPage
             ? true
-            : this.currentPage === 0 ? false : this.doDecal;
+            : this.currentPage === 0
+                ? false
+                : this.doDecal;
 
         // Move the slider
         switch (this.renderType) {
