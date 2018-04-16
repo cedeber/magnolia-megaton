@@ -10,10 +10,10 @@ type RenderType = "linear" | "continue" | "async";
 @Component
 class Carousel extends Vue {
     @Prop({ type: Boolean, default: false })
-    public asHero!: false; // calculate height from top position, at render
+    public asHero!: boolean; // calculate height from top position, at render
 
     @Prop({ type: Boolean, default: false })
-    public autoplay!: false; // play automatically
+    public autoplay!: boolean; // play automatically
 
     @Prop({ type: Number, default: 0 })
     public columns!: number; // number of colums, overwrite minWidth
