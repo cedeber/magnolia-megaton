@@ -29,6 +29,7 @@
         position: relative;
         overflow: hidden;
         min-height: 1px;
+        height: 100%;
     }
 
     .container {
