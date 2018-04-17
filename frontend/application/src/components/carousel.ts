@@ -544,16 +544,18 @@ export default class Carousel extends Vue {
         }
     }
 
-    public onWheel(event: WheelEvent) {
+    public onWheel(_event: WheelEvent) {
         // Vertical Swipe
+        /* [FIXME] not really reliable
         if (this.orientation === Orientation.Vertical) {
-            if (event.deltaY > 0) {
+            if (event.deltaY > 5) {
                 // swipe up
                 this.nextPage(event);
-            } else if (event.deltaY < 0) {
+            } else if (event.deltaY < -5) {
                 // swipe down
                 this.previousPage(event);
             }
         }
+        */
     }
 }
