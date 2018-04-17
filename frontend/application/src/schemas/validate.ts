@@ -5,18 +5,16 @@
 
 import Ajv from "ajv";
 
-export default function(schema: any) {
+export default function extend<T>(schema: any): (arg0: T) => Promise<T> {
     const ajv = new Ajv();
-    return function(data: any) {
-        return new Promise((resolve, reject) => {
-            const valid = ajv.validate(schema, data);
 
-            if (!valid) {
-                reject(ajv.errors);
-                return;
-            }
+    return async function(data: T): Promise<T> {
+        const valid = ajv.validate(schema, data);
 
-            resolve(data);
-        });
+        if (!valid) {
+            throw new Error(ajv.errorsText(ajv.errors));
+        }
+
+        return data;
     };
 }
