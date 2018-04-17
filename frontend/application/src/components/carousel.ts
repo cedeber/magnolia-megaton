@@ -47,13 +47,13 @@ export default class Carousel extends Vue {
     })
     public minWidth!: number; // items minimum width
 
-    @Prop({ type: String, default: "linear" })
-    public imageRatio!: string; // image ratio
+    @Prop({ type: Number, default: 0 })
+    public slideRatio!: number;
 
-    @Prop({ type: String, default: "linear" })
+    @Prop({ type: String, default: RenderType.Linear })
     public renderType!: RenderType;
 
-    @Prop({ type: String, default: "horizontal" })
+    @Prop({ type: String, default: Orientation.Horizontal })
     public orientation!: Orientation;
 
     @Prop({ type: Number, default: 0 })
@@ -74,7 +74,7 @@ export default class Carousel extends Vue {
     public occurrence = 0; // number of changes. Used to detect "js-first"
     public pagesQuantity = 1; // number of pages depending on min-width
     public playIntervalID = 0; // setInterval UID fot the animation
-    public sliderRatio = "10";
+    public sliderHeight = 0;
 
     // State
     public isLoaded = false;
@@ -169,8 +169,10 @@ export default class Carousel extends Vue {
         observer.observe(this.$el);
     }
 
-    public updateSliderH() {
-        return `padding-top:${this.sliderRatio}%`;
+    get updateSliderHeight() {
+        return this.sliderHeight > 0
+            ? "padding-top:" + this.sliderHeight + "%"
+            : "height:100%";
     }
 
     public setupDOM() {
@@ -276,7 +278,7 @@ export default class Carousel extends Vue {
         // Calculate Slider Height
         let slidesPadding = 0;
 
-        if (this.items) {
+        if (this.items && this.items.length > 0) {
             const slideStyle =
                 this.items[0].currentStyle ||
                 window.getComputedStyle(this.items[0]);
@@ -288,12 +290,9 @@ export default class Carousel extends Vue {
         }
 
         const contentW =
-            (this.carouselWidth - slidesPadding) / this.itemsPerPage;
-        this.sliderRatio = (
-            contentW *
-            Number(this.imageRatio) /
-            this.carouselWidth
-        ).toFixed(2);
+            (this.carouselWidth - slidesPadding) / Math.min(this.itemsPerPage, this.itemsQuantity);
+
+        this.sliderHeight = contentW * this.slideRatio / this.carouselWidth;
 
         // Set class if it is a single page Carousel
         this.isSinglePage = this.pagesQuantity === 1;
