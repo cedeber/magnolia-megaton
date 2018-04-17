@@ -14,9 +14,9 @@
             <lazy-media path="${cmsfn.link(content)?replace('.html', '.json')}"
                         :is-cover="${isCover?string}"
                         :is-autoplay="true"
-                        [#if ctx.inheritedRatio?has_content]:ratio="{w:${ctx.inheritedRatioW!},h:${ctx.inheritedRatioH}}"[/#if]
+                        [#if ctx.imageRatio?has_content]:ratio="{w:${ctx.imageRatioW!},h:${ctx.imageRatioH}}"[/#if]
                         class="o-lazy-media"
-                        style="[#if ctx.inheritedRatio?has_content]padding-top: ${ctx.inheritedRatio}%;[/#if]">
+                        style="[#if ctx.imageRatio?has_content]padding-top: ${ctx.imageRatio}%;[/#if]">
             </lazy-media>
             [#else]
             <img src="${damfn.getAssetLink(content.image)!}" style="display:block;max-width:100%">
