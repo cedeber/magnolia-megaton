@@ -27,7 +27,6 @@
              class="o-carousel cell-[#if cellOverride]1of1[#else]${ctx.cell!'no'}[/#if]"
              v-bind:class="{ 'js-loaded': isLoaded, 'js-first-page': onFirstPage, 'js-last-page': onLastPage, 'js-single-page': isSinglePage, 'js-reverse': isReverse, }">
             <div class="slider"
-                 style="[#if hasRatio]padding-top: ${sliderRatio!}%[#elseif isCover]padding-top: calc(1 / (${imageWidth?string.computer!} / ${imageHeight?string.computer!}) * 100%)[/#if]"
                  v-on:touchstart="touchStart"
                  v-on:touchmove="touchMove"
                  v-on:touchend="touchEnd"
