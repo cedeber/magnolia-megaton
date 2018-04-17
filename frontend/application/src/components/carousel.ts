@@ -8,12 +8,12 @@ enum RenderType {
     Linear = "linear",
     Continue = "continue",
     Async = "async",
-};
+}
 
 enum Orientation {
     Horizontal = "horizontal",
     Vertical = "vertical",
-};
+}
 
 @Component
 export default class Carousel extends Vue {
@@ -74,7 +74,7 @@ export default class Carousel extends Vue {
     public occurrence = 0; // number of changes. Used to detect "js-first"
     public pagesQuantity = 1; // number of pages depending on min-width
     public playIntervalID = 0; // setInterval UID fot the animation
-    public sliderRatio = '10';
+    public sliderRatio = "10";
 
     // State
     public isLoaded = false;
@@ -169,8 +169,8 @@ export default class Carousel extends Vue {
         observer.observe(this.$el);
     }
 
-    public updateSliderH(){
-        return 'padding-top:'+ this.sliderRatio + '%';
+    public updateSliderH() {
+        return `padding-top:${this.sliderRatio}%`;
     }
 
     public setupDOM() {
@@ -276,14 +276,24 @@ export default class Carousel extends Vue {
         // Calculate Slider Height
         let slidesPadding = 0;
 
-        if(this.items){
-            const slideStyle = this.items[0].currentStyle || window.getComputedStyle(this.items[0]);
-            const slidePadding = parseFloat(slideStyle.paddingLeft) + parseFloat(slideStyle.paddingRight);
+        if (this.items) {
+            const slideStyle =
+                this.items[0].currentStyle ||
+                window.getComputedStyle(this.items[0]);
+            const slidePadding =
+                parseFloat(slideStyle.paddingLeft) +
+                parseFloat(slideStyle.paddingRight);
+
             slidesPadding = slidePadding * this.itemsPerPage;
         }
 
-        const contentW = ( this.carouselWidth - slidesPadding ) / this.itemsPerPage;
-        this.sliderRatio = ( contentW * Number(this.imageRatio) / this.carouselWidth ).toFixed(2);
+        const contentW =
+            (this.carouselWidth - slidesPadding) / this.itemsPerPage;
+        this.sliderRatio = (
+            contentW *
+            Number(this.imageRatio) /
+            this.carouselWidth
+        ).toFixed(2);
 
         // Set class if it is a single page Carousel
         this.isSinglePage = this.pagesQuantity === 1;
