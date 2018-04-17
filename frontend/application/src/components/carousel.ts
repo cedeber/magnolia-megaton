@@ -169,7 +169,7 @@ export default class Carousel extends Vue {
         observer.observe(this.$el);
     }
 
-    public getContentRatio(){
+    public updateSliderH(){
         return 'padding-top:'+ this.sliderRatio + '%';
     }
 
@@ -282,7 +282,7 @@ export default class Carousel extends Vue {
             slidesPadding = slidePadding * this.itemsPerPage;
         }
 
-        const contentW = ( this.carouselWidth - slidesPadding ) / this.itemsPerPage ;
+        const contentW = ( this.carouselWidth - slidesPadding ) / this.itemsPerPage;
         this.sliderRatio = ( contentW * Number(this.imageRatio) / this.carouselWidth ).toFixed(2);
 
         // Set class if it is a single page Carousel

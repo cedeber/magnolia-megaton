@@ -24,8 +24,7 @@
                  class="o-carousel [#if hasGutter]has-inner-gutter[/#if]"
                  v-bind:class="{ 'js-loaded': isLoaded, 'js-first-page': onFirstPage, 'js-last-page': onLastPage, 'js-single-page': isSinglePage, 'js-reverse': isReverse, }">
                 <div class="slider"
-                     style="[#if hasRatio]padding-top: ${sliderRatio!}%[#elseif isCover]padding-top: calc(1 / (${imageWidth?string.computer!} / ${imageHeight?string.computer!}) * 100%)[/#if]"
-                     v-bind:style="getContentRatio()"
+                     v-bind:style="updateSliderH()"
                      v-on:touchstart="touchStart"
                      v-on:touchmove="touchMove"
                      v-on:touchend="touchEnd"
@@ -38,7 +37,7 @@
                      v-on:dragstart.prevent
                      v-bind:class="{ 'js-cursor-down': hasCursorDown }">
                     <div class="slides o-flex" v-bind:style="itemsContainerStyles">
-                        [@cms.area name="slides" contextAttributes={"inheritedCover": isCover, "inheritedRatio" : sliderRatio!, "inheritedRatioW" : content.width!, "inheritedRatioH" : content.height!} /]
+                        [@cms.area name="slides" contextAttributes={"inheritedCover": isCover, "imageRatio" : imageRatio, "imageRatioW" : content.width!, "imageRatioH" : content.height!} /]
                     </div>
                 </div>
                 <div class="bullets" v-if="pagesQuantity > 1">
