@@ -67,7 +67,16 @@ form:
             #   label: Continue
             - name: async
               label: Asynchronous
-              
+        - name: orientation
+          class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+          label: Orientation
+          options:
+            - name: horizontal
+              selected: true
+              label: Horizontal
+            - name: vertical
+              label: Vertical
+
     - name: tabLayout
       label: Layout
       fields:
