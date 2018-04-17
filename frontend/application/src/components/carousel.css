@@ -5,7 +5,6 @@
     --carousel-transition-nonlinear: 1.5s;
     --carousel-delay: 5s;
     --carousel-scale: 1.1;
-    --carousel-min-height: 450px;
 }
 
 /*
@@ -18,7 +17,6 @@
     will-change: opacity;
     transition: opacity 0s;
     width: 100%;
-    min-height: var(--carousel-min-height);
 }
 
 .o-carousel.js-loaded {
@@ -34,7 +32,6 @@
 
 .o-carousel .slider { overflow: hidden; }
 
-.o-carousel .slider,
 .o-carousel .slides,
 .o-carousel .swipe-layer {
     position: absolute;
@@ -44,9 +41,19 @@
     left: 0;
 }
 
-.o-carousel[class*="cell-"] .slider {
-    width: calc(100% - var(--layout-gutter-width));
-    left: calc(var(--layout-gutter-width) / 2);
+.o-carousel.has-inner-gutter {
+    margin-left: calc(var(--layout-gutter-width) / -2);
+    margin-right: calc(var(--layout-gutter-width) / -2);
+    width: calc( 100% + var(--layout-gutter-width) );
+}
+
+.o-carousel.has-inner-gutter .slide {
+    padding-left: calc(var(--layout-gutter-width) / 2);
+    padding-right: calc(var(--layout-gutter-width) / 2);
+}
+
+.o-carousel.has-inner-gutter .slide-inner {
+    position: relative;
 }
 
 .o-carousel .swipe-layer { z-index: 1; }
