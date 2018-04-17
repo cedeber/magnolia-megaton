@@ -91,6 +91,7 @@ export default class Carousel extends Vue {
     public itemsContainer: Element | null = null;
     public itemsContainerStyles = {
         width: "0px",
+        height: "0px",
         transform: "",
     };
 
@@ -154,15 +155,11 @@ export default class Carousel extends Vue {
             this.isVisible = carousel.isIntersecting;
 
             clearInterval(this.playIntervalID);
-            if (this.isVisible) {
-                if (this.autoplay) {
-                    if (this.pagesQuantity > 1 && this.delay > 0) {
-                        this.playIntervalID = setInterval(
-                            this.nextPage.bind(this, new MouseEvent("void")),
-                            this.delay,
-                        );
-                    }
-                }
+            if (this.isVisible && this.autoplay && this.pagesQuantity > 1 && this.delay > 0) {
+                this.playIntervalID = setInterval(
+                    this.nextPage.bind(this, new MouseEvent("void")),
+                    this.delay,
+                );
             }
         });
 
@@ -214,7 +211,14 @@ export default class Carousel extends Vue {
         switch (this.renderType) {
             case RenderType.Linear:
                 this.itemsContainerStyles.width =
-                    `${this.pagesQuantity * 100}%`;
+                    this.orientation === Orientation.Horizontal
+                        ? `${this.pagesQuantity * 100}%`
+                        : "100%";
+
+                this.itemsContainerStyles.height =
+                    this.orientation === Orientation.Vertical
+                        ? `${this.pagesQuantity * 100}%`
+                        : "100%";
                 break;
         }
 
@@ -241,11 +245,14 @@ export default class Carousel extends Vue {
                         case RenderType.Linear:
                             itemStyles.position = "relative";
                             itemStyles.flex = "0 1 auto";
-                            itemStyles.width = `calc(100% / ${
-                                (this.pagesQuantity > 1
-                                    ? this.itemsPerPage
-                                    : this.itemsQuantity) *
-                                this.pagesQuantity})`;
+                            itemStyles.width =
+                                this.orientation === Orientation.Horizontal
+                                    ? `calc(100% / ${
+                                        (this.pagesQuantity > 1
+                                            ? this.itemsPerPage
+                                            : this.itemsQuantity) *
+                                        this.pagesQuantity})`
+                                    : "calc(100%)";
                             itemStyles.left = "";
                             break;
 
@@ -353,9 +360,14 @@ export default class Carousel extends Vue {
                 this.currentItem =
                     this.currentPage * this.itemsPerPage -
                     (this.doDecal ? this.itemsQuantity % this.itemsPerPage : 0);
-                this.itemsContainerStyles.transform = `translateX(${
-                    this.pagesQuantity > 1 ? move / this.pagesQuantity : 0
-                }%)`;
+                this.itemsContainerStyles.transform =
+                    this.orientation === Orientation.Horizontal
+                        ? `translateX(${
+                                this.pagesQuantity > 1 ? move / this.pagesQuantity : 0
+                            }%)`
+                        : `translateY(${
+                                this.pagesQuantity > 1 ? move / this.pagesQuantity : 0
+                            }%)`;
                 break;
 
             case RenderType.Async:

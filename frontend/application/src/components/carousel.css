@@ -106,6 +106,17 @@
 }
 
 /*
+   ┌──────────────────────────────┐
+   │ ANIMATION: LINEAR & VERTICAL │
+   └──────────────────────────────┘
+*/
+.o-carousel[data-render="linear"][data-orientation="vertical"] .slides {
+    transition: transform var(--carousel-transition-timing);
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+/*
    ┌───────────────────┐
    │ ANIMATION: ASYNC  │
    └───────────────────┘
@@ -138,7 +149,7 @@
    │   SWIPE   │
    └───────────┘
 */
-/* TODO [FIXME]
+/* [FIXME]
 .o-carousel .slides.js-moving {
     transition-duration: 0s;
 }
@@ -170,7 +181,7 @@
    │   CONTROLS   │
    └──────────────┘
 */
-/* TODO [FIXME] */
+/* [FIXME] */
 .o-carousel .controls {
     position: absolute;
     z-index: 5;
