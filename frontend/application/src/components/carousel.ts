@@ -4,7 +4,16 @@ import debounce from "lodash-es/debounce";
 
 import "./carousel.css";
 
-type RenderType = "linear" | "continue" | "async";
+enum RenderType {
+    Linear = "linear",
+    Continue = "continue",
+    Async = "async",
+};
+
+enum Orientation {
+    Horizontal = "horizontal",
+    Vertical = "vertical",
+};
 
 @Component
 export default class Carousel extends Vue {
@@ -39,7 +48,10 @@ export default class Carousel extends Vue {
     public minWidth!: number; // items minimum width
 
     @Prop({ type: String, default: "linear" })
-    public renderType!: RenderType; // "linear" | "continue" | "async"
+    public renderType!: RenderType;
+
+    @Prop({ type: String, default: "horizontal" })
+    public orientation!: Orientation;
 
     @Prop({ type: Number, default: 0 })
     public startAt!: number; // first item to show
@@ -190,7 +202,7 @@ export default class Carousel extends Vue {
         this.isSinglePage = false;
 
         switch (this.renderType) {
-            case "linear":
+            case RenderType.Linear:
                 this.itemsContainerStyles.width =
                     `${this.pagesQuantity * 100}%`;
                 break;
@@ -216,7 +228,7 @@ export default class Carousel extends Vue {
                         item instanceof HTMLElement ? item.style : item.styles;
 
                     switch (this.renderType) {
-                        case "linear":
+                        case RenderType.Linear:
                             itemStyles.position = "relative";
                             itemStyles.flex = "0 1 auto";
                             itemStyles.width = `calc(100% / ${
@@ -227,7 +239,7 @@ export default class Carousel extends Vue {
                             itemStyles.left = "";
                             break;
 
-                        case "async":
+                        case RenderType.Async:
                             itemStyles.position = "absolute";
 
                             if (i < this.itemsQuantity - rest) {
@@ -264,7 +276,7 @@ export default class Carousel extends Vue {
     }
 
     public gotoPage(page: number) {
-        if (this.isTransitioning && this.renderType !== "linear") {
+        if (this.isTransitioning && this.renderType !== RenderType.Linear) {
             return;
         }
 
@@ -272,7 +284,7 @@ export default class Carousel extends Vue {
 
         // Reverse mode
         this.isReverse =
-            page < 0 && this.renderType === "linear"
+            page < 0 && this.renderType === RenderType.Linear
                 ? false
                 : page < this.currentPage;
 
@@ -304,7 +316,7 @@ export default class Carousel extends Vue {
 
         // Move the slider
         switch (this.renderType) {
-            case "linear":
+            case RenderType.Linear:
                 const move = -((this.currentPage - 1) * 100 + this.decal);
 
                 this.currentItem =
@@ -315,7 +327,7 @@ export default class Carousel extends Vue {
                 }%)`;
                 break;
 
-            case "async":
+            case RenderType.Async:
             default:
                 this.currentItem = this.currentPage * this.itemsPerPage;
                 break;
@@ -389,7 +401,7 @@ export default class Carousel extends Vue {
 
     public nextPage(event: MouseEvent | Touch) {
         const page =
-            event instanceof MouseEvent || this.renderType === "async"
+            event instanceof MouseEvent || this.renderType === RenderType.Async
                 ? this.currentPage + 1
                 : this.currentPage +
                   (this.currentPage < this.pagesQuantity - 1 ? 1 : 0);
@@ -399,7 +411,7 @@ export default class Carousel extends Vue {
 
     public previousPage(event: MouseEvent | Touch) {
         const page =
-            event instanceof MouseEvent || this.renderType === "async"
+            event instanceof MouseEvent || this.renderType === RenderType.Async
                 ? this.currentPage - 1
                 : this.currentPage - (this.currentPage > 0 ? 1 : 0);
 
@@ -464,28 +476,36 @@ export default class Carousel extends Vue {
             };
 
             // Horizontal swipe
-            if (
-                Math.abs(endEvent.clientY - this.swipe.y) < 30 &&
-                now - this.swipe.time < 1000
-            ) {
-                if (detail.x > 30) {
-                    this.autoplay = false;
-                    this.previousPage(event);
-                } else if (detail.x < -30) {
-                    this.autoplay = false;
-                    this.nextPage(event);
+            if (this.orientation === Orientation.Horizontal) {
+                if (
+                    Math.abs(endEvent.clientY - this.swipe.y) < 30 &&
+                    now - this.swipe.time < 1000
+                ) {
+                    if (detail.x > 30) {
+                        // swipe left
+                        this.autoplay = false;
+                        this.previousPage(event);
+                    } else if (detail.x < -30) {
+                        // swipe right
+                        this.autoplay = false;
+                        this.nextPage(event);
+                    }
                 }
             }
 
-            // [TODO] Vertical Swipe
-            if (
-                Math.abs(endEvent.clientX - this.swipe.x) < 30 &&
-                now - this.swipe.time < 1000
-            ) {
-                if (detail.y > 30) {
-                    // swipe down
-                } else if (detail.y < -30) {
-                    // swipe up
+            // Vertical Swipe
+            if (this.orientation === Orientation.Vertical) {
+                if (
+                    Math.abs(endEvent.clientX - this.swipe.x) < 30 &&
+                    now - this.swipe.time < 1000
+                ) {
+                    if (detail.y > 30) {
+                        // swipe down
+                        this.previousPage(event);
+                    } else if (detail.y < -30) {
+                        // swipe up
+                        this.nextPage(event);
+                    }
                 }
             }
 
@@ -494,11 +514,15 @@ export default class Carousel extends Vue {
     }
 
     public onWheel(event: WheelEvent) {
-        // [TODO] Vertical Swipe
-        if (event.deltaY > 0) {
-            // swipe up
-        } else if (event.deltaY < 0) {
-            // swipe down
+        // Vertical Swipe
+        if (this.orientation === Orientation.Vertical) {
+            if (event.deltaY > 0) {
+                // swipe up
+                this.nextPage(event);
+            } else if (event.deltaY < 0) {
+                // swipe down
+                this.previousPage(event);
+            }
         }
     }
 }
