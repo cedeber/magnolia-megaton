@@ -185,13 +185,13 @@
 .o-carousel .previous-button {
     position: absolute;
     left: 0;
-    transform: translateX(15px);
+    transform: translateX(18px);
 }
 
 .o-carousel .next-button {
     position: absolute;
     right: 0;
-    transform: translateX(-15px);
+    transform: translateX(-18px);
 }
 
 .o-carousel .bullet {
