@@ -30,33 +30,33 @@
 
         linkElement.setAttribute("rel", "stylesheet");
         linkElement.setAttribute("media", "screen");
-        linkElement.setAttribute("href", "/app/${app!}.css");
+        linkElement.setAttribute("href", "${ctx.contextPath}/app/${app!}.css");
 
         document.head.appendChild(linkElement);
     })();
 </script>
 <script>window.mgnlContextPath = "${ctx.contextPath}";</script>
 
-<link rel="manifest" href="/manifest.json">
+<link rel="manifest" href="${ctx.contextPath}/manifest.json">
 
 <!-- Android / Standard: 192x192px -->
 <meta name="application-name" content="${webAppShortName!}">
 <meta name="mobile-web-app-capable" content="no">
 <meta name="theme-color" content="${webAppThemeColor!}">
-<link rel="icon" sizes="192x192" href="/icns-touch-icon.png">
+<link rel="icon" sizes="192x192" href="${ctx.contextPath}/icns-touch-icon.png">
 
 <!-- iOS: 152x152px (180x180px) -->
 <meta name="apple-mobile-web-app-capable" content="no">
 <meta name="apple-mobile-web-app-title" content="${webAppShortName!}">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="format-detection" content="telephone=no">
-<link rel="apple-touch-icon" href="/icns-apple-touch-icon.png">
+<link rel="apple-touch-icon" href="${ctx.contextPath}/icns-apple-touch-icon.png">
 
 <!-- Safari pinned tab: 80x80px -->
-<link rel="mask-icon" href="/icns-website-icon.svg" color="${webAppThemeColor!}">
+<link rel="mask-icon" href="${ctx.contextPath}/icns-website-icon.svg" color="${webAppThemeColor!}">
 
 <!-- Windows: 144x144px -->
-<meta name="msapplication-TileImage" content="/icns-ms-touch-icon.png">
+<meta name="msapplication-TileImage" content="${ctx.contextPath}/icns-ms-touch-icon.png">
 <meta name="msapplication-TileColor" content="${webAppThemeColor!}">
 <meta name="msapplication-tap-highlight" content="no">
 

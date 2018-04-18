@@ -3,8 +3,8 @@
 
     <!-- Application -->
     [#assign app = def.parameters.app!"main"]
-    <script src="/app/commons.js"></script>
-    <script async defer src="/app/${app!}.js"></script>
+    <script src="${ctx.contextPath}/app/commons.js"></script>
+    <script async defer src="${ctx.contextPath}/app/${app!}.js"></script>
     <!-- Outdated Browsers -->
     [#if !devMode]
     <div id="outdated"></div>
