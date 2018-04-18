@@ -11,8 +11,10 @@
 [/#if]
     [#if !cmsfn.isEditMode()]
     <multi-carousel inline-template v-bind:transition-delay="${content.transitionDelay!'1500'}"
-                    v-bind:delay="${content.delay!'5000'}" v-bind:autoplay="${(content.autoplay!false)?c}"
-                    v-bind:as-hero="${(content.asHero!false)?c}" v-bind:start-at="${content.startAt!'0'}"
+                    v-bind:delay="${content.delay!'5000'}"
+                    v-bind:autoplay="${(content.autoplay!false)?c}"
+                    v-bind:as-hero="${(content.asHero!false)?c}"
+                    v-bind:start-at="${content.startAt!'0'}"
                     v-bind:render-type="'${content.renderType!'linear'}'"
                     v-bind:orientation="'${content.orientation!'horizontal'}'"
                     [#if imageRatio??]v-bind:slide-ratio="${imageRatio?string.computer!0}"[/#if]
