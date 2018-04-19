@@ -8,6 +8,15 @@
     <versionHandler>ch.openinteractive.main.setup.StarterKitVersionHandler</versionHandler>
     <version>${project.version}</version>
 
+    <components>
+        <id>main</id>
+        <component>
+            <type>ch.openinteractive.main.templating.OITemplatingFunctions</type>
+            <implementation>ch.openinteractive.main.templating.OITemplatingFunctions</implementation>
+            <scope>singleton</scope>
+        </component>
+    </components>
+
     <dependencies>
         <dependency>
             <name>core</name>
