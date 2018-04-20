@@ -1,4 +1,5 @@
 /*! Scroll Into Viewport v1.3 */
+// tslint:disable:no-conditional-assignment
 
 let scrollIntoViewportAnimationId = 0;
 
@@ -128,7 +129,6 @@ function getTopPosition(
     let top = element.offsetTop;
 
     while (
-        // tslint:disable-next-line:no-conditional-assignment
         (element = element.offsetParent as HTMLElement) !== null &&
         element !== boundary
     ) {
