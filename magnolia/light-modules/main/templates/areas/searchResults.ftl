@@ -18,22 +18,32 @@
             <ul>
                 [#list websiteResults as item]
                     <li class="link-container search-result">
-                        <a class="o-flex-inline link" href="${cmsfn.link(item)!}">
-                            <p>
-                                <span class="link-title h2">${item.title!}</span>
-                                <br><span class="link-description">${item.excerpt?replace('<[^>]*>', '', 'r')?replace('...[^>]*>', '...', 'r')?replace(queryStr, "<strong>"+queryStr+"</strong>", "i")!}</span>
+                        <h2>${item.title!}</h2>
+                        [#assign description = item.description!]
+                        [#if description?has_content]
+                            <p class="link-description">
+                                ${description?replace('<[^>]*>', '', 'r')?replace('...[^>]*>', '...', 'r')?replace(queryStr, "<strong>"+queryStr+"</strong>", "i")!}
                             </p>
+                        [/#if]
+                        <a class="o-flex-inline link" href="${cmsfn.link(item)!}">
+                            ${oifn.getDefaultBaseUrl()}${cmsfn.link(item)}
                         </a>
                     </li>
                 [/#list]
                 [#list damResults as item]
                     [#assign assetMap = damfn.getAssetMap("jcr:"+item.@id)]
                     <li class="link-container search-result">
-                        <a class="o-flex-inline link" href="${cmsfn.link(item)!}">
-                            <p>
-                                <span class="link-title h2">${item.title!} (${assetMap.metadata.dc.format!})</span>
-                                <br><span class="link-description">${item.excerpt?replace('<[^>]*>', '', 'r')?replace('...[^>]*>', '...', 'r')?replace(queryStr, "<strong>"+queryStr+"</strong>", "i")!}</span>
+                        <h2>
+                            ${item.title!item.name!} (${assetMap.metadata.dc.format!})
+                        </h2>
+                        [#assign assetDescription = item.description!]
+                        [#if assetDescription?has_content]
+                            <p class="link-description">
+                                ${assetDescription?replace('<[^>]*>', '', 'r')?replace('...[^>]*>', '...', 'r')?replace(queryStr, "<strong>"+queryStr+"</strong>", "i")!}
                             </p>
+                        [/#if]
+                        <a class="o-flex-inline link" href="${cmsfn.link(item)!}">
+                            ${oifn.getDefaultBaseUrl()}${cmsfn.link(item)}
                         </a>
                     </li>
                 [/#list]
