@@ -13,22 +13,28 @@
 - [ ] Correct `<head>`: App name, etc...
 - [ ] Fill Web App Manifest
 - [ ] Cookie compliance (only for political Europe right now)
+- [ ] Check Form submissions
 
 # Magnolia Configurations
+## Project setup
 - [ ] Anonymous password (public)
+- [ ] Add map /home to / (`/server/URI2RepositoryMapping/mappings/website`)
+- [ ] Add map /magnolia to /.magnolia/admincentral (`/modules/ui-admincentral/virtualUriMappings/default`)
+- [ ] Add woff2 mimetype (`/server/MIMEMapping/`)
+- [ ] Set `/server/security/userManagers/system@lockTimePeriod` to 5(minutes)
+- [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (`/modules/cache/config/compression/voters/contentType/allowed@2`)
+- [ ] Set `defaultBaseUrl` in Magnolia server config (author/public)
+
+## Project finalization
 - [ ] Anonymous role access to required workspaces (public)
 - [ ] Admin user (author/public) check workspaces!
 - [ ] Visitor user (public)
-- [ ] Set `defaultBaseUrl` in Magnolia server config (author/public)
-- [ ] Imaging Module (Is /modules/site/config/site/theme set correctly on public?)
-- [ ] Set /server/security/userManagers/system@lockTimePeriod to 5(minutes)
-- [ ] Add woff2 mimetype (/server/MIMEMapping/)
+- [ ] Imaging Module (Is `/modules/site/config/site/theme` set correctly on public?)
 - [ ] Does Magnolia Search find pages/assets/news/events etc.
 - [ ] Check Form submissions
 - [ ] Check for yaml errors in Definitions App
-- [ ] Add woff2 mimetype (/server/MIMEMapping/)
 
-Cache Optimization:
+## Cache Optimization
 - [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
 - [ ] MAGNOLIA 5.6.1+ Also for JS files `application/javascript`
 See: https://jira.magnolia-cms.com/browse/MAGNOLIA-6682
@@ -60,7 +66,7 @@ Don't forget touch screens on Microsoft Surface.
 
 ## Special attention
 - [ ] Flexbox on IE
-- [ ] `object-fit` polyfill for IE/Edge < 16 (Carousel, etc...) or [SVG fix](http://www.sarasoueidan.com/blog/svg-object-fit/)
+- [ ] `object-fit` polyfill for IE/Edge (Carousel, etc...) or [SVG fix](http://www.sarasoueidan.com/blog/svg-object-fit/)
 
 # Validators, Audits, Performance
 - [ ] [W3C Markup Validation](https://validator.w3.org) (Vue errors are OK. You can also check HTML mistakes in Firefox "View Page Source")
