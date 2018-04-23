@@ -22,7 +22,11 @@
                         [#assign description = item.description!]
                         [#if description?has_content]
                             <p class="link-description">
-                                ${description?replace('<[^>]*>', '', 'r')?replace('...[^>]*>', '...', 'r')?replace(queryStr, "<strong>"+queryStr+"</strong>", "i")!}
+                                [#--Replace html tags if you use fields which may contain html--]
+                                [#--[#assign description = description?replace('<[^>]*>', '', 'r')?replace('...[^>]*>', '...', 'r')]--]
+                                [#--Highlight search word--]
+                                [#assign description = description?replace(queryStr, "<strong>"+queryStr+"</strong>", "i")]
+                                ${description}
                             </p>
                         [/#if]
                         <a class="o-flex-inline link" href="${cmsfn.link(item)!}">
@@ -39,7 +43,11 @@
                         [#assign assetDescription = item.description!]
                         [#if assetDescription?has_content]
                             <p class="link-description">
-                                ${assetDescription?replace('<[^>]*>', '', 'r')?replace('...[^>]*>', '...', 'r')?replace(queryStr, "<strong>"+queryStr+"</strong>", "i")!}
+                                [#--Replace html tags if you use fields which may contain html--]
+                                [#--[#assign assetDescription = assetDescription?replace('<[^>]*>', '', 'r')?replace('...[^>]*>', '...', 'r')]--]
+                                [#--Highlight search word--]
+                                [#assign assetDescription = assetDescription?replace(queryStr, "<strong>"+queryStr+"</strong>", "i")]
+                                ${assetDescription}
                             </p>
                         [/#if]
                         <a class="o-flex-inline link" href="${cmsfn.link(item)!}">
