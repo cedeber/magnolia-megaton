@@ -1,5 +1,5 @@
-import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import { Vue, Component, Prop } from "vue-property-decorator";
+import verticalState from "../helpers/vertical-state";
 import debounce from "lodash-es/debounce";
 
 import "./carousel.css";
@@ -106,34 +106,6 @@ export default class Carousel extends Vue {
     public hasCursorDown = false;
 
     public mounted() {
-        // As Hero (property)
-        const setHeroHeight = function(this: Carousel) {
-            const carouselTop: number = function(this: Carousel) {
-                let element = this.$el;
-                let top = (element as HTMLElement).offsetTop;
-
-                while (
-                    // tslint:disable-next-line:no-conditional-assignment
-                    (element = element.offsetParent as HTMLElement) !== null &&
-                    element !== document.body
-                ) {
-                    top += element.offsetTop;
-                }
-
-                return top;
-            }.call(this);
-
-            this.$el.style.height = `${window.innerHeight - carouselTop}px`;
-        };
-
-        if (this.asHero) {
-            if (document.readyState !== "complete") {
-                window.addEventListener("load", setHeroHeight.bind(this));
-            } else {
-                setHeroHeight.call(this);
-            }
-        }
-
         this.setupDOM();
         this.init();
 
@@ -155,7 +127,12 @@ export default class Carousel extends Vue {
             this.isVisible = carousel.isIntersecting;
 
             clearInterval(this.playIntervalID);
-            if (this.isVisible && this.autoplay && this.pagesQuantity > 1 && this.delay > 0) {
+            if (
+                this.isVisible &&
+                this.autoplay &&
+                this.pagesQuantity > 1 &&
+                this.delay > 0
+            ) {
                 this.playIntervalID = setInterval(
                     this.nextPage.bind(this, new MouseEvent("void")),
                     this.delay,
@@ -182,6 +159,12 @@ export default class Carousel extends Vue {
     }
 
     public init() {
+        if (this.asHero) {
+            pageLoaded().then(() => {
+                setHeroHeight(this.$el);
+            });
+        }
+
         this.carouselWidth = this.$el.offsetWidth;
 
         if (this.carouselWidth <= 0) {
@@ -248,22 +231,32 @@ export default class Carousel extends Vue {
                             itemStyles.width =
                                 this.orientation === Orientation.Horizontal
                                     ? `calc(100% / ${
-                                        (this.pagesQuantity > 1
-                                            ? this.itemsPerPage
-                                            : this.itemsQuantity) *
-                                        this.pagesQuantity})`
+                                          (this.pagesQuantity > 1
+                                              ? this.itemsPerPage
+                                              : this.itemsQuantity) *
+                                          this.pagesQuantity
+                                      })`
                                     : "calc(100%)";
                             itemStyles.left = "";
+                            itemStyles.height =
+                                this.orientation === Orientation.Horizontal
+                                    ? "calc(100%)"
+                                    : `calc(100% / ${
+                                          (this.pagesQuantity > 1
+                                              ? this.itemsPerPage
+                                              : this.itemsQuantity) *
+                                          this.pagesQuantity
+                                      })`;
                             break;
 
                         case RenderType.Async:
                             itemStyles.position = "absolute";
 
                             if (i < this.itemsQuantity - rest) {
-                                itemStyles.width = `${this.carouselWidth /
-                                    this.itemsPerPage}px`;
-                                itemStyles.left = `${this.carouselWidth /
-                                    this.itemsPerPage * j}px`;
+                                itemStyles.width =
+                                    `${this.carouselWidth / this.itemsPerPage}px`;
+                                itemStyles.left =
+                                    `${this.carouselWidth / this.itemsPerPage * j}px`;
                             } else {
                                 itemStyles.width =
                                     `${this.carouselWidth / rest}px`;
@@ -297,7 +290,8 @@ export default class Carousel extends Vue {
         }
 
         const contentW =
-            (this.carouselWidth - slidesPadding) / Math.min(this.itemsPerPage, this.itemsQuantity);
+            (this.carouselWidth - slidesPadding) /
+            Math.min(this.itemsPerPage, this.itemsQuantity);
 
         this.sliderHeight = contentW * this.slideRatio / this.carouselWidth;
 
@@ -363,11 +357,15 @@ export default class Carousel extends Vue {
                 this.itemsContainerStyles.transform =
                     this.orientation === Orientation.Horizontal
                         ? `translateX(${
-                                this.pagesQuantity > 1 ? move / this.pagesQuantity : 0
-                            }%)`
+                              this.pagesQuantity > 1
+                                  ? move / this.pagesQuantity
+                                  : 0
+                          }%)`
                         : `translateY(${
-                                this.pagesQuantity > 1 ? move / this.pagesQuantity : 0
-                            }%)`;
+                              this.pagesQuantity > 1
+                                  ? move / this.pagesQuantity
+                                  : 0
+                          }%)`;
                 break;
 
             case RenderType.Async:
@@ -570,4 +568,22 @@ export default class Carousel extends Vue {
         }
         */
     }
+}
+
+function setHeroHeight(element: HTMLElement) {
+    const carouselTop = verticalState()(element).topPosition;
+
+    element.style.height = `${window.innerHeight - carouselTop}px`;
+}
+
+async function pageLoaded() {
+    return new Promise(resolve => {
+        if (document.readyState === "complete") {
+            resolve();
+        } else {
+            window.addEventListener("load", () => {
+                resolve();
+            });
+        }
+    });
 }
