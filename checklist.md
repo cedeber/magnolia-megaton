@@ -8,14 +8,15 @@
 - [ ] Impressum
 - [ ] Disclaimer
 - [ ] Custom error pages
-- [ ] Pagetitles & Descriptions
+- [ ] Page titles & Descriptions
 - [ ] App + Mobile Favicons
 - [ ] Correct `<head>`: App name, etc...
+- [ ] Fill Web App Manifest
 - [ ] Cookie compliance (only for political Europe right now)
 - [ ] Check Form submissions
 
 # Magnolia Configurations
-Project setup:
+## Project setup
 - [ ] Anonymous password (public)
 - [ ] Add map /home to / (`/server/URI2RepositoryMapping/mappings/website`)
 - [ ] Add map /magnolia to /.magnolia/admincentral (`/modules/ui-admincentral/virtualUriMappings/default`)
@@ -24,19 +25,23 @@ Project setup:
 - [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (`/modules/cache/config/compression/voters/contentType/allowed@2`)
 - [ ] Set `defaultBaseUrl` in Magnolia server config (author/public)
 
-Project finalization:
+## Project finalization
 - [ ] Anonymous role access to required workspaces (public)
 - [ ] Admin user (author/public) check workspaces!
 - [ ] Visitor user (public)
 - [ ] Imaging Module (Is `/modules/site/config/site/theme` set correctly on public?)
 - [ ] Does Magnolia Search find pages/assets/news/events etc.
+- [ ] Check Form submissions
 - [ ] Check for yaml errors in Definitions App
 
-After Go-Live:
-- [ ] Set `defaultBaseUrl` in Magnolia server config (author/public)
-
+## Cache Optimization
+- [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
+- [ ] MAGNOLIA 5.6.1+ Also for JS files `application/javascript`
+See: https://jira.magnolia-cms.com/browse/MAGNOLIA-6682
 
 # Testings
+Chrome and Firefox should technically behave the same way whatever the operating system is.
+But graphically, it is very different because of OS's way of doing graphics.
 
 ## macOS (MacBook || iMac)
 Don't forget Retina vs Standard resolution => Graphical rendering
@@ -67,6 +72,7 @@ Don't forget touch screens on Microsoft Surface.
 - [ ] [W3C Markup Validation](https://validator.w3.org) (Vue errors are OK. You can also check HTML mistakes in Firefox "View Page Source")
 - [ ] [Google Lighthouse: Webpage](https://developers.google.com/web/tools/lighthouse/) (inside Chrome 60+ Dev Tools)
 - [ ] [Web Page Test](https://www.webpagetest.org) (can be done with Chrome dev tools, simulate slow connection and under-powered device)
+- [ ] [Google Structured data testing tool](https://search.google.com/structured-data/testing-tool)
 
 ## Optionals tools
 - [Mozilla Observatory: Security](https://observatory.mozilla.org) (Server Security)

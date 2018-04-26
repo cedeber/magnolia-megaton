@@ -3,6 +3,6 @@ renderType: freemarker
 templateScript: /main/templates/components/media.ftl
 dialog: main:components/media
 
-modelClass: info.magnolia.module.jsmodels.rendering.JavascriptRenderingModel
-class: info.magnolia.module.jsmodels.rendering.JavascriptTemplateDefinition
-modelPath: /main/templates/pages/main.js
+variations:
+  json:
+    templateScript: /main/templates/variations/mediaJSON.ftl

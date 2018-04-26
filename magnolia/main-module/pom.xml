@@ -16,7 +16,6 @@
     <description>Please uncomment and fill in ...</description>
     -->
     <properties>
-        <magnoliaVersion>5.6.1</magnoliaVersion>
         <javaVersion>1.8</javaVersion>
     </properties>
 
@@ -24,7 +23,6 @@
         <dependency>
             <groupId>info.magnolia</groupId>
             <artifactId>magnolia-core</artifactId>
-            <version>${magnoliaVersion}</version>
         </dependency>
 
         <dependency>

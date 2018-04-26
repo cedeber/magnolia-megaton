@@ -13,10 +13,10 @@
         [/#if]
     [/#if]
     [#if doRender && node?has_content]
+        [@compress single_line=true]
         <a class="link[#if navfn.isActive(cnt, node)] is-active[/#if][#if navfn.isOpen(cnt, node)] is-parent[/#if] is-level-${lvl!'unset'}"
            [#if redirectLinkExternal?has_content]target="_blank" rel="noopener external"[/#if]
-           href="${redirectLinkExternal!redirectLinkInternal!cmsfn.link(node)!}">
-        ${node.navigationTitle!node.title!}
-        </a>
+           href="${redirectLinkExternal!redirectLinkInternal!cmsfn.link(node)!}">${node.navigationTitle!node.title!}</a>
+        [/@compress]
     [/#if]
 [/#macro]

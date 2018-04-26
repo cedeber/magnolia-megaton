@@ -3,3 +3,4 @@ templateScript: /main/templates/pages/redirect.ftl
 renderType: freemarker
 dialog: main:pages/redirect
 visible: true
+type: page

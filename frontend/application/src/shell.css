@@ -1,0 +1,23 @@
+/**
+ * Shell CSS
+ *
+ * Injected in <HEAD>
+ * It has to be common of all applications, if more than one
+ */
+
+@import url(./variables.css);
+
+/* --- Bootstrap --- */
+@import url(./shell/bootstrap/reset.css);
+@import url(./shell/bootstrap/default.css);
+@import url(./shell/bootstrap/accessibility.css);
+@import url(./shell/bootstrap/layout.css);
+@import url(./shell/bootstrap/flexbox.css);
+@import url(./shell/bootstrap/responsive.css);
+@import url(./shell/bootstrap/text.css);
+@import url(./shell/bootstrap/images.css);
+@import url(./shell/bootstrap/form.css);
+
+/* -- Shell -- */
+/* Here you could import Header, Footer or Navigation as well */
+/* @import url(./shell/loading.css); */

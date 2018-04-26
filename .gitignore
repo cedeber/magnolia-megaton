@@ -1,8 +1,13 @@
 ### Project ###
-prototype/**/app/
+frontend/**/report.html
 
+magnolia/light-modules/**/webresources/build/
+magnolia/light-modules/**/webresources/workers/
+magnolia/light-modules/**/webresources/*.json
 magnolia/light-modules/**/webresources/app/
 !magnolia/light-modules/**/external/
+
+magnolia/light-modules/**/virtualUriMappings/localhost.yaml
 
 magnolia/*-webapp/**/repositories/
 magnolia/*-webapp/**/overlays/
@@ -11,8 +16,8 @@ magnolia/*-webapp/**/cache/
 ### Temp ###
 tmp/
 temp/
-*.tmp
-*.bak
+*.tmp*
+*.bak*
 .lock
 
 ### Java ###
@@ -46,8 +51,7 @@ typings/
 .env
 
 ### IntelliJ ###
-.idea/*
-!/.idea/deployment.xml
+.idea
 *.iws
 *.iml
 *.ipr
@@ -92,10 +96,8 @@ oscrypto-ca-bundle.crt
 bh_unicode_properties.cache
 
 ### VisualStudioCode ###
-.vscode/
-.settings/
-**/.vscode/
-**/.settings/
+.vscode
+.settings
 *.code-workspace
 
 ### Vim ###

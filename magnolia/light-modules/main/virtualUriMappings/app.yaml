@@ -1,0 +1,3 @@
+class: info.magnolia.virtualuri.mapping.RegexpVirtualUriMapping
+fromUri: /app/(.*)
+toUri: forward:/.resources/main/webresources/build/$1

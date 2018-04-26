@@ -1,0 +1,12 @@
+/* Responsive invisibility */
+@media (--for-xs) { .hidden-xs { display: none; } }
+@media (--for-sm) { .hidden-sm { display: none; } }
+@media (--for-md) { .hidden-md { display: none; } }
+@media (--for-lg) { .hidden-lg { display: none; } }
+@media (--for-xl) { .hidden-xl { display: none; } }
+@media (--for-sm-up) { .hidden-sm-up { display: none; } }
+@media (--for-md-up) { .hidden-md-up { display: none; } }
+@media (--for-lg-up) { .hidden-lg-up { display: none; } }
+@media (--for-sm-down) { .hidden-sm-down { display: none; } }
+@media (--for-md-down) { .hidden-md-down { display: none; } }
+@media (--for-lg-down) { .hidden-lg-down { display: none; } }

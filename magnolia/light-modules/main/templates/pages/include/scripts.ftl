@@ -3,9 +3,8 @@
 
     <!-- Application -->
     [#assign app = def.parameters.app!"main"]
-    ${resfn.js(["/main/webresources/app/polyfills.*.js"])!}
-    ${resfn.js(["/main/webresources/app/" + app + ".*.js"])!}
-
+    <script src="${ctx.contextPath}/app/commons.js"></script>
+    <script async defer src="${ctx.contextPath}/app/${app!}.js"></script>
     <!-- Outdated Browsers -->
     [#if !devMode]
     <div id="outdated"></div>

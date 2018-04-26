@@ -33,6 +33,16 @@ form:
               class: ch.openinteractive.main.validators.MimeTypeValidatorDefinition
               pattern: video/*
               errorMessage: Choose a video
+        - name: isAutoplay
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          label: Auto play
+          buttonLabel: Play the video automatically or show controls
+          defaultValue: false
+        - name: hasCaption
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          label: Show caption
+          buttonLabel: Show the caption, if any, defined in the Asset Manager
+          defaultValue: true
         - name: isInstantly
           class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
           label: Instantly
@@ -42,7 +52,7 @@ form:
           class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
           label: Media as cover
           buttonLabel: The media covers the whole container (like a background)
-          defaultValue: false
+          defaultValue: true
         - name: ratio
           class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
           transformerClass: info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer

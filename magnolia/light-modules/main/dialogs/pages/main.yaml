@@ -16,14 +16,6 @@ form:
           i18n: true
           label: Description
           rows: 5
-        - name: app
-          label: Application name
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-          i18n: true
-        - name: color
-          label: Theme color
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-          description: "CSS hex value. Black is default: #000000"
         - name: image
           class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
           targetWorkspace: dam

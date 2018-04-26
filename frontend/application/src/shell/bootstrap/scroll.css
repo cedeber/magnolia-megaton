@@ -1,0 +1,18 @@
+/* Block scroll on Desktop */
+html.is-not-scrollable,
+html.is-not-scrollable > body,
+.is-not-scrollable {
+    overflow: hidden !important;
+    /* height: 100% !important; */
+}
+
+.is-scrollable {
+    overflow: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* block scroll effect on iOS but force to scroll on top */
+.o-view.is-not-scrollable {
+    position: fixed;
+}
