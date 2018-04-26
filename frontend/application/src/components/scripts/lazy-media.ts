@@ -39,7 +39,8 @@ declare global {
 const validateMedia = validateSchema(mediaSchema);
 const validateSources = validateSchema(sourcesSchema);
 const IEdgeMatches = /(Edge|Trident)\/(\d.)/i.exec(navigator.userAgent);
-const isOutdatedBrowser = IEdgeMatches && parseInt(IEdgeMatches[2], 10) < 16;
+// Edge 16 doesn't support object-fit for video...
+const isOutdatedBrowser = IEdgeMatches && parseInt(IEdgeMatches[2], 10) < 17;
 
 /**
  * @todo Save the result in a sessionStorage?
