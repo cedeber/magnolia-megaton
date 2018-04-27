@@ -1,4 +1,4 @@
-form: 
+form:
   tabs:
     - name: tabMain
       label: Map
@@ -46,5 +46,10 @@ form:
           height: 180
           configJsFile: /.resources/main/dialogs/include/config/simple.js
           i18n: true
+        - name: styles
+          class: info.magnolia.ui.form.field.definition.CodeFieldDefinition
+          language: javascript
+          label: Map styles
+          description: JSON from https://mapstyle.withgoogle.com/
 
 actions: !include:/main/dialogs/include/commonActions.yaml

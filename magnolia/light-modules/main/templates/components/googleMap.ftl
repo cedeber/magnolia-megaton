@@ -19,6 +19,10 @@
                 :marker-icon="'${damfn.getAssetLink(content.markerIcon)!}'"
                 :marker-width="${markerWidth}"
                 :marker-height="${markerHeight}"
+            [/#if]
+            [#if content.styles?has_content]
+                :personalized="true"
+                styles-path="${cmsfn.link(content)?replace('.html', '.json')}"
             [/#if]>
     <p hidden>
     [#if content.info?has_content]

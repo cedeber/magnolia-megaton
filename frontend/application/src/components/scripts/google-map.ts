@@ -1,9 +1,10 @@
-import Vue from "vue";
-import { Component, Prop, Watch } from "vue-property-decorator";
+import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import taggr from "../../devtools/taggr";
 
 declare global {
-    interface Window { google: any; }
+    interface Window {
+        google: any;
+    }
 }
 
 const log = taggr("google-map");
@@ -36,6 +37,12 @@ class GoogleMap extends Vue {
     @Prop({ type: Number, default: 0 })
     public markerHeight!: number;
 
+    @Prop({ type: Boolean, default: false })
+    public personalized!: boolean;
+
+    @Prop({ type: String, default: "" })
+    public stylesPath!: string;
+
     public isLoaded: boolean = false;
     public map?: google.maps.Map;
     public marker?: google.maps.Marker;
@@ -56,7 +63,9 @@ class GoogleMap extends Vue {
 
     public async mounted() {
         if (!this.apiKey) {
-            log.error("no API key provided. https://console.developers.google.com/apis/");
+            log.error(
+                "no API key provided. https://console.developers.google.com/apis/",
+            );
             return;
         }
 
@@ -64,7 +73,9 @@ class GoogleMap extends Vue {
 
         if (!window.google.isMapsAlreadyLoading && !window.google.maps) {
             window.google.isMapsAlreadyLoading = true;
-            await loadJS(`https://maps.googleapis.com/maps/api/js?key=${this.apiKey!}`);
+            await loadJS(
+                `https://maps.googleapis.com/maps/api/js?key=${this.apiKey!}`,
+            );
         }
 
         this.initMap();
@@ -89,7 +100,16 @@ class GoogleMap extends Vue {
     /**
      * Setup Google Map
      */
-    public initMap() {
+    public async initMap() {
+        let styles;
+
+        // Get personalized styles
+        if (this.personalized) {
+            styles = await fetch(this.stylesPath)
+                .then(response => response.json())
+                .catch(() => { /* empty */ });
+        }
+
         // Create Map
         this.map = new google.maps.Map(this.$el.querySelector(".map"), {
             gestureHandling: "cooperative",
@@ -97,7 +117,7 @@ class GoogleMap extends Vue {
             zoom: this.zoom,
             center: { lat: 0, lng: 0 },
             // Custom styling from https://mapstyle.withgoogle.com/
-            // styles: [],
+            styles,
         });
 
         // Create Icon
@@ -105,8 +125,14 @@ class GoogleMap extends Vue {
             this.markerIcon && typeof this.markerIcon === "string"
                 ? ({
                       url: this.markerIcon,
-                      scaledSize: new google.maps.Size(this.markerWidth, this.markerHeight),
-                      anchor: new google.maps.Point(this.markerWidth / 2, this.markerHeight),
+                      scaledSize: new google.maps.Size(
+                          this.markerWidth,
+                          this.markerHeight,
+                      ),
+                      anchor: new google.maps.Point(
+                          this.markerWidth / 2,
+                          this.markerHeight,
+                      ),
                   } as google.maps.Icon)
                 : undefined;
 
@@ -118,7 +144,13 @@ class GoogleMap extends Vue {
         });
 
         if (icon) {
-            log.info(`Personalized marker (${this.markerWidth}×${this.markerHeight}px)`);
+            log.info(
+                `Personalized marker (${
+                    this.markerWidth
+                }×${
+                    this.markerHeight
+                }px)`,
+            );
         }
 
         // Create Info Window
@@ -129,7 +161,9 @@ class GoogleMap extends Vue {
             content.removeAttribute("hidden");
 
             const infoWindow = new google.maps.InfoWindow({ content });
-            google.maps.event.addListener(this.marker, "click", () => infoWindow.open(this.map, this.marker));
+            google.maps.event.addListener(this.marker, "click", () =>
+                infoWindow.open(this.map, this.marker),
+            );
 
             log.list(content).info("info window opened");
         }
