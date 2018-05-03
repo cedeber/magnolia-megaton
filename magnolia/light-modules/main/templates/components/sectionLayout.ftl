@@ -16,9 +16,9 @@
                 [#if hasBackground && !hasNoTopSpace]has-top-inner-space[/#if]
                 [#if hasBackground && !hasNoBottomSpace]has-bottom-inner-space[/#if]
                 [#if !hasBackground && isFullWidth]is-full-width[/#if]
+                [#if hasBackground]-${content.backgroundTheme!'default'}[/#if]
                 [#--if hasBackground]is-${model.brightness(content.backgroundTheme)!}[/#if--]
                 "
-         [#if hasBackground]style="background-color:${content.backgroundTheme!}"[/#if]
 >
 [/@compress]
     <div class="o-group [#if isFullWidth]is-full-width[#elseif isLarge]is-large[/#if] [#if hasBackground]has-inner-gutter[/#if]">
