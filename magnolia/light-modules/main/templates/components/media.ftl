@@ -6,16 +6,15 @@
         [#assign isAutoplay = content.isAutoplay?? && content.isAutoplay == true]
         [#assign hasCaption = content.hasCaption?? && content.hasCaption == true]
         [#assign hasRatio = content.width?has_content && content.height?has_content]
-        [#assign hasCell = ctx.cell?has_content && ctx.cell != "1of1"]
+        [#assign hasCell = (ctx.cell?has_content && ctx.cell != "1of1") || content.body?has_content]
         [#assign cellOverride = content.layoutOverride?? && content.layoutOverride == true]
 
         [#assign imageMap = damfn.getAssetMap(content.image)!]
         [#assign imageWidth = imageMap.metadata.mgnl.width!0]
         [#assign imageHeight = imageMap.metadata.mgnl.height!0]
 
-        <!-- Async Media -->
         [#if hasCell]
-            <div class="cell-[#if cellOverride]1of1[#else]${ctx.cell!'no'}[/#if]">
+            <div class="cell-[#if cellOverride]1of1[#else]${ctx.cell!'no'}[/#if][#if content.body?has_content] has-editorial[/#if]">
         [/#if]
         [#if !cmsfn.isEditMode()]
             [@compress single_line=true]
@@ -44,6 +43,9 @@
                     <figcaption class="caption">${imageMap.caption}</figcaption>
                 [/#if]
             </figure>
+        [/#if]
+        [#if content.body?has_content]
+            [#include "editorial.ftl"]
         [/#if]
         [#if hasCell]
             </div>

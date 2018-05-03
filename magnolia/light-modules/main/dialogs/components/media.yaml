@@ -84,6 +84,8 @@ form:
             - name: left
               label: Left
 
+    - !include:/main/dialogs/include/tabEditorial.yaml
+
     - name: tabLayout
       label: Layout
       fields:
