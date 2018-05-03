@@ -34,5 +34,19 @@ form:
           class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
           label: Layout override
           buttonLabel: This component must use the whole width of the section
+        - name: textAlignment
+          class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+          multiselect: false
+          type: String
+          label: Text alignment
+          sortOptions: false
+          options:
+            - name: left
+              label: Left
+              selected: true
+            - name: center
+              label: Center
+            - name: right
+              label: Right
 
 actions: !include:/main/dialogs/include/commonActions.yaml

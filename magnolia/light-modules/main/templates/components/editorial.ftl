@@ -1,8 +1,9 @@
 [#assign parent = cmsfn.parent(content, "mgnl:page")!]
 [#assign cellOverride = content.layoutOverride?? && content.layoutOverride == true]
+[#assign textAlignment = "is-" + content.textAlignment!'left']
 
 <!-- Editorial -->
-<div class="o-editorial cell-[#if cellOverride]1of1[#else]${ctx.cell!'no'}[/#if]">
+<div class="o-editorial ${textAlignment} cell-[#if cellOverride]1of1[#else]${ctx.cell!'no'}[/#if]">
     [#if content.preHeader?has_content || content.title?has_content || ctx.orderIndex == 0]
     <header>
         [#if content.preHeader?has_content]
