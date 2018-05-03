@@ -28,8 +28,7 @@
                         :is-autoplay="${isAutoplay?string!}"
                         :has-caption="${hasCaption?string!}"
                         [#-- :renditions="[]" [TODO] --]
-                        class="o-lazy-media"
-                        style="[#if hasRatio]padding-top: calc(1 / (${content.width} / ${content.height}) * 100%)[#elseif isCover]padding-top: calc(1 / (${imageWidth?string.computer!} / ${imageHeight?string.computer!}) * 100%)[/#if]">
+                        class="o-lazy-media">
                 [#-- placeholder used before 'mounted' and before getting 'source' --]
                 [#-- TODO CED --]
                 [#--<svg class="media" width="${model.getMax((imageWidth * 100), 1)?string.computer}px" height="${model.getMax((imageHeight * 100), 1)?string.computer}px" viewBox="0 0 1 1"></svg>--]

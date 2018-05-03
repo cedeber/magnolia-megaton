@@ -112,6 +112,11 @@ export default class LazyMedia extends Vue {
             : await getPictureSource(this.picture.sources);
         this.log.info(`default source: '${source}'`);
 
+        if (this.ratio) {
+            this.$el.style.paddingTop =
+                `calc(calc(1 / (${this.ratio.w} / ${this.ratio.h}) * 100%))`;
+        }
+
         if (this.isInstantly) {
             this.source = source;
         } else {
