@@ -6,6 +6,7 @@
 [#assign hasNoBottomSpace = content.space?? && content.space?seq_contains("bottom")]
 [#assign hasMultiCells = content.cell?? && content.cell != "1of1"]
 [#assign hasGutter = content.hasGutter?? && content.hasGutter == true && hasMultiCells]
+[#assign noPageGutters = content.noPageGutters?? && content.noPageGutters == true && content.sectionLayout == "wide"]
 
 <!-- Layout -->
 [@compress single_line=true]
@@ -21,7 +22,7 @@
                 "
 >
 [/@compress]
-    <div class="o-group [#if isFullWidth]is-full-width[#elseif isLarge]is-large[/#if] [#if hasBackground]has-inner-gutter[/#if]">
+    <div class="o-group [#if isFullWidth]is-full-width[#elseif isLarge]is-large[/#if] [#if hasBackground && !noPageGutters]has-inner-gutter[/#if]">
         [#if hasMultiCells]
         <div class="o-flex is-multiline [#if hasGutter]has-gutter[/#if]">
             [@cms.area name="content" contextAttributes={"cell": content.cell!} /]
