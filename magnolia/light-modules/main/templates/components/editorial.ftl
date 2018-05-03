@@ -2,6 +2,17 @@
 [#assign cellOverride = content.layoutOverride?? && content.layoutOverride == true]
 [#assign textAlignment = "is-" + content.textAlignment!'left']
 
+[#if content.callToActionText?has_content && content.callToActionLink?has_content]
+    [#if content.callToActionLink == "Internal" && content.callToActionLinkInternal?has_content]
+        [#assign internalContentMap = cmsfn.contentById(content.callToActionLinkInternal)!]
+        [#if internalContentMap?has_content]
+            [#assign redirectLink = navfn.link(internalContentMap)!]
+        [/#if]
+    [#elseif content.callToActionLink == "External" && content.callToActionLinkExternal?has_content]
+        [#assign redirectLink = content.callToActionLinkExternal!]
+    [/#if]
+[/#if]
+
 <!-- Editorial -->
 <div class="o-editorial ${textAlignment} cell-[#if cellOverride]1of1[#else]${ctx.cell!'no'}[/#if]">
     [#if content.preHeader?has_content || content.title?has_content || ctx.orderIndex == 0]
@@ -35,5 +46,13 @@
 
     [#if content.body?has_content]
     ${cmsfn.decode(content).body!}
+    [/#if]
+
+    [#if redirectLink?has_content]
+    <a href="${redirectLink}" class="call-to-action"
+       [#if content.callToActionLink == "External"]target="_blank" rel="noopener"[/#if]
+       >
+        ${content.callToActionText!}
+    </a>
     [/#if]
 </div>
