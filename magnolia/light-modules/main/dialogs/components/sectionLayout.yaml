@@ -1,7 +1,7 @@
 form:
   label: Section
   tabs:
-   - !include:/main/dialogs/include/tabLayout.yaml
+    - !include:/main/dialogs/include/tabLayout.yaml
       fields:
         - name: sectionLayout
           options:
