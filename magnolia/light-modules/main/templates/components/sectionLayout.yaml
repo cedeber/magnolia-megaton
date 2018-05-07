@@ -11,7 +11,7 @@ areas:
       editorial:
         id: main:components/editorial
       media:
-        id: main:components/media
+        id: main:components/lazyMedia
       carousel:
         id: main:components/carousel
       map:
