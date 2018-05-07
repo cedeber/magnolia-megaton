@@ -20,6 +20,7 @@
                 [#if hasBackground]-${content.backgroundTheme!'default'}[/#if]
                 [#--if hasBackground]is-${model.brightness(content.backgroundTheme)!}[/#if--]
                 "
+         [#if content.sectionID?has_content]id="${content.sectionID!}"[/#if]
 >
 [/@compress]
     <div class="o-group [#if isFullWidth]is-full-width[#elseif isLarge]is-large[/#if] [#if hasBackground && !noPageGutters]has-inner-gutter[/#if]">

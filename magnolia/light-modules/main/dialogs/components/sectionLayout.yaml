@@ -31,4 +31,12 @@ form:
           label: Columns gutters
           buttonLabel: Add gutters between columns
 
+    - name: tabApp
+      label: Application
+      fields:
+        - name: sectionID
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: Section ID
+          description: no space
+
 actions: !include:/main/dialogs/include/commonActions.yaml
