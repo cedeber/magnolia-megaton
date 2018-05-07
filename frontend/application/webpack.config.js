@@ -25,7 +25,7 @@ const shellCSS = new ExtractTextPlugin("shell.css");
 const appsCSS = new ExtractTextPlugin("[name].css"); // unused if extractCSS == false
 
 // Paths
-const publicPath = `${env === "production" ? '/author' : ''}/app/`; // we do redirecting for Magnolia, see `magnolia/virtualUriMappings`
+const publicPath = `${env === "development" ? '/author' : ''}/app/`; // we do redirecting for Magnolia, see `magnolia/virtualUriMappings`
 const magnoliaResourcesPath = path.resolve(__dirname, "../../magnolia/light-modules/main/webresources");
 const buildPath = path.resolve(__dirname, "../../magnolia/light-modules/main/webresources/build");
 const reportFilename = "../../../../../frontend/application/report.html"; // must be relative to `buildPath` and saved into `frontend`
