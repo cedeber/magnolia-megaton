@@ -21,5 +21,12 @@ public class OITemplatingFunctions {
         return url.endsWith("/") ? url.substring(0, url.length() - 1) : url;
     }
 
+    /**
+     * Return the bigger of the two numbers
+     */
+    public int getMax(int x, int y) {
+        return Math.max(x, y);
+    }
+
 
 }
