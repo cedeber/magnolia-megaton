@@ -56,6 +56,8 @@ body { font-size: var(--default-font-size); }
 p { hyphens: auto; }
 a { text-decoration: none; }
 
+div[role="button"] { cursor: pointer; }
+
 .is-dark { color: var(--default-light-text-color); }
 .is-light { color: var(--default-dark-text-color); }
 
