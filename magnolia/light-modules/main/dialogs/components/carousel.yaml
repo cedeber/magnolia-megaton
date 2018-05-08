@@ -16,15 +16,18 @@ form:
         - name: ratio
           class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
           transformerClass: info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
-          label: Slide fixed ratio
+          label: Item ratio
           description: For instance, 16 / 9 for videos or 4 / 3 for images.
           fields:
-            - name: width
+            - name: ratioWidth
               class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               label: Width unit
-            - name: height
+            - name: ratioHeight
               class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               label: Height unit
+        - name: itemHeight
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: or Min-Height in px
         - name: autoplay
           class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
           label: Carousel autoplay
@@ -49,19 +52,22 @@ form:
           label: Slide min. width (px)
         - name: columns
           class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-          label: Slides per page
+          label: Slides per Row
           description: Overwrite min. and max. values
+        - name: rows
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: Number of rows
         - name: renderType
           class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
           label: Render Type
           options:
             - name: linear
               selected: true
-              label: Linear
+              label: Linear Transition
             # - name: continue
             #   label: Continue
             - name: async
-              label: Asynchronous
+              label: Slideshow Transition
         - name: orientation
           class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
           label: Orientation
