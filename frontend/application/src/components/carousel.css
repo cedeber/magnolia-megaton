@@ -30,11 +30,9 @@
     position: relative;
 }
 
-.o-carousel .slider-wrapper {
-    position: relative;
+.o-carousel .slider {
+    overflow: hidden;
 }
-
-.o-carousel .slider-inner { overflow: hidden; }
 
 .o-carousel .slides {
     position: absolute;
@@ -44,40 +42,30 @@
     left: 0;
 }
 
+.o-carousel .slide {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
 
 /*
    ┌─────────────┐
    │   GUTTERS   │
    └─────────────┘
 */
-
-.o-carousel .slider-inner {
-    position: absolute;
-    width: 100%;
-    min-height: 100%;
+.o-carousel.has-inner-gutter {
+    margin-left: calc(var(--layout-gutter-width) / -2);
+    margin-right: calc(var(--layout-gutter-width) / -2);
+    width: calc(100% + var(--layout-gutter-width));
 }
 
-.o-carousel.has-inner-gutter .slider-inner {
-    position: absolute;
-    margin-left: calc(var(--carousel-gutter-width) / -2);
-    margin-right: calc(var(--carousel-gutter-width) / -2);
-    width: calc(100% + var(--carousel-gutter-width));
+.o-carousel.has-inner-gutter .slide {
+    padding-left: calc(var(--layout-gutter-width) / 2);
+    padding-right: calc(var(--layout-gutter-width) / 2);
 }
 
-.o-carousel.is-multirows .item {
-    margin-bottom: calc(var(--carousel-gutter-width));
-}
-
-.o-carousel.has-inner-gutter .slider {
-    overflow:hidden;
-}
-
-.o-carousel.has-inner-gutter .item {
-    padding-left: calc(var(--carousel-gutter-width) / 2);
-    padding-right: calc(var(--carousel-gutter-width) / 2);
-}
-
-.o-carousel.has-inner-gutter .item-inner {
+.o-carousel.has-inner-gutter .slide-inner {
     position: relative;
 }
 
@@ -86,7 +74,8 @@
    │   FOREGROUND & BACKGROUND   │
    └─────────────────────────────┘
 */
-.o-carousel .foreground {
+.o-carousel .foreground,
+.o-carousel .background {
     position: absolute;
     top: 0;
     left: 0;
@@ -132,11 +121,7 @@
    │ ANIMATION: ASYNC  │
    └───────────────────┘
 */
-.o-carousel[data-render="async"][data-orientation="horizontal"] .slides {
-    transition: transform var(--carousel-transition-timing);
-}
-
-.o-carousel[data-render="async"] .item {
+.o-carousel[data-render="async"] .slide {
     overflow: hidden;
     top: 0;
     left: 0;
@@ -147,64 +132,16 @@
     will-change: opacity;
 }
 
-.o-carousel[data-render="async"] .item.js-last {
+.o-carousel[data-render="async"] .slide.js-last {
     z-index: 2;
     opacity: 1;
     transition: opacity var(--carousel-transition-timing);
 }
 
-.o-carousel[data-render="async"] .item.js-active {
+.o-carousel[data-render="async"] .slide.js-active {
     z-index: 3;
     opacity: 1;
     transition: opacity var(--carousel-transition-nonlinear);
-}
-
-
-
-/* --- item --- */
-
-.o-carousel .item {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-}
-
-.o-carousel .item-inner {
-    position: relative;
-    width: 100%;
-    display: block;
-    height: 100%;
-}
-
-.o-carousel .item .picture {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: var(--default-timing) 50ms;
-}
-.o-carousel .item .picture.js-loaded { opacity: 1; }
-
-.o-carousel .item .image {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    object-fit: cover;
-}
-
-.o-carousel .item .image.is-cover {
-    width: 100%;
-    height: 100%;
-}
-
-/* ?!? -- Animation -- ?!? */
-.o-carousel[data-render="async"] .item {
-    overflow: hidden;
-    top: 0;
-    left: 0;
 }
 
 /*
@@ -217,7 +154,7 @@
     transition-duration: 0s;
 }
 
-.o-carousel.js-swipe .item {
+.o-carousel.js-swipe .slide {
     cursor: move;
     cursor: -webkit-grab;
     cursor: grab;
@@ -233,45 +170,11 @@
     user-drag: none;
 }
 
-.o-carousel .js-swipe.js-cursor-down .item {
+.o-carousel .js-swipe.js-cursor-down .slide {
     cursor: -webkit-grabbing;
     cursor: grabbing;
 }
-
-
-/*
-   ┌─────────────────────┐
-   │ ANIMATION: OPACITY  │
-   └─────────────────────┘
 */
-.o-carousel[data-render="async"] .item {
-    z-index: 1;
-    opacity: 0;
-    transition: 1s;
-    transition-timing-function: linear;
-    will-change: opacity;
-}
-
-.o-carousel[data-render="async"] .item.js-last {
-    z-index: 2;
-    opacity: 1;
-    transition: opacity var(--carousel-transition-timing);
-}
-
-.o-carousel[data-render="async"] .item.js-active {
-    z-index: 3;
-    opacity: 1;
-    transition: opacity var(--carousel-transition-nonlinear);
-}
-
-
-/*
-   ┌─────────────┐
-   │   CONTENT   │
-   └─────────────┘
-*/
-
-
 
 /*
    ┌──────────────┐
@@ -279,20 +182,27 @@
    └──────────────┘
 */
 /* [FIXME] */
-.o-carousel .controls > * {
+.o-carousel .controls {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    z-index: 5;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%) translateY(-15px);
+    color: white;
 }
 
 .o-carousel .previous-button {
-    left: -20px;
-    right: auto;
+    position: absolute;
+    left: 0;
+    transform: translateX(18px);
 }
 
 .o-carousel .next-button {
-    right: -20px;
-    left: auto;
+    position: absolute;
+    right: 0;
+    transform: translateX(-18px);
 }
 
 .o-carousel .bullet {
@@ -330,12 +240,4 @@
 
 .o-carousel .bullet.js-active::after {
     opacity: 1 !important;
-}
-
-.o-carousel.js-first-slide .previous-button {
-    display: none;
-}
-
-.o-carousel.js-last-slide .next-button {
-    display: none;
 }

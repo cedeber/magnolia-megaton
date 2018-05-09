@@ -71,8 +71,6 @@
     --layout-gutter-width: 2rem;
     --layout-gutter-height: 2rem;
 
-    --carousel-gutter-width: 3rem;
-
     /* Form */
     --form-fieldset-splitter-height: 4.4rem;
     --form-input-default-color: var(--base02);

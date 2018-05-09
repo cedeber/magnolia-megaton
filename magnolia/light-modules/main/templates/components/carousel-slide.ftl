@@ -2,7 +2,7 @@
 [#assign isCover = content.isCover?? && content.isCover == true]
 
 [#if content.image?? && damfn.getAsset(content.image)??]
-<div class="item [#if cmsfn.isEditMode()]cell-1of1[/#if]">[#-- TODO inherit items per row --]
+<div class="item">[#-- TODO inherit items per row --]
     <div class="item-inner">
         [#if content.foregroundText?has_content]
         <div class="foreground o-flex-middle is-vertical is-left">
