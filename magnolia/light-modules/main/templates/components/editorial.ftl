@@ -3,7 +3,9 @@
 [#assign textAlignment = "is-" + content.textAlignment!'left']
 
 [#if content.callToActionText?has_content && content.callToActionLink?has_content]
-    [#if content.callToActionLink == "Internal" && content.callToActionLinkInternal?has_content]
+    [#if content.callToActionLink == "Section" && content.callToActionLinkSection?has_content]
+        [#assign scrollLink = content.callToActionLinkSection!]
+    [#elseif content.callToActionLink == "Internal" && content.callToActionLinkInternal?has_content]
         [#assign internalContentMap = cmsfn.contentById(content.callToActionLinkInternal)!]
         [#if internalContentMap?has_content]
             [#assign redirectLink = navfn.link(internalContentMap)!]
@@ -48,7 +50,11 @@
     ${cmsfn.decode(content).body!}
     [/#if]
 
-    [#if redirectLink?has_content]
+    [#if scrollLink?has_content]
+    <a v-scroll="'#${scrollLink!}'" class="call-to-action">
+        ${content.callToActionText!}
+    </a>
+    [#elseif redirectLink?has_content]
     <a href="${redirectLink}" class="call-to-action"
        [#if content.callToActionLink == "External"]target="_blank" rel="noopener"[/#if]
        >
