@@ -39,6 +39,10 @@ em { font-style: italic; }
     -moz-osx-font-smoothing: initial;
 }
 
+.has-thin-font strong {
+    -moz-osx-font-smoothing: grayscale;
+}
+
 .has-columns {
     word-wrap: normal;
     overflow-wrap: break-word;
