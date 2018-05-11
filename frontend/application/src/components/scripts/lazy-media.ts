@@ -1,7 +1,7 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
-import validateSchema from "../../schemas/validate";
-import mediaSchema from "../../schemas/media.json";
-import sourcesSchema from "../../schemas/picture-sources.json";
+// import validateSchema from "../../schemas/validate";
+// import mediaSchema from "../../schemas/media.json";
+// import sourcesSchema from "../../schemas/picture-sources.json";
 import taggr from "../../devtools/taggr";
 
 interface LazyJSON {
@@ -36,8 +36,8 @@ declare global {
     }
 }
 
-const validateMedia = validateSchema(mediaSchema);
-const validateSources = validateSchema(sourcesSchema);
+// const validateMedia = validateSchema(mediaSchema);
+// const validateSources = validateSchema(sourcesSchema);
 const IEdgeMatches = /(Edge|Trident)\/(\d.)/i.exec(navigator.userAgent);
 // Edge 16 doesn't support object-fit for video...
 const isOutdatedBrowser = IEdgeMatches && parseInt(IEdgeMatches[2], 10) < 17;
@@ -74,6 +74,9 @@ export default class LazyMedia extends Vue {
     @Prop({ type: Object, default: null })
     public ratio!: any;
 
+    @Prop({ type: Boolean, default: false })
+    public scaled!: boolean;
+
     public source = "";
     public width: string | number = "100%";
     public height: string | number = "100%";
@@ -100,7 +103,7 @@ export default class LazyMedia extends Vue {
             throw new Error("json is void");
         }
 
-        await validateMedia(data);
+        // await validateMedia(data);
         this.log.info("json is valid");
 
         this.video = data.video;
@@ -177,6 +180,32 @@ export default class LazyMedia extends Vue {
                 this.width = width;
                 this.height = height;
 
+                if (this.scaled) {
+                    const imageParent = image.parentElement;
+
+                    if (imageParent) {
+                        const imageRatio = width / height;
+                        const pictureWidth = imageParent.offsetWidth;
+                        const pictureHeight = imageParent.offsetHeight;
+                        const pictureArea = pictureWidth * pictureHeight;
+                        const pictureRatio = pictureWidth / pictureHeight;
+                        const area =
+                            imageRatio >= pictureRatio
+                                ? pictureWidth * height * (pictureWidth / width)
+                                : pictureHeight * width * (pictureHeight / height);
+                        const areaRatio = area / pictureArea;
+                        const minScale = 0.4;
+                        const scale =
+                            Math.round(
+                                ((1 - areaRatio) * (1 - minScale) + minScale) *
+                                100,
+                            ) / 100;
+
+                        image.style.transform = `scale(${scale})`;
+                        image.style.transformOrigin = "center";
+                    }
+                }
+
                 // object-fit polyfill for IEdge <= 15
                 if (
                     typeof window.objectFitPolyfill === "function" &&
@@ -194,7 +223,7 @@ export default class LazyMedia extends Vue {
 }
 
 async function getPictureSource(data: any): Promise<string> {
-    await validateSources(data);
+    // await validateSources(data);
 
     const pixelRatio = window.devicePixelRatio || 1;
     const sourcesInfos: Array<{ pxr: number; src: string }> = [];
