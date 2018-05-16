@@ -16,6 +16,7 @@
 .has-svg-icon {
     line-height: 0;
     display: block;
+    overflow: visible; /* fix overflow cut */
 }
 
 .has-svg-icon > svg {
