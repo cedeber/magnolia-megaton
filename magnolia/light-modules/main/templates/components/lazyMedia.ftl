@@ -27,11 +27,13 @@
                         :is-autoplay="${isAutoplay?string!}"
                         :has-caption="${hasCaption?string!}"
                         [#if content.maxWidth?has_content]:max-width="${content.maxWidth!0}"[/#if]
-                        [#-- :renditions="[]" [TODO] --]
                         class="o-lazy-media">
                 [#-- placeholder used before 'mounted' and before getting 'source' --]
-                [#-- TODO CED --]
-                [#--<svg class="media" width="${model.getMax((imageWidth * 100), 1)?string.computer}px" height="${model.getMax((imageHeight * 100), 1)?string.computer}px" viewBox="0 0 1 1"></svg>--]
+                <svg class="media"
+                     width="${oifn.getMax((imageWidth * 100), 1)?string.computer}px"
+                     height="${oifn.getMax((imageHeight * 100), 1)?string.computer}px"
+                     viewBox="0 0 1 1">
+                </svg>
             </lazy-media>
             [/@compress]
         [#else]
