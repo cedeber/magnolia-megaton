@@ -22,22 +22,20 @@
         [#if content.preHeader?has_content]
             <p class="pre-header">${content.preHeader!}</p>
         [/#if]
-        [#if ctx.orderIndex > 0]
-            [#if content.title?has_content]
-                <h1 class="title">${cmsfn.decode(content).title!}</h1>
-            [/#if]
-        [#else]
+        [#if content.title?has_content]
+            [#if ctx.orderIndex > 0]
+            <h1 class="title">${cmsfn.decode(content).title!}</h1>
+            [#else]
             <h1 class="title">
                 [#if ctx.parentOrderIndex > 0]
                     ${cmsfn.decode(content).title!}
                 [#else]
                     [#if content.title?has_content]
                         ${cmsfn.decode(content).title!}
-                    [#else]
-                        ${parent.title!}
                     [/#if]
                 [/#if]
             </h1>
+            [/#if]
         [/#if]
     </header>
     [/#if]
