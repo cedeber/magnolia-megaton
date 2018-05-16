@@ -2,7 +2,11 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 // import validateSchema from "../../schemas/validate";
 // import mediaSchema from "../../schemas/media.json";
 // import sourcesSchema from "../../schemas/picture-sources.json";
-import taggr from "../../devtools/taggr";
+// import taggr from "../../devtools/taggr";
+
+// [TODO] Remove unnecessary Promises (from JSON validation)
+// [TODO] divided option (multiple the query by divided for cell-1ofX)
+// [TODO] make the JSON request when visible in viewport (optimize number of requests)
 
 interface LazyJSON {
     picture?: {
@@ -77,6 +81,9 @@ export default class LazyMedia extends Vue {
     @Prop({ type: Boolean, default: false })
     public scaled!: boolean;
 
+    @Prop({ type: Number, default: -1})
+    public maxWidth!: number;
+
     public source = "";
     public width: string | number = "100%";
     public height: string | number = "100%";
@@ -86,10 +93,10 @@ export default class LazyMedia extends Vue {
     public picture: any = null;
     public metadata: any = {};
 
-    private log = taggr("lazy-media");
+    // private log = taggr("lazy-media");
 
     public async mounted(): Promise<void> {
-        this.log.keep(this.$el);
+        // this.log.keep(this.$el);
 
         let data = this.content;
         let source = "";
@@ -104,20 +111,24 @@ export default class LazyMedia extends Vue {
         }
 
         // await validateMedia(data);
-        this.log.info("json is valid");
+        // this.log.info("json is valid");
 
         this.video = data.video;
         this.picture = data.picture;
         this.metadata = data.metadata;
 
+        if (this.maxWidth && this.maxWidth > 0) {
+            this.picture.sources = restrictSources(this.picture.sources, this.maxWidth)
+        }
+
         source = this.video
             ? this.video.link || ""
             : await getPictureSource(this.picture.sources);
-        this.log.info(`default source: '${source}'`);
+        // this.log.info(`default source: '${source}'`);
 
         if (this.ratio) {
             this.$el.style.paddingTop =
-                `calc(calc(1 / (${this.ratio.w} / ${this.ratio.h}) * 100%))`;
+                `calc(1 / (${this.ratio.w} / ${this.ratio.h}) * 100%)`;
         }
 
         if (this.isInstantly) {
@@ -220,6 +231,44 @@ export default class LazyMedia extends Vue {
             });
         }
     }
+}
+
+function getNumber(value: string | number): number | undefined {
+    const result = /^(\d)+/.exec(value.toString());
+
+    return result ? parseInt(result[0], 10) : undefined;
+}
+
+function restrictSources(data: any, max: number | string): any {
+    const maxWidth = getNumber(max);
+
+    if (maxWidth == undefined || maxWidth === 0) {
+        return data;
+    }
+
+    const newSources: { [propName: string]: string } = {};
+    const sourcesKeys = Object.keys(data);
+    const sortedKeys = sourcesKeys.sort((a: string, b: string): number => {
+        const aNum = a === "all" ? Infinity : getNumber(a) || 0;
+        const bNum = b === "all" ? Infinity : getNumber(b) || 0;
+
+        return aNum <= bNum ? -1 : 1;
+    });
+
+    for (const key of sortedKeys) {
+        const keyNumber = getNumber(key) || Infinity;
+
+        if (keyNumber <= maxWidth) {
+            newSources[key] = data[key];
+        } else {
+            // tslint:disable-next-line:no-string-literal
+            newSources["all"] = data[key];
+
+            break;
+        }
+    }
+
+    return newSources;
 }
 
 async function getPictureSource(data: any): Promise<string> {

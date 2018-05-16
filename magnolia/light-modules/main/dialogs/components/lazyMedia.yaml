@@ -53,6 +53,10 @@ form:
           label: Media as cover
           buttonLabel: The media covers the whole container (like a background)
           defaultValue: true
+        - name: maxWidth
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: Max. width
+          description: Maximum rendition width to use for responsive pictures
         - name: ratio
           class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
           transformerClass: info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer

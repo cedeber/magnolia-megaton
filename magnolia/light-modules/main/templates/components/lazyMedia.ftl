@@ -26,6 +26,7 @@
                         :is-instantly="${isInstantly?string!}"
                         :is-autoplay="${isAutoplay?string!}"
                         :has-caption="${hasCaption?string!}"
+                        [#if content.maxWidth?has_content]:max-width="${content.maxWidth!0}"[/#if]
                         [#-- :renditions="[]" [TODO] --]
                         class="o-lazy-media">
                 [#-- placeholder used before 'mounted' and before getting 'source' --]
