@@ -3,7 +3,7 @@
         <!-- TODO :: explode in 2 separate components -->
         <video v-if="video" :autoplay="isAutoplay" :loop="isAutoplay" :muted="isAutoplay" :playsinline="isAutoplay" :controls="!isAutoplay" :poster="picture.link"
                class="container media" :class="[{'js-loaded': source, 'has-fixed-ratio': ratio, 'is-cover': isCover}, position ? position : '']"
-               :src="source">
+               :src="source" preload="metadata">
             <!--source :src="source" :type="metadata.mimetype"-->
         </video>
         <picture v-else-if="picture" :class="{'js-loaded': isLoaded, 'has-fixed-ratio': ratio}" class="container">
@@ -89,4 +89,3 @@
 </style>
 
 <script lang="ts" src="./scripts/lazy-media.ts"></script>
-
