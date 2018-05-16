@@ -33,7 +33,7 @@
     --magenta: #d27b53;
 
     /* Text - Default */
-    --default-font-family: system-ui, sans-serif;
+    --default-font-family: system-ui, -apple-system, sans-serif;
     --default-dark-text-color: var(--base00);
     --default-light-text-color: var(--base06);
     --default-font-size: calc(16px + (18 - 16) * (100vw - 320px) / (1440 - 320)); /* 18px @ 1440px -> 16px @ 320px */
