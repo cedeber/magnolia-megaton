@@ -105,7 +105,7 @@ class GoogleMap extends Vue {
 
         // Get personalized styles
         if (this.personalized) {
-            styles = await fetch(this.stylesPath)
+            styles = await fetch(this.stylesPath, { credentials: "include" })
                 .then(response => response.json())
                 .catch(() => { /* empty */ });
         }
