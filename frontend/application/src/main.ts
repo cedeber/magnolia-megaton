@@ -1,5 +1,5 @@
 /* --- Shell --- */
-// Extracted separatly by webpack, see webpack.config.js. Injected by FreeMarker
+// Extracted separately by webpack, see webpack.config.js. Injected by FreeMarker
 import "./shell.css";
 
 /* --- Styles --- */
