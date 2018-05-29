@@ -45,7 +45,7 @@
 
                 [#list ancestors as ancestor]
                     [#if cmsfn.asJCRNode(ancestor).depth > 1]
-                        [#if maxAncestorsToShow <= ancestorsSize && index gte ancestorsSize - maxAncestorsToShow]
+                        [#if index gte ancestorsSize - maxAncestorsToShow]
                             [@link href=navfn.link(ancestor) label=ancestor.navigationTitle!ancestor.title /]
                             [@splitter /]
                         [/#if]
