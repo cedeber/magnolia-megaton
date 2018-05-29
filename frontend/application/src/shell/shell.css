@@ -19,3 +19,5 @@
 
 /* -- Shell -- */
 /* Here you could import Header, Footer or Navigation as well */
+@import url(./view-header.css);
+@import url(./main-navigation.css);

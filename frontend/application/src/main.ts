@@ -3,8 +3,6 @@
 import "./shell/shell.css";
 
 /* --- Styles --- */
-// In webpack.config.js you can choose to extract it thanks to the `extractCSS` var
-// If extractCSS == false, the CSS is injected into the HTML by style-loader
 import "./styles/base.css";
 import "./styles/article.css";
 import "./styles/breadcrumbs.css";
@@ -24,7 +22,24 @@ import GoogleMap from "./components/google-map.vue";
 taggr().warning("Your application is running in development mode.");
 
 // Create the vue instance
-const vm = new Vue({});
+const vm = new Vue({
+    data() {
+        return {
+            isMenuOpen: false,
+        };
+    },
+    methods: {
+        toggleMenu() {
+            this.isMenuOpen = !this.isMenuOpen;
+
+            if (this.isMenuOpen) {
+                document.documentElement.classList.add("is-not-scrollable");
+            } else {
+                document.documentElement.classList.remove("is-not-scrollable");
+            }
+        },
+    },
+});
 
 // Declare all components, on all pages
 Vue.component("lazy-media", LazyMedia);
