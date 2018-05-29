@@ -1,5 +1,4 @@
 [#assign root = navfn.rootPage(content)!content!]
-[#assign baseUrl = state.originalBrowserURL?replace(state.currentURI, '')!]
 
 [#assign webAppShortName = "Megaton"]
 [#assign webAppThemeColor = "#000000"]
@@ -78,8 +77,9 @@
 [/#if]
 
 [#if image?has_content]
-    [#assign imageLink = baseUrl + damfn.getAssetLink(root.image)!]
-    [#assign imageMap = damfn.getAssetMap(root.image)!]
+    [#assign baseUrl = state.originalBrowserURL?replace(ctx.contextPath + state.currentURI, '')!]
+    [#assign imageLink = baseUrl + damfn.getAssetLink(image)!]
+    [#assign imageMap = damfn.getAssetMap(image)!]
     <meta property="og:image" content="${imageLink!}">
     <meta property="og:image:width" content="${imageMap.metadata.mgnl.width?round?string.computer!}">
     <meta property="og:image:height" content="${imageMap.metadata.mgnl.height?round?string.computer!}">
