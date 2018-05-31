@@ -31,7 +31,6 @@
 - [ ] Visitor user (public)
 - [ ] Imaging Module (Is `/modules/site/config/site/theme` set correctly on public?)
 - [ ] Does Magnolia Search find pages/assets/news/events etc.
-- [ ] Check Form submissions
 - [ ] Check for yaml errors in Definitions App
 
 ## Cache Optimization
