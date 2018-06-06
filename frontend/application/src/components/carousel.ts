@@ -671,7 +671,7 @@ export default class Carousel extends Vue {
     public onWheel(_event: WheelEvent) {
         // Vertical Swipe
         /* [FIXME] not really reliable
-        if (this.orientation === Orientation.Vertical) {
+        if (this.orientation === Orientation.Vertical && !this.isTransitioning) {
             if (event.deltaY > 5) {
                 // swipe up
                 this.nextSlide(event);
