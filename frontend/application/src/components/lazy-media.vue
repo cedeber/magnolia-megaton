@@ -10,7 +10,7 @@
             <source v-if="picture.extension === 'gif'" :srcset="picture.link">
             <source v-else v-for="(set, query) in picture.sources" :media="query === 'all' ? query : `(max-width:${query})`" :srcset="set">
             <img v-if="source" class="media"
-                 :class="[{'is-cover': isCover, 'is-scaled': !isCover && ratio}, position ? position : '']"
+                 :class="[{'is-cover': isCover, 'is-scaled': scaled && !isCover && ratio}, position ? position : '']"
                  :src="source"
                  :width="width"
                  :height="height"
