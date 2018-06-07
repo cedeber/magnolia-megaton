@@ -69,11 +69,11 @@
     }
 
     .container.has-fixed-ratio .media:not(.is-cover) { position: absolute; }
-    .container.has-fixed-ratio .media:not(.is-cover).is-center { top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0); }
-    .container.has-fixed-ratio .media:not(.is-cover).is-top { top: 0; left: 50%; transform: translate3d(-50%, 0, 0); }
-    .container.has-fixed-ratio .media:not(.is-cover).is-right { top: 50%; right: 0; transform: translate3d(0, -50%, 0); }
-    .container.has-fixed-ratio .media:not(.is-cover).is-bottom { bottom: 0; left: 50%; transform: translate3d(-50%, 0, 0); }
-    .container.has-fixed-ratio .media:not(.is-cover).is-left { top: 50%; left: 0; transform: translate3d(0, -50%, 0); }
+    .container.has-fixed-ratio .media:not(.is-cover):not(.is-scaled).is-center { top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0); }
+    .container.has-fixed-ratio .media:not(.is-cover):not(.is-scaled).is-top { top: 0; left: 50%; transform: translate3d(-50%, 0, 0); }
+    .container.has-fixed-ratio .media:not(.is-cover):not(.is-scaled).is-right { top: 50%; right: 0; transform: translate3d(0, -50%, 0); }
+    .container.has-fixed-ratio .media:not(.is-cover):not(.is-scaled).is-bottom { bottom: 0; left: 50%; transform: translate3d(-50%, 0, 0); }
+    .container.has-fixed-ratio .media:not(.is-cover):not(.is-scaled).is-left { top: 50%; left: 0; transform: translate3d(0, -50%, 0); }
 
     .media.is-cover {
         object-fit: cover;
@@ -86,6 +86,13 @@
     .media.is-cover.is-right { object-position: right; }
     .media.is-cover.is-bottom { object-position: bottom; }
     .media.is-cover.is-left { object-position: left; }
+
+    .media.is-scaled {
+        object-fit: contain;
+        object-position: center;
+        width: 100%;
+        height: 100%;
+    }
 </style>
 
 <script lang="ts" src="./scripts/lazy-media.ts"></script>
