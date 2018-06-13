@@ -3,7 +3,7 @@
 [#assign hasItemRatio = content.ratioWidth?has_content && content.ratioHeight?has_content]
 [#assign hasItemHeight = content.itemHeight?has_content]
 [#if hasItemRatio]
-    [#assign itemRatio = 1 / (content.width?eval / content.height?eval)]
+    [#assign itemRatio = 1 / (content.ratioWidth?eval / content.ratioHeight?eval)]
 [/#if]
 [#if hasItemHeight]
     [#assign itemHeight = content.itemHeight?eval]
