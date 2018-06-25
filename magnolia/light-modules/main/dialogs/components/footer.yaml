@@ -1,0 +1,14 @@
+form:
+  label: Footer
+  tabs:
+    - name: tabMain
+      label: Main
+      fields:
+        - name: copyright
+          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+          label: Copyright notice
+          i18n: true
+          height: 180
+          configJsFile: /.resources/main/dialogs/include/config/simple.js
+
+actions: !include:/main/dialogs/include/commonActions.yaml

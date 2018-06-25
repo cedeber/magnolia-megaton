@@ -38,6 +38,14 @@ areas:
    #       nodeType: mgnl:component
    #       templateId: main:components/sectionLayout
    #   generatorClass: info.magnolia.rendering.generator.CopyGenerator
+        
+  footer:
+    renderType: freemarker
+    editable: true
+    type: single
+    availableComponents:
+      footer:
+        id: main:components/footer
 
   tagManager:
     renderType: freemarker

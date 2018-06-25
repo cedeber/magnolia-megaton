@@ -1,0 +1,43 @@
+form:
+  label: link
+  tabs:
+    - name: tabMain
+      label: Main
+      fields:
+        - name: label
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: Link text
+        - name: href
+          class: info.magnolia.ui.form.field.definition.SwitchableFieldDefinition
+          label: Link
+          options:
+            - name: internal
+              label: Internal link
+              selected: true
+              value: internal
+            - name: external
+              label: External link
+              value: external
+            - name: file
+              label: Link to a file
+              value: file
+          fields:
+            - name: internal
+              class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+              label: Internal link
+              targetWorkspace: website
+              appName: pages
+              identifierToPathConverter:
+                class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+            - name: external
+              class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              label: External link
+            - name: file
+              class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+              label: External link
+              targetWorkspace: dam
+              appName: assets
+              identifierToPathConverter:
+                class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+                
+actions: !include:/main/dialogs/include/commonActions.yaml

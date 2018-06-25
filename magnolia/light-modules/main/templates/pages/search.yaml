@@ -32,6 +32,16 @@ areas:
     renderType: freemarker
     templateScript: /main/templates/areas/searchResults.ftl
     dialog: main:areas/searchResults
+        
+  footer:
+    renderType: freemarker
+    editable: false
+    availableComponents:
+      footer:
+        id: main:components/footer
+    inheritance:
+      enabled: true
+      components: all
 
   tagManager:
     renderType: freemarker

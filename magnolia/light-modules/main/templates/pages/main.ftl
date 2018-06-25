@@ -50,11 +50,7 @@
         <article id="mainContent">
             [@cms.area name="main" /]
         </article>
-        <footer class="o-section has-no-bottom-space">
-            <div class="o-group is-large">
-                Footer
-            </div>
-        </footer>
+        [@cms.area name="footer" /]
         [#--if !cmsfn.isEditMode()]
             <loading-page></loading-page>
         [/#if--]

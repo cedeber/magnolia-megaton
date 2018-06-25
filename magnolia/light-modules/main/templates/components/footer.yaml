@@ -1,0 +1,11 @@
+title: Footer
+renderType: freemarker
+templateScript: /main/templates/components/footer.ftl
+dialog: main:components/footer
+
+areas:
+  linksArea:
+    availableComponents:
+      footerLink:
+        id: main:components/footer-link
+

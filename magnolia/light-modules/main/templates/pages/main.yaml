@@ -33,6 +33,16 @@ areas:
     availableComponents:
       sectionLayout:
         id: main:components/sectionLayout
+        
+  footer:
+    renderType: freemarker
+    editable: false
+    availableComponents:
+      footer:
+        id: main:components/footer
+    inheritance:
+      enabled: true
+      components: all
 
   tagManager:
     renderType: freemarker
