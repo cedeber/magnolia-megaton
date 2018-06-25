@@ -43,8 +43,9 @@ declare global {
 // const validateMedia = validateSchema(mediaSchema);
 // const validateSources = validateSchema(sourcesSchema);
 const IEdgeMatches = /(Edge|Trident)\/(\d.)/i.exec(navigator.userAgent);
-// Edge 16 doesn't support object-fit for video...
-const isOutdatedBrowser = IEdgeMatches && parseInt(IEdgeMatches[2], 10) < 17;
+// Edge doesn't support object-fit for video...
+// https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/13603873/#comment-14
+const isOutdatedBrowser = IEdgeMatches != null; // && parseInt(IEdgeMatches[2], 10) < 17;
 
 /**
  * @todo Save the result in a sessionStorage?
@@ -118,7 +119,7 @@ export default class LazyMedia extends Vue {
         this.metadata = data.metadata;
 
         if (this.maxWidth && this.maxWidth > 0) {
-            this.picture.sources = restrictSources(this.picture.sources, this.maxWidth)
+            this.picture.sources = restrictSources(this.picture.sources, this.maxWidth);
         }
 
         source = this.video
@@ -217,7 +218,7 @@ export default class LazyMedia extends Vue {
                     }
                 }
 
-                // object-fit polyfill for IEdge <= 15
+                // object-fit polyfill
                 if (
                     typeof window.objectFitPolyfill === "function" &&
                     isOutdatedBrowser &&
@@ -229,6 +230,21 @@ export default class LazyMedia extends Vue {
 
                 this.isLoaded = true;
             });
+        }
+
+        if (this.video) {
+            const video = this.$el.querySelector("video");
+
+            if (video) {
+                // object-fit polyfill
+                if (
+                    typeof window.objectFitPolyfill === "function" &&
+                    isOutdatedBrowser &&
+                    this.isCover
+                ) {
+                    window.objectFitPolyfill(video);
+                }
+            }
         }
     }
 }
