@@ -14,8 +14,10 @@
     "noUnusedParameters": true,
     "preserveConstEnums": true,
     "removeComments": true,
+    "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
+    "noImplicitAny": false,
     "strictPropertyInitialization": false,
     "target": "es5",
     "plugins": [{ "name": "tslint-language-service" }]
