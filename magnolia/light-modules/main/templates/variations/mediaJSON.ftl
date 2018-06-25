@@ -1,11 +1,17 @@
-[#-- [ctx.getParameter("NAME"); --]
+[#assign id = ctx.getParameter("id")!]
+
+[#if id?has_content] [#-- [TODO] Check with RegExp --]
+    [#assign imageItemKey = id]
+[#else]
+    [#assign imageItemKey = content.image]
+[/#if]
 
 [@compress single_line=true]
 {
-    [#if content.image?has_content && damfn.getAsset(content.image)??]
-        [#assign asset = damfn.getAsset(content.image)!]
+    [#if imageItemKey?has_content && damfn.getAsset(imageItemKey)??]
+        [#assign asset = damfn.getAsset(imageItemKey)!]
         [#if !cmsfn.nodeById(asset.getItemKey().getAssetId(), 'dam').hasProperty('mgnl:deleted')]
-            [#assign assetMap = damfn.getAssetMap(content.image)!]
+            [#assign assetMap = damfn.getAssetMap(imageItemKey)!]
             [#if asset.getMimeType()?starts_with("image")]
                 "picture": {
                     "link": "${asset.getLink()}",
