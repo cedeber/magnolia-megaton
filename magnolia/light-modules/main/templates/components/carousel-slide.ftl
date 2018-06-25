@@ -5,8 +5,8 @@
 <div class="item [#if cmsfn.isEditMode()]cell-1of1[/#if]">[#-- TODO inherit items per row --]
     <div class="item-inner">
         [#if content.foregroundText?has_content]
-        <div class="foreground o-flex-middle is-vertical is-left">
-            <div class="h1 is-left">${isCover?string!cmsfn.decode(content).foregroundText!}</div>
+        <div class="foreground o-flex-middle is-vertical o-section has-no-top-space has-no-bottom-space">
+            <div class="o-group is-large is-left">${cmsfn.decode(content).foregroundText!}</div>
         </div>
         [/#if]
         <div class="background">
