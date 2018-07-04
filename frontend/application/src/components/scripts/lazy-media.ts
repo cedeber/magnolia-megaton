@@ -2,7 +2,6 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 // import validateSchema from "../../schemas/validate";
 // import mediaSchema from "../../schemas/media.json";
 // import sourcesSchema from "../../schemas/picture-sources.json";
-// import taggr from "../../devtools/taggr";
 
 // [TODO] Remove unnecessary Promises (from JSON validation)
 // [TODO] divided option (multiple the query by divided for cell-1ofX)
@@ -42,9 +41,10 @@ declare global {
 
 // const validateMedia = validateSchema(mediaSchema);
 // const validateSources = validateSchema(sourcesSchema);
-const IEdgeMatches = /(Edge|Trident)\/(\d.)/i.exec(navigator.userAgent);
+
 // Edge doesn't support object-fit for video...
 // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/13603873/#comment-14
+const IEdgeMatches = /(Edge|Trident)\/(\d.)/i.exec(navigator.userAgent);
 const isOutdatedBrowser = IEdgeMatches != null; // && parseInt(IEdgeMatches[2], 10) < 17;
 
 /**
@@ -94,11 +94,7 @@ export default class LazyMedia extends Vue {
     public picture: any = null;
     public metadata: any = {};
 
-    // private log = taggr("lazy-media");
-
     public async mounted(): Promise<void> {
-        // this.log.keep(this.$el);
-
         let data = this.content;
         let source = "";
 
@@ -112,7 +108,6 @@ export default class LazyMedia extends Vue {
         }
 
         // await validateMedia(data);
-        // this.log.info("json is valid");
 
         this.video = data.video || null;
         this.picture = data.picture || null;
@@ -128,7 +123,6 @@ export default class LazyMedia extends Vue {
         source = this.video
             ? this.video.link || ""
             : await getPictureSource(this.picture.sources);
-        // this.log.info(`default source: '${source}'`);
 
         if (this.ratio) {
             this.$el.style.paddingTop = `calc(1 / (${this.ratio.w} / ${
