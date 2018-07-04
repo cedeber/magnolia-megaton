@@ -12,7 +12,7 @@
         </ul>
     </div>
     <div class="o-group is-large o-flex-space">
-        <div>${content.copyright!}</div>
+        <div>${cmsfn.decode(content).copyright!}</div>
         <div>
             <ul class="o-flex-inline">
                 [@cms.area name="linksArea"/]
