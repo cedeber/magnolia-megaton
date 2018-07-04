@@ -28,6 +28,7 @@
                         "all": "${damfn.getRendition(asset, "hero-2560").getLink()!}, ${damfn.getRendition(asset, "hero-2560-2x").getLink()!} 2x"
                     }
                 }
+                [#assign addComma = true]
             [/#if]
         [/#if]
     [/#if]
@@ -35,15 +36,18 @@
         [#assign asset = damfn.getAsset(content.video)!]
         [#assign assetMap = damfn.getAssetMap(content.video)!]
         [#if asset.getMimeType()?starts_with("video")]
-            ,"video": {
+            [#if addComma??],[/#if]
+            "video": {
                 "link": "${asset.getLink()}",
                 "id": "${asset.getItemKey().getAssetId()!}",
                 "extension": "${cmsfn.fileExtension(assetMap.name)?lower_case}"
             }
+            [#assign addComma = true]
         [/#if]
     [/#if]
 
-    ,"metadata": {
+    [#if addComma??],[/#if]
+    "metadata": {
         "mimetype": "${asset.getMimeType()!}",
         "title": "${assetMap.metadata.dc.title!}",
         "description": "${assetMap.metadata.dc.description!}",

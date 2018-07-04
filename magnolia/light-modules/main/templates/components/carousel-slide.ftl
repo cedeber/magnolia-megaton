@@ -17,7 +17,11 @@
                         class="o-lazy-media">
             </lazy-media>
             [#else]
-            <img src="${damfn.getAssetLink(content.image)!}" style="display:block;max-width:100%">
+                [#if content.image?? && damfn.getAsset(content.image)??]
+                    <img src="${damfn.getAssetLink(content.image)!}" style="display:block;max-width:100%">
+                [#elseif content.video?? && damfn.getAsset(content.video)??]
+                    <video playsinline controls src="${damfn.getAssetLink(content.video)!}" preload="metadata"></video>
+                [/#if]
             [/#if]
         </div>
     </div>

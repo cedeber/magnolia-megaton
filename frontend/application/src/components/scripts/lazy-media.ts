@@ -82,7 +82,7 @@ export default class LazyMedia extends Vue {
     @Prop({ type: Boolean, default: false })
     public scaled!: boolean;
 
-    @Prop({ type: Number, default: -1})
+    @Prop({ type: Number, default: -1 })
     public maxWidth!: number;
 
     public source = "";
@@ -114,12 +114,15 @@ export default class LazyMedia extends Vue {
         // await validateMedia(data);
         // this.log.info("json is valid");
 
-        this.video = data.video;
-        this.picture = data.picture;
-        this.metadata = data.metadata;
+        this.video = data.video || null;
+        this.picture = data.picture || null;
+        this.metadata = data.metadata || null;
 
-        if (this.maxWidth && this.maxWidth > 0) {
-            this.picture.sources = restrictSources(this.picture.sources, this.maxWidth);
+        if (this.maxWidth && this.maxWidth > 0 && this.picture) {
+            this.picture.sources = restrictSources(
+                this.picture.sources,
+                this.maxWidth,
+            );
         }
 
         source = this.video
@@ -128,8 +131,9 @@ export default class LazyMedia extends Vue {
         // this.log.info(`default source: '${source}'`);
 
         if (this.ratio) {
-            this.$el.style.paddingTop =
-                `calc(1 / (${this.ratio.w} / ${this.ratio.h}) * 100%)`;
+            this.$el.style.paddingTop = `calc(1 / (${this.ratio.w} / ${
+                this.ratio.h
+            }) * 100%)`;
         }
 
         if (this.isInstantly) {
@@ -204,13 +208,15 @@ export default class LazyMedia extends Vue {
                         const area =
                             imageRatio >= pictureRatio
                                 ? pictureWidth * height * (pictureWidth / width)
-                                : pictureHeight * width * (pictureHeight / height);
+                                : pictureHeight *
+                                  width *
+                                  (pictureHeight / height);
                         const areaRatio = area / pictureArea;
                         const minScale = 0.4;
                         const scale =
                             Math.round(
                                 ((1 - areaRatio) * (1 - minScale) + minScale) *
-                                100,
+                                    100,
                             ) / 100;
 
                         image.style.transform = `scale(${scale})`;
@@ -264,12 +270,14 @@ function restrictSources(data: any, max: number | string): any {
 
     const newSources: { [propName: string]: string } = {};
     const sourcesKeys = Object.keys(data);
-    const sortedKeys = sourcesKeys.sort((a: string, b: string): number => {
-        const aNum = a === "all" ? Infinity : getNumber(a) || 0;
-        const bNum = b === "all" ? Infinity : getNumber(b) || 0;
+    const sortedKeys = sourcesKeys.sort(
+        (a: string, b: string): number => {
+            const aNum = a === "all" ? Infinity : getNumber(a) || 0;
+            const bNum = b === "all" ? Infinity : getNumber(b) || 0;
 
-        return aNum <= bNum ? -1 : 1;
-    });
+            return aNum <= bNum ? -1 : 1;
+        },
+    );
 
     for (const key of sortedKeys) {
         const keyNumber = getNumber(key) || Infinity;

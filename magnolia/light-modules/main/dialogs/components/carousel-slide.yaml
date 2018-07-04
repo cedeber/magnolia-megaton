@@ -15,7 +15,6 @@ form:
           targetWorkspace: dam
           appName: assets
           label: Image, Poster
-          required: true
           i18n: true
           identifierToPathConverter:
             class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
