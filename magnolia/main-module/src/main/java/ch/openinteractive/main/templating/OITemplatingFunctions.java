@@ -1,10 +1,8 @@
 package ch.openinteractive.main.templating;
 
 import info.magnolia.cms.beans.config.ServerConfiguration;
-import info.magnolia.cms.i18n.I18nContentSupport;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 
 public class OITemplatingFunctions {
 
