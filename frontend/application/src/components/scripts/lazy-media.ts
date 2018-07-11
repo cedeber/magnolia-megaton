@@ -89,6 +89,7 @@ export default class LazyMedia extends Vue {
     width: string | number = "100%";
     height: string | number = "100%";
     isLoaded = false;
+    observer: IntersectionObserver | null = null;
 
     video: any = null;
     picture: any = null;
@@ -96,18 +97,17 @@ export default class LazyMedia extends Vue {
 
     @Watch("path")
     onPathChanged() {
-        this.setup();
+        this.init();
     }
 
     mounted() {
-        this.setup();
+        this.init();
     }
 
     /**
-     * @todo Clean the observer on onPathChanged
      * @returns {Promise<void>}
      */
-    async setup(): Promise<void> {
+    async init(): Promise<void> {
         let data = this.content;
         let source = "";
 
@@ -146,20 +146,30 @@ export default class LazyMedia extends Vue {
             this.source = source;
         } else {
             // [TODO] Create only one observer for all lazy components
-            const observer = new IntersectionObserver(
+            if (this.observer != null) {
+                this.observer.disconnect();
+                this.observer = null;
+            }
+
+            this.observer = new IntersectionObserver(
                 entries => {
                     if (!entries[0].isIntersecting) {
                         return;
                     }
 
-                    observer.disconnect();
+                    if (this.observer != null) {
+                        this.observer.disconnect();
+                        this.observer = null;
+                    }
+
                     this.source = source;
                 },
                 {
                     rootMargin: "100px 100px 667px 100px", // 1 viewport height of an iPhone 7/8
                 },
             );
-            observer.observe(this.$el);
+
+            this.observer.observe(this.$el);
         }
     }
 
