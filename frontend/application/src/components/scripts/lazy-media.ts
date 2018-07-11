@@ -1,4 +1,4 @@
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 // import validateSchema from "../../schemas/validate";
 // import mediaSchema from "../../schemas/media.json";
 // import sourcesSchema from "../../schemas/picture-sources.json";
@@ -54,47 +54,60 @@ const isOutdatedBrowser = IEdgeMatches != null; // && parseInt(IEdgeMatches[2], 
 @Component
 export default class LazyMedia extends Vue {
     @Prop({ type: Boolean, default: false })
-    public isInstantly!: boolean;
+    isInstantly!: boolean;
 
     @Prop({ type: Boolean, default: false })
-    public isCover!: boolean;
+    isCover!: boolean;
 
     @Prop({ type: Boolean, default: false })
-    public hasCaption!: boolean;
+    hasCaption!: boolean;
 
     @Prop({ type: Boolean, default: false })
-    public isAutoplay!: boolean;
+    isAutoplay!: boolean;
 
     @Prop({ type: String, default: "is-center" })
-    public position!: string;
+    position!: string;
 
     // need to return JSON
     @Prop({ type: String, default: "" })
-    public path!: string;
+    path!: string;
 
     // if content == null, fetch the content with 'path' (JSON)
     @Prop({ type: Object, default: null })
-    public content!: LazyJSON | null;
+    content!: LazyJSON | null;
 
     @Prop({ type: Object, default: null })
-    public ratio!: any;
+    ratio!: any;
 
     @Prop({ type: Boolean, default: false })
-    public scaled!: boolean;
+    scaled!: boolean;
 
     @Prop({ type: Number, default: -1 })
-    public maxWidth!: number;
+    maxWidth!: number;
 
-    public source = "";
-    public width: string | number = "100%";
-    public height: string | number = "100%";
-    public isLoaded = false;
+    source = "";
+    width: string | number = "100%";
+    height: string | number = "100%";
+    isLoaded = false;
 
-    public video: any = null;
-    public picture: any = null;
-    public metadata: any = {};
+    video: any = null;
+    picture: any = null;
+    metadata: any = {};
 
-    public async mounted(): Promise<void> {
+    @Watch("path")
+    onPathChanged() {
+        this.setup();
+    }
+
+    mounted() {
+        this.setup();
+    }
+
+    /**
+     * @todo Clean the observer on onPathChanged
+     * @returns {Promise<void>}
+     */
+    async setup(): Promise<void> {
         let data = this.content;
         let source = "";
 
@@ -125,9 +138,8 @@ export default class LazyMedia extends Vue {
             : await getPictureSource(this.picture.sources);
 
         if (this.ratio) {
-            this.$el.style.paddingTop = `calc(1 / (${this.ratio.w} / ${
-                this.ratio.h
-            }) * 100%)`;
+            this.$el.style.paddingTop =
+                `calc(1 / (${this.ratio.w} / ${this.ratio.h}) * 100%)`;
         }
 
         if (this.isInstantly) {
@@ -151,7 +163,7 @@ export default class LazyMedia extends Vue {
         }
     }
 
-    public updated() {
+    updated() {
         const image = this.$el.querySelector("img");
 
         if (image) {
@@ -202,9 +214,7 @@ export default class LazyMedia extends Vue {
                         const area =
                             imageRatio >= pictureRatio
                                 ? pictureWidth * height * (pictureWidth / width)
-                                : pictureHeight *
-                                  width *
-                                  (pictureHeight / height);
+                                : pictureHeight * width * (pictureHeight / height);
                         const areaRatio = area / pictureArea;
                         const minScale = 0.4;
                         const scale =
