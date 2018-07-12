@@ -12,7 +12,7 @@
     [#assign totalRecordsFound += damResults?size /]
 
     <div id="results" class="o-group o-links">
-        <h1 class="subtitle">${content.searchFor!'Suche nach'} &laquo;${queryStr}&raquo;</h1>
+        <h1 class="subtitle">${content.searchFor!i18n['search.for']!} &laquo;${queryStr}&raquo;</h1>
 
         [#if totalRecordsFound > 0]
             <ul>
@@ -25,7 +25,7 @@
                                 [#--Replace html tags if you use fields which may contain html--]
                                 [#--[#assign description = description?replace('<[^>]*>', '', 'r')?replace('...[^>]*>', '...', 'r')]--]
                                 [#--Highlight search word--]
-                                [#assign description = description?replace(queryStr, "<strong>"+queryStr+"</strong>", "i")]
+                                [#assign description = description?replace(queryStr, "<strong>" + queryStr + "</strong>", "i")]
                                 ${description}
                             </p>
                         [/#if]
@@ -35,7 +35,7 @@
                     </li>
                 [/#list]
                 [#list damResults as item]
-                    [#assign assetMap = damfn.getAssetMap("jcr:"+item.@id)]
+                    [#assign assetMap = damfn.getAssetMap("jcr:" + item.@id)]
                     <li class="link-container search-result">
                         <h2>
                             ${item.title!item.name!} (${assetMap.metadata.dc.format!})
@@ -46,7 +46,7 @@
                                 [#--Replace html tags if you use fields which may contain html--]
                                 [#--[#assign assetDescription = assetDescription?replace('<[^>]*>', '', 'r')?replace('...[^>]*>', '...', 'r')]--]
                                 [#--Highlight search word--]
-                                [#assign assetDescription = assetDescription?replace(queryStr, "<strong>"+queryStr+"</strong>", "i")]
+                                [#assign assetDescription = assetDescription?replace(queryStr, "<strong>" + queryStr + "</strong>", "i")]
                                 ${assetDescription}
                             </p>
                         [/#if]
@@ -57,7 +57,12 @@
                 [/#list]
             </ul>
         [#else]
-            <p class="no-results">${content.noResults!'Keine Resultate'}</p>
+            <p class="no-results">${content.noResults!i18n['search.noresults']!}</p>
         [/#if]
     </div>
+[#else]
+<div id="results" class="o-group o-links">
+    <h1 class="subtitle">${content.searchFor!i18n['search.for']!} &laquo;&nbsp;&raquo;</h1>
+    <p class="no-results">${content.noResults!i18n['search.noresults']!}</p>
+</div>
 [/#if]
