@@ -5,7 +5,6 @@ import "./shell/shell.css";
 /* --- Styles --- */
 import "./styles/base.css";
 import "./styles/article.css";
-import "./styles/breadcrumbs.css";
 
 /* --- Application --- */
 import Vue from "vue";
