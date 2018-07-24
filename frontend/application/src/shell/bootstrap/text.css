@@ -68,3 +68,13 @@ em { font-style: italic; }
     -ms-user-select: none;
     user-select: none;
 }
+
+sup, sub {
+    font-size: smaller;
+}
+sup {
+    vertical-align: super;
+}
+sub {
+    vertical-align: sub;
+}
