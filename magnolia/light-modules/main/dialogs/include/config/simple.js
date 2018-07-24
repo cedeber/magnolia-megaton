@@ -13,10 +13,10 @@ CKEDITOR.editorConfig = function(config) {
         images: false,
         lists: false,
         source: false,
-        tables: false,
+        tables: false
     };
 
-    config.extraPlugins = "magnolialink,magnoliaFileBrowser";
+    // config.extraPlugins = "magnolialink,magnoliaFileBrowser";
     config.removePlugins = "elementspath";
 
     config.resize_enabled = false;
@@ -29,6 +29,6 @@ CKEDITOR.editorConfig = function(config) {
     config.toolbar_Magnolia = [
         { name: "basicstyles", items: [ "Bold", "Italic", "SpecialChar" ] },
         { name: "paragraph",   items: [ "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock" ] },
-        { name: "links",       items: [ "Link", "InternalLink", "DamLink", "Unlink" ] },
+        { name: "links",       items: [ "Link", "InternalLink", "DamLink", "Unlink" ] }
     ];
 };

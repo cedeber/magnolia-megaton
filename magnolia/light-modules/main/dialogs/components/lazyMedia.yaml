@@ -2,7 +2,7 @@ form:
   label: Media
   tabs:
     - name: tabMain
-      label: Media
+      label: Background Media
       fields:
         - name: image
           class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
@@ -87,13 +87,22 @@ form:
             - name: left
               label: Left
 
-    - !include:/main/dialogs/include/tabEditorial.yaml
+    - name: tabText
+      label: Foreground Text
       fields:
-        - name: preHeader
-          class: info.magnolia.ui.form.field.definition.HiddenFieldDefinition
-      fields:
-        - name: intro
-          class: info.magnolia.ui.form.field.definition.HiddenFieldDefinition
+        - name: title
+          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+          label: Title
+          i18n: true
+          height: 120
+          configJsFile: /.resources/main/dialogs/include/config/title.js
+        - name: body
+          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+          label: Paragraph
+          i18n: true
+          height: 180
+          configJsFile: /.resources/main/dialogs/include/config/simple.js
+        # call to action (include)
 
     - name: tabLayout
       label: Layout

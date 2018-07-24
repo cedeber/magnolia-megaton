@@ -13,10 +13,10 @@ CKEDITOR.editorConfig = function(config) {
         images: false,
         lists: true,
         source: false,
-        tables: false,
+        tables: false
     };
 
-    config.extraPlugins = "magnolialink,magnoliaFileBrowser";
+    // config.extraPlugins = "magnolialink,magnoliaFileBrowser";
     config.removePlugins = "elementspath";
 
     config.resize_enabled = false;
@@ -30,6 +30,6 @@ CKEDITOR.editorConfig = function(config) {
         { name: "links",       items: [ "Link", "InternalLink", "DamLink", "Unlink" ] },
         { name: "styles",      items: [ "Format" ] },
         { name: "clipboard",   items: [ "Cut", "Copy", "Paste", "PasteText" ] },
-        { name: "undo",        items: [ "Undo", "Redo" ] },
+        { name: "undo",        items: [ "Undo", "Redo" ] }
     ];
 };

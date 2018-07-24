@@ -1,4 +1,4 @@
-title: Text
+title: Article (Editorial)
 renderType: freemarker
 templateScript: /main/templates/components/editorial.ftl
 dialog: main:components/editorial
