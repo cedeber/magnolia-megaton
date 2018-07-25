@@ -19,7 +19,7 @@
     "strict": true,
     "noImplicitAny": false,
     "strictPropertyInitialization": false,
-    "target": "es2015",
+    "target": "es2017",
     "plugins": [{ "name": "tslint-language-service" }]
   },
   "include": ["src/**/*"],
