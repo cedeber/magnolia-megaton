@@ -23,7 +23,7 @@
             }
         }());
     </script>
-    <script async type="module" src="${ctx.contextPath}/app/main.js"></script>
+    <script async type="module" crossorigin src="${ctx.contextPath}/app/main.js"></script>
     <script async defer nomodule src="${ctx.contextPath}/app-legacy/main.js"></script>
 
     <!-- Outdated Browsers -->
