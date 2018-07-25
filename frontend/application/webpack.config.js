@@ -52,7 +52,10 @@ const cssLoaderConfig = [
                     features: {
                         "custom-media-queries": true,
                     },
-                    browsers: "last 2 versions",
+                    browsers: "> 0.5% in CH, Firefox ESR, not dead",
+                    autoprefixer: {
+                        grid: true,
+                    },
                 }),
             ],
         },
