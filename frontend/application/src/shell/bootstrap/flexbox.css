@@ -76,21 +76,32 @@
 .is-left:not(.is-vertical) {
     justify-content: flex-start;
     text-align: left;
+    object-position: left;
 }
 .is-left.is-vertical { align-items: flex-start; }
 
 .is-center:not(.is-vertical) {
     justify-content: center;
     text-align: center;
+    object-position: center;
 }
 .is-center.is-vertical { align-items: center; }
 
 .is-right:not(.is-vertical) {
     justify-content: flex-end;
     text-align: right;
+    object-position: right;
 }
 .is-right.is-vertical { align-items: flex-end; }
 
 [class*="o-flex"].is-bottom { align-items: flex-end; }
-.is-top { align-self: flex-start; }
-.is-bottom { align-self: flex-end; }
+
+.is-top {
+    align-self: flex-start;
+    object-position: top;
+}
+
+.is-bottom {
+    align-self: flex-end;
+    object-position: bottom;
+}
