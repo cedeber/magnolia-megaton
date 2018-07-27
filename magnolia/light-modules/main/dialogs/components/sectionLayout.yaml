@@ -10,7 +10,7 @@ form:
         - name: noPageGutters
           class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
           label: Page gutters
-          buttonLabel: Remove page gutters (if wide)
+          buttonLabel: Remove page gutters (if wide + theme)
         - name: cell
           class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
           multiselect: false
