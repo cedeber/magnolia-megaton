@@ -6,18 +6,28 @@
         [#assign isAutoplay = content.isAutoplay?? && content.isAutoplay == true]
         [#assign hasCaption = content.hasCaption?? && content.hasCaption == true]
         [#assign hasRatio = content.width?has_content && content.height?has_content]
-        [#assign hasCell = (ctx.cell?has_content && ctx.cell != "1of1") || content.body?has_content]
-        [#assign cellOverride = content.layoutOverride?? && content.layoutOverride == true]
+
+        [#if ctx.cell?has_content]
+            [#assign cellOverride = ctx.cell]
+            [#if content.layoutOverride?has_content]
+                [#if content.layoutOverride == "full"]
+                    [#assign cellOverride = "1of1"]
+                [#elseif content.layoutOverride == "wider"]
+                    [#if ctx.cell == "1of3"]
+                        [#assign cellOverride = "2of3"]
+                    [#elseif ctx.cell == "1of4"]
+                        [#assign cellOverride = "3of4"]
+                    [/#if]
+                [/#if]
+            [/#if]
+        [/#if]
 
         [#assign imageMap = damfn.getAssetMap(content.image)!]
         [#assign imageWidth = imageMap.metadata.mgnl.width!0]
         [#assign imageHeight = imageMap.metadata.mgnl.height!0]
 
-        [#if hasCell]
-            <div class="cell-[#if cellOverride]1of1[#else]${ctx.cell!'no'}[/#if][#if content.body?has_content] has-editorial[/#if]">
-        [/#if]
+        <div class="[#if cellOverride?has_content]cell-${cellOverride!}[/#if] [#if content.title?has_content || content.body?has_content]has-editorial[/#if]">
         [#if !cmsfn.isEditMode()]
-            [@compress single_line=true]
             <lazy-media path="${cmsfn.link(content)?replace('.html', '.json')}"
                         [#if hasRatio]:ratio="{w:${content.width!},h:${content.height}}"
                         [#elseif isCover && imageWidth > 0 && imageHeight > 0]:ratio="{w:${imageWidth?string.computer!},h:${imageHeight?string.computer!}}"[/#if]
@@ -35,7 +45,6 @@
                      viewBox="0 0 1 1">
                 </svg>
             </lazy-media>
-            [/@compress]
         [#else]
             <figure class="o-lazy-media">
                 <picture class="container js-loaded [#if hasRatio]has-fixed-ratio[/#if]">
@@ -50,8 +59,6 @@
         [#if content.body?has_content]
             [#include "editorial.ftl"]
         [/#if]
-        [#if hasCell]
-            </div>
-        [/#if]
+        </div>
     [/#if]
 [/#if]

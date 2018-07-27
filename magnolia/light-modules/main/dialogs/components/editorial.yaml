@@ -4,13 +4,8 @@ form:
     - !include:/main/dialogs/include/tabEditorialBody.yaml
     - !include:/main/dialogs/include/tabEditorialHeader.yaml
 
-    - name: tabLayout
-      label: Layout
+    - !include:/main/dialogs/include/sectionLayoutOverride.yaml
       fields:
-        - name: layoutOverride
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-          label: Layout override
-          buttonLabel: This component must use the whole width of the section
         - name: textAlignment
           class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
           multiselect: false

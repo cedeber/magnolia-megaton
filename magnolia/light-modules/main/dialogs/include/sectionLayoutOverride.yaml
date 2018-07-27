@@ -1,0 +1,15 @@
+name: tabLayout
+label: Layout
+fields:
+  - name: layoutOverride
+    class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+    layout: horizontal
+    sortOptions: false
+    label: Layout override
+    options:
+      - name: normal
+        label: Normal (default)
+      - name: wider
+        label: Wider (2/3 or 3/4)
+      - name: full
+        label: Full width

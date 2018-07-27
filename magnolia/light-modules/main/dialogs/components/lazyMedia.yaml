@@ -104,12 +104,6 @@ form:
           configJsFile: /.resources/main/dialogs/include/config/simple.js
         # call to action (include)
 
-    - name: tabLayout
-      label: Layout
-      fields:
-        - name: layoutOverride
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-          label: Layout override
-          buttonLabel: This component must use the whole width of the section
+    - !include:/main/dialogs/include/sectionLayoutOverride.yaml
 
 actions: !include:/main/dialogs/include/commonActions.yaml
