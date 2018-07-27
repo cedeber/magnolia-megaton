@@ -11,3 +11,7 @@ article ul {
     list-style: disc;
     list-style-position: inside;
 }
+
+.o-editorial + .o-editorial:not([class*="cell-"]) {
+    margin-top: var(--section-margin-height);
+}
