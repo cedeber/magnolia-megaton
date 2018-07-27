@@ -15,7 +15,7 @@
         <h1 class="subtitle">${content.searchFor!i18n['search.for']!} &laquo;${queryStr}&raquo;</h1>
 
         [#if totalRecordsFound > 0]
-            <ul>
+            <ul class="o-search">
                 [#list websiteResults as item]
                     <li class="link-container search-result">
                         <h2>${item.title!}</h2>

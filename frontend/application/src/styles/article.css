@@ -40,3 +40,12 @@ article ul {
 .o-lazy-media .o-editorial .title {
     color: inherit;
 }
+
+/* --- Search --- */
+.o-search {
+    list-style: none;
+}
+
+.o-search .search-result:not(:last-child) {
+    margin-bottom: var(--section-margin-height)
+}
