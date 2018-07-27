@@ -6,17 +6,17 @@
                :src="source" preload="metadata">
             <!--source :src="source" :type="metadata.mimetype"-->
         </video>
-        <picture v-else-if="picture" :class="{'js-loaded': isLoaded, 'has-fixed-ratio': ratio}" class="container">
+        <picture v-else-if="picture" :class="[{'js-loaded': isLoaded, 'has-fixed-ratio': ratio}, position ? position : 'is-center']" class="container">
             <source v-if="picture.extension === 'gif'" :srcset="picture.link">
             <source v-else v-for="(set, query) in picture.sources" :media="query === 'all' ? query : `(max-width:${query})`" :srcset="set">
             <img v-if="source" class="media"
-                 :class="[{'is-cover': isCover, 'is-scaled': scaled && !isCover && ratio}, position ? position : '']"
+                 :class="[{'is-cover': isCover, 'is-scaled': scaled && !isCover && ratio}, position ? position : 'is-center']"
                  :src="source"
                  :width="width"
                  :height="height"
                  :title="metadata ? (metadata.title || metadata.description || '') : ''"
                  :alt="metadata ? metadata.description : ''">
-            <slot v-else></slot>
+            <slot></slot>
         </picture>
         <figcaption v-if="hasCaption && metadata && metadata.caption" class="caption">{{metadata.caption}}</figcaption>
     </figure>
@@ -47,8 +47,6 @@
 
     .container:not(.has-fixed-ratio) {
         display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
     .container.has-fixed-ratio {
@@ -66,6 +64,10 @@
         display: block;
         max-width: 100%;
         height: auto;
+    }
+
+    .o-lazy-media[class*="cell-"] .media:not(.is-cover) {
+        object-fit: scale-down;
     }
 
     .container.has-fixed-ratio .media:not(.is-cover) { position: absolute; }

@@ -26,22 +26,22 @@
         [#assign imageWidth = imageMap.metadata.mgnl.width!0]
         [#assign imageHeight = imageMap.metadata.mgnl.height!0]
 
-        <div class="[#if cellOverride?has_content]cell-${cellOverride!}[/#if] [#if content.title?has_content || content.body?has_content]has-editorial[/#if]">
+        <!-- Lazy Media -->
+        <div class="o-lazy-media [#if cellOverride?has_content]cell-${cellOverride!}[/#if] [#if content.title?has_content || content.body?has_content]has-editorial[/#if]">
         [#if !cmsfn.isEditMode()]
             <lazy-media path="${cmsfn.link(content)?replace('.html', '.json')}"
-                        [#if hasRatio]:ratio="{w:${content.width!},h:${content.height}}"
-                        [#elseif isCover && imageWidth > 0 && imageHeight > 0]:ratio="{w:${imageWidth?string.computer!},h:${imageHeight?string.computer!}}"[/#if]
+                        [#if hasRatio]:ratio="{w:${content.width!},h:${content.height}}"[/#if]
+                        [#--elseif isCover && imageWidth > 0 && imageHeight > 0]:ratio="{w:${imageWidth?string.computer!},h:${imageHeight?string.computer!}}"[/#if--]
                         position="is-${content.position!'center'}"
                         :is-cover="${isCover?string!}"
                         :is-instantly="${isInstantly?string!}"
                         :is-autoplay="${isAutoplay?string!}"
                         :has-caption="${hasCaption?string!}"
-                        [#if content.maxWidth?has_content]:max-width="${content.maxWidth!0}"[/#if]
-                        class="o-lazy-media">
+                        [#if content.maxWidth?has_content]:max-width="${content.maxWidth!0}"[/#if]>
                 [#-- placeholder used before 'mounted' and before getting 'source' --]
                 <svg class="media"
-                     width="${oifn.getMax((imageWidth * 100), 1)?string.computer}px"
-                     height="${oifn.getMax((imageHeight * 100), 1)?string.computer}px"
+                     width="${oifn.getMax(imageWidth, 1)?string.computer}"
+                     height="${oifn.getMax(imageHeight, 1)?string.computer}"
                      viewBox="0 0 1 1">
                 </svg>
             </lazy-media>

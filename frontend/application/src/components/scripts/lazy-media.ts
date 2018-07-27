@@ -33,12 +33,6 @@ interface LazyJSON {
     };
 }
 
-declare global {
-    interface Window {
-        objectFitPolyfill: any;
-    }
-}
-
 // const validateMedia = validateSchema(mediaSchema);
 // const validateSources = validateSchema(sourcesSchema);
 
@@ -246,6 +240,11 @@ export default class LazyMedia extends Vue {
                     this.isCover
                 ) {
                     window.objectFitPolyfill(image);
+                }
+
+                // remove the placeholder (v-else triggers too early)
+                for (const slot of this.$slots.default) {
+                    (slot.elm as HTMLElement).style.display = "none";
                 }
 
                 this.isLoaded = true;

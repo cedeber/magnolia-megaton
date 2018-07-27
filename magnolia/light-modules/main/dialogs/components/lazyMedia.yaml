@@ -41,7 +41,7 @@ form:
           class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
           label: Show caption
           buttonLabel: Show the caption, if any, defined in the Asset Manager
-          defaultValue: true
+          defaultValue: false
         - name: isInstantly
           class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
           label: Instantly

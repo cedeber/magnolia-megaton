@@ -12,6 +12,31 @@ article ul {
     list-style-position: inside;
 }
 
-.o-editorial + .o-editorial:not([class*="cell-"]) {
+.o-editorial + .o-editorial:not([class*="cell-"]),
+.o-lazy-media + .o-editorial:not([class*="cell-"]) {
     margin-top: var(--section-margin-height);
+}
+
+.o-editorial + .o-lazy-media:not([class*="cell-"]) {
+    margin-top: var(--section-margin-height);
+}
+
+.o-lazy-media {
+    position: relative;
+}
+
+
+/* --- Lazy Media Editorial --- */
+
+.o-lazy-media .o-editorial {
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    color: white;
+    transform: translate(-50%, -50%);
+}
+
+.o-lazy-media .o-editorial .title {
+    color: inherit;
 }
