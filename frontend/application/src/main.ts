@@ -8,7 +8,6 @@ import "./styles/article.css";
 
 /* --- Application --- */
 import Vue from "vue";
-import taggr from "./devtools/taggr";
 
 /* --- Components --- */
 // If a Vue (*.vue) component exists, import only it.
@@ -16,9 +15,6 @@ import taggr from "./devtools/taggr";
 import LazyMedia from "./components/lazy-media.vue";
 import Carousel from "./components/carousel";
 import GoogleMap from "./components/google-map.vue";
-
-// Keep it! If you build the app with NODE_ENV == "production", it won't log.
-taggr().warning("Your application is running in development mode.");
 
 // Create the vue instance
 const vm = new Vue({

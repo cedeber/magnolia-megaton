@@ -1,18 +1,10 @@
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import taggr from "../../devtools/taggr";
-
-declare global {
-    interface Window {
-        google: any;
-    }
-}
-
-const log = taggr("google-map");
+import { loadJS } from '../../helpers/async-loader';
 
 /* [TODO] Watch slot changes */
 
 @Component
-class GoogleMap extends Vue {
+export default class GoogleMap extends Vue {
     @Prop({ type: Number, default: 0 })
     public lat!: number;
 
@@ -63,9 +55,7 @@ class GoogleMap extends Vue {
 
     public async mounted() {
         if (!this.apiKey) {
-            log.error(
-                "no API key provided. https://console.developers.google.com/apis/",
-            );
+            // no API key provided. https://console.developers.google.com/apis/
             return;
         }
 
@@ -143,16 +133,6 @@ class GoogleMap extends Vue {
             optimized: false,
         });
 
-        if (icon) {
-            log.info(
-                `Personalized marker (${
-                    this.markerWidth
-                }×${
-                    this.markerHeight
-                }px)`,
-            );
-        }
-
         // Create Info Window
         const infoElement = this.$slots.default[0].elm as HTMLElement;
 
@@ -164,11 +144,7 @@ class GoogleMap extends Vue {
             google.maps.event.addListener(this.marker, "click", () =>
                 infoWindow.open(this.map, this.marker),
             );
-
-            log.list(content).info("info window opened");
         }
-
-        log.list(this.$el).success("initialized");
 
         this.isLoaded = true;
         if (this.lat !== 0 && this.long !== 0) {
@@ -176,25 +152,3 @@ class GoogleMap extends Vue {
         }
     }
 }
-
-function loadJS(src: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-        const script = document.createElement("script");
-
-        script.onload = function(event) {
-            log.success(`${src} loaded`);
-            resolve(event);
-        };
-
-        script.onerror = function(event) {
-            log.error(`${src} fails to load`);
-            reject(event);
-        };
-
-        script.async = true;
-        script.src = src;
-        document.head.appendChild(script);
-    });
-}
-
-export default GoogleMap;
