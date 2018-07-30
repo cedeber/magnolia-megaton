@@ -19,6 +19,10 @@
     margin-left: calc((44px - var(--menu-width)) / -2);
 }
 
+.toggle-menu-bars {
+    display: block;
+}
+
 .toggle-menu-button::before,
 .toggle-menu-bars,
 .toggle-menu-bars::before,

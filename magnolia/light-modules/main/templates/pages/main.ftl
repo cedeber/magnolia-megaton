@@ -8,10 +8,12 @@
     [#include "include/head.ftl"]
 </head>
 <body class="[#if navfn.isActive(content, navfn.rootPage(content))]-home[#else]-main[/#if]">
+    [#--
     <div class="skip-links">
         <a href="#mainNavigation" accesskey="1">Navigation</a>
         <a href="#mainContent" accesskey="2">Content</a>
     </div>
+    --]
 
     <main id="view" class="o-view">
         <header class="o-view-header">
@@ -20,8 +22,8 @@
                     <ul class="o-flex-space">
                         [#if children?size > 0]
                         <li>
-                            <button v-on:click="toggleMenu" class="toggle-menu-button" v-bind:class="{'js-open': isMenuOpen}" aria-label="${i18n['menu.toggle']}">
-                                <div class="toggle-menu-bars" aria-hidden="true"></div>
+                            <button v-on:click="toggleMenu" class="toggle-menu-button" v-bind:class="{'js-open': isMenuOpen}" aria-label="${i18n['menu.toggle']}" accesskey="1">
+                                <span class="toggle-menu-bars" aria-hidden="true"></span>
                             </button>
                         </li>
                         [/#if]
@@ -51,9 +53,6 @@
             [@cms.area name="main" /]
         </article>
         [@cms.area name="footer" /]
-        [#--if !cmsfn.isEditMode()]
-            <loading-page></loading-page>
-        [/#if--]
     </main>
     [#include "include/scripts.ftl"]
 </body>
