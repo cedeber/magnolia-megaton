@@ -35,7 +35,7 @@
 [#if !cmsfn.isEditMode()]
     <lazy-media path="${cmsfn.link(content)?replace('.html', '.json')}"
                 [#if hasRatio]:ratio="{w:${content.width!},h:${content.height}}"[/#if]
-                [#--elseif isCover && imageWidth > 0 && imageHeight > 0]:ratio="{w:${imageWidth?string.computer!},h:${imageHeight?string.computer!}}"[/#if--]
+                [#if isCover && imageWidth > 0 && imageHeight > 0]:sim-ratio="{w:${imageWidth?string.computer!},h:${imageHeight?string.computer!}}"[/#if]
                 position="is-${content.position!'center'}"
                 :is-cover="${isCover?string!}"
                 :is-instantly="${isInstantly?string!}"

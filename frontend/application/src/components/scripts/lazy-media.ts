@@ -73,6 +73,9 @@ export default class LazyMedia extends Vue {
     @Prop({ type: Object, default: null })
     ratio!: any;
 
+    @Prop({ type: Object, default: null })
+    public simRatio!: any;
+
     @Prop({ type: Boolean, default: false })
     scaled!: boolean;
 
@@ -130,6 +133,11 @@ export default class LazyMedia extends Vue {
         source = this.video
             ? this.video.link || ""
             : await getPictureSource(this.picture.sources);
+
+        // Helper for object-fit polyfill
+        if (!this.ratio && this.isCover && this.simRatio && isOutdatedBrowser) {
+            this.ratio = this.simRatio;
+        }
 
         if (this.ratio) {
             this.$el.style.paddingTop =
@@ -232,6 +240,11 @@ export default class LazyMedia extends Vue {
                     }
                 }
 
+                // remove the placeholder (v-else triggers too early)
+                for (const slot of this.$slots.default) {
+                    (slot.elm as HTMLElement).style.display = "none";
+                }
+
                 // object-fit polyfill
                 if (
                     typeof window.objectFitPolyfill === "function" &&
@@ -240,11 +253,6 @@ export default class LazyMedia extends Vue {
                     this.isCover
                 ) {
                     window.objectFitPolyfill(image);
-                }
-
-                // remove the placeholder (v-else triggers too early)
-                for (const slot of this.$slots.default) {
-                    (slot.elm as HTMLElement).style.display = "none";
                 }
 
                 this.isLoaded = true;
