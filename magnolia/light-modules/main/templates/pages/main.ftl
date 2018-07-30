@@ -16,7 +16,7 @@
     --]
 
     <main id="view" class="o-view">
-        <header class="o-view-header">
+        <header class="o-view-header has-hidden-links">
             <ul class="o-flex-space">
                 <li>
                     <ul class="o-flex-space">
