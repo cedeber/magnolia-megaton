@@ -10,11 +10,11 @@
 [/#if]
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${cmsfn.language()!'en'}">
     <head>
     [@cms.page /]
     [#if !cmsfn.isEditMode() && redirectLink?has_content]
-        <meta http-equiv="refresh" content="0; url=${redirectLink}">
+        <meta http-equiv="refresh" content="0; url=${redirectLink!}">
     [/#if]
     </head>
     <body>
@@ -27,7 +27,7 @@
                 [/#if]
             [#else]
                 [#if redirectLink?has_content]
-                    You will be redirected to <a href="${redirectLink}">this page</a>
+                    ${i18n['redirect.redirectto']} <a href="${redirectLink}">${i18n['redirect.thispage']}</a>
                 [/#if]
             [/#if]
         </main>

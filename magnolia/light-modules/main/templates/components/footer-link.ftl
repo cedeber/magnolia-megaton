@@ -12,15 +12,15 @@
 
 <li class="link">
     [#if content.href == "internal" && content.hrefinternal?has_content]
-        <a href="${cmsfn.link('website', content.hrefinternal)!}" aria-label="${content.label!} (Intern)">
+        <a href="${cmsfn.link('website', content.hrefinternal)!}" aria-label="${content.label!}">
             [@lkCtn /]
         </a>
     [#elseif content.href == "external" && content.hrefexternal?has_content]
-    <a href="${content.hrefexternal!}" target="_blank" rel="noopener external" aria-label="${content.label!} (Extern)">
+    <a href="${content.hrefexternal!}" target="_blank" rel="noopener external" aria-label="${content.label!} (${i18n['link.external']})">
         [@lkCtn /]
     </a>
     [#elseif content.href == "file" && content.hreffile?has_content]
-    <a href="${damfn.getAssetMap(content.hreffile).link!}"  aria-label="${content.label!} (Datei)">
+    <a href="${damfn.getAssetMap(content.hreffile).link!}"  aria-label="${content.label!} (${i18n['link.file']})">
         [@lkCtn /]
     </a>
     [/#if]

@@ -44,17 +44,17 @@
             </div>
             <div class="controls" v-if="pagesQuantity > 1">
                 <template v-for="(_page, index) in pagesQuantity">
-                    <button class="bullet" v-on:click="gotoPage(index)" v-bind:class="{ 'js-active': (currentPage == index) }">
-                        <span class="is-visually-hidden">Show slide {{ index + 1 }} of {{ pagesQuantity }}</span>
+                    <button class="bullet" v-on:click="gotoPage(index)" v-bind:class="{ 'js-active': (currentPage === index) }">
+                        <span class="is-visually-hidden">${i18n["carousel.show"]} {{ index + 1 }} ${i18n["carousel.showof"]} {{ pagesQuantity }}</span>
                     </button>
                 </template>
                 <button v-on:click="previousPage" class="previous-button">
                     ❮
-                    <span class="is-visually-hidden">Show previous slide</span>
+                    <span class="is-visually-hidden">${i18n["carousel.previous"]}</span>
                 </button>
                 <button v-on:click="nextPage" class="next-button">
                     ❯
-                    <span class="is-visually-hidden">Show next slide</span>
+                    <span class="is-visually-hidden">${i18n["carousel.next"]}</span>
                 </button>
             </div>
         </div>
