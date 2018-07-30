@@ -28,7 +28,6 @@
 
     <!-- Outdated Browsers -->
     [#if !devMode]
-    [#--
     <div id="outdated"></div>
     ${resfn.js(["/main/webresources/external/outdatedbrowser.min.js"])!}
     ${resfn.css(["/main/webresources/external/outdatedbrowser.min.css"])!}
@@ -40,7 +39,6 @@
             languagePath: '${ctx.contextPath}/.resources/main/webresources/external/lang/${cmsfn.language()!'en'}.html'
         });
     </script>
-    --]
     [/#if]
 [/#if]
 
