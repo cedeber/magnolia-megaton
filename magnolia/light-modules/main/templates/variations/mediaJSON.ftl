@@ -1,17 +1,17 @@
 [#assign id = ctx.getParameter("id")!]
 
 [#if id?has_content] [#-- [TODO] Check with RegExp --]
-    [#assign imageItemKey = id]
+    [#assign mediaItemKey = id]
 [#else]
-    [#assign imageItemKey = content.image]
+    [#assign mediaItemKey = content.video!content.image!]
 [/#if]
 
 [@compress single_line=true]
 {
-    [#if imageItemKey?has_content && damfn.getAsset(imageItemKey)??]
-        [#assign asset = damfn.getAsset(imageItemKey)!]
+    [#if mediaItemKey?has_content && damfn.getAsset(mediaItemKey)??]
+        [#assign asset = damfn.getAsset(mediaItemKey)!]
         [#if !cmsfn.nodeById(asset.getItemKey().getAssetId(), 'dam').hasProperty('mgnl:deleted')]
-            [#assign assetMap = damfn.getAssetMap(imageItemKey)!]
+            [#assign assetMap = damfn.getAssetMap(mediaItemKey)!]
             [#if asset.getMimeType()?starts_with("image")]
                 "picture": {
                     "link": "${asset.getLink()}",
@@ -29,20 +29,21 @@
                     }
                 }
                 [#assign addComma = true]
+            [#elseif asset.getMimeType()?starts_with("video")]
+                [#if addComma??],[/#if]
+                "video": {
+                    "link": "${asset.getLink()}",
+                    "id": "${asset.getItemKey().getAssetId()!}",
+                    "extension": "${cmsfn.fileExtension(assetMap.name)?lower_case}"
+                    [#if content.image?has_content && damfn.getAsset(content.image)??]
+                        [#assign imageAsset = damfn.getAsset(content.image)!]
+                        [#if !cmsfn.nodeById(imageAsset.getItemKey().getAssetId(), 'dam').hasProperty('mgnl:deleted')]
+                            ,"poster": "${damfn.getRendition(imageAsset, "hero-375-2x").getLink()!}"
+                        [/#if]
+                    [/#if]
+                }
+                [#assign addComma = true]
             [/#if]
-        [/#if]
-    [/#if]
-    [#if content.video?has_content && damfn.getAsset(content.video)??]
-        [#assign asset = damfn.getAsset(content.video)!]
-        [#assign assetMap = damfn.getAssetMap(content.video)!]
-        [#if asset.getMimeType()?starts_with("video")]
-            [#if addComma??],[/#if]
-            "video": {
-                "link": "${asset.getLink()}",
-                "id": "${asset.getItemKey().getAssetId()!}",
-                "extension": "${cmsfn.fileExtension(assetMap.name)?lower_case}"
-            }
-            [#assign addComma = true]
         [/#if]
     [/#if]
 
