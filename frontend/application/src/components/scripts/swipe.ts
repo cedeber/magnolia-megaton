@@ -7,7 +7,7 @@ import { Vue, Component } from "vue-property-decorator";
  * <swipe @swipeup="doSomething()" class="o-swipe"></swipe>
  */
 @Component
-class Swipe extends Vue {
+export default class Swipe extends Vue {
     public blockClickEventDistance = 0;
     public swipe = {
         move: false,
@@ -128,5 +128,3 @@ class Swipe extends Vue {
         }
     }
 }
-
-export default Swipe;
