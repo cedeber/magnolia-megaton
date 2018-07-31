@@ -8,6 +8,9 @@ import "./styles/article.css";
 
 /* --- Application --- */
 import Vue from "vue";
+import VueScroll from "./plugins/vue-scroll";
+
+Vue.use(VueScroll);
 
 /* --- Components --- */
 // If a Vue (*.vue) component exists, import only it.
