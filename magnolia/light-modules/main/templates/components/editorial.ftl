@@ -31,17 +31,17 @@
 
 <!-- Editorial -->
 <div class="o-editorial ${textAlignment} [#if cellOverride?has_content]cell-${cellOverride!}[/#if]">
-    [#if content.preHeader?has_content || content.title?has_content || ctx.orderIndex == 0]
+    [#if content.preHeader?has_content || content.title?has_content || ctx.orderIndex?? && ctx.orderIndex == 0]
     <header>
         [#if content.preHeader?has_content]
             <p class="pre-header">${content.preHeader!}</p>
         [/#if]
         [#if content.title?has_content]
-            [#if ctx.orderIndex > 0]
+            [#if ctx.orderIndex?? && ctx.orderIndex > 0]
             <h1 class="title">${cmsfn.decode(content).title!}</h1>
             [#else]
             <h1 class="title">
-                [#if ctx.parentOrderIndex > 0]
+                [#if ctx.parentOrderIndex?? && ctx.parentOrderIndex > 0]
                     ${cmsfn.decode(content).title!}
                 [#else]
                     [#if content.title?has_content]
