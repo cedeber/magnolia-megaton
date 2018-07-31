@@ -116,7 +116,11 @@ html { font-size: 62.5%; }
 body { font-size: var(--default-font-size); }
 
 p { hyphens: auto; }
-a { color: inherit }
+
+a {
+    text-decoration: underline;
+    color: inherit;
+}
 
 .has-hidden-links a,
 a.has-hidden-links {
