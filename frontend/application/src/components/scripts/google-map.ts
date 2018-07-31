@@ -6,54 +6,54 @@ import { loadJS } from '../../helpers/async-loader';
 @Component
 export default class GoogleMap extends Vue {
     @Prop({ type: Number, default: 0 })
-    public lat!: number;
+    lat!: number;
 
     @Prop({ type: Number, default: 0 })
-    public long!: number;
+    long!: number;
 
     @Prop({ type: Number, default: 50 })
-    public scale!: number;
+    scale!: number;
 
     @Prop({ type: Number, default: 15 })
-    public zoom!: number;
+    zoom!: number;
 
     @Prop({ type: String, default: null })
-    public apiKey!: string | null;
+    apiKey!: string | null;
 
     @Prop({ type: String, default: null })
-    public markerIcon!: string | null;
+    markerIcon!: string | null;
 
     @Prop({ type: Number, default: 0 })
-    public markerWidth!: number;
+    markerWidth!: number;
 
     @Prop({ type: Number, default: 0 })
-    public markerHeight!: number;
+    markerHeight!: number;
 
     @Prop({ type: Boolean, default: false })
-    public personalized!: boolean;
+    personalized!: boolean;
 
     @Prop({ type: String, default: "" })
-    public stylesPath!: string;
+    stylesPath!: string;
 
-    public isLoaded: boolean = false;
-    public map?: google.maps.Map;
-    public marker?: google.maps.Marker;
+    isLoaded: boolean = false;
+    map?: google.maps.Map;
+    marker?: google.maps.Marker;
 
     @Watch("lat")
-    public onLatChanged(newVal: number) {
+    onLatChanged(newVal: number) {
         if (this.isLoaded && newVal !== 0 && this.long !== 0) {
             this.moveMap();
         }
     }
 
     @Watch("long")
-    public onLongChanged(newVal: number) {
+    onLongChanged(newVal: number) {
         if (this.isLoaded && newVal !== 0 && this.lat !== 0) {
             this.moveMap();
         }
     }
 
-    public async mounted() {
+    async mounted() {
         if (!this.apiKey) {
             // no API key provided. https://console.developers.google.com/apis/
             return;
@@ -74,7 +74,7 @@ export default class GoogleMap extends Vue {
     /**
      * Center the map in case lat, long or other properties changed
      */
-    public moveMap() {
+    moveMap() {
         const coords = new google.maps.LatLng(this.lat, this.long);
         google.maps.event.trigger(this.map, "resize");
 
@@ -90,7 +90,7 @@ export default class GoogleMap extends Vue {
     /**
      * Setup Google Map
      */
-    public async initMap() {
+    async initMap() {
         let styles;
 
         // Get personalized styles

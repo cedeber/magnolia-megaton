@@ -8,21 +8,21 @@ import { Vue, Component } from "vue-property-decorator";
  */
 @Component
 export default class Swipe extends Vue {
-    public blockClickEventDistance = 0;
-    public swipe = {
+    blockClickEventDistance = 0;
+    swipe = {
         move: false,
         time: 0,
         x: 0,
         y: 0,
     };
-    public hasCursorDown = false;
+    hasCursorDown = false;
 
     /**
      * Block the click Event only if the pointer moves more than 30px
      * Let the pointer click through the swipe layer
      * @param {MouseEvent} event
      */
-    public blockClick(event: MouseEvent) {
+    blockClick(event: MouseEvent) {
         if (this.blockClickEventDistance > 30) {
             event.preventDefault();
         } else {
@@ -35,7 +35,7 @@ export default class Swipe extends Vue {
      * Pointer click/touch
      * @param {MouseEvent | Touch} event
      */
-    public touchStart(event: MouseEvent | Touch) {
+    touchStart(event: MouseEvent | Touch) {
         const startEvent = "TouchEvent" in window && event instanceof TouchEvent ? event.changedTouches[0] : event;
 
         this.swipe.x = startEvent.clientX;
@@ -50,7 +50,7 @@ export default class Swipe extends Vue {
      * Pointer is moving
      * @param {MouseEvent | Touch} event
      */
-    public touchMove(event: MouseEvent | Touch) {
+    touchMove(event: MouseEvent | Touch) {
         if (this.swipe.move) {
             const moveEvent = "TouchEvent" in window && event instanceof TouchEvent ? event.changedTouches[0] : event;
             const detail = {
@@ -74,7 +74,7 @@ export default class Swipe extends Vue {
      * Pointer released
      * @param {MouseEvent | Touch} event
      */
-    public touchEnd(event: MouseEvent | Touch) {
+    touchEnd(event: MouseEvent | Touch) {
         this.hasCursorDown = false;
 
         // not a single click
@@ -120,7 +120,7 @@ export default class Swipe extends Vue {
      * Consider wheel mouse event as swipe up and down
      * @param {WheelEvent} event
      */
-    public onWheel(event: WheelEvent) {
+    onWheel(event: WheelEvent) {
         if (event.deltaY > 0) {
             this.$emit("swipeup");
         } else if (event.deltaY < 0) {

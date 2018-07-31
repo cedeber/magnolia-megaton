@@ -74,7 +74,7 @@ export default class LazyMedia extends Vue {
     ratio!: any;
 
     @Prop({ type: Object, default: null })
-    public simRatio!: any;
+    simRatio!: any;
 
     @Prop({ type: Boolean, default: false })
     scaled!: boolean;
@@ -241,8 +241,10 @@ export default class LazyMedia extends Vue {
                 }
 
                 // remove the placeholder (v-else triggers too early)
-                for (const slot of this.$slots.default) {
-                    (slot.elm as HTMLElement).style.display = "none";
+                if (this.$slots.default && this.$slots.default.length > 0) {
+                    for (const slot of this.$slots.default) {
+                        (slot.elm as HTMLElement).style.display = "none";
+                    }
                 }
 
                 // object-fit polyfill
