@@ -327,11 +327,11 @@ div[role="button"] { cursor: pointer; }
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
     [class*="o-flex"] > [class*="cell-"] { flex: 0; }
     [class*="o-flex"] > .cell-1of1 { min-width: 100%; }
-    [class*="o-flex"] > .cell-1of2, [class*="o-flex"] > .cell-2of4 { min-width: calc(100% / 2); }
-    [class*="o-flex"] > .cell-1of3 { min-width: calc(100% / 3); }
-    [class*="o-flex"] > .cell-2of3 { min-width: calc(100% / 3 * 2); }
-    [class*="o-flex"] > .cell-1of4 { min-width: calc(100% / 4); }
-    [class*="o-flex"] > .cell-3of4 { min-width: calc(100% / 4 * 3); }
+    [class*="o-flex"] > .cell-1of2, [class*="o-flex"] > .cell-2of4 { min-width: 50%; }
+    [class*="o-flex"] > .cell-1of3 { min-width: 33.3%; }
+    [class*="o-flex"] > .cell-2of3 { min-width: 66.6%; }
+    [class*="o-flex"] > .cell-1of4 { min-width: 25%; }
+    [class*="o-flex"] > .cell-3of4 { min-width: 75%; }
 }
 
 
