@@ -1,13 +1,24 @@
 form:
-  label: Carousel
+  label: Single Carousel
   tabs:
     - name: tabConfig
       label: Configuration
       fields:
-        - name: asHero
-          class: info.magnolia.ui.form.field.definition.HiddenFieldDefinition
-          defaultValue: true
-          type: Boolean
+        - name: ratio
+          class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
+          transformerClass: info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
+          label: Slide fixed ratio
+          description: For instance, 16 / 9 for videos or 4 / 3 for images.
+          required: true
+          fields:
+            - name: width
+              class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              label: Width unit
+              required: true
+            - name: height
+              class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              label: Height unit
+              required: true
         - name: autoplay
           class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
           label: Carousel autoplay
@@ -25,8 +36,8 @@ form:
               label: Linear
             # - name: continue
             #   label: Continue
-            #- name: async
-            #  label: Asynchronous
+            - name: async
+              label: Asynchronous
         - name: orientation
           class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
           label: Orientation
@@ -36,5 +47,7 @@ form:
               label: Horizontal
             - name: vertical
               label: Vertical
+
+    - !include:/main/dialogs/include/sectionLayoutOverride.yaml
 
 actions: !include:/main/dialogs/include/commonActions.yaml

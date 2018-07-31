@@ -13,7 +13,7 @@ import Vue from "vue";
 // If a Vue (*.vue) component exists, import only it.
 // The related CSS and TS are linked into the Vue component
 import LazyMedia from "./components/lazy-media.vue";
-import Carousel from "./components/carousel.vue";
+import SingleCarousel from "./components/single-carousel.vue";
 import GoogleMap from "./components/google-map.vue";
 
 // Create the vue instance
@@ -38,7 +38,7 @@ const vm = new Vue({
 
 // Declare all components, on all pages
 Vue.component("lazy-media", LazyMedia);
-Vue.component("multi-carousel", Carousel);
+Vue.component("single-carousel", SingleCarousel);
 Vue.component("google-map", GoogleMap);
 
 // Connect the Vue intance to the whole <main id="view"> container

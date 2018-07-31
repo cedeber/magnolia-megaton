@@ -13,6 +13,6 @@ areas:
       media:
         id: main:components/lazyMedia
       carousel:
-        id: main:components/carousel
+        id: main:components/carouselSingle
       map:
         id: main:components/googleMap

@@ -2,8 +2,8 @@
 [#assign isInstantly = content.isInstantly?? && content.isInstantly == true]
 [#assign isAutoplay = content.isAutoplay?? && content.isAutoplay == true]
 
-<div class="item [#if cmsfn.isEditMode()]cell-1of1[/#if]">
-    <div class="item-inner">
+<div class="slide [#if cmsfn.isEditMode()]cell-1of1[/#if]">
+    <div class="slide-inner">
         [#if content.title?has_content || content.body?has_content]
         <div class="foreground o-flex-middle is-vertical o-section has-no-top-space has-no-bottom-space">
             <div class="o-group is-large is-left">
