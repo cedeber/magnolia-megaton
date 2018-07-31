@@ -1,8 +1,6 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
-import verticalState from "../helpers/vertical-state";
+import verticalState from "../../helpers/vertical-state";
 import debounce from "lodash-es/debounce";
-
-import "./carousel.css";
 
 enum RenderType {
     Linear = "linear",
@@ -18,16 +16,16 @@ enum Orientation {
 @Component
 export default class Carousel extends Vue {
     @Prop({ type: Boolean, default: false })
-    public asHero!: boolean; // calculate height from top position, at render
+    asHero!: boolean; // calculate height from top position, at render
 
     @Prop({ type: Boolean, default: false })
-    public autoplay!: boolean; // play automatically
+    autoplay!: boolean; // play automatically
 
     @Prop({ type: Number, default: 0 })
-    public columns!: number; // number of colums, overwrite minWidth
+    columns!: number; // number of colums, overwrite minWidth
 
     @Prop({ type: Number, default: 5000 })
-    public delay!: number; // time to show a slide
+    delay!: number; // time to show a slide
 
     @Prop({
         type: Number,
@@ -36,7 +34,7 @@ export default class Carousel extends Vue {
             return value >= 0;
         },
     })
-    public maxWidth!: number; // items maximum width
+    maxWidth!: number; // items maximum width
 
     @Prop({
         type: Number,
@@ -45,67 +43,67 @@ export default class Carousel extends Vue {
             return value >= 0;
         },
     })
-    public minWidth!: number; // items minimum width
+    minWidth!: number; // items minimum width
 
     @Prop({ type: Number, default: 0 })
-    public slideRatio!: number;
+    slideRatio!: number;
 
     @Prop({ type: String, default: RenderType.Linear })
-    public renderType!: RenderType;
+    renderType!: RenderType;
 
     @Prop({ type: String, default: Orientation.Horizontal })
-    public orientation!: Orientation;
+    orientation!: Orientation;
 
     @Prop({ type: Number, default: 0 })
-    public startAt!: number; // first item to show
+    startAt!: number; // first item to show
 
     @Prop({ type: Number, default: 1500 })
-    public transitionDelay!: number; // duration of the transition animation
+    transitionDelay!: number; // duration of the transition animation
 
     // Variables
-    public carouselWidth = 0; // used to control the resize event
-    public currentItem = -1; // currently shown item, currently badly used
-    public currentPage = 1; // currently shown page
-    public decal = 0; // used to calculate page start position depending on items per page
-    public doDecal = true;
-    public itemsPerPage = 1; // number of items per page depending on min-width
-    public itemsQuantity = 0; // number of items
-    public itemWidth = 0; // items min width
-    public occurrence = 0; // number of changes. Used to detect "js-first"
-    public pagesQuantity = 1; // number of pages depending on min-width
-    public playIntervalID = 0; // setInterval UID fot the animation
-    public sliderHeight = 0;
+    carouselWidth = 0; // used to control the resize event
+    currentItem = -1; // currently shown item, currently badly used
+    currentPage = 1; // currently shown page
+    decal = 0; // used to calculate page start position depending on items per page
+    doDecal = true;
+    itemsPerPage = 1; // number of items per page depending on min-width
+    itemsQuantity = 0; // number of items
+    itemWidth = 0; // items min width
+    occurrence = 0; // number of changes. Used to detect "js-first"
+    pagesQuantity = 1; // number of pages depending on min-width
+    playIntervalID = 0; // setInterval UID fot the animation
+    sliderHeight = 0;
 
     // State
-    public isLoaded = false;
-    // public isMoving = false;
-    public isReverse = false;
-    public isSinglePage = false;
-    public isTransitioning = false;
-    public onFirstPage = false;
-    public onLastPage = false;
-    public isVisible = false;
+    isLoaded = false;
+    // isMoving = false;
+    isReverse = false;
+    isSinglePage = false;
+    isTransitioning = false;
+    onFirstPage = false;
+    onLastPage = false;
+    isVisible = false;
 
     // Content
-    public items?: HTMLCollection | any[];
-    public itemsContainer: Element | null = null;
-    public itemsContainerStyles = {
+    items?: HTMLCollection | any[];
+    itemsContainer: Element | null = null;
+    itemsContainerStyles = {
         width: "0px",
         height: "0px",
         transform: "",
     };
 
     // Swipe
-    public blockClickEventDistance = 0;
-    public swipe = {
+    blockClickEventDistance = 0;
+    swipe = {
         move: false,
         time: 0,
         x: 0,
         y: 0,
     };
-    public hasCursorDown = false;
+    hasCursorDown = false;
 
-    public created() {
+    created() {
         // block bounce scroll on ios
         /*
         const view = document.querySelector("#view");
@@ -116,7 +114,7 @@ export default class Carousel extends Vue {
         */
     }
 
-    public mounted() {
+    mounted() {
         this.setupDOM();
         this.init();
 
@@ -160,7 +158,7 @@ export default class Carousel extends Vue {
             : "height:100%";
     }
 
-    public setupDOM() {
+    setupDOM() {
         this.itemsContainer = this.$el.querySelector(".slides");
         this.items =
             this.itemsContainer == undefined
@@ -169,7 +167,7 @@ export default class Carousel extends Vue {
         this.itemsQuantity = this.items == undefined ? 0 : this.items.length;
     }
 
-    public init() {
+    init() {
         if (this.asHero) {
             pageLoaded().then(() => {
                 setHeroHeight(this.$el);
@@ -318,7 +316,7 @@ export default class Carousel extends Vue {
         );
     }
 
-    public gotoPage(page: number) {
+    gotoPage(page: number) {
         if (this.isTransitioning && this.renderType !== RenderType.Linear) {
             return;
         }
@@ -451,7 +449,7 @@ export default class Carousel extends Vue {
         }
     }
 
-    public nextPage(event: MouseEvent | Touch) {
+    nextPage(event: MouseEvent | Touch) {
         const page =
             event instanceof MouseEvent || this.renderType === RenderType.Async
                 ? this.currentPage + 1
@@ -461,7 +459,7 @@ export default class Carousel extends Vue {
         this.gotoPage(page);
     }
 
-    public previousPage(event: MouseEvent | Touch) {
+    previousPage(event: MouseEvent | Touch) {
         const page =
             event instanceof MouseEvent || this.renderType === RenderType.Async
                 ? this.currentPage - 1
@@ -471,7 +469,7 @@ export default class Carousel extends Vue {
     }
 
     /* --- Swipe --- */
-    public blockClick(event: MouseEvent) {
+    blockClick(event: MouseEvent) {
         if (this.blockClickEventDistance > 30) {
             event.preventDefault();
         } else {
@@ -479,7 +477,7 @@ export default class Carousel extends Vue {
         }
     }
 
-    public touchStart(event: MouseEvent | Touch) {
+    touchStart(event: MouseEvent | Touch) {
         const startEvent =
             "TouchEvent" in window && event instanceof TouchEvent
                 ? event.changedTouches[0]
@@ -493,7 +491,7 @@ export default class Carousel extends Vue {
         this.hasCursorDown = true;
     }
 
-    public touchMove(event: MouseEvent | Touch) {
+    touchMove(event: MouseEvent | Touch) {
         if (this.swipe.move) {
             const moveEvent =
                 "TouchEvent" in window && event instanceof TouchEvent
@@ -513,7 +511,7 @@ export default class Carousel extends Vue {
         }
     }
 
-    public touchEnd(event: MouseEvent | Touch) {
+    touchEnd(event: MouseEvent | Touch) {
         this.hasCursorDown = false;
 
         if (this.swipe.move) {
@@ -565,7 +563,7 @@ export default class Carousel extends Vue {
         }
     }
 
-    public onWheel(_event: WheelEvent) {
+    onWheel(_event: WheelEvent) {
         // Vertical Swipe
         /*
         event.preventDefault();

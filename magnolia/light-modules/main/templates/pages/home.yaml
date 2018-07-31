@@ -18,7 +18,7 @@ areas:
     type: single
     availableComponents:
       carousel:
-        id: main:components/carousel
+        id: main:components/heroCarousel
         
   searchBar:
     renderType: freemarker

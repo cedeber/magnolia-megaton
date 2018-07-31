@@ -25,7 +25,7 @@ areas:
     type: single
     availableComponents:
       carousel:
-        id: main:components/carousel
+        id: main:components/heroCarousel
 
   main:
     renderType: freemarker

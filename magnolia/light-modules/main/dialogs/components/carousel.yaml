@@ -4,53 +4,56 @@ form:
     - name: tabConfig
       label: Configuration
       fields:
-        - name: asHero
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-          label: Hero Banner
-          buttonLabel: The Carousel is a Hero Banner (from header to bottom viewport)
-        - name: hasGutter
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-          label: Has Gutter
-          buttonLabel: The slides have a gutter
-          defaultValue: false
+        #- name: asHero
+        #  class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+        #  label: Hero Banner
+        #  buttonLabel: The Carousel is a Hero Banner (from header to bottom viewport)
+        #- name: hasGutter
+        #  class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+        #  label: Has Gutter
+        #  buttonLabel: The slides have a gutter
+        #  defaultValue: false
         - name: ratio
           class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
           transformerClass: info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
           label: Slide fixed ratio
           description: For instance, 16 / 9 for videos or 4 / 3 for images.
+          required: true
           fields:
             - name: width
               class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               label: Width unit
+              required: true
             - name: height
               class: info.magnolia.ui.form.field.definition.TextFieldDefinition
               label: Height unit
+              required: true
         - name: autoplay
           class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
           label: Carousel autoplay
           buttonLabel: Switch automatically between the slides
-        - name: startAt
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-          label: Start at
-          defaultValue: 0
+        #- name: startAt
+        #  class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        #  label: Start at
+        #  defaultValue: 0
         - name: delay
           class: info.magnolia.ui.form.field.definition.TextFieldDefinition
           label: Delay (ms)
           defaultValue: 5000
-        - name: transitionDelay
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-          label: Transition (ms)
-          defaultValue: 1500
-        - name: maxWidth
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-          label: Slide max. width (px)
-        - name: minWidth
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-          label: Slide min. width (px)
-        - name: columns
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-          label: Slides per page
-          description: Overwrite min. and max. values
+        #- name: transitionDelay
+        #  class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        #  label: Transition (ms)
+        #  defaultValue: 1500
+        #- name: maxWidth
+        #  class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        #  label: Slide max. width (px)
+        #- name: minWidth
+        #  class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        #  label: Slide min. width (px)
+        #- name: columns
+        #  class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        #  label: Slides per page
+        #  description: Overwrite min. and max. values
         - name: renderType
           class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
           label: Render Type
@@ -60,8 +63,8 @@ form:
               label: Linear
             # - name: continue
             #   label: Continue
-            - name: async
-              label: Asynchronous
+            #- name: async
+            #  label: Asynchronous
         - name: orientation
           class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
           label: Orientation
@@ -72,12 +75,6 @@ form:
             - name: vertical
               label: Vertical
 
-    - name: tabLayout
-      label: Layout
-      fields:
-        - name: layoutOverride
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-          label: Layout override
-          buttonLabel: This component must use the whole width of the section
+    - !include:/main/dialogs/include/sectionLayoutOverride.yaml
 
 actions: !include:/main/dialogs/include/commonActions.yaml

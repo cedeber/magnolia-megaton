@@ -1,0 +1,40 @@
+form:
+  label: Carousel
+  tabs:
+    - name: tabConfig
+      label: Configuration
+      fields:
+        - name: asHero
+          class: info.magnolia.ui.form.field.definition.HiddenFieldDefinition
+          defaultValue: true
+          type: Boolean
+        - name: autoplay
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          label: Carousel autoplay
+          buttonLabel: Switch automatically between the slides
+        - name: delay
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: Delay (ms)
+          defaultValue: 5000
+        - name: renderType
+          class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+          label: Render Type
+          options:
+            - name: linear
+              selected: true
+              label: Linear
+            # - name: continue
+            #   label: Continue
+            #- name: async
+            #  label: Asynchronous
+        - name: orientation
+          class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+          label: Orientation
+          options:
+            - name: horizontal
+              selected: true
+              label: Horizontal
+            - name: vertical
+              label: Vertical
+
+actions: !include:/main/dialogs/include/commonActions.yaml

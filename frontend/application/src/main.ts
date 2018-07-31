@@ -13,7 +13,7 @@ import Vue from "vue";
 // If a Vue (*.vue) component exists, import only it.
 // The related CSS and TS are linked into the Vue component
 import LazyMedia from "./components/lazy-media.vue";
-import Carousel from "./components/carousel";
+import Carousel from "./components/carousel.vue";
 import GoogleMap from "./components/google-map.vue";
 
 // Create the vue instance
