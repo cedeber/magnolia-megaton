@@ -1,4 +1,3 @@
-[#include "../macros/alt.ftl"]
 [#assign isCover = content.isCover?? && content.isCover == true]
 [#assign isInstantly = content.isInstantly?? && content.isInstantly == true]
 [#assign isAutoplay = content.isAutoplay?? && content.isAutoplay == true]
