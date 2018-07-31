@@ -1,8 +1,6 @@
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import { loadJS } from '../../helpers/async-loader';
 
-/* [TODO] Watch slot changes */
-
 @Component
 export default class GoogleMap extends Vue {
     @Prop({ type: Number, default: 0 })

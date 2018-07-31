@@ -3,10 +3,6 @@ import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 // import mediaSchema from "../../schemas/media.json";
 // import sourcesSchema from "../../schemas/picture-sources.json";
 
-// [TODO] Remove unnecessary Promises (from JSON validation)
-// [TODO] divided option (multiple the query by divided for cell-1ofX)
-// [TODO] make the JSON request when visible in viewport (optimize number of requests)
-
 interface LazyJSON {
     picture?: {
         link: string;
@@ -40,10 +36,6 @@ interface LazyJSON {
 // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/13603873/#comment-14
 const IEdgeMatches = /(Edge|Trident)\/(\d.)/i.exec(navigator.userAgent);
 const isOutdatedBrowser = IEdgeMatches != null; // && parseInt(IEdgeMatches[2], 10) < 17;
-
-/**
- * @todo Save the result in a sessionStorage?
- */
 
 @Component
 export default class LazyMedia extends Vue {
@@ -147,7 +139,6 @@ export default class LazyMedia extends Vue {
         if (this.isInstantly) {
             this.source = source;
         } else {
-            // [TODO] Create only one observer for all lazy components
             if (this.observer != null) {
                 this.observer.disconnect();
                 this.observer = null;
@@ -183,8 +174,7 @@ export default class LazyMedia extends Vue {
             // tslint:disable-next-line:no-bitwise
             const ext = source.slice(((source.lastIndexOf(".") - 1) >>> 0) + 2);
 
-            // [TODO] Add @load with Vue?
-
+            // TODO :: Add @load with Vue?
             image.addEventListener("load", async () => {
                 let width = image.naturalWidth;
                 let height = image.naturalHeight;

@@ -7,7 +7,7 @@ fields:
     i18n: true
     height: 450
     configJsFile: /.resources/main/dialogs/include/config/editorial.js
-  # TODO exclude call to action (see footer links)
+  # TODO exclude call to action (include into footer links too)
   - name: callToAction
     class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
     transformerClass:  info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer

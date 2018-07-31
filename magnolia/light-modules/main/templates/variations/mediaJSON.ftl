@@ -1,6 +1,6 @@
 [#assign id = ctx.getParameter("id")!]
 
-[#if id?has_content] [#-- [TODO] Check with RegExp --]
+[#if id?has_content] [#-- TODO :: Check with RegExp? --]
     [#assign mediaItemKey = id]
 [#else]
     [#assign mediaItemKey = content.video!content.image!]

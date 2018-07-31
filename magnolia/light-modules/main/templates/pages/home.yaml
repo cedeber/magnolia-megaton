@@ -31,7 +31,7 @@ areas:
     availableComponents:
       sectionLayout:
         id: main:components/sectionLayout
-   # [TODO] select default value (standard and 1 column)
+   # TODO :: select default value (standard and 1 column)
    # autoGeneration:
    #   content:
    #     sectionLayout:

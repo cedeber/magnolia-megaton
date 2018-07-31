@@ -214,7 +214,7 @@ export default class Carousel extends Vue {
                 break;
         }
 
-        // [TODO] Could have been done with another component or template?
+        // TODO :: Could have been done with another component or template?
         if (!(this.items == undefined)) {
             const rest = this.itemsQuantity % this.itemsPerPage;
 

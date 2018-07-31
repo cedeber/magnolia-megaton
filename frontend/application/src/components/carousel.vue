@@ -196,7 +196,7 @@
        │   SWIPE   │
        └───────────┘
     */
-/* [FIXME]
+/* FIXME
     .o-carousel .slides.js-moving {
         transition-duration: 0s;
     }
@@ -228,7 +228,7 @@
        │   CONTROLS   │
        └──────────────┘
     */
-/* [FIXME] */
+/* FIXME */
 .o-carousel .controls {
     position: absolute;
     z-index: 5;
