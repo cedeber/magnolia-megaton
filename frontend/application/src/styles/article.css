@@ -13,11 +13,13 @@ article ul {
 }
 
 .o-editorial + .o-editorial:not([class*="cell-"]),
-.o-lazy-media + .o-editorial:not([class*="cell-"]) {
+.o-lazy-media + .o-editorial:not([class*="cell-"]),
+.o-google-map + .o-editorial:not([class*="cell-"]) {
     margin-top: var(--section-margin-height);
 }
 
-.o-editorial + .o-lazy-media:not([class*="cell-"]) {
+.o-editorial + .o-lazy-media:not([class*="cell-"]),
+.o-editorial + .o-google-map:not([class*="cell-"]) {
     margin-top: var(--section-margin-height);
 }
 
