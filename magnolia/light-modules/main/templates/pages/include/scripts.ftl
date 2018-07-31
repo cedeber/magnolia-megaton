@@ -29,9 +29,16 @@
     <!-- Outdated Browsers -->
     [#if !devMode]
     <div id="outdated"></div>
-    ${resfn.js(["/main/webresources/external/outdatedbrowser.min.js"])!}
-    ${resfn.css(["/main/webresources/external/outdatedbrowser.min.css"])!}
-    <script>
+    <script nomodule src="${ctx.contextPath}/.resources/main/webresources/external/outdatedbrowser.min.js"></script>
+    <script nomodule>
+        const link = document.createElement("link");
+
+        link.setAttribute("rel", "stylesheet");
+        link.setAttribute("media", media);
+        link.setAttribute("href", "${ctx.contextPath}/.resources/main/webresources/external/outdatedbrowser.min.css");
+
+        document.head.appendChild(link);
+
         outdatedBrowser({
             bgColor: "#f25648",
             color: "#ffffff",
