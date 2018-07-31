@@ -107,6 +107,9 @@ html, body {
     /* App */
     /* -webkit-touch-callout: none; */
     /* -webkit-user-select: none; */
+
+    /* -ms-overflow-style: -ms-autohiding-scrollbar; */
+    -ms-overflow-x: hidden;
 }
 
 html { font-size: 62.5%; }
