@@ -2,7 +2,7 @@
 [#if queryStr?has_content]
 
     [#--PAGES--]
-    ${cmsfn.asJCRNode(navfn.rootPage(content)).getPath()!'no path'}
+    [#--${cmsfn.asJCRNode(navfn.rootPage(content)).getPath()!'no path'}--]
     [#assign websiteResults = searchfn.searchPages(queryStr+"*", "%", 100, 0) /]
     [#assign totalRecordsFound = websiteResults?size /]
 
