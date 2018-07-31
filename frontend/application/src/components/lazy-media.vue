@@ -63,7 +63,12 @@
     .media {
         display: block;
         max-width: 100%;
-        height: auto;
+    }
+
+    @supports (object-fit: scale-down) {
+        .media {
+            height: auto;
+        }
     }
 
     .o-lazy-media[class*="cell-"] .media:not(.is-cover) {
