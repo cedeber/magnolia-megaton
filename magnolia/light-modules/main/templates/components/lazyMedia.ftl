@@ -66,7 +66,7 @@
         [/#if]
     </figure>
 [/#if]
-[#if content.body?has_content]
+[#if content.title?has_content || content.body?has_content]
     [#include "editorial.ftl"]
 [/#if]
 </div>
