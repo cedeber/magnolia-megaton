@@ -21,7 +21,7 @@ form:
         contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
       validators:
       - name: image
-        class: ch.openinteractive.ppr.web.validators.MimeTypeValidatorDefinition
+        class: ch.openinteractive.main.validators.MimeTypeValidatorDefinition
         pattern: image/*
         errorMessage: Choose an image
     - name: href
@@ -58,4 +58,4 @@ form:
         identifierToPathConverter:
           class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
 
-actions: !include:/ppr-web-light/dialogs/include/commonActions.yaml
+actions: !include:/main/dialogs/include/commonActions.yaml
