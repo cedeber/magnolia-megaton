@@ -13,6 +13,7 @@
 - [ ] Correct `<head>`: App name, etc...
 - [ ] Fill Web App Manifest
 - [ ] Cookie compliance (only for political Europe right now)
+- [ ] Custom Cookie compliance style
 - [ ] Check Form submissions
 
 # Magnolia Configurations
