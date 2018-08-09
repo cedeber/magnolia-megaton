@@ -33,7 +33,7 @@
 - [ ] Imaging Module (Is `/modules/site/config/site/theme` set correctly on public?)
 - [ ] Does Magnolia Search find pages/assets/news/events etc.
 - [ ] Check for yaml errors in Definitions App
-- [ ] Add .monitor-this file in home/xyz/xyz directory (Tomcat Monitoring on Mironet)
+- [ ] Add .monitor-this file in home/xyz/xyz directory (Tomcat Monitoring on Mironet. ONLY IF PUBLIC IS NOT PROTECTED)
 
 # Testings
 Chrome and Firefox should technically behave the same way whatever the operating system is.
