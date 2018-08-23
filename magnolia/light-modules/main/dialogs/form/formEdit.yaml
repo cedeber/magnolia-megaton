@@ -1,0 +1,119 @@
+mgnl:template: 'sampleTwoColumns'
+'actions':
+  'commit':
+    'class': 'info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition'
+  'cancel':
+    'class': 'info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition'
+'form':
+  'tabs':
+    'tabMain':
+      'label': Main
+      'fields':
+        'title':
+          'class': 'info.magnolia.ui.form.field.definition.TextFieldDefinition'
+          'i18n': true
+          'required': true
+          'rows': '1'
+          'type': 'String'
+        'controlName':
+          'class': 'info.magnolia.ui.form.field.definition.TextFieldDefinition'
+          'required': true
+          'rows': '1'
+          'type': 'String'
+        'description':
+          'class': 'info.magnolia.ui.form.field.definition.TextFieldDefinition'
+          'i18n': true
+          'rows': '1'
+          'type': 'String'
+        'mandatory':
+          'class': 'info.magnolia.ui.form.field.definition.CheckboxFieldDefinition'
+          'defaultValue': 'false'
+          'type': 'Boolean'
+        'validation':
+          'class': 'info.magnolia.ui.form.field.definition.TwinColSelectFieldDefinition'
+          'path': '/modules/form/config/validators'
+          'repository': 'config'
+        'maxLength':
+          'class': 'info.magnolia.ui.form.field.definition.TextFieldDefinition'
+          'rows': '1'
+          'type': 'String'
+        'rows':
+          'class': 'info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition'
+          'type': 'Long'
+          'options':
+            'single':
+              'selected': 'true'
+              'value': '1'
+            'small':
+              'value': '4'
+            'large':
+              'value': '10'
+    'tabAdvanced':
+      'label': Advanced
+      'fields':
+        'inputType':
+          'class': 'info.magnolia.ui.form.field.definition.SelectFieldDefinition'
+          'defaultValue': 'text'
+          'required': true
+          'type': 'String'
+          'options':
+            'text':
+              'value': 'text'
+            'email':
+              'value': 'email'
+            'url':
+              'value': 'url'
+            'color':
+              'value': 'color'
+            'search':
+              'value': 'search'
+            'password':
+              'value': 'password'
+            'number':
+              'label': Number
+              'value': 'number'
+        'placeholder':
+          'class': 'info.magnolia.ui.form.field.definition.TextFieldDefinition'
+          'type': 'String'
+        'pattern':
+          'class': 'info.magnolia.ui.form.field.definition.TextFieldDefinition'
+          'type': 'String'
+        'patternDescription':
+          'class': 'info.magnolia.ui.form.field.definition.TextFieldDefinition'
+          'type': 'String'
+        'readonly':
+          'class': 'info.magnolia.ui.form.field.definition.CheckboxFieldDefinition'
+          'defaultValue': 'false'
+          'type': 'Boolean'
+        'disabled':
+          'class': 'info.magnolia.ui.form.field.definition.CheckboxFieldDefinition'
+          'defaultValue': 'false'
+          'type': 'Boolean'
+        'autofocus':
+          'class': 'info.magnolia.ui.form.field.definition.CheckboxFieldDefinition'
+          'defaultValue': 'false'
+          'type': 'Boolean'
+        'autocomplete':
+          'class': 'info.magnolia.ui.form.field.definition.CheckboxFieldDefinition'
+          'defaultValue': 'false'
+          'type': 'Boolean'
+    'tabStyle':
+      'label': Style
+      'fields':
+        - name: cell
+          class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+          multiselect: false
+          type: String
+          label: Page Layout
+          options:
+          - name: 1of1
+            label: 1 column
+            selected: true
+          - name: 1of2
+            label: 2 columns
+        - name: border
+          label: border
+          buttonLabel: Has border
+          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          defaultValue: true
+          type: Boolean

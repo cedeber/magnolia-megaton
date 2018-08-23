@@ -1,0 +1,27 @@
+'actions':
+  'commit':
+    'class': 'info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition'
+  'cancel':
+    'class': 'info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition'
+'form':
+  'tabs':
+    'tabMain':
+      'label': Main
+      'fields':
+        'title':
+          'class': 'info.magnolia.ui.form.field.definition.TextFieldDefinition'
+          'i18n': true
+    'tabStyle':
+      'label': Style
+      'fields':
+      - name: cell
+        class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+        multiselect: false
+        type: String
+        label: Page Layout
+        options:
+        - name: 1of1
+          label: 1 column
+          selected: true
+        - name: 1of2
+          label: 2 columns

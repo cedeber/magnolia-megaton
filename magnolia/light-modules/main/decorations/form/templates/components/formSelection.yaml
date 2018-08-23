@@ -1,0 +1,3 @@
+templateScript: /main/templates/form/formSelection.ftl
+dialog: main:form/formSelection
+modelClass: ch.openinteractive.main.form.FormFieldModel
