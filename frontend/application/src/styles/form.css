@@ -51,7 +51,9 @@ form {
     }
 
     & .form-row,
-    & .form-item-l {
+    & .form-item-l,
+    & .form-row .cell-2of3,
+    & .form-row .cell-1of3{
         position: relative;
     }
 
@@ -61,6 +63,22 @@ form {
 
         &.no-border {
             border-bottom: none;
+        }
+    }
+
+    /* Cell-1of3 and Cell-2of3 Group Field */
+    & .form-row [class*="o-flex-inline"].has-gutter {
+        & > * {
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+
+        & .cell-1of3 {
+            flex-basis: calc((100% / 3) - 2rem);
+        }
+
+        & .cell-2of3 {
+            flex-basis: calc((100% / 3 * 2) - 2rem);
         }
     }
 
