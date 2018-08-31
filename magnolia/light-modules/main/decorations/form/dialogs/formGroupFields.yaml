@@ -1,0 +1,16 @@
+'form':
+  'tabs':
+    'tabStyle':
+      'label': Style
+      'fields':
+      - name: cell
+        class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+        multiselect: false
+        type: String
+        label: Page Layout
+        options:
+        - name: 1of1
+          label: 1 column
+          selected: true
+        - name: 1of2
+          label: 2 columns

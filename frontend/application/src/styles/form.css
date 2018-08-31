@@ -1,6 +1,5 @@
 @import url(../variables.css);
 
-/* TODO: Should form be implemented in bootstrap? */
 /* Form Styling not for Magnolia Backend */
 .form:only-child form {
     /* Flex and gutter */

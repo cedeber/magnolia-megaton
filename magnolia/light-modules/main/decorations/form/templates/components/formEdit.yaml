@@ -1,3 +1,2 @@
 templateScript: /main/templates/form/formEdit.ftl
-dialog: main:form/formEdit
 modelClass: ch.openinteractive.main.form.FormFieldModel
