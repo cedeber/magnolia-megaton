@@ -5,7 +5,7 @@ form:
       label: Background Media
       fields:
         - name: image
-          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          fieldType: link
           targetWorkspace: dam
           appName: assets
           label: Image, Poster
@@ -20,7 +20,7 @@ form:
               pattern: image/*
               errorMessage: Choose an image
         - name: video
-          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          fieldType: link
           targetWorkspace: dam
           appName: assets
           label: Video
@@ -33,43 +33,43 @@ form:
               pattern: video/*
               errorMessage: Choose a video
         - name: isAutoplay
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          fieldType: checkbox
           label: Auto play
           buttonLabel: Play the video automatically or show controls
           defaultValue: false
         - name: hasCaption
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          fieldType: checkbox
           label: Show caption
           buttonLabel: Show the caption, if any, defined in the Asset Manager
           defaultValue: false
         - name: isInstantly
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          fieldType: checkbox
           label: Instantly
           buttonLabel: The media loads as soon as possible (no Intersection Observer)
           defaultValue: false
         - name: isCover
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          fieldType: checkbox
           label: Media as cover
           buttonLabel: The media covers the whole container (like a background)
           defaultValue: true
         - name: maxWidth
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          fieldType: text
           label: Max. width
           description: Maximum rendition width to use for responsive pictures
         - name: ratio
-          class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
+          fieldType: composite
           transformerClass: info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
           label: Fixed ratio
           description: For instance, 16 / 9 for videos or 4 / 3 for images.
           fields:
             - name: width
-              class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              fieldType: text
               label: Width unit
             - name: height
-              class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              fieldType: text
               label: Height unit
         - name: position
-          class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+          fieldType: optionGroup
           layout: horizontal
           sortOptions: false
           label: Position
@@ -91,13 +91,13 @@ form:
       label: Foreground Text
       fields:
         - name: title
-          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+          fieldType: richText
           label: Title
           i18n: true
           height: 120
           configJsFile: /.resources/main/dialogs/include/config/title.js
         - name: body
-          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+          fieldType: richText
           label: Paragraph
           i18n: true
           height: 180

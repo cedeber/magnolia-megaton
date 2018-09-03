@@ -9,15 +9,15 @@ form:
           defaultValue: true
           type: Boolean
         - name: autoplay
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          fieldType: checkbox
           label: Carousel autoplay
           buttonLabel: Switch automatically between the slides
         - name: delay
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          fieldType: text
           label: Delay (ms)
           defaultValue: 5000
         - name: renderType
-          class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+          fieldType: select
           label: Render Type
           options:
             - name: linear
@@ -28,7 +28,7 @@ form:
             - name: async
               label: Asynchronous
         - name: orientation
-          class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+          fieldType: select
           label: Orientation
           options:
             - name: horizontal

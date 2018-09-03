@@ -4,7 +4,7 @@
       'label': Style
       'fields':
       - name: cell
-        class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+        fieldType: optionGroup
         multiselect: false
         type: String
         label: Page Layout

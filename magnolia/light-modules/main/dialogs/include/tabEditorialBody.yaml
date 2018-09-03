@@ -2,23 +2,23 @@ name: tabEditorialBody
 label: Editorial Body
 fields:
   - name: body
-    class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+    fieldType: richText
     label: Article body
     i18n: true
     height: 450
     configJsFile: /.resources/main/dialogs/include/config/editorial.js
   # TODO exclude call to action (include into footer links too)
   - name: callToAction
-    class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
+    fieldType: composite
     transformerClass:  info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
     label: Call to action
     layout: vertical
     fields:
       - name: callToActionText
-        class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        fieldType: text
         label: Text
       - name: callToActionLink
-        class: info.magnolia.ui.form.field.definition.SwitchableFieldDefinition
+        fieldType: switchable
         label: Redirect Page
         options:
           - name: Internal
@@ -33,15 +33,15 @@ fields:
             value: Section
         fields:
           - name: Internal
-            class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+            fieldType: link
             label: Internal link
             targetWorkspace: website
             appName: pages
             identifierToPathConverter:
               class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
           - name: External
-            class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+            fieldType: text
             label: External link
           - name: Section
-            class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+            fieldType: text
             label: Section ID

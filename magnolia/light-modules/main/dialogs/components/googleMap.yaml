@@ -4,30 +4,30 @@ form:
       label: Map
       fields:
         - name: apiKey
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          fieldType: text
           label: API Key
           description: Google Maps API Key
           i18n: true
           required: true
         - name: zoom
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          fieldType: text
           label: Zoom
           description: The zoom of the Google Map
           i18n: true
         - name: lat
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          fieldType: text
           label: Latitude
           description: The latitude of the center and marker point.
           i18n: true
           required: true
         - name: long
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          fieldType: text
           label: Longitude
           description: The longitude of the center and the marker point.
           i18n: true
           required: true
         - name: markerIcon
-          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          fieldType: link
           targetWorkspace: dam
           appName: assets
           label: Marker icon
@@ -41,13 +41,13 @@ form:
               pattern: image/*
               errorMessage: Choose an image
         - name: info
-          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+          fieldType: richText
           label: Info window content
           height: 180
           configJsFile: /.resources/main/dialogs/include/config/simple.js
           i18n: true
         - name: styles
-          class: info.magnolia.ui.form.field.definition.CodeFieldDefinition
+          fieldType: code
           language: javascript
           label: Map styles
           description: JSON from https://mapstyle.withgoogle.com/

@@ -1,5 +1,5 @@
 name: backgroundTheme
-class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+fieldType: select
 label: Theme
 sortOptions: false
 options:

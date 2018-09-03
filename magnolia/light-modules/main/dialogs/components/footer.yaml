@@ -5,7 +5,7 @@ form:
       label: Main
       fields:
         - name: copyright
-          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+          fieldType: richText
           label: Copyright notice
           i18n: true
           height: 180

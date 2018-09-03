@@ -6,11 +6,11 @@ form:
       label: Main
       fields:
         - name: searchFor
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          fieldType: text
           label: Search for
           i18n: true
         - name: noResults
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          fieldType: text
           label: No results
           i18n: true
         

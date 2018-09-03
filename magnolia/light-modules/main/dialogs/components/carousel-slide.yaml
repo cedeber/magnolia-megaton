@@ -5,7 +5,7 @@ form:
       label: Background media
       fields:
         - name: image
-          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          fieldType: link
           targetWorkspace: dam
           appName: assets
           label: Image, Poster
@@ -20,7 +20,7 @@ form:
             pattern: image/*
             errorMessage: Choose an image
         - name: video
-          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          fieldType: link
           targetWorkspace: dam
           appName: assets
           label: Video
@@ -45,7 +45,7 @@ form:
           defaultValue: true
           type: Boolean
         - name: position
-          class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+          fieldType: optionGroup
           layout: horizontal
           sortOptions: false
           label: Position
@@ -67,13 +67,13 @@ form:
       label: Foreground Text
       fields:
       - name: title
-        class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+        fieldType: richText
         label: Title
         i18n: true
         height: 120
         configJsFile: /.resources/main/dialogs/include/config/title.js
       - name: body
-        class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+        fieldType: richText
         label: Paragraph
         i18n: true
         height: 180

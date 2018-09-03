@@ -7,7 +7,7 @@ form:
     - !include:/main/dialogs/include/sectionLayoutOverride.yaml
       fields:
         - name: textAlignment
-          class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+          fieldType: optionGroup
           multiselect: false
           type: String
           label: Alignment override

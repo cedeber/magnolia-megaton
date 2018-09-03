@@ -5,57 +5,57 @@ form:
       label: Configuration
       fields:
         #- name: asHero
-        #  class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+        #  fieldType: checkbox
         #  label: Hero Banner
         #  buttonLabel: The Carousel is a Hero Banner (from header to bottom viewport)
         #- name: hasGutter
-        #  class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+        #  fieldType: checkbox
         #  label: Has Gutter
         #  buttonLabel: The slides have a gutter
         #  defaultValue: false
         - name: ratio
-          class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
+          fieldType: composite
           transformerClass: info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
           label: Slide fixed ratio
           description: For instance, 16 / 9 for videos or 4 / 3 for images.
           required: true
           fields:
             - name: width
-              class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              fieldType: text
               label: Width unit
               required: true
             - name: height
-              class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              fieldType: text
               label: Height unit
               required: true
         - name: autoplay
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          fieldType: checkbox
           label: Carousel autoplay
           buttonLabel: Switch automatically between the slides
         #- name: startAt
-        #  class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        #  fieldType: text
         #  label: Start at
         #  defaultValue: 0
         - name: delay
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          fieldType: text
           label: Delay (ms)
           defaultValue: 5000
         #- name: transitionDelay
-        #  class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        #  fieldType: text
         #  label: Transition (ms)
         #  defaultValue: 1500
         #- name: maxWidth
-        #  class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        #  fieldType: text
         #  label: Slide max. width (px)
         #- name: minWidth
-        #  class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        #  fieldType: text
         #  label: Slide min. width (px)
         #- name: columns
-        #  class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        #  fieldType: text
         #  label: Slides per page
         #  description: Overwrite min. and max. values
         - name: renderType
-          class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+          fieldType: select
           label: Render Type
           options:
             - name: linear
@@ -66,7 +66,7 @@ form:
             #- name: async
             #  label: Asynchronous
         - name: orientation
-          class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+          fieldType: select
           label: Orientation
           options:
             - name: horizontal

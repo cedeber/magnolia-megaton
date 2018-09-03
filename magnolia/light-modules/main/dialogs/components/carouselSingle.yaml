@@ -5,30 +5,30 @@ form:
       label: Configuration
       fields:
         - name: ratio
-          class: info.magnolia.ui.form.field.definition.CompositeFieldDefinition
+          fieldType: composite
           transformerClass: info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
           label: Slide fixed ratio
           description: For instance, 16 / 9 for videos or 4 / 3 for images.
           required: true
           fields:
             - name: width
-              class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              fieldType: text
               label: Width unit
               required: true
             - name: height
-              class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              fieldType: text
               label: Height unit
               required: true
         - name: autoplay
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          fieldType: checkbox
           label: Carousel autoplay
           buttonLabel: Switch automatically between the slides
         - name: delay
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          fieldType: text
           label: Delay (ms)
           defaultValue: 5000
         - name: renderType
-          class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+          fieldType: select
           label: Render Type
           options:
             - name: linear
@@ -39,7 +39,7 @@ form:
             - name: async
               label: Asynchronous
         - name: orientation
-          class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+          fieldType: select
           label: Orientation
           options:
             - name: horizontal

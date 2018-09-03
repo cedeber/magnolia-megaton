@@ -8,11 +8,11 @@ form:
             - name: wide
               label: as wide as the viewport
         - name: noPageGutters
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          fieldType: checkbox
           label: Page gutters
           buttonLabel: Remove page gutters (if wide + theme)
         - name: cell
-          class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+          fieldType: optionGroup
           multiselect: false
           type: String
           label: Page Layout
@@ -27,7 +27,7 @@ form:
             - name: 1of4
               label: 4 columns
         - name: hasGutter
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
+          fieldType: checkbox
           label: Columns gutters
           buttonLabel: Add gutters between columns
 
@@ -35,7 +35,7 @@ form:
       label: Application
       fields:
         - name: sectionID
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          fieldType: text
           label: Section ID
           description: no space
 

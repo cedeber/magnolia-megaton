@@ -2,17 +2,17 @@ name: tabEditorialHeader
 label: Editorial Header
 fields:
   - name: preHeader
-    class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+    fieldType: text
     label: Pre-header
     i18n: true
   - name: title
-    class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+    fieldType: richText
     label: Article Title
     i18n: true
     height: 120
     configJsFile: /.resources/main/dialogs/include/config/title.js
   - name: intro
-    class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
+    fieldType: richText
     label: Article introduction
     i18n: true
     height: 180

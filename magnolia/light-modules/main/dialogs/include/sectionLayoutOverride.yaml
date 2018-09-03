@@ -2,7 +2,7 @@ name: tabLayout
 label: Layout
 fields:
   - name: layoutOverride
-    class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+    fieldType: optionGroup
     layout: horizontal
     sortOptions: false
     label: Layout override

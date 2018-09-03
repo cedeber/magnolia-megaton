@@ -5,7 +5,7 @@ form:
       fields:
         - name: redirect
           required: true
-          class: info.magnolia.ui.form.field.definition.SwitchableFieldDefinition
+          fieldType: switchable
           label: Redirect Page
           options:
             - name: internal
@@ -17,14 +17,14 @@ form:
               value: external
           fields:
             - name: internal
-              class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+              fieldType: link
               label: Internal link
               targetWorkspace: website
               appName: pages
               identifierToPathConverter:
                 class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
             - name: external
-              class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+              fieldType: text
               label: External link
               
 actions: !include:/main/dialogs/include/commonActions.yaml
