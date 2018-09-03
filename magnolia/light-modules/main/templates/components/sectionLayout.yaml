@@ -16,3 +16,5 @@ areas:
         id: main:components/carouselSingle
       map:
         id: main:components/googleMap
+      form:
+        id: form:components/form

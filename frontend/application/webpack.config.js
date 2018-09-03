@@ -51,6 +51,7 @@ const cssLoaderConfig = [
                     stage: 2,
                     features: {
                         "custom-media-queries": true,
+                        "nesting-rules": true,
                     },
                     browsers: "> 0.5% in CH, Firefox ESR, not dead",
                     autoprefixer: {
