@@ -34,7 +34,7 @@
         const link = document.createElement("link");
 
         link.setAttribute("rel", "stylesheet");
-        link.setAttribute("media", media);
+        link.setAttribute("media", "screen");
         link.setAttribute("href", "${ctx.contextPath}/.resources/main/webresources/external/outdatedbrowser.min.css");
 
         document.head.appendChild(link);

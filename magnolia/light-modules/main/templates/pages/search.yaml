@@ -28,7 +28,7 @@ areas:
         id: main:components/carousel
 
   main:
-    title: Search results
+    title: Search results<
     renderType: freemarker
     templateScript: /main/templates/areas/searchResults.ftl
     dialog: main:areas/searchResults
