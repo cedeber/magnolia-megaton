@@ -75,8 +75,9 @@
 
     /* Form */
     --form-fieldset-splitter-height: 4.4rem;
-    --form-input-default-color: var(--base02);
-    --form-input-active-color: var(--blue);
+    --form-default-color: var(--base02);
+    --form-error: var(--red);
+    --form-active: var(--blue);
 
     /* Timings */
     --default-timing: 350ms;

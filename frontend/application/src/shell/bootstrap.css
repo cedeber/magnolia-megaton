@@ -564,7 +564,7 @@ textarea {
 
 input,
 textarea {
-    border: 1px solid var(--form-input-default-color);
+    border: 1px solid var(--form-default-color);
     padding: 8px;
 }
 
@@ -582,15 +582,15 @@ textarea:disabled {
     opacity: 0.35;
 }
 
-input:valid { border-color: var(--form-input-default-color); }
-input:required:invalid { border-color: var(--form-input-active-color); }
+input:valid { border-color: var(--form-default-color); }
+input:required:invalid { border-color: var(--form-error); }
 
 input[type="checkbox"] {
     cursor: pointer;
 }
 
 input[type="checkbox"]:checked {
-    background: var(--form-input-default-color);
+    background: var(--form-default-color);
     box-shadow: inset 0 0 0 2px white;
 }
 
@@ -604,7 +604,7 @@ input[type="radio"] + label {
 
 input[type="radio"] + label::before {
     content: "";
-    border: 3px solid var(--form-input-active-color);
+    border: 3px solid var(--form-active);
     width: 12px;
     height: 12px;
     border-radius: 6px;
@@ -616,7 +616,7 @@ input[type="radio"] + label::before {
 }
 
 input[type="radio"]:checked + label::before {
-    background-color: var(--form-input-active-color);
+    background-color: var(--form-active);
 }
 
 

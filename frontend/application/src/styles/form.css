@@ -1,25 +1,25 @@
 @import url(../variables.css);
 
 /* Form Styling not for Magnolia Backend */
-.form:only-child form {
+.form:only-child form fieldset {
     /* Flex and gutter */
     & .fieldset-inner-wrapper.has-gutter {
-        margin-left: -1.5rem;
-        margin-right: -1.5rem;
+        margin-left: calc(var(--page-gutter-width) * -1);
+        margin-right: calc(var(--page-gutter-width) * -1);
         margin-bottom: -35px;
     }
 
     & .cell-1of1 {
-        flex: 0 0 calc(100% - 3rem);
-        margin-left: 1.5rem;
-        margin-right: 1.5rem;
+        flex: 0 0 calc(100% - (2 * var(--page-gutter-width)));
+        margin-left: var(--page-gutter-width);
+        margin-right: var(--page-gutter-width);
         margin-bottom: 35px;
     }
 
     & .cell-1of2 {
-        flex: 0 0 calc(50% - 3rem);
-        margin-left: 1.5rem;
-        margin-right: 1.5rem;
+        flex: 0 0 calc(50% - (2 * var(--page-gutter-width)));
+        margin-left: var(--page-gutter-width);
+        margin-right: var(--page-gutter-width);
         margin-bottom: 35px;
     }
 
@@ -36,7 +36,7 @@
 }
 
 /* Form Styling also for Magnolia Backend */
-form {
+.form fieldset {
     font-size: 18px;
     & h2 {
         font-size: 20px;
@@ -59,7 +59,7 @@ form {
 
     & .form-row {
         margin-bottom: 17px;
-        border-bottom: 1px solid var(--form-input-default-color);
+        border-bottom: 1px solid var(--form-default-color);
 
         &.no-border {
             border-bottom: none;
@@ -87,7 +87,7 @@ form {
         display: block;
         position: relative;
         flex: 0 0 calc(100% - 3rem);
-        margin: 0 1.5rem 5rem 1.5rem;
+        margin: 0 var(--page-gutter-width) 5rem var(--page-gutter-width);
 
         &:after{
             content: "";
@@ -98,7 +98,7 @@ form {
     & input[type="submit"] {
         display: inline-block;
         color: white;
-        background: var(--form-input-default-color);
+        background: var(--form-default-color);
         max-width: 120px;
         height: 40px;
         position: absolute;
@@ -114,7 +114,7 @@ form {
     }
 
     & input[type="submit"]:hover {
-        background: var(--form-input-active-color);
+        background: var(--form-active);
     }
 
     /* Input Styling */
@@ -132,7 +132,7 @@ form {
         border: 0;
         border-radius: 0;
         appearance: none;
-        margin-bottom: 1rem;
+        margin-bottom: 0;
     }
 
     & input[type="text"],
@@ -147,9 +147,9 @@ form {
     }
 
     & textarea {
-        margin-top: 38px;
+        margin-top: 28px;
         margin-bottom: 0;
-        border: 1px solid var(--form-input-default-color);
+        border: 1px solid var(--form-default-color);
     }
 
     /* Select, Radio and Checkbox */
@@ -189,14 +189,14 @@ form {
             transition: transform 0.2s ease-out;
 
             &.active {
-                color: var(--form-input-active-color);
+                color: var(--form-active);
                 transform: translate(0px,-6px) rotate(180deg);
             }
         }
 
         & .selection-list {
             background-color: white;
-            border: 1px solid var(--form-input-default-color);
+            border: 1px solid var(--form-default-color);
             width: 100%;
             position: absolute;
             left: 0;
@@ -216,7 +216,7 @@ form {
             }
 
             & li:hover {
-                background: var(--form-input-active-color);
+                background: var(--form-active);
                 color: white;
             }
         }
@@ -232,7 +232,7 @@ form {
     }
 
     & input[type="radio"] + label:before {
-        border: 2px solid var(--form-input-default-color);
+        border: 2px solid var(--form-default-color);
         border-radius: 10px;
         width: 21px;
         height: 21px;
@@ -240,7 +240,7 @@ form {
     }
 
     & input[type="radio"]:checked + label:before {
-        background: var(--form-input-default-color);
+        background: var(--form-default-color);
         padding: 2px;
     }
 
@@ -268,10 +268,10 @@ form {
     & input[type="checkbox"] {
         width: 14px;
         height: 14px;
-        border: 1px solid var(--form-input-default-color);
+        border: 1px solid var(--form-default-color);
 
         &:required:invalid {
-            border: 2px solid var(--form-input-default-color);
+            border: 2px solid var(--form-error);
         }
 
         & + label {
@@ -280,7 +280,7 @@ form {
         }
 
         & + label:after {
-            background: var(--form-input-default-color);
+            background: var(--form-default-color);
             position: absolute;
             opacity: 0;
             top: 9px;
@@ -302,17 +302,17 @@ form {
 
     /* label styling */
     & label {
-        color: var(--form-input-default-color);
+        color: var(--form-default-color);
         position: absolute;
         margin-bottom: 0;
         left: 0;
         bottom: 0;
-        transform: translate(0, -13px);
+        transform: translate(0, 0);
         transition: 0.2s ease-in-out;
 
         &.active {
-            color: var(--form-input-active-color);
-            transform: translate(0, -47px);
+            color: var(--form-active);
+            transform: translate(0, -29px);
             font-size: 14px;
         }
 
@@ -332,20 +332,20 @@ form {
 
     & input[type="radio"]:checked + label,
     & input[type="checkbox"]:checked + label {
-        color: var(--form-input-default-color);
+        color: var(--form-default-color);
     }
 
     & textarea + label {
         position: absolute;
         left: 0;
         top: 0;
-        transform: translate(0, -5px);
+        transform: translate(0, 0);
         transition: 0.2s ease-in-out;
     }
 
     & textarea + label.active {
-        color: var(--form-input-active-color);
-        transform: translate(0, -5px);
+        color: var(--form-active);
+        transform: translate(0, 0);
         font-size: inherit;
     }
 
@@ -356,7 +356,7 @@ form {
 }
 
 @media (--for-md-up) {
-    form .hidden {
+    .form .hidden {
         position: absolute !important;
         width: 1px !important;
         height: 1px !important;
@@ -371,21 +371,27 @@ form {
 }
 
 @media (--for-md-down) {
-    form .selection-wrapper .arrow {
+    .form .selection-wrapper .arrow {
         width: 24px;
         height: 12px;
         transform: translate(0,-6px);
 
         &.active {
-            color: var(--orange);
+            color: var(--form-active);
             transform: translate(0,-6px) rotate(180deg);
         }
     }
 }
 
 @media (--for-sm-down) {
-    .form:only-child form {
+    .form:only-child form fieldset {
         & .fieldset-inner-wrapper {
+            margin-left: 0;
+            margin-right: 0;
+            margin-bottom: -30px;
+        }
+
+        & .fieldset-inner-wrapper.has-gutter {
             margin-left: 0;
             margin-right: 0;
             margin-bottom: -30px;
@@ -400,13 +406,7 @@ form {
         }
     }
 
-    .form:only-child form .fieldset-inner-wrapper.has-gutter {
-        margin-left: 0;
-        margin-right: 0;
-        margin-bottom: -30px;
-      }
-
-    .form .button-wrapper {
+    .form fieldset .button-wrapper {
         margin: 0 0 5rem 0;
         flex: 0 0 100%;
         & input[type="submit"] {
@@ -415,8 +415,8 @@ form {
         }
     }
 
-    form .selection-wrapper .selection-list,
-    form .selection-wrapper .selection-selected{
+    .form fieldset .selection-wrapper .selection-list,
+    .form fieldset .selection-wrapper .selection-selected{
         display: none;
     }
 }
