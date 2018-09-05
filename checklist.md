@@ -16,6 +16,13 @@
 - [ ] Custom Cookie compliance style
 - [ ] Check Form submissions
 
+# Design Acceptance
+- [ ] Cookie Banner
+- [ ] 404/Fehlerseite
+- [ ] Datenschutzerklärung in Formular
+- [ ] Success und Error Page/Feld in Formular
+- [ ] Webfonts erhalten
+
 # Magnolia Configurations
 ## Project setup
 - [ ] Anonymous password (public)
