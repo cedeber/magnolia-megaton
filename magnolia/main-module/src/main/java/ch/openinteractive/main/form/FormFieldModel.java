@@ -20,8 +20,7 @@ public class FormFieldModel<RD extends RenderableDefinition> extends RenderingMo
     private static final Logger log = LoggerFactory.getLogger(FormFieldModel.class);
     private Object value;
     private String cellStyling = getCellStyling();
-    private String border = getBorder();
-    private String style = "class=\"form-row " + cellStyling + " " + border + "\"";
+    private String style = "class=\"form-row " + cellStyling + "\"";
     private boolean valid;
     protected final TemplatingFunctions functions;
 
@@ -125,16 +124,6 @@ public class FormFieldModel<RD extends RenderableDefinition> extends RenderingMo
             return cellObject != null ? "cell-" + cellObject.toString() : "";
         } catch (RepositoryException e) {
             log.error("Cell Property not found in form field. Form field path: " + super.content + "/r/n", e);
-        }
-        return "";
-    }
-
-    private String getBorder() {
-        try {
-            boolean hasBorder = super.content.getProperty("border").getBoolean();
-            return hasBorder ? "" : "no-border";
-        } catch (RepositoryException e) {
-            log.error("Border Property not found in form field. Form field path: " + super.content + "/r/n", e);
         }
         return "";
     }
