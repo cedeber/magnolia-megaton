@@ -4,8 +4,8 @@ templateScript: /main/templates/components/footer.ftl
 dialog: main:components/footer
 
 areas:
-  linksArea:
+  links:
     availableComponents:
-      footerLink:
+      link:
         id: main:components/footer-link
 

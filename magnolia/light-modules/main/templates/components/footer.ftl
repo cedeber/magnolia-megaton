@@ -15,7 +15,7 @@
         <div>${cmsfn.decode(content).copyright!}</div>
         <div>
             <ul class="o-flex-inline">
-                [@cms.area name="linksArea"/]
+                [@cms.area name="links"/]
             </ul>
         </div>
     </div>
