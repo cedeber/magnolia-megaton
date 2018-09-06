@@ -1,2 +1,2 @@
 templateScript: /main/templates/form/formEdit.ftl
-modelClass: ch.openinteractive.main.form.FormFieldModel
+modelClass: ch.openinteractive.main.form.OIFormFieldModel

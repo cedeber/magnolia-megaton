@@ -1,10 +1,8 @@
 package ch.openinteractive.main.form;
 
 import info.magnolia.jcr.util.PropertyUtil;
-import info.magnolia.module.form.engine.FormField;
-import info.magnolia.module.form.templates.components.AbstractFormModel;
+import info.magnolia.module.form.templates.components.FormFieldModel;
 import info.magnolia.rendering.model.RenderingModel;
-import info.magnolia.rendering.model.RenderingModelImpl;
 import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
 
@@ -16,33 +14,27 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FormFieldModel<RD extends RenderableDefinition> extends RenderingModelImpl<RD> {
-    private static final Logger log = LoggerFactory.getLogger(FormFieldModel.class);
-    private Object value;
+public class OIFormFieldModel<RD extends RenderableDefinition> extends FormFieldModel {
+    private static final Logger log = LoggerFactory.getLogger(OIFormFieldModel.class);
     private String cellStyling = getCellStyling();
     private String style = "class=\"form-row " + cellStyling + "\"";
-    private boolean valid;
     protected final TemplatingFunctions functions;
 
     @Inject
-    public FormFieldModel(Node content, RD definition, RenderingModel<?> parent, TemplatingFunctions functions) {
-        super(content, definition, parent);
+    public OIFormFieldModel(Node content, RD definition, RenderingModel<?> parent, TemplatingFunctions functions) {
+        super(content, definition, parent, functions);
         this.functions = functions;
     }
 
+    @Override
     public String execute() {
         log.debug("Executing {}", this.getClass());
-        this.validate();
-        this.handleValue();
+        super.execute();
         this.handleStyle();
         return "";
     }
 
-    private void validate() {
-        FormField field = this.getFormModel().getFormField(this.getControlName());
-        this.valid = field == null || field.isValid();
-    }
-
+    @Override
     protected void handleStyle() {
         String cssClass = "";
         if (!this.isValid()) {
@@ -70,52 +62,9 @@ public class FormFieldModel<RD extends RenderableDefinition> extends RenderingMo
 
     }
 
-    public boolean isValid() {
-        return this.valid;
-    }
-
-    public Object getValue() {
-        return this.value;
-    }
-
-    protected void handleValue() {
-        FormField field = this.getFormModel().getFormField(this.getControlName());
-        Object val = field != null ? field.getValue() : null;
-        if (val == null) {
-            val = PropertyUtil.getString(this.content, "default");
-        }
-
-        if (val == null) {
-            val = "";
-        }
-
-        this.value = val;
-    }
-
+    @Override
     public String getStyle() {
         return this.style;
-    }
-
-    public String getRightText() throws RepositoryException {
-        return this.getFormModel().getRightText();
-    }
-
-    public String getRequiredSymbol() throws RepositoryException {
-        return this.getFormModel().getRequiredSymbol();
-    }
-
-    private String getControlName() {
-        return PropertyUtil.getString(this.content, "controlName");
-    }
-
-    private AbstractFormModel getFormModel() {
-        for (RenderingModel model = this.parentModel; model != null; model = model.getParent()) {
-            if (model instanceof AbstractFormModel) {
-                return (AbstractFormModel) model;
-            }
-        }
-
-        return null;
     }
 
     private String getCellStyling() {
