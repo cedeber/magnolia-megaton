@@ -1,0 +1,47 @@
+form:
+  label: Custom Form
+  tabs:
+    - name: tabMain
+      label: Main
+      fields:
+        - name: privacyPage
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          label: Privacy Page
+          required: true
+          targetWorkspace: website
+          appName: pages
+          identifierToPathConverter:
+            class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+            
+        - name: termsConditionsPage
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          label: Terms and Conditions Page
+          required: true
+          targetWorkspace: website
+          appName: pages
+          identifierToPathConverter:
+            class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+            
+        - name: fromEmail
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: From Email
+          i18n: true
+          required: true
+          
+        - name: recipient
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: Recipient
+          i18n: true
+          required: true
+          
+        - name: subject
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          label: Subject
+          i18n: true
+          required: true
+
+actions:
+  commit:
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+  cancel:
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
