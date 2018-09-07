@@ -70,10 +70,10 @@ public class OIFormFieldModel<RD extends RenderableDefinition> extends FormField
     private String getCellStyling() {
         try {
             Object cellObject = super.content.getProperty("cell").getString();
-            return cellObject != null ? "cell-" + cellObject.toString() : "";
+            return cellObject != null ? "cell-" + cellObject.toString() : "1of1";
         } catch (RepositoryException e) {
             log.error("Cell Property not found in form field. Form field path: " + super.content + "/r/n", e);
         }
-        return "";
+        return "cell-1of1";
     }
 }
