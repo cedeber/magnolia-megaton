@@ -1,79 +1,24 @@
-mgnl:template: 'sampleTwoColumns'
-'actions':
-  'commit':
-    'class': 'info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition'
-  'cancel':
-    'class': 'info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition'
-'form':
-  label: Linked Checkbox
-  'tabs':
-    'tabMain':
-      'label': Main
-      'fields':
-        'title':
-          label: Title
-          'class': 'info.magnolia.ui.form.field.definition.TextFieldDefinition'
-          'i18n': true
-          'rows': '1'
-          'type': 'String'
-        'controlName':
-          label: Control Name
-          'class': 'info.magnolia.ui.form.field.definition.TextFieldDefinition'
-          'required': true
-          'rows': '1'
-          'type': 'String'
-        'legend':
-          label: Legend
-          'class': 'info.magnolia.ui.form.field.definition.TextFieldDefinition'
-          'i18n': true
-          'rows': '1'
-          'type': 'String'
-        'mandatory':
-          label: Mandatory
-          buttonLabel: Field is mandatory
-          'class': 'info.magnolia.ui.form.field.definition.CheckboxFieldDefinition'
-          'defaultValue': 'false'
-          'type': 'Boolean'
-        'horizontal':
-          label: Orientation
-          buttonLabel: Horizontal
-          'class': 'info.magnolia.ui.form.field.definition.CheckboxFieldDefinition'
-          'defaultValue': 'false'
-          'type': 'Boolean'
-        'multiple':
-          label: Multiple
-          buttonLabel: Select multiple fields
-          'class': 'info.magnolia.ui.form.field.definition.CheckboxFieldDefinition'
-          'defaultValue': 'false'
-          'type': 'Boolean'
-        'labels':
-          label: Labels and values
-          'class': 'info.magnolia.ui.form.field.definition.RichTextFieldDefinition'
-          'i18n': true
-          'rows': '5'
-          'type': 'String'
-        'default':
-          label: Default value
-          'class': 'info.magnolia.ui.form.field.definition.TextFieldDefinition'
-          'rows': '1'
-          'type': 'String'
-    'tabStyle':
-      'label': Style
-      'fields':
-      - name: cell
-        fieldType: optionGroup
-        multiselect: false
-        type: String
-        label: Page Layout
-        options:
-        - name: 1of1
-          label: 1 column
-          selected: true
-        - name: 1of2
-          label: 2 columns
-      - name: border
-        label: border
-        buttonLabel: Has border
-        fieldType: checkbox
-        defaultValue: true
-        type: Boolean
+form:
+  label: Single Checkbox
+  tabs:
+  - name: tabMain
+    label: Single Checkbox
+    fields:
+    - name: label
+      fieldType: richText
+      label: Field Label
+      i18n: true
+      height: 180
+      required: true
+      configJsFile: /.resources/main/dialogs/include/config/simple.js
+    - name: value
+      label: Field Name
+      fieldType: text
+      required: true
+    - name: mandatory
+      fieldType: checkbox
+      label: Required
+      buttonLabel: Field is mandatory
+      defaultValue: false
+
+actions: !include:/main/dialogs/include/commonActions.yaml

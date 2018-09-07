@@ -8,7 +8,7 @@
     <div class="fieldset-inner-wrapper [#if !cmsfn.editMode]o-flex is-multiline has-gutter[/#if]">
         [#assign title = content.title!cmsfn.editMode?string("Empty Field Set", "")]
         [#if title?has_content]
-            <h2 class="[#if content.cell?has_content]cell-${content.cell}[/#if]">${title}</h2>
+            <legend class="form__fieldset-title">${title}</legend>
         [/#if]
 
         [@cms.area name="fields"/]

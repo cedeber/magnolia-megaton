@@ -1,8 +1,8 @@
-'form':
-  'tabs':
-    'tabStyle':
-      'label': Style
-      'fields':
+form:
+  tabs:
+    tabStyle:
+      label: Inputs group Layout
+      fields:
       - name: cell
         fieldType: optionGroup
         multiselect: false
@@ -10,7 +10,7 @@
         label: Page Layout
         options:
         - name: 1of1
-          label: 1 column
+          label: Full width (1 column)
           selected: true
         - name: 1of2
-          label: 2 columns
+          label: Half width (2 columns)

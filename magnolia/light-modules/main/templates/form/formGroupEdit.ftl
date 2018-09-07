@@ -1,7 +1,3 @@
-
-
-[#assign divID = cmsfn.createHtmlAttribute("class", "form-row cell-" + content.cell!)]
-
-<div ${divID!} >
+<div class="form-row o-flex-inline has-gutter cell-${content.cell!'undefined'}">
     [@cms.area name="edits" /]
 </div>
