@@ -1,5 +1,4 @@
 [#assign root = navfn.rootPage(content)!content!]
-[#assign baseUrl = state.originalBrowserURL?replace(state.currentURI, '')!]
 
 [#assign webAppShortName = "Megaton"]
 [#assign webAppThemeColor = "#000000"]
@@ -13,7 +12,7 @@
 
 <!-- Web Application -->
 <style media="screen">
-    [#include "/main/webresources/build/shell.css"]
+    [#include "/main/webresources/build/module/shell.css"]
 </style>
 
 [#if cmsfn.isEditMode()]
@@ -22,19 +21,6 @@
     .o-flex > .mgnlEditorBar { flex-basis: 100%; }
 </style>
 [/#if]
-
-[#assign app = def.parameters.app!"main"]
-<script>
-    (function() {
-        var linkElement = document.createElement("link");
-
-        linkElement.setAttribute("rel", "stylesheet");
-        linkElement.setAttribute("media", "screen");
-        linkElement.setAttribute("href", "${ctx.contextPath}/app/${app!}.css");
-
-        document.head.appendChild(linkElement);
-    })();
-</script>
 <script>window.mgnlContextPath = "${ctx.contextPath}";</script>
 
 <link rel="manifest" href="${ctx.contextPath}/manifest.json">
@@ -78,8 +64,9 @@
 [/#if]
 
 [#if image?has_content]
-    [#assign imageLink = baseUrl + damfn.getAssetLink(root.image)!]
-    [#assign imageMap = damfn.getAssetMap(root.image)!]
+    [#assign baseUrl = state.originalBrowserURL?replace(ctx.contextPath + state.currentURI, '')!]
+    [#assign imageLink = baseUrl + damfn.getAssetLink(image)!]
+    [#assign imageMap = damfn.getAssetMap(image)!]
     <meta property="og:image" content="${imageLink!}">
     <meta property="og:image:width" content="${imageMap.metadata.mgnl.width?round?string.computer!}">
     <meta property="og:image:height" content="${imageMap.metadata.mgnl.height?round?string.computer!}">

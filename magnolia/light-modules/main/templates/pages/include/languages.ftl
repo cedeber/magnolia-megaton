@@ -1,6 +1,10 @@
 <div class="o-languages">
 [#-- Build language navigation. --]
 [#assign localizedLinks = cmsfn.localizedLinks()!]
+
+[#-- Use following when using in an inherited component --]
+[#--[#assign localizedLinks = cmsfn.localizedLinks(ctx.aggregationState.getMainContentNode())!]--]
+
 [#if localizedLinks?has_content]
     [#assign languages = localizedLinks?keys]
     <ul class="o-flex-inline">

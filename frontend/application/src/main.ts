@@ -1,35 +1,51 @@
 /* --- Shell --- */
-// Extracted separatly by webpack, see webpack.config.js. Injected by FreeMarker
-import "./shell.css";
+// Extracted separately by webpack, see webpack.config.js. Injected by FreeMarker
+import "./shell/shell.css";
 
 /* --- Styles --- */
-// In webpack.config.js you can choose to extract it thanks to the `extractCSS` var
-// If extractCSS == false, the CSS is injected into the HTML by style-loader
 import "./styles/base.css";
 import "./styles/article.css";
-import "./styles/breadcrumbs.css";
+import "./styles/form.css";
 
 /* --- Application --- */
 import Vue from "vue";
-import taggr from "./devtools/taggr";
+import VueScroll from "./plugins/vue-scroll";
+
+Vue.use(VueScroll);
 
 /* --- Components --- */
 // If a Vue (*.vue) component exists, import only it.
 // The related CSS and TS are linked into the Vue component
 import LazyMedia from "./components/lazy-media.vue";
-import Carousel from "./components/carousel";
+import SingleCarousel from "./components/single-carousel.vue";
 import GoogleMap from "./components/google-map.vue";
-
-// Keep it! If you build the app with NODE_ENV == "production", it won't log.
-taggr().warning("Your application is running in development mode.");
+import ToggleItem from "./components/toggle-item";
 
 // Create the vue instance
-const vm = new Vue({});
+const vm = new Vue({
+    data() {
+        return {
+            isMenuOpen: false,
+        };
+    },
+    methods: {
+        toggleMenu() {
+            this.isMenuOpen = !this.isMenuOpen;
+
+            if (this.isMenuOpen) {
+                document.documentElement.classList.add("is-not-scrollable");
+            } else {
+                document.documentElement.classList.remove("is-not-scrollable");
+            }
+        },
+    },
+});
 
 // Declare all components, on all pages
 Vue.component("lazy-media", LazyMedia);
-Vue.component("multi-carousel", Carousel);
+Vue.component("single-carousel", SingleCarousel);
 Vue.component("google-map", GoogleMap);
+Vue.component("toggle-item", ToggleItem);
 
 // Connect the Vue intance to the whole <main id="view"> container
 // Avoid to use the standard DOM API as a virtual-dom will handle it

@@ -23,7 +23,7 @@
     <div class="tag-manager-notice">
         [#if !content.code?has_content || !content.explanations?has_content]
             <div style="padding:8px;background:red;color:white">
-                Please fill code and explanations.
+                Please fill code and explanations on the root page.
             </div>
         [/#if]
         <div style="padding:8px;background:darkslateblue;color:white">

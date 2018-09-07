@@ -1,0 +1,80 @@
+@import url(../variables.css);
+
+/* --- Menu button --- */
+:root {
+    --menu-width: 24px;
+    --menu-bars-height: 3px;
+}
+
+.toggle-menu-button {
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    position: relative;
+    top: 0;
+    right: 0;
+    z-index: 3;
+    outline: 0;
+    padding-left: calc((44px - var(--menu-width)) / 2);
+    margin-left: calc((44px - var(--menu-width)) / -2);
+}
+
+.toggle-menu-bars {
+    display: block;
+}
+
+.toggle-menu-button::before,
+.toggle-menu-bars,
+.toggle-menu-bars::before,
+.toggle-menu-bars::after {
+    position: absolute;
+    width: var(--menu-width);
+    height: var(--menu-bars-height);
+    background: white;
+    transition: var(--default-timing);
+    transform-origin: center;
+    will-change: opacity, transform;
+}
+
+.toggle-menu-bars::before,
+.toggle-menu-bars::after {
+    content: "";
+    left: 0;
+}
+
+.toggle-menu-button::before {
+    content: "";
+    left: calc((44px - var(--menu-width)) / 2);
+}
+
+.toggle-menu-button::before,
+.toggle-menu-bars {
+    top: 20px;
+}
+
+.toggle-menu-bars::before { bottom: 8px }
+.toggle-menu-bars::after { top: 8px; }
+
+/* is open */
+.toggle-menu-button.js-open .toggle-menu-bars::before,
+.toggle-menu-button.js-open .toggle-menu-bars::after {
+    opacity: 0;
+}
+
+.toggle-menu-button.js-open::before {
+    transition: opacity 0s, transform var(--default-timing);
+    transform: rotate(45deg);
+    opacity: 1;
+}
+
+.toggle-menu-button.js-open .toggle-menu-bars {
+    transform: rotate(-45deg);
+}
+
+.toggle-menu-button.js-open .toggle-menu-bars::before {
+    transform: rotate(45deg) translateX(6px) translateY(-2px);
+}
+
+.toggle-menu-button.js-open .toggle-menu-bars::after {
+    transform: rotate(45deg) translateX(-6px) translateY(2px);
+}

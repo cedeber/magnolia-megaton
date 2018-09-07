@@ -1,0 +1,10 @@
+title: Hero carousel
+renderType: freemarker
+templateScript: /main/templates/components/carouselSingle.ftl
+dialog: main:components/carouselHero
+
+areas:
+  slides:
+    availableComponents:
+      slide:
+        id: main:components/carousel-slide

@@ -1,0 +1,109 @@
+form:
+  label: Media
+  tabs:
+    - name: tabMain
+      label: Background Media
+      fields:
+        - name: image
+          fieldType: link
+          targetWorkspace: dam
+          appName: assets
+          label: Image, Poster
+          i18n: true
+          identifierToPathConverter:
+            class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+          contentPreviewDefinition:
+            contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+          validators:
+            - name: image
+              class: ch.openinteractive.main.validators.MimeTypeValidatorDefinition
+              pattern: image/*
+              errorMessage: Choose an image
+        - name: video
+          fieldType: link
+          targetWorkspace: dam
+          appName: assets
+          label: Video
+          i18n: true
+          identifierToPathConverter:
+            class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+          validators:
+            - name: video
+              class: ch.openinteractive.main.validators.MimeTypeValidatorDefinition
+              pattern: video/*
+              errorMessage: Choose a video
+        - name: isAutoplay
+          fieldType: checkbox
+          label: Auto play
+          buttonLabel: Play the video automatically or show controls
+          defaultValue: false
+        - name: hasCaption
+          fieldType: checkbox
+          label: Show caption
+          buttonLabel: Show the caption, if any, defined in the Asset Manager
+          defaultValue: false
+        - name: isInstantly
+          fieldType: checkbox
+          label: Instantly
+          buttonLabel: The media loads as soon as possible (no Intersection Observer)
+          defaultValue: false
+        - name: isCover
+          fieldType: checkbox
+          label: Media as cover
+          buttonLabel: The media covers the whole container (like a background)
+          defaultValue: true
+        - name: maxWidth
+          fieldType: text
+          label: Max. width
+          description: Maximum rendition width to use for responsive pictures
+        - name: ratio
+          fieldType: composite
+          transformerClass: info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
+          label: Fixed ratio
+          description: For instance, 16 / 9 for videos or 4 / 3 for images.
+          fields:
+            - name: width
+              fieldType: text
+              label: Width unit
+            - name: height
+              fieldType: text
+              label: Height unit
+        - name: position
+          fieldType: optionGroup
+          layout: horizontal
+          sortOptions: false
+          label: Position
+          description: If cropped, this is the part of the media which will be shown.
+          options:
+            - name: center
+              selected: true
+              label: Center
+            - name: top
+              label: Top
+            - name: right
+              label: Right
+            - name: bottom
+              label: Bottom
+            - name: left
+              label: Left
+
+    - name: tabText
+      label: Foreground Text
+      fields:
+        - name: title
+          fieldType: richText
+          label: Title
+          i18n: true
+          height: 120
+          configJsFile: /.resources/main/dialogs/include/config/title.js
+        - name: body
+          fieldType: richText
+          label: Paragraph
+          i18n: true
+          height: 180
+          configJsFile: /.resources/main/dialogs/include/config/simple.js
+        # call to action (include)
+
+    - !include:/main/dialogs/include/sectionLayoutOverride.yaml
+
+actions: !include:/main/dialogs/include/commonActions.yaml

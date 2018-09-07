@@ -1,0 +1,6 @@
+title: Linked Checkbox
+renderType: freemarker
+
+templateScript: /main/templates/form/formCheckboxLink.ftl
+dialog: main:form/formCheckboxLink
+modelClass: ch.openinteractive.main.form.FormFieldModel

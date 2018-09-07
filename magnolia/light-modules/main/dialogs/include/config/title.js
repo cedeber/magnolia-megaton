@@ -13,10 +13,9 @@ CKEDITOR.editorConfig = function(config) {
         images: false,
         lists: false,
         source: false,
-        tables: false,
+        tables: false
     };
 
-    config.extraPlugins = "magnolialink,magnoliaFileBrowser";
     config.removePlugins = "elementspath";
 
     config.resize_enabled = false;
@@ -27,6 +26,6 @@ CKEDITOR.editorConfig = function(config) {
 
     config.toolbar = "Magnolia";
     config.toolbar_Magnolia = [
-        { name: "basicstyles", items: [ "Bold", "Italic", "SpecialChar" ] },
+        { name: "basicstyles", items: [ "Bold", "Italic", "SpecialChar", "Superscript", "Subscript" ] }
     ];
 };
