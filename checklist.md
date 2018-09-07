@@ -32,6 +32,7 @@
 - [ ] Set `/server/security/userManagers/system@lockTimePeriod` to 5(minutes)
 - [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (`/modules/cache/config/compression/voters/contentType/allowed@2`)
 - [ ] Set `defaultBaseUrl` in Magnolia server config (author/public)
+- [ ] enable formProcessors/sendConfirmationEMail@enabled
 
 ## Project finalization
 - [ ] Anonymous role access to required workspaces (public)
