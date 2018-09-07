@@ -1,4 +1,4 @@
-<toggle-item inline-template>
+<toggle-item inline-template :default-value="'${model.value!}'">
     <div ${model.style!}>
     [#assign attributes]name="${content.controlName}" id="${content.controlName}"
         [#if content.maxlength?has_content] maxlength="${content.maxlength}"[/#if]

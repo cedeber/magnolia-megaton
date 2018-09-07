@@ -9,7 +9,7 @@
 
 [#-------------- RENDERING PART --------------]
 
-<toggle-item inline-template>
+<toggle-item inline-template :default-value="'${model.value!}'">
     <div ${model.style!} >
         <input ${requiredAttribute!} type="text" name="${content.controlName}" id="${content.controlName}"
                                      value="${model.value!}" maxlength="${content.maxLength!'50'}" v-model="content" @focus="toggleActive()" @blur="toggleActive()"/>

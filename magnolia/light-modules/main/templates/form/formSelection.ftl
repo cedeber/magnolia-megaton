@@ -9,7 +9,7 @@
 
 [#-------------- RENDERING PART --------------]
 
-<toggle-item inline-template>
+<toggle-item inline-template :default-value="'${model.value!}'">
     <div ${model.style!}>
         <fieldset ${content.horizontal?string("class=\"mod\"", "")} >
         [#if content.legend?has_content]
