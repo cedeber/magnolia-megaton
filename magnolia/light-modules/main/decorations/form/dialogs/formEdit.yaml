@@ -8,6 +8,7 @@ form:
         multiselect: false
         type: String
         label: Page Layout
+        sortOptions: false
         options:
         - name: 1of1
           label: Full width (all columns layout)

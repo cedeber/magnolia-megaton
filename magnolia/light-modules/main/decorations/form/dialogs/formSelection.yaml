@@ -8,13 +8,14 @@ form:
         multiselect: false
         type: String
         label: Page Layout
+        sortOptions: false
         options:
         - name: 1of1
-            label: Full width (all columns layout)
-            selected: true
-            - name: 1of2
-              label: Half width (2 columns layout)
-            - name: 1of3
-              label: 1 third (3 columns layout)
-            - name: 2of3
-              label: 3 third (3 columns layout)
+          label: Full width (all columns layout)
+          selected: true
+        - name: 1of2
+          label: Half width (2 columns layout)
+        - name: 1of3
+          label: 1 third (3 columns layout)
+        - name: 2of3
+          label: 3 third (3 columns layout)
