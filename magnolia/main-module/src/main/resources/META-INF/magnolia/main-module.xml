@@ -31,4 +31,16 @@
         </dependency>
 
     </dependencies>
+
+    <!-- Remove comments if needed -->
+    <servlets>
+        <servlet>
+            <name>MailServlet</name>
+            <class>ch.openinteractive.main.servlets.MailServlet</class>
+            <comment>Handles E-Mails from custom forms</comment>
+            <mappings>
+                <mapping>/.mail/*</mapping>
+            </mappings>
+        </servlet>
+    </servlets>
 </module>

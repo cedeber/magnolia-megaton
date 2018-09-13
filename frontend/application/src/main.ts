@@ -19,6 +19,7 @@ Vue.use(VueScroll);
 import LazyMedia from "./components/lazy-media.vue";
 import SingleCarousel from "./components/single-carousel.vue";
 import GoogleMap from "./components/google-map.vue";
+import CustomForm from "./components/customForm.vue";
 import ToggleItem from "./components/toggle-item";
 
 // Create the vue instance
@@ -45,6 +46,7 @@ const vm = new Vue({
 Vue.component("lazy-media", LazyMedia);
 Vue.component("single-carousel", SingleCarousel);
 Vue.component("google-map", GoogleMap);
+Vue.component("custom-form", CustomForm);
 Vue.component("toggle-item", ToggleItem);
 
 // Connect the Vue intance to the whole <main id="view"> container
