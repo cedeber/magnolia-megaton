@@ -1,22 +1,21 @@
-'form':
-  'tabs':
-    'tabStyle':
-      'label': Style
-      'fields':
-        - name: cell
-          fieldType: optionGroup
-          multiselect: false
-          type: String
-          label: Page Layout
-          options:
-          - name: 1of1
-            label: 1 column
-            selected: true
-          - name: 1of2
-            label: 2 columns
-        - name: border
-          label: border
-          buttonLabel: Has border
-          fieldType: checkbox
-          defaultValue: true
-          type: Boolean
+form:
+  tabs:
+    tabStyle:
+      label: Input Layout
+      fields:
+      - name: cell
+        fieldType: optionGroup
+        multiselect: false
+        type: String
+        label: Page Layout
+        sortOptions: false
+        options:
+        - name: 1of1
+          label: Full width (all columns layout)
+          selected: true
+        - name: 1of2
+          label: Half width (2 columns layout)
+        - name: 1of3
+          label: 1 third (3 columns layout)
+        - name: 2of3
+          label: 3 third (3 columns layout)

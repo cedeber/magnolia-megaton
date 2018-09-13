@@ -1,124 +1,233 @@
 @import url(../variables.css);
 
+
+/* --- Default settings --- */
+
+a, button { cursor: pointer; }
+a, button, input { color: inherit; }
+
+button, input, textarea {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+button:-moz-ui-invalid,
+input:-moz-ui-invalid,
+textarea:-moz-ui-invalid {
+    box-shadow: 0 0;
+}
+
+button, input, textarea, label {
+    transition: 350ms;
+}
+
+input { border-radius: 0; }
+input, textarea {
+    font-family: inherit;
+    background: hsla(0, 0%, 100%, 0.17);
+    border-bottom: 2px solid hsl(var(--form-default-color));
+}
+
+button,
+label,
+input[type="radio"],
+input[type="submit"],
+input[type="button"] {
+    cursor: pointer;
+}
+
+/* Button */
+button,
+input[type="submit"],
+input[type="button"] {
+    border-radius: 3px;
+    background: hsl(var(--form-default-color));
+    color: white;
+    border: none;
+    padding: 8px 15px;
+}
+
+button:focus,
+input[type="submit"]:focus,
+input[type="button"]:focus {
+    outline: 0;
+    background: hsl(var(--form-active-color));
+    box-shadow: 0 0 0 1px var(--page-background), 0 0 0 4px hsla(var(--form-active-color), 0.35);
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+    background: hsl(var(--form-active-color));
+}
+
+[type="number"] { -moz-appearance: textfield; }
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+form { width: 100%; }
+
+label {
+    display: inline-block;
+    margin-bottom: 0.8rem;
+}
+
+input:not([type="checkbox"]):not([type="submit"]),
+textarea {
+    width: 100%;
+    color: inherit;
+    padding: 8px 15px;
+}
+
+input:not([type="checkbox"]):not([type="submit"]) {
+    height: 44px;
+}
+
+textarea {
+    height: 140px;
+    resize: vertical;
+}
+
+input:not([type="checkbox"]):not([type="submit"]):focus,
+textarea:focus {
+    border-radius: 1px;
+    outline: 0;
+    border-color: hsl(var(--form-active-color));
+    background: hsla(var(--form-active-color), 0.07);
+    /* box-shadow: 0 0 0 1px var(--page-background), 0 0 0 4px hsla(var(--form-active-color), 0.35); */
+}
+
+input:not([type="checkbox"]):not([type="submit"]):invalid,
+textarea:invalid {
+    border-radius: 1px;
+    outline: 0;
+    border-color: hsl(var(--form-error-color));
+    background: hsla(var(--form-error-color), 0.07);
+    /* box-shadow: 0 0 0 1px var(--page-background), 0 0 0 4px hsla(var(--form-active-color), 0.35); */
+}
+
+input:disabled,
+textarea:disabled {
+    opacity: 0.35;
+}
+
+input:valid { border-color: hsl(var(--form-default-color)); }
+input:required:invalid { border-color: hsl(var(--form-error-color)); }
+
+input[type="checkbox"] {
+    cursor: pointer;
+    padding: 8px;
+}
+
+input[type="checkbox"]:checked {
+    background: var(--form-default-color);
+    box-shadow: inset 0 0 0 2px white;
+}
+
+/* Radio */
+input[type="radio"] { display: none; }
+
+input[type="radio"] + label {
+    padding-left: 20px;
+    position: relative;
+}
+
+input[type="radio"] + label::before {
+    content: "";
+    border: 3px solid var(--form-active);
+    width: 12px;
+    height: 12px;
+    border-radius: 6px;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+input[type="radio"]:checked + label::before {
+    background-color: var(--form-active);
+}
+
+
+/* --- Label --- */
+label {
+    color: hsl(var(--form-default-color));
+    position: absolute;
+    margin-bottom: 0;
+    left: calc(var(--layout-gutter-width) / 2 + 15px );
+    bottom: 50%;
+    transform: translate3d(0, 50%, 0);
+    opacity: 0.85;
+    will-change: opacity, transform;
+
+    &.active {
+        color: hsl(var(--form-active-color));
+        transform: translate3d(-15px, -21px, 0) scale(0.7);
+        transform-origin: left bottom;
+        opacity: 1;
+    }
+}
+
+input:invalid + label.active {
+    color: hsl(var(--form-error-color));
+}
+
+
+/* --- Form Styling --- */
+
+.form__fieldset-title {
+    flex-basis: 100%;
+}
+
+.form__required-notice {
+    margin-top: 10px;
+    font-size: 85%;
+}
+
+.form .text,
+.form__fieldset-main {
+    margin-bottom: var(--p-margin-bottom);
+}
+
+.form-row {
+    position: relative;
+}
+
 /* Form Styling not for Magnolia Backend */
+/*
 .form:only-child form fieldset {
-    /* Flex and gutter */
-    & .fieldset-inner-wrapper.has-gutter {
-        margin-left: calc(var(--page-gutter-width) * -1);
-        margin-right: calc(var(--page-gutter-width) * -1);
-        margin-bottom: -35px;
-    }
-
-    & .cell-1of1 {
-        flex: 0 0 calc(100% - (2 * var(--page-gutter-width)));
-        margin-left: var(--page-gutter-width);
-        margin-right: var(--page-gutter-width);
-        margin-bottom: 35px;
-    }
-
-    & .cell-1of2 {
-        flex: 0 0 calc(50% - (2 * var(--page-gutter-width)));
-        margin-left: var(--page-gutter-width);
-        margin-right: var(--page-gutter-width);
-        margin-bottom: 35px;
-        position: relative;
-    }
-
-    & .fieldset-inner-wrapper > .has-gutter {
-        margin: 0;
-        padding: 0;
-    }
-
     & input[type="checkbox"] {
         position: absolute;
         top: 0;
         left: 1px;
     }
 }
+*/
 
 /* Form Styling also for Magnolia Backend */
+/*
 .form fieldset {
-    font-size: 18px;
-    & h2 {
-        font-size: 20px;
-        font-weight: 700;
-        letter-spacing: 0;
-        margin-bottom: 35px;
-    }
-
-    & [class*="o-flex"].has-gutter > * {
-        padding-left: 0;
-        padding-right: 0;
-    }
-
     & .form-row,
-    & .form-item-l,
-    & .form-row .cell-2of3,
-    & .form-row .cell-1of3{
+    & .form-item-l {
         position: relative;
-    }
-
-    & .form-row {
-        margin-bottom: 17px;
-        border-bottom: 1px solid var(--form-default-color);
-
-        &.no-border {
-            border-bottom: none;
-        }
-    }
-
-    /* Cell-1of3 and Cell-2of3 Group Field */
-    & .form-row [class*="o-flex-inline"].has-gutter {
-        & > * {
-            margin-left: 1rem;
-            margin-right: 1rem;
-        }
-
-        & .cell-1of3 {
-            flex-basis: calc((100% / 3) - 2rem);
-        }
-
-        & .cell-2of3 {
-            flex-basis: calc((100% / 3 * 2) - 2rem);
-        }
-    }
-
-    /* Button Styling */
-    & .button-wrapper {
-        display: block;
-        position: relative;
-        flex: 0 0 calc(100% - 3rem);
-        margin: 0 var(--page-gutter-width) 5rem var(--page-gutter-width);
-
-        &:after{
-            content: "";
-            padding: 20px;
-        }
     }
 
     & input[type="submit"] {
-        display: inline-block;
         color: white;
         background: var(--form-default-color);
-        max-width: 120px;
-        height: 40px;
-        position: absolute;
-        right: 0;
-        padding: 8px 15px 9px;
+        padding: 8px 15px;
         border: none;
-        font-size: 20px;
-        line-height: 21px;
-        transition: 0.2s ease-out;
-        text-align: center;
-        text-decoration: none;
-        font-weight: bold;
+        transition: var(--default-timing);
     }
 
     & input[type="submit"]:hover {
         background: var(--form-active);
     }
 
-    /* Input Styling */
+    !* Input Styling *!
 
     & input[type="text"],
     & input[type="email"],
@@ -153,7 +262,7 @@
         border: 1px solid var(--form-default-color);
     }
 
-    /* Select, Radio and Checkbox */
+    !* Select, Radio and Checkbox *!
     & select {
         position: relative;
         min-height: 0;
@@ -301,7 +410,7 @@
         }
     }
 
-    /* label styling */
+    !* label styling *!
     & label {
         color: var(--form-default-color);
         position: absolute;
@@ -327,7 +436,7 @@
         transition: color 0.1s ease-in-out;
         margin-bottom: 19px;
 
-        /* Fix Magnolia Back-End Styling */
+        !* Fix Magnolia Back-End Styling *!
         position: relative;
     }
 
@@ -354,70 +463,9 @@
         position: relative;
         transform: translate(0,0);
     }
-}
 
-@media (--for-md-up) {
-    .form .hidden {
-        position: absolute !important;
-        width: 1px !important;
-        height: 1px !important;
-        margin: -1px !important;
-        border: 0 !important;
-        padding: 0 !important;
-        white-space: nowrap !important;
-        clip-path: inset(100%) !important;
-        clip: rect(0 0 0 0) !important;
-        overflow: hidden !important;
+    & .button-wrapper {
+        flex-basis: 100%;
     }
 }
-
-@media (--for-md-down) {
-    .form .selection-wrapper .arrow {
-        width: 24px;
-        height: 12px;
-        transform: translate(0,-6px);
-
-        &.active {
-            color: var(--form-active);
-            transform: translate(0,-6px) rotate(180deg);
-        }
-    }
-}
-
-@media (--for-sm-down) {
-    .form:only-child form fieldset {
-        & .fieldset-inner-wrapper {
-            margin-left: 0;
-            margin-right: 0;
-            margin-bottom: -30px;
-        }
-
-        & .fieldset-inner-wrapper.has-gutter {
-            margin-left: 0;
-            margin-right: 0;
-            margin-bottom: -30px;
-        }
-
-        & .cell-1of1,
-        & .cell-1of2 {
-            flex: 0 0 100%;
-            margin-left: 0;
-            margin-right: 0;
-            margin-bottom: 30px;
-        }
-    }
-
-    .form fieldset .button-wrapper {
-        margin: 0 0 5rem 0;
-        flex: 0 0 100%;
-        & input[type="submit"] {
-            width: 100%;
-            max-width: 100%;
-        }
-    }
-
-    .form fieldset .selection-wrapper .selection-list,
-    .form fieldset .selection-wrapper .selection-selected{
-        display: none;
-    }
-}
+*/

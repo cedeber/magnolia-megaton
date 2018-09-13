@@ -74,10 +74,9 @@
     --carousel-gutter-width: 3rem;
 
     /* Form */
-    --form-fieldset-splitter-height: 4.4rem;
-    --form-default-color: var(--base02);
-    --form-error: var(--red);
-    --form-active: var(--blue);
+    --form-default-color: 0, 0%, 32%;
+    --form-error-color: 359, 83%, 71%;
+    --form-active-color: 210, 50%, 60%;
 
     /* Timings */
     --default-timing: 350ms;
