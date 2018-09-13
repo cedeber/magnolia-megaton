@@ -19,6 +19,7 @@ Vue.use(VueScroll);
 import LazyMedia from "./components/lazy-media.vue";
 import SingleCarousel from "./components/single-carousel.vue";
 import GoogleMap from "./components/google-map.vue";
+import FormSelect from "./components/form-select.vue";
 import CustomForm from "./components/customForm";
 import ToggleItem from "./components/toggle-item";
 
@@ -48,6 +49,7 @@ Vue.component("single-carousel", SingleCarousel);
 Vue.component("google-map", GoogleMap);
 Vue.component("custom-form", CustomForm);
 Vue.component("toggle-item", ToggleItem);
+Vue.component('form-select', FormSelect);
 
 // Connect the Vue intance to the whole <main id="view"> container
 // Avoid to use the standard DOM API as a virtual-dom will handle it

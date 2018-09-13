@@ -1,14 +1,6 @@
-[#-------------- INCLUDE AND ASSIGN PART --------------]
-
-[#-- Include: Global --]
 [#if content.mandatory!false]
     [#assign requiredAttribute = cmsfn.createHtmlAttribute("required", "required")]
 [/#if]
-
-
-
-[#-------------- RENDERING PART --------------]
-
 <toggle-item inline-template :default-value="'${model.value!}'">
     <div ${model.style!}>
         <fieldset ${content.horizontal?string("class=\"mod\"", "")} >
@@ -42,85 +34,61 @@
                     [/#if]
                 </div><!-- end form-item -->
             [/#list]
-            <div id="checkbox-error" class="text error" style="display:none">
-                <ul>
-                    <li>${i18n['form.user.errorMessage.checkboxes']}</li>
-                </ul>
-            </div>
             [#if requiredAttribute?has_content && content.type="checkbox" && content.controlName?has_content && formItems?size > 1]
-                <script type="text/javascript">
-                    var checkboxes = document.getElementsByName("${content.controlName}");
-                    var element = checkboxes[0].form;
-                    var valid = false;
-                    element.onsubmit = function () {
-                        for (var i = 0; i < checkboxes.length; i++) {
-                            if (checkboxes[i].checked) {
-                                valid = true;
-                                break;
-                            }
-                        }
-                        if (valid) {
-                            document.getElementById("checkbox-error").style.display = "none";
-                        } else {
-                            document.getElementById("checkbox-error").style.display = "block";
-                        }
-                        return valid;
-                    }
-                </script>
+            <div class="form__checkbox-info">
+                ${i18n['form.user.errorMessage.checkboxes']}
+                <dfn title="required">${model.requiredSymbol!}</dfn>
+            </div>
             [/#if]
         [#else]
-        <v-selection inline-template :select-id="'${(content.controlName!'')}'">
-            <div class="selection-wrapper">
-                <div class="selection-input" v-on:click="focusSelect()">
-                    <select class="hidden" ${requiredAttribute!} id="${(content.controlName!'')}"
+        <form-select inline-template :select-id="'${(content.controlName!'')}'">
+            <div class="form-select__wrapper" :class="{'is-open': isOpen, 'is-active': isActive}">
+                <div class="form-select__input" v-on:click="toggleList">
+                    <select class="is-visually-hidden" ${requiredAttribute!} id="${(content.controlName!'')}"
                             name="${(content.controlName!'')}" ${content.multiple?string("multiple=\"multiple\"", "")}
-                            @focus="toggleActive()" @blur="unfocusSelect()" @change="changeSelect()" v-model="selected">
-                    [#if content.labels?has_content]
-                    [#list cmsfn.decode(content).labels?split("(\r\n|\r|\n|\x0085|\x2028|\x2029)", "rm") as label]
-                        [#assign data=label?split(":")]
-                        <option value="${(data[1]!data[0])!?html}">${data[0]!?html}</option>
-                    [/#list]
-                    [/#if]
+                            v-model="selected">
+                        [#if content.labels?has_content]
+                        [#list cmsfn.decode(content).labels?split("(\r\n|\r|\n|\x0085|\x2028|\x2029)", "rm") as label]
+                            [#assign data=label?split(":")]
+                            <option value="${(data[1]!data[0])!?html}">${data[0]!?html}</option>
+                        [/#list]
+                        [/#if]
                     </select>
-                    <div class="selection-selected" v-on:click="focusSelect()">
-                        <span>{{ this.content }}</span>
+
+                    <div class="form-select__input-text">
+                        {{ this.content }}
                     </div>
-                    <svg class="arrow" :class="{active: isOpen}" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                        viewBox="0 0 25.4 13.2" style="enable-background:new 0 0 25.4 13.2;" xml:space="preserve">
-                        <path style="fill:#333333;" d="M12.7,13.2c-0.1,0-0.3,0-0.3-0.1L0.2,0.9C0,0.7,0,0.4,0.2,0.2c0,0,0,0,0,0c0.2-0.2,0.5-0.2,0.7,0
-                        c0,0,0,0,0,0L12.7,12L24.5,0.2C24.7,0,25,0,25.2,0.2c0,0,0,0,0,0c0.2,0.2,0.2,0.5,0,0.7c0,0,0,0,0,0L13.1,13.1
-                        C13,13.2,12.8,13.2,12.7,13.2z"></path>
+                    <svg class="form-select__arrow" width="24" height="24" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="currentColor" d="M1395 736q0 13-10 23l-466 466q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l393 393 393-393q10-10 23-10t23 10l50 50q10 10 10 23z"></path>
                     </svg>
-
-                    [#if content.title?has_content]
-                        <label for="${content.controlName!''}" :class="{active: isActive}">
-                            <span>
-                            [#if !model.isValid()]
-                                <em>${i18n['form.error.field']}</em>
-                            [/#if]
-                                ${content.title!}
-                            [#if content.mandatory!false]
-                                <dfn title="required">${model.requiredSymbol!}</dfn>
-                            [/#if]
-                            </span>
-                        </label>
-                    [/#if]
-                </div>
-
-                <div class="selection-list" :class="{active: isOpen}">
-                    <ul>
+                    <ul class="form-select__options">
                     [#if content.labels?has_content]
                         [#list cmsfn.decode(content).labels?split("(\r\n|\r|\n|\x0085|\x2028|\x2029)", "rm") as label]
                             [#assign data=label?split(":")]
-                            <li v-on:click="setSelected('${(data[1]!data[0])!?html}')">${data[0]!?html}</li>
+                            <li class="form-select__option" v-on:click="setSelected('${(data[1]!data[0])!?html}', '${data[0]!?html}')">
+                                <span>${data[0]!?html}</span>
+                            </li>
                         [/#list]
                     [/#if]
                     </ul>
                 </div>
+
+                [#if content.title?has_content]
+                    <label for="${content.controlName!''}" :class="{active: isActive}">
+                        <span>
+                        [#if !model.isValid()]
+                            <em>${i18n['form.error.field']}</em>
+                        [/#if]
+                            ${content.title!}
+                        [#if content.mandatory!false]
+                            <dfn title="required">${model.requiredSymbol!}</dfn>
+                        [/#if]
+                        </span>
+                    </label>
+                [/#if]
             </div>
-        </v-selection>
+        </form-select>
         [/#if]
         </fieldset>
-
-    </div><!-- end ${model.style!} -->
+    </div>
 </toggle-item>
