@@ -1,5 +1,5 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { serializeArray } from "./form";
+import { serializeArray } from "./scripts/form";
 import assign from "lodash-es/assign";
 
 declare global {

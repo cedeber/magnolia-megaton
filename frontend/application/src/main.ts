@@ -19,7 +19,7 @@ Vue.use(VueScroll);
 import LazyMedia from "./components/lazy-media.vue";
 import SingleCarousel from "./components/single-carousel.vue";
 import GoogleMap from "./components/google-map.vue";
-import CustomForm from "./components/customForm.vue";
+import CustomForm from "./components/customForm";
 import ToggleItem from "./components/toggle-item";
 
 // Create the vue instance
