@@ -42,11 +42,11 @@
             [/#if]
         [#else]
         <form-select inline-template :select-id="'${(content.controlName!'')}'">
-            <div class="form-select__wrapper" :class="{'is-open': isOpen, 'is-active': isActive}">
+            <div class="form-select__wrapper" :class="{'is-open': isOpen, 'is-active': isActive, 'is-filled': isFilled}">
                 <div class="form-select__input" v-on:click="toggleList">
                     <select class="is-visually-hidden" ${requiredAttribute!} id="${(content.controlName!'')}"
                             name="${(content.controlName!'')}" ${content.multiple?string("multiple=\"multiple\"", "")}
-                            v-model="selected">
+                            v-model="selected" v-on:focus="setActive(true)" v-on:blur="setActive(false)">
                         [#if content.labels?has_content]
                         [#list cmsfn.decode(content).labels?split("(\r\n|\r|\n|\x0085|\x2028|\x2029)", "rm") as label]
                             [#assign data=label?split(":")]
@@ -74,7 +74,7 @@
                 </div>
 
                 [#if content.title?has_content]
-                    <label for="${content.controlName!''}" :class="{active: isActive}">
+                    <label for="${content.controlName!''}" :class="{active: isActive || isFilled}">
                         <span>
                         [#if !model.isValid()]
                             <em>${i18n['form.error.field']}</em>

@@ -75,7 +75,7 @@
 
 <script lang="ts">
     // TODO Default value
-    import { Vue, Component, Prop } from "vue-property-decorator";
+    import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 
     @Component
     export default class FormSelect extends Vue {
@@ -83,20 +83,35 @@
         selectId!: string;
 
         selected = "";
-        isActive = false;
-        isOpen = false;
         content = "";
 
+        isActive = false;
+        isOpen = false;
+        isFilled = false;
+
+        selectElement = null;
+
+        @Watch('selected')
+        onSelectedChange(newValue) {
+            this.getSetLabel(newValue)
+        }
+
+        getSetLabel(value) {
+            if (this.selectElement) {
+                this.$nextTick().then(() => {
+                    this.content = [...this.selectElement.selectedOptions].map(el => el.innerText).join(', ');
+                    this.isFilled = Boolean(this.content)
+                })
+            }
+        }
+
         mounted() {
-            const select = document.getElementById(this.selectId) as HTMLSelectElement;
+            this.selectElement = document.getElementById(this.selectId) as HTMLSelectElement;
 
             this.selected = (this.$parent as any).defaultValue;
 
-            if (select && Boolean(this.selected)) {
-                this.$nextTick().then(() => {
-                    this.content = [...select.selectedOptions].map(el => el.innerText).join(', ');
-                    this.isActive = Boolean(this.content)
-                })
+            if (Boolean(this.selected)) {
+                this.getSetLabel(this.selected)
             }
         }
 
@@ -107,8 +122,13 @@
 
         toggleList() {
             this.isOpen = !this.isOpen;
+            this.isActive = this.isOpen;
+            this.isFilled = Boolean(this.content);
+        }
 
-            this.isActive = Boolean(this.content) || this.isOpen;
+        setActive(status) {
+            this.isActive = status;
+            this.isFilled = Boolean(this.content);
         }
     }
 </script>
