@@ -65,7 +65,7 @@
                     [#if content.labels?has_content]
                         [#list cmsfn.decode(content).labels?split("(\r\n|\r|\n|\x0085|\x2028|\x2029)", "rm") as label]
                             [#assign data=label?split(":")]
-                            <li class="form-select__option" v-on:click="setSelected('${(data[1]!data[0])!?html}', '${data[0]!?html}')">
+                            <li class="form-select__option" v-on:click="setSelected('${(data[1]!data[0])!?html}', '${data[0]!?html}')" :class="{'is-selected': content === '${data[0]!?html}'}">
                                 <span>${data[0]!?html}</span>
                             </li>
                         [/#list]

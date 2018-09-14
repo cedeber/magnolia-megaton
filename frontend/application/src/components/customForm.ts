@@ -1,84 +1,74 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { serializeArray } from "./scripts/form";
-import assign from "lodash-es/assign";
-
-declare global {
-    interface Window {
-        mgnlContextPath: string;
-    }
-}
+import serialize from "../helpers/form_serialize";
 
 @Component
-class CustomForm extends Vue {
+export default class CustomForm extends Vue {
     @Prop({ type: String })
-    public uuid!: string;
-
-    @Prop({ type: String })
-    public fromEmail!: string;
+    uuid!: string;
 
     @Prop({ type: String })
-    public recipient!: string;
+    fromEmail!: string;
 
     @Prop({ type: String })
-    public subject!: string;
+    recipient!: string;
 
     @Prop({ type: String })
-    public privacyPage!: string;
+    subject!: string;
 
     @Prop({ type: String })
-    public termsConditionsPage!: string;
+    privacyPage!: string;
 
-    public firstname = "";
-    public lastname = "";
-    public company = "";
-    public email = "";
-    public message = "";
-    public privacy = false;
-    public termsConditions = false;
+    @Prop({ type: String })
+    termsConditionsPage!: string;
 
-    public address = "";
-    public city = "";
-    public zip = "";
-    public country = "";
-    public phone = "";
+    firstname = "";
+    lastname = "";
+    company = "";
+    email = "";
+    message = "";
+    privacy = false;
+    termsConditions = false;
 
-    public errorMessage = "";
+    address = "";
+    city = "";
+    zip = "";
+    country = "";
+    phone = "";
 
+    errorMessage = "";
 
-    public async sendMail() {
+    async sendMail() {
         const data = this.validateForm();
 
         if (data) {
-            const request = await fetch(
+            return fetch(
                 window.mgnlContextPath + "/.mail/",
                 {
                     method: "POST",
                     credentials: "include",
                     body: JSON.stringify(data),
                 },
-            );
-
-            if (request.ok) {
-                return await request.text();
-            } else {
-                this.errorMessage = "Something went wrong. Please try again later";
-                throw new Error("Unable send the request");
-            }
+            )
+                .then(response => response.text())
+                .catch(() => {
+                    this.errorMessage = "Something went wrong. Please try again later.";
+                    throw new Error("Unable send the request.");
+                });
         }
+
+        this.errorMessage = "Please fill the form.";
+        throw new Error("Form not filled.");
     }
 
-    public validateForm() {
-        let data = null;
-        const defaultForm = this.$el.querySelector(".js-default-form",) as HTMLFormElement;
+    validateForm() {
+        let data: any = null;
+        const defaultForm = this.$el.querySelector("form") as HTMLFormElement;
 
         if (defaultForm) {
             this.errorMessage = "";
 
-            if (this.checkEachFieldOfForm(defaultForm)) {
-                data = assign(
-                    {},
-                    serializeArray(defaultForm as HTMLFormElement),
-                );
+            if (CustomForm.checkEachFieldOfForm(defaultForm)) {
+                data = serialize(defaultForm as HTMLFormElement);
             } else {
                 this.errorMessage = "Please fill in all the required fields.";
                 return null;
@@ -87,22 +77,23 @@ class CustomForm extends Vue {
         return data;
     }
 
-    private checkEachFieldOfForm(form: HTMLFormElement): boolean {
-        if (form && form.checkValidity()) return true;
+    static checkEachFieldOfForm(form: HTMLFormElement): boolean {
+        if (form && form.checkValidity()) {
+            return true;
+        }
 
         if (form) {
-            const elements = form.querySelectorAll("input, select, textarea");
-            elements.forEach(element => {
-                element.classList.remove("invalid");
+            const elements = form.querySelectorAll("input, select, textarea") as NodeListOf<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>;
 
+            for (const element of elements) {
                 if (!element.checkValidity()) {
                     element.classList.add("invalid");
+                } else {
+                    element.classList.remove("invalid");
                 }
-            });
+            }
         }
 
         return false;
     }
 }
-
-export default CustomForm;

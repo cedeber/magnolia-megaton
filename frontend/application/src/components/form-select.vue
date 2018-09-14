@@ -68,6 +68,10 @@
         transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
     }
 
+    .form-select__option.is-selected {
+        background: hsla(var(--form-active-color), 0.13);
+    }
+
     .form-select__option:hover {
         background: hsla(var(--form-active-color), 0.35);
     }
@@ -129,6 +133,10 @@
         setActive(status) {
             this.isActive = status;
             this.isFilled = Boolean(this.content);
+
+            if (!status) {
+                this.isOpen = false;
+            }
         }
     }
 </script>

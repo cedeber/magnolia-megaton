@@ -294,6 +294,7 @@ div[role="button"] { cursor: pointer; }
 
 /* Modifiers */
 [class*="o-flex"].has-gutter,
+[class*="o-flex"].has-bigmac-gutter,
 [class*="o-flex"].has-horizontal-gutter {
     margin-left: calc(var(--layout-gutter-width) / -2);
     margin-right: calc(var(--layout-gutter-width) / -2);
@@ -303,14 +304,24 @@ div[role="button"] { cursor: pointer; }
     margin-bottom: calc(var(--layout-gutter-height) * -1);
 }
 
+[class*="o-flex"].has-bigmac-gutter {
+    margin-bottom: calc(var(--layout-gutter-height) * -1.5);
+}
+
 [class*="o-flex"].has-gutter > *,
+[class*="o-flex"].has-bigmac-gutter > *,
 [class*="o-flex"].has-horizontal-gutter > * {
     padding-left: calc(var(--layout-gutter-width) / 2);
     padding-right: calc(var(--layout-gutter-width) / 2);
 }
 
-[class*="o-flex"].has-gutter > * {
+[class*="o-flex"].has-gutter > *,
+[class*="o-flex"].has-bigmac-gutter > * {
     margin-bottom: var(--layout-gutter-height);
+}
+
+[class*="o-flex"].has-bigmac-gutter > * {
+    margin-bottom: calc(var(--layout-gutter-height) * 1.5);
 }
 
 [class*="o-flex"].has-gutter > .has-gutter {

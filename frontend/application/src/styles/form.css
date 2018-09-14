@@ -82,6 +82,7 @@ textarea {
     color: inherit;
     padding: 8px 15px;
     background: hsla(0, 0%, 100%, 0.17);
+    border: 0;
     border-bottom: 2px solid hsl(var(--form-default-color));
 }
 
@@ -92,6 +93,7 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]) {
 textarea {
     height: 140px;
     resize: vertical;
+    padding: 15px;
 }
 
 input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):focus,
@@ -176,8 +178,8 @@ label {
     position: absolute;
     margin-bottom: 0;
     left: calc(var(--layout-gutter-width) / 2 + 15px);
-    bottom: 50%;
-    transform: translate3d(0, 50%, 0);
+    top: 8px;
+    transform: translate3d(0, 0, 0);
     opacity: 0.85;
     will-change: opacity, transform;
 }
@@ -188,7 +190,7 @@ label span {
 
 label.active {
     color: hsl(var(--form-active-color));
-    transform: translate3d(-15px, -21px, 0) scale(0.7);
+    transform: translate3d(-15px, -31px, 0) scale(0.7);
     transform-origin: left bottom;
     opacity: 1;
 }

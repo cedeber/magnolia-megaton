@@ -1,93 +1,116 @@
 [#if cmsfn.isEditMode()]
-    Custom form here!
+    This is a custom form.
 [#else]
-    <custom-form :from-email="'${content.fromEmail!}'" :recipient="'${content.recipient!}'" :subject="'${content.subject!}'">
-        <div class="form">
-            <form class="js-default-form" @submit.prevent="validateForm">
-                <fieldset>
-                    <div class="form-row is-multiline o-flex-inline has-gutter">
-                        <div class="cell-1of2">
-                            <label for="firstname">${content.nameLabel!}</label>
-                            <input name="firstname" id="firstname" required type="text" v-model="firstname" autocomplete="given-name">
-                        </div>
-                        <div class="cell-1of2">
-                            <label for="lastname">${content.lastnameLabel!}</label>
-                            <input name="lastname" id="lastname" required type="text" v-model="lastname" autocomplete="family-name">
-                        </div>
-                    </div>
-                    <div class="form-row is-multiline o-flex-inline has-gutter">
-                        <div class="cell-1of2">
-                            <label for="address">${content.adressLabel!}</label>
-                            <input name="address" id="address" type="text" v-model="address" required autocomplete="address-line1">
-                        </div>
-
-                        <div class="cell-1of2 o-flex-inline has-gutter">
-                            <div class="cell-1of3">
-                                <label for="zip">${content.zipLabel!}</label>
-                                <input name="zip" id="zip" required type="text" v-model="zip" autocomplete="postal-code">
-                            </div>
-                            <div class="cell-2of3">
-                                <label for="city">${content.cityLabel!}</label>
-                                <input name="city" id="city" required type="text" v-model="city" autocomplete="address-level2">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row is-multiline o-flex-inline has-gutter">
-                        <div class="cell-1of2">
-                            <label for="country">${content.countryLabel!}</label>
-                            <input name="country" id="country" type="text" v-model="country" required autocomplete="country">
-                        </div>
-                        <div class="cell-1of2">
-                            <label for="company">${content.companyLabel!}</label>
-                            <input name="company" id="company" type="text" v-model="company" autocomplete="company">
-                        </div>
-                    </div>
-                    <div class="form-row is-multiline o-flex-inline has-gutter">
-                        <div class="cell-1of2">
-                            <label for="email">${content.emailLabel!}</label>
-                            <input name="email" id="email" required type="email" v-model="email" autocomplete="email">
-                        </div>
-                        <div class="cell-1of2">
-                            <label for="phone">${content.phoneLabel!}</label>
-                            <input name="phone" id="phone" required type="tel" v-model="phone" autocomplete="tel">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <label for="message">${content.messageLabel!}</label>
-                        <textarea name="message" id="message" v-model="message"></textarea>
-                    </div>
-                    <div class="o-flex is-multiline">
-                        <div class="checkboxes cell-1of2">
-                            <div class="form-row checkbox-form-row has-margin-bottom is-multiline">
-                                <input name="privacy" id="privacy" required type="checkbox" v-model="privacy">
-                                <label class="checkbox-label" for="privacy">${cmsfn.decode(content).privacyText!}</label>
-                            </div>
-                        </div>
-                        <div class="error-message form-row is-multiline cell-1of2" v-if="errorMessage">
-                            {{ errorMessage }}
-                        </div>
-                    </div>
-
-                    <div class="hidden-fields">
-                        <input type="hidden" autocomplete="off" name="fromEmail" :value="fromEmail">
-                        <input type="hidden" autocomplete="off" name="recipient" :value="recipient">
-                        <input type="hidden" autocomplete="off" name="subject" :value="subject">
-                    </div>
-
-                    <div class="button-wrapper o-flex is-multiline">
-                        <span class="required-text">${content.requiredText!}</span>
-                        <div class="cell-1of1 is-right">
-                            <div class="button next-button step-1" role="button" @click="sendMail">
-                                ${content.sendLabel!}
-                                <svg viewBox="0 0 14 17" width="14px" height="17px" class="icon" style="transform:rotate(90deg);">
-                                    <path fill="none" stroke-width="2" d="M.5 6.95L6.92.5 13.36 6.95M7 .5v15" transform="translate(0 1)"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
+<custom-form inline-template :from-email="'${content.fromEmail!}'" :recipient="'${content.recipient!}'"
+             :subject="'${content.subject!}'">
+    <form class="js-default-form" @submit.prevent="validateForm">
+        <div class="form-item-hidden">
+            <input type="hidden" autocomplete="off" name="fromEmail" :value="fromEmail">
+            <input type="hidden" autocomplete="off" name="recipient" :value="recipient">
+            <input type="hidden" autocomplete="off" name="subject" :value="subject">
         </div>
-    </custom-form>
+        <fieldset class="o-flex is-multiline has-bigmac-gutter">
+            <toggle-field inline-template :report-to="'firstname'">
+                <div class="form-row cell-1of2">
+                    <input name="firstname" id="firstname" required type="text" v-model="content"
+                           autocomplete="given-name" v-on:focus="toggleActive" v-on:blur="toggleActive">
+                    <label for="firstname" :class="{ active: isActive }">${content.nameLabel!}
+                        <dfn title="required">*</dfn></label>
+                </div>
+            </toggle-field>
+            <toggle-field inline-template :report-to="'lastname'">
+                <div class="form-row cell-1of2">
+                    <input name="lastname" id="lastname" required type="text" v-model="content"
+                           autocomplete="family-name" v-on:focus="toggleActive" v-on:blur="toggleActive">
+                    <label for="lastname" :class="{ active: isActive }">${content.lastnameLabel!}
+                        <dfn title="required">*</dfn></label>
+                </div>
+            </toggle-field>
+            <toggle-field inline-template :report-to="'address'">
+                <div class="form-row cell-1of2">
+                    <input name="address" id="address" type="text" v-model="content" required
+                           autocomplete="address-line1" v-on:focus="toggleActive" v-on:blur="toggleActive">
+                    <label for="address" :class="{ active: isActive }">${content.adressLabel!}
+                        <dfn title="required">*</dfn></label>
+                </div>
+            </toggle-field>
+            <div class="form-row cell-1of2 o-flex-inline has-horizontal-gutter">
+                <toggle-field inline-template :report-to="'zip'">
+                    <div class="form-row cell-1of3">
+                        <input name="zip" id="zip" required type="text" v-model="content"
+                               autocomplete="postal-code" v-on:focus="toggleActive" v-on:blur="toggleActive">
+                        <label for="zip" :class="{ active: isActive }">${content.zipLabel!}
+                            <dfn title="required">*</dfn></label>
+                    </div>
+                </toggle-field>
+                <toggle-field inline-template :report-to="'city'">
+                    <div class="form-row cell-2of3">
+                        <input name="city" id="city" required type="text" v-model="content"
+                               autocomplete="address-level2" v-on:focus="toggleActive" v-on:blur="toggleActive">
+                        <label for="city" :class="{ active: isActive }">${content.cityLabel!}
+                            <dfn title="required">*</dfn></label>
+                    </div>
+                </toggle-field>
+            </div>
+            <toggle-field inline-template :report-to="'country'">
+                <div class="form-row cell-1of2">
+                    <input name="country" id="country" type="text" v-model="content" required
+                           autocomplete="country" v-on:focus="toggleActive" v-on:blur="toggleActive">
+                    <label for="country" :class="{ active: isActive }">${content.countryLabel!}
+                        <dfn title="required">*</dfn></label>
+                </div>
+            </toggle-field>
+            <toggle-field inline-template :report-to="'company'">
+                <div class="form-row cell-1of2">
+                    <input name="company" id="company" type="text" v-model="content" autocomplete="company"
+                           v-on:focus="toggleActive" v-on:blur="toggleActive">
+                    <label for="company" :class="{ active: isActive }">${content.companyLabel!}</label>
+                </div>
+            </toggle-field>
+            <toggle-field inline-template :report-to="'email'">
+                <div class="form-row cell-1of2">
+                    <input name="email" id="email" required type="email" v-model="content" autocomplete="email"
+                           v-on:focus="toggleActive" v-on:blur="toggleActive">
+                    <label for="email" :class="{ active: isActive }">${content.emailLabel!}
+                        <dfn title="required">*</dfn></label>
+                </div>
+            </toggle-field>
+            <toggle-field inline-template :report-to="'phone'">
+                <div class="form-row cell-1of2">
+                    <input name="phone" id="phone" required type="tel" v-model="content" autocomplete="tel"
+                           v-on:focus="toggleActive" v-on:blur="toggleActive">
+                    <label for="phone" :class="{ active: isActive }">${content.phoneLabel!}
+                        <dfn title="required">*</dfn></label>
+                </div>
+            </toggle-field>
+            <toggle-field inline-template :report-to="'message'">
+                <div class="form-row cell-1of1">
+                    <textarea name="message" id="message" v-model="content" v-on:focus="toggleActive"
+                              v-on:blur="toggleActive"></textarea>
+                    <label for="message" :class="{ active: isActive }">${content.messageLabel!}</label>
+                </div>
+            </toggle-field>
+
+            <div class="form-row cell-1of2">
+                <input name="privacy" id="privacy" required type="checkbox" v-model="privacy">
+                <label class="checkbox-label" for="privacy">
+                    ${cmsfn.decode(content).privacyText!}
+                </label>
+            </div>
+            <div class="error-message form-row is-multiline cell-1of2">
+                {{ errorMessage }}
+            </div>
+
+            <div class="button-wrapper cell-1of1">
+                <input type="submit" value="${content.sendLabel!}" @click.prevent="sendMail">
+            </div>
+
+        </fieldset>
+        <p class="form__required-notice">
+            <dfn title="required">*</dfn>
+            ${content.requiredText!}
+        </p>
+    </form>
+</custom-form>
 [/#if]
 

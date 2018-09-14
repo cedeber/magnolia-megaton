@@ -1,4 +1,4 @@
-<fieldset class="[#if !cmsfn.editMode]o-flex is-multiline has-gutter[/#if] form__fieldset-main">
+<fieldset class="[#if !cmsfn.editMode]o-flex is-multiline has-bigmac-gutter[/#if] form__fieldset-main">
     [#assign title = content.title!cmsfn.editMode?string("Empty Field Set", "")]
     [#if title?has_content]
         <legend class="form__fieldset-title h2">${title}</legend>
