@@ -89,20 +89,20 @@
         isOpen = false;
         isFilled = false;
 
-        selectElement = null;
+        selectElement: HTMLSelectElement | null = null;
 
         @Watch('selected')
-        onSelectedChange(newValue) {
-            this.getSetLabel(newValue)
+        onSelectedChange() {
+            this.getSetLabel()
         }
 
-        getSetLabel(value) {
-            if (this.selectElement) {
-                this.$nextTick().then(() => {
+        getSetLabel() {
+            this.$nextTick().then(() => {
+                if (this.selectElement) {
                     this.content = [...this.selectElement.selectedOptions].map(el => el.innerText).join(', ');
                     this.isFilled = Boolean(this.content)
-                })
-            }
+                }
+            })
         }
 
         mounted() {
@@ -111,7 +111,7 @@
             this.selected = (this.$parent as any).defaultValue;
 
             if (Boolean(this.selected)) {
-                this.getSetLabel(this.selected)
+                this.getSetLabel()
             }
         }
 
