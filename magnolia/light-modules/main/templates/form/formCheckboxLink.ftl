@@ -1,4 +1,4 @@
-<toggle-item inline-template :default-value="'${model.value!}'">
+<toggle-field inline-template :default-value="'${model.value!}'">
     <div ${model.style!}>
         <input type="checkbox" id="${content.value!}" name="${content.value!}"
                required="${content.mandatory!?c}">
@@ -9,4 +9,4 @@
         [/#if]
         </label>
     </div>
-</toggle-item>
+</toggle-field>

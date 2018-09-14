@@ -1,7 +1,7 @@
 [#if content.mandatory!false]
     [#assign requiredAttribute = cmsfn.createHtmlAttribute("required", "required")]
 [/#if]
-<toggle-item inline-template :default-value="'${model.value!}'">
+<toggle-field inline-template :default-value="'${model.value!}'">
     <div ${model.style!}>
         <fieldset ${content.horizontal?string("class=\"mod\"", "")} >
         [#if content.legend?has_content]
@@ -91,4 +91,4 @@
         [/#if]
         </fieldset>
     </div>
-</toggle-item>
+</toggle-field>
