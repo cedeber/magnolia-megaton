@@ -1,5 +1,5 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
-import serialize from "../helpers/form_serialize";
+import serialize from "../helpers/form-serialize";
 
 @Component
 export default class CustomForm extends Vue {
