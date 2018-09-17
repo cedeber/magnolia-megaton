@@ -190,7 +190,7 @@ label span {
 
 label.active {
     color: hsl(var(--form-active-color));
-    transform: translate3d(-15px, -31px, 0) scale(0.7);
+    transform: translate3d(-15px, -1.9em, 0) scale(0.7);
     transform-origin: left bottom;
     opacity: 1;
 }
