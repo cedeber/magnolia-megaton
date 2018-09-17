@@ -38,6 +38,7 @@ const cssLoaderConfig = [
             // import: true,
             minimize: true,
             importLoaders: 1,
+            sourceMap: debug,
         },
     },
     {
@@ -175,5 +176,5 @@ module.exports = {
             },
         ],
     },
-    devtool: debug ? "source-map" : undefined,
+    devtool: debug ? "inline-source-map" : undefined,
 };
