@@ -33,7 +33,7 @@
     </dependencies>
 
     <!-- Remove comments if needed -->
-    <servlets>
+    <!--servlets>
         <servlet>
             <name>MailServlet</name>
             <class>ch.openinteractive.main.servlets.MailServlet</class>
@@ -42,5 +42,5 @@
                 <mapping>/.mail/*</mapping>
             </mappings>
         </servlet>
-    </servlets>
+    </servlets-->
 </module>
