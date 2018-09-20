@@ -45,11 +45,12 @@ const cssLoaderConfig = [
         loader: "postcss-loader",
         options: {
             ident: "postcss",
-            sourceMap: debug,
+            sourceMap: debug ? 'inline' : false,
             plugins: [
                 require("postcss-import"),
                 require("postcss-preset-env")({
                     stage: 2,
+                    sourceMap: true,
                     features: {
                         "custom-media-queries": true,
                         "nesting-rules": true,
