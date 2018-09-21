@@ -1,8 +1,10 @@
 package ch.openinteractive.main.setup;
 
+import ch.openinteractive.main.setup.tasks.LanguageDetectionFilterTask;
 import ch.openinteractive.main.templating.OITemplatingFunctions;
 import info.magnolia.module.DefaultModuleVersionHandler;
 import info.magnolia.module.InstallContext;
+import info.magnolia.module.delta.OrderFilterBeforeTask;
 import info.magnolia.module.delta.Task;
 import info.magnolia.rendering.module.setup.InstallRendererContextAttributeTask;
 
@@ -24,6 +26,8 @@ public class StarterKitVersionHandler extends DefaultModuleVersionHandler {
     protected List<Task> getExtraInstallTasks(InstallContext installContext) {
         List<Task> extraInstallTasks = new ArrayList<>(super.getExtraInstallTasks(installContext));
         extraInstallTasks.addAll(getFunctionsInstallerTask());
+        extraInstallTasks.add(new LanguageDetectionFilterTask("languageDetection", "Test"));
+        extraInstallTasks.add(new OrderFilterBeforeTask("languageDetection", new String[] { "cache" }));
         return extraInstallTasks;
     }
 
@@ -32,5 +36,4 @@ public class StarterKitVersionHandler extends DefaultModuleVersionHandler {
         tasks.add(new InstallRendererContextAttributeTask("rendering", "freemarker", OITemplatingFunctions.oiFunctionsName, OITemplatingFunctions.class.getName()));
         return tasks;
     }
-
 }
