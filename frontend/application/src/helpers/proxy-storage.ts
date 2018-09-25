@@ -79,7 +79,7 @@ function readCookie(name) {
  * @param {string} value The value to use when setting the specified property
  * @param {number} [days] The number of days until the storage of this item expires
  */
-function writeCookie(name, value, days?) {
+function writeCookie(name, value, days = 365) {
     const expiration = (function() {
         if (days) {
             const date = new Date();

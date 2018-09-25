@@ -1,29 +1,18 @@
-[#if !cmsfn.isEditMode() && content.code?has_content]
-    <div id="cookies-eu-banner" style="display: none;">
-        ${content.explanations!'By continuing your visit to this site, you accept the use of cookies to make visits statistics.'}
-        [#if content.readmorehref?has_content]
-            <a href="${navfn.link(cmsfn.contentById(content.readmorehref))!}" id="cookies-eu-more">${content.readmore!'Read more'}</a>
-        [/#if]
-        <button id="cookies-eu-reject">${content.reject!'Reject'}</button>
-        <button id="cookies-eu-accept">${content.accept!'Accept'}</button>
-    </div>
-    ${resfn.js(["/main/webresources/external/cookies-eu-banner.min.js"])!}
-    ${resfn.css(["/main/webresources/external/cookies-eu-banner.css"])!}
-
-    <script>
-        [#if cmsfn.isPublicInstance()]
-            //Only track public instance
-            new CookiesEuBanner(function(){ ${cmsfn.decode(content).code!} }, false);
-        [#else]
-            new CookiesEuBanner(function(){ console.log("Cookies banner: Only run code on public.") }, false);
-        [/#if]
-    </script>
+[#if !cmsfn.isEditMode() && cmsfn.isPublicInstance()]
+    <cookie-banner v-bind:read-more="'${navfn.link(cmsfn.contentById(content.readmorehref))!}'"
+                   v-bind:read-more-label="'${content.readmore?html!}'"
+                   v-bind:accept-label="'${content.accept?html!}'"
+                   v-bind:reject-label="'${content.reject?html!}'">
+        <template slot="explanations">
+            <span>${content.explanations!'By continuing your visit to this site, you accept the use of cookies to make visits statistics.'}</span>
+        </template>
+    </cookie-banner>
 [/#if]
 [#if cmsfn.isEditMode()]
     <div class="tag-manager-notice">
-        [#if !content.code?has_content || !content.explanations?has_content]
+        [#if !content.explanations?has_content]
             <div style="padding:8px;background:red;color:white">
-                Please fill code and explanations on the root page.
+                Please fill explanations on the root page.
             </div>
         [/#if]
         <div style="padding:8px;background:darkslateblue;color:white">
