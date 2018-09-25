@@ -2,28 +2,39 @@ form:
   label: Page properties
   tabs:
     - !include:/main/dialogs/include/tabPage.yaml
-          
+
     - name: tabMetaData
       label: Meta data
       fields:
-        - name: keywords
-          fieldType: text
-          i18n: true
-          label: Keywords
-          rows: 3
-        - name: description
-          fieldType: text
-          i18n: true
-          label: Description
-          rows: 5
-        - name: image
-          fieldType: link
-          targetWorkspace: dam
-          appName: assets
-          label: Page image
-          identifierToPathConverter:
-            class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
-          contentPreviewDefinition:
-            contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+      - name: metaTitle
+        class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        i18n: true
+        label: Title
+        maxLength: 60
+      - name: description
+        class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+        i18n: true
+        label: Description
+        rows: 3
+        maxLength: 160
+      - name: keywords
+        fieldType: text
+        i18n: true
+        label: Keywords
+        rows: 3
+      - name: image
+        class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+        targetWorkspace: dam
+        appName: assets
+        i18n: true
+        label: Image
+        identifierToPathConverter:
+          class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+        contentPreviewDefinition:
+          contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+      - name: metaInformation
+        class: info.magnolia.ui.form.field.definition.StaticFieldDefinition
+        label: Important!
+        value: Meta information is used on search engine results page (SERPs) to display preview snippets for the page. Title and description should be unique for your website and describe the content of your page. The title should not exceed 60 characters and the description no more than 160. Make sure your keywords are in both preferably at the beginning.
 
 actions: !include:/main/dialogs/include/commonActions.yaml
