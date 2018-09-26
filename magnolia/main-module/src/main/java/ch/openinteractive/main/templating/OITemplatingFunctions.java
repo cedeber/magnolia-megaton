@@ -2,6 +2,7 @@ package ch.openinteractive.main.templating;
 
 import info.magnolia.cms.beans.config.ServerConfiguration;
 import info.magnolia.cms.i18n.I18nContentSupport;
+import info.magnolia.context.MgnlContext;
 import info.magnolia.context.WebContext;
 import info.magnolia.templating.functions.TemplatingFunctions;
 
@@ -59,12 +60,20 @@ public class OITemplatingFunctions {
                 String link = links.get(key);
 
 
-                //TODO replace author with contextPath
-                if (link.contains("/author")) {
-                    link = "/author/" + defaultLocale.getLanguage() + link.replaceAll("/author", "");
+//                //TODO replace author with contextPath
+//                if (link.contains("/author")) {
+//                    link = "/author/" + defaultLocale.getLanguage() + link.replaceAll("/author", "");
+//                } else {
+//                    link = defaultLocale.getLanguage() + link;
+//                }
+
+                String contextPath = MgnlContext.getContextPath();
+                if (link.contains(contextPath)) {
+                    link = contextPath + "/" + defaultLocale.getLanguage() + link.replaceFirst(contextPath, "");
                 } else {
                     link = defaultLocale.getLanguage() + link;
                 }
+
 
                 links.put(key, link);
 

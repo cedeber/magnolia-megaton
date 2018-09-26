@@ -27,7 +27,7 @@ public class LanguageDetectionFilterTask extends AbstractRepositoryTask {
         try {
             Node node = filters.addNode(name, "mgnl:content");
             node.setProperty("class", LanguageDetectionFilter.class.getName());
-            node.setProperty("enabled", true);
+            node.setProperty("enabled", false);
 
             session.save();
         } catch (Exception ignored) {}

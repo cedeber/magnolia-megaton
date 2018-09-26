@@ -2,6 +2,7 @@ package ch.openinteractive.main.filters;
 
 import info.magnolia.cms.filters.AbstractMgnlFilter;
 import info.magnolia.cms.i18n.I18nContentSupport;
+import info.magnolia.context.MgnlContext;
 import info.magnolia.module.site.Site;
 import info.magnolia.module.site.functions.SiteFunctions;
 import info.magnolia.templating.functions.TemplatingFunctions;
@@ -26,36 +27,39 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
 
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+        String URI = request.getRequestURI();
 
-        Collection<Locale> locales = getLocales();
+        if (!URI.contains(".magnolia") && !cmsfn.isEditMode() && request.getHeader("Accept").contains("html")) {
 
-        if (locales != null && locales.size() > 0) {
+            Collection<Locale> locales = getLocales();
 
-            if (shouldProceed(request, locales)) {
-                String URI = request.getRequestURI();
-                boolean isCurrentlyDefaultLocale = isCurrentlyDefaultLocale(request, locales);
+            if (locales != null && locales.size() > 0) {
 
-                setLangAttribute(request, isCurrentlyDefaultLocale, locales);
+                if (shouldProceed(request, locales)) {
+                    boolean isCurrentlyDefaultLocale = isCurrentlyDefaultLocale(request, locales);
 
-                Object langAttribute = request.getSession().getAttribute("lang");
-                String language = langAttribute == null ? "" : langAttribute.toString();
+                    setLangAttribute(request, isCurrentlyDefaultLocale, locales);
 
+                    Object langAttribute = request.getSession().getAttribute("lang");
+                    String language = langAttribute == null ? "" : langAttribute.toString();
 
-                Site site = sitefn.site();
+                    Site site = sitefn.site();
 
-                if (isCurrentlyDefaultLocale || language.equals(site.getI18n().getDefaultLocale().getLanguage())) {
-                    String redirectURI;
+                    if (isCurrentlyDefaultLocale || language.equals(site.getI18n().getDefaultLocale().getLanguage())) {
+                        String redirectURI;
 
-                    //TODO replace author with contextPath
-                    if (URI.contains("/author")) {
-                        redirectURI = "/author/" + language + URI.replaceAll("/author", "");
-                    } else {
-                        redirectURI = language + URI;
-                    }
+                        //TODO replace author with contextPath
 
+                        String contextPath = MgnlContext.getContextPath();
+                        if (URI.contains(contextPath)) {
+                            redirectURI = contextPath + "/" + language + URI.replaceFirst(contextPath, "");
+                        } else {
+                            redirectURI = language + URI;
+                        }
 
-                    if (!language.equals(site.getI18n().getDefaultLocale().getLanguage())) {
-                        response.sendRedirect(redirectURI);
+                        if (!language.equals(site.getI18n().getDefaultLocale().getLanguage())) {
+                            response.sendRedirect(redirectURI);
+                        }
                     }
                 }
             }
@@ -88,11 +92,6 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
      */
     private boolean shouldProceed(HttpServletRequest request, Collection<Locale> locales) {
         String URI = request.getRequestURI();
-
-
-        //TODO do this first because it is fast!
-        if (URI.contains(".magnolia")) return false;
-        if (!request.getHeader("Accept").contains("html")) return false;
 
         Object langAttribute = request.getSession().getAttribute("lang");
         String language = langAttribute == null ? "" : langAttribute.toString();
