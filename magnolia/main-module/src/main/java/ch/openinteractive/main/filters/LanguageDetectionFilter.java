@@ -46,6 +46,7 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
                 if (isCurrentlyDefaultLocale || language.equals(site.getI18n().getDefaultLocale().getLanguage())) {
                     String redirectURI;
 
+                    //TODO replace author with contextPath
                     if (URI.contains("/author")) {
                         redirectURI = "/author/" + language + URI.replaceAll("/author", "");
                     } else {
@@ -87,11 +88,14 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
      */
     private boolean shouldProceed(HttpServletRequest request, Collection<Locale> locales) {
         String URI = request.getRequestURI();
-        Object langAttribute = request.getSession().getAttribute("lang");
-        String language = langAttribute == null ? "" : langAttribute.toString();
 
+
+        //TODO do this first because it is fast!
         if (URI.contains(".magnolia")) return false;
         if (!request.getHeader("Accept").contains("html")) return false;
+
+        Object langAttribute = request.getSession().getAttribute("lang");
+        String language = langAttribute == null ? "" : langAttribute.toString();
 
         for (Locale currentLocale : locales) {
             if (URI.contains("/" + currentLocale + "/") && currentLocale.getLanguage().equals(language)) {

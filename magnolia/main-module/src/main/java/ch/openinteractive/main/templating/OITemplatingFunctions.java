@@ -59,6 +59,7 @@ public class OITemplatingFunctions {
                 String link = links.get(key);
 
 
+                //TODO replace author with contextPath
                 if (link.contains("/author")) {
                     link = "/author/" + defaultLocale.getLanguage() + link.replaceAll("/author", "");
                 } else {
