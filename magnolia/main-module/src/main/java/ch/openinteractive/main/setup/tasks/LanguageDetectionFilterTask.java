@@ -24,12 +24,12 @@ public class LanguageDetectionFilterTask extends AbstractRepositoryTask {
         Session session = MgnlContext.getJCRSession("config");
         Node filters = session.getNode("/server/filters");
 
-        if (filters.getNode(name) == null) {
+        try {
             Node node = filters.addNode(name, "mgnl:content");
             node.setProperty("class", LanguageDetectionFilter.class.getName());
             node.setProperty("enabled", true);
 
             session.save();
-        }
+        } catch (Exception ignored) {}
     }
 }
