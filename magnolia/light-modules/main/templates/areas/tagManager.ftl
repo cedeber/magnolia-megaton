@@ -1,8 +1,9 @@
-[#if !cmsfn.isEditMode() && cmsfn.isPublicInstance()]
+[#if !cmsfn.isEditMode()]
     <cookie-banner v-bind:read-more="'${navfn.link(cmsfn.contentById(content.readmorehref))!}'"
                    v-bind:read-more-label="'${content.readmore?html!}'"
                    v-bind:accept-label="'${content.accept?html!}'"
-                   v-bind:reject-label="'${content.reject?html!}'">
+                   v-bind:reject-label="'${content.reject?html!}'"
+                   v-bind:is-production="${cmsfn.isPublicInstance()?c}">
         <template slot="explanations">
             <span>${content.explanations!'By continuing your visit to this site, you accept the use of cookies to make visits statistics.'}</span>
         </template>
