@@ -118,8 +118,8 @@
         }
 
         doNotTrack() {
-            const dnt = navigator.doNotTrack || navigator.msDoNotTrack || window.doNotTrack;
-            const canTrack = (dnt !== null && dnt !== undefined) ? (dnt && dnt !== 'yes' && dnt !== 1 && dnt !== '1') : true;
+            const dnt = navigator.doNotTrack || window.doNotTrack;
+            const canTrack = (dnt !== null && dnt !== undefined) ? (dnt && dnt !== 'yes' && dnt !== '1') : true;
 
             return !canTrack;
         }
