@@ -180,6 +180,7 @@ label {
     left: calc(var(--layout-gutter-width) / 2 + 15px);
     top: 8px;
     transform: translate3d(0, 0, 0);
+    transform-origin: left bottom;
     opacity: 0.85;
     will-change: opacity, transform;
 }
@@ -191,7 +192,6 @@ label span {
 label.active {
     color: hsl(var(--form-active-color));
     transform: translate3d(-15px, -1.9em, 0) scale(0.7);
-    transform-origin: left bottom;
     opacity: 1;
 }
 

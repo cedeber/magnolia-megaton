@@ -16,6 +16,7 @@ Vue.use(VueScroll);
 /* --- Components --- */
 // If a Vue (*.vue) component exists, import only it.
 // The related CSS and TS are linked into the Vue component
+import CookieBanner from './components/cookie-banner.vue';
 import LazyMedia from "./components/lazy-media.vue";
 import SingleCarousel from "./components/single-carousel.vue";
 import GoogleMap from "./components/google-map.vue";
@@ -44,6 +45,7 @@ const vm = new Vue({
 });
 
 // Declare all components, on all pages
+Vue.component("cookie-banner", CookieBanner);
 Vue.component("lazy-media", LazyMedia);
 Vue.component("single-carousel", SingleCarousel);
 Vue.component("google-map", GoogleMap);

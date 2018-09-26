@@ -48,6 +48,3 @@
     </script>
     [/#if]
 [/#if]
-
-<!-- Cookies EU Banner -->
-[@cms.area name="tagManager" /]

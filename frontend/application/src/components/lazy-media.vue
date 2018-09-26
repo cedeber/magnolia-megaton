@@ -17,6 +17,7 @@
                  :alt="metadata ? metadata.description : ''">
             <slot></slot>
         </picture>
+        <slot v-else></slot>
         <figcaption v-if="hasCaption && metadata && metadata.caption" class="caption">{{metadata.caption}}</figcaption>
     </figure>
 </template>

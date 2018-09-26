@@ -53,6 +53,7 @@
             [@cms.area name="main" /]
         </article>
         [@cms.area name="footer" /]
+        [@cms.area name="tagManager" /]
     </main>
     [#include "include/scripts.ftl"]
 </body>
