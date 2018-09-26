@@ -26,7 +26,7 @@ public class StarterKitVersionHandler extends DefaultModuleVersionHandler {
     protected List<Task> getExtraInstallTasks(InstallContext installContext) {
         List<Task> extraInstallTasks = new ArrayList<>(super.getExtraInstallTasks(installContext));
         extraInstallTasks.addAll(getFunctionsInstallerTask());
-        extraInstallTasks.add(new LanguageDetectionFilterTask("languageDetection", "Test"));
+        extraInstallTasks.add(new LanguageDetectionFilterTask("languageDetection", "Adds the Browser Language Detection filter"));
         extraInstallTasks.add(new OrderFilterBeforeTask("languageDetection", new String[] { "cache" }));
         return extraInstallTasks;
     }
