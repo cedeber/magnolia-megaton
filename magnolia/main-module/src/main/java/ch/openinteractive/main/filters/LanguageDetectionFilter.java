@@ -27,37 +27,40 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
 
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        String URI = request.getRequestURI();
+        try {
+            String URI = request.getRequestURI();
 
-        if (!URI.contains(".magnolia") && !cmsfn.isEditMode() && request.getHeader("Accept").contains("html")) {
+            if (!URI.contains(".magnolia") && !cmsfn.isEditMode() && request.getHeader("Accept").contains("html")) {
 
-            Collection<Locale> locales = getLocales();
+                Collection<Locale> locales = getLocales();
 
-            if (locales != null && locales.size() > 0) {
+                if (locales != null && locales.size() > 0) {
 
-                if (shouldProceed(request, locales)) {
-                    boolean isCurrentlyDefaultLocale = isCurrentlyDefaultLocale(request, locales);
+                    if (shouldProceed(request, locales)) {
+                        boolean isCurrentlyDefaultLocale = isCurrentlyDefaultLocale(request, locales);
 
-                    setLangAttribute(request, isCurrentlyDefaultLocale, locales);
+                        setLangAttribute(request, isCurrentlyDefaultLocale, locales);
 
-                    Object langAttribute = request.getSession().getAttribute("lang");
-                    String language = langAttribute == null ? "" : langAttribute.toString();
+                        Object langAttribute = request.getSession().getAttribute("lang");
+                        String language = langAttribute == null ? "" : langAttribute.toString();
 
-                    Site site = sitefn.site();
+                        Site site = sitefn.site();
 
-                    if (isCurrentlyDefaultLocale || language.equals(site.getI18n().getDefaultLocale().getLanguage())) {
-                        String redirectURI;
+                        if (isCurrentlyDefaultLocale || language.equals(site.getI18n().getDefaultLocale().getLanguage())) {
+                            String redirectURI;
 
-                        String contextPath = MgnlContext.getContextPath();
-                        redirectURI = contextPath + "/" + language + URI.replaceFirst(contextPath, "");
+                            String contextPath = MgnlContext.getContextPath();
+                            redirectURI = contextPath + "/" + language + URI.replaceFirst(contextPath, "");
 
-                        if (!language.equals(site.getI18n().getDefaultLocale().getLanguage())) {
-                            response.sendRedirect(redirectURI);
+                            if (!language.equals(site.getI18n().getDefaultLocale().getLanguage())) {
+                                response.sendRedirect(redirectURI);
+                            }
                         }
                     }
                 }
             }
-        }
+        } catch (Exception ignored) {}
+
         filterChain.doFilter(request, response);
     }
 
