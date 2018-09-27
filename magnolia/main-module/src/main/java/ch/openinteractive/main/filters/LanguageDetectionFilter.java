@@ -48,14 +48,8 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
                     if (isCurrentlyDefaultLocale || language.equals(site.getI18n().getDefaultLocale().getLanguage())) {
                         String redirectURI;
 
-                        //TODO replace author with contextPath
-
                         String contextPath = MgnlContext.getContextPath();
-                        if (URI.contains(contextPath)) {
-                            redirectURI = contextPath + "/" + language + URI.replaceFirst(contextPath, "");
-                        } else {
-                            redirectURI = language + URI;
-                        }
+                        redirectURI = contextPath + "/" + language + URI.replaceFirst(contextPath, "");
 
                         if (!language.equals(site.getI18n().getDefaultLocale().getLanguage())) {
                             response.sendRedirect(redirectURI);

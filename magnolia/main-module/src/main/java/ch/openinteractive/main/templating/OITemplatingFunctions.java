@@ -58,25 +58,10 @@ public class OITemplatingFunctions {
         for (String key : links.keySet()) {
             if (key.equals(defaultLocale.getLanguage())) {
                 String link = links.get(key);
-
-
-//                //TODO replace author with contextPath
-//                if (link.contains("/author")) {
-//                    link = "/author/" + defaultLocale.getLanguage() + link.replaceAll("/author", "");
-//                } else {
-//                    link = defaultLocale.getLanguage() + link;
-//                }
-
                 String contextPath = MgnlContext.getContextPath();
-                if (link.contains(contextPath)) {
-                    link = contextPath + "/" + defaultLocale.getLanguage() + link.replaceFirst(contextPath, "");
-                } else {
-                    link = defaultLocale.getLanguage() + link;
-                }
-
+                link = contextPath + "/" + defaultLocale.getLanguage() + link.replaceFirst(contextPath, "");
 
                 links.put(key, link);
-
             }
         }
 
