@@ -96,6 +96,8 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
             }
         }
 
+        if (!locales.contains(request.getLocale())) return false;
+
         return true;
     }
 
