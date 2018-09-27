@@ -11,55 +11,13 @@
     @import url(../variables.css);
 
     .banner {
-        background: #444;
-        color: #fff;
-        padding: 6px;
-        font-size: 13px;
-        text-align: center;
-    }
-
-    .more,
-    .accept,
-    .reject {
-        text-decoration: none;
-        background: #222;
-        color: #fff;
-        border: 1px solid #000;
-        cursor: pointer;
-        padding: 4px 7px;
-        margin: 2px 0;
-        font-size: 13px;
-        font-weight: bold;
-        transition: background 0.07s, color 0.07s, border-color 0.07s;
-    }
-
-    .more:hover,
-    .more:focus,
-    .accept:hover,
-    .accept:focus {
-        background: #fff;
-        color: #222;
-    }
-
-    .more {
-        margin-left: 7px;
-    }
-
-    .reject {
-        background: none;
-        font-weight: normal;
-        color: #ccc;
-        cursor: pointer;
-        padding: 4px 7px;
-        margin: 2px 0;
-        border: 1px solid #666;
-    }
-
-    .reject:hover,
-    .reject:focus {
-        border-color: #fff;
-        background: #222;
-        color: #fff;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 99;
+        background: var(--page-background);
+        padding: var(--page-gutter-width);
     }
 </style>
 
@@ -81,6 +39,9 @@
         @Prop({type: String, default: 'Reject'})
         rejectLabel!: string;
 
+        @Prop({type: Boolean, default: true})
+        isProduction!: boolean;
+
         cookieName = '__hasCookieConsent__';
         isShow = false;
 
@@ -88,7 +49,9 @@
          * EVERY STATISTICS SCRIPTS COME HERE
          */
         launch() {
-            console.log("🛰")
+            if (this.isProduction) { // Magnolia Public Instance
+                console.log("🛰")
+            }
         }
 
         mounted() {
@@ -118,10 +81,10 @@
         }
 
         doNotTrack() {
-            const dnt = navigator.doNotTrack || navigator.msDoNotTrack || window.doNotTrack;
-            const canTrack = (dnt !== null && dnt !== undefined) ? (dnt && dnt !== 'yes' && dnt !== 1 && dnt !== '1') : true;
+            const dnt = navigator.doNotTrack || window.doNotTrack;
+            const canTrack = (dnt !== null && dnt !== undefined) ? (dnt && dnt !== 'yes' && dnt !== '1') : true;
 
-            return !canTrack;
+            return !(canTrack || !this.isProduction);
         }
     }
 </script>
