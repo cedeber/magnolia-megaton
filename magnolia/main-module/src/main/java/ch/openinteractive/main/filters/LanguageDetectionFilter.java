@@ -91,7 +91,7 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
         String URI = request.getRequestURI();
 
         Object langAttribute = request.getSession().getAttribute("lang");
-        String language = langAttribute == null ? "" : langAttribute.toString();
+        String language = langAttribute == null ? "" : langAttribute.toString().substring(0, 2);
 
         for (Locale currentLocale : locales) {
             if (URI.contains("/" + currentLocale + "/") && currentLocale.getLanguage().equals(language)) {
@@ -129,7 +129,7 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
      * @param locales All available locals
      */
     private void setLangAttribute(HttpServletRequest request, boolean isCurrentlyDefaultLocale, Collection<Locale> locales) {
-        Locale preferredLocale = request.getLocale();
+        Locale preferredLocale = new Locale(request.getLocale().getLanguage());
 
         String URI = request.getRequestURI();
         Locale currentLocale = preferredLocale;
