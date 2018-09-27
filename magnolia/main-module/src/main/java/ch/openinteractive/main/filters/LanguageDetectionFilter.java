@@ -87,6 +87,8 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
     private boolean shouldProceed(HttpServletRequest request, Collection<Locale> locales) {
         String URI = request.getRequestURI();
 
+        if (!locales.contains(request.getLocale())) return false;
+
         Object langAttribute = request.getSession().getAttribute("lang");
         String language = langAttribute == null ? "" : langAttribute.toString();
 
@@ -96,7 +98,6 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
             }
         }
 
-        if (!locales.contains(request.getLocale())) return false;
 
         return true;
     }
