@@ -18,7 +18,7 @@ export interface VerticalState {
 export default function verticalState(
     marginTop: number = 0,
     marginBottom: number = marginTop,
-): (arg0: HTMLElement, arg1: HTMLElement | Window | null) => VerticalState {
+): (arg0: HTMLElement, arg1?: HTMLElement | Window | null) => VerticalState {
     /**
      * @param {HTMLElement} domElement
      * @returns {VerticalState}
