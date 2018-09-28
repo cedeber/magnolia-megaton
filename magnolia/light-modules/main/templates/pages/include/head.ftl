@@ -11,9 +11,12 @@
 <meta name="keywords" content="${content.keywords!root.keywords!}">
 
 <!-- Web Application -->
+[#--
 <style media="screen">
     [#include "/main/webresources/build/module/shell.css"]
 </style>
+--]
+<link rel="stylesheet" href="${ctx.contextPath}/app/main.css">
 
 [#if cmsfn.isEditMode()]
 <style>

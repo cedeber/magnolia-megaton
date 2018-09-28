@@ -45,7 +45,7 @@ const cssLoaderConfig = [
         loader: "postcss-loader",
         options: {
             ident: "postcss",
-            sourceMap: debug ? 'inline' : false,
+            sourceMap: debug ? "inline" : false,
             plugins: [
                 require("postcss-import"),
                 require("postcss-preset-env")({
@@ -64,6 +64,19 @@ const cssLoaderConfig = [
         },
     },
 ];
+
+if (!debug) {
+    cssLoaderConfig[1].options.plugins.push(
+        require("cssnano")({
+            preset: [
+                "default",
+                {
+                    "calc": false,
+                },
+            ],
+        }),
+    )
+}
 
 // Entries with polyfills
 const entry = {
@@ -96,25 +109,20 @@ module.exports = {
         new CleanWebpackPlugin([buildPath], {
             root: path.resolve(__dirname, "../../"),
         }),
-
-        new VueLoaderPlugin(),
-
-        // The CSS is injected via JS
         new MiniCssExtractPlugin({
-            filename: "shell.css",
+            filename: "[name].css",
         }),
-
-        // Copy Manifest files
+        new VueLoaderPlugin(),
         new CopyWebpackPlugin(
             legacy
                 ? undefined
                 : [
-                      {
-                          from: "./*-manifest.json",
-                          context: "./application/",
-                          to: resourcesPath,
-                      },
-                  ],
+                    {
+                        from: "./*-manifest.json",
+                        context: "./application/",
+                        to: resourcesPath,
+                    },
+                ],
         ),
     ],
     module: {
@@ -147,21 +155,14 @@ module.exports = {
                     // overwrite tsconfig.json configuration
                     compilerOptions: legacy
                         ? {
-                              target: "es5",
-                          }
+                            target: "es5",
+                        }
                         : {},
                 },
             },
             {
-                // When you import shell.css it extracts it separately
-                test: /\b(?=shell\b)\w+\.css$/,
+                test: /\.css$/,
                 use: [MiniCssExtractPlugin.loader, ...cssLoaderConfig],
-            },
-            {
-                // Default CSS, except shell.css
-                test: /\b(?!shell\b)\w+\.css$/,
-                use: ["style-loader", ...cssLoaderConfig],
-                // use: ["vue-style-loader", ...cssLoaderConfig],
             },
             {
                 // All assets that have to be packaged
