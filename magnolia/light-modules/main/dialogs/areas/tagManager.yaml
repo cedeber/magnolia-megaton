@@ -36,9 +36,5 @@ form:
           type: String
           required: true
           i18n: true
-        - name: code
-          fieldType: code
-          language: javascript
-          label: Tags code
-        
+
 actions: !include:/main/dialogs/include/commonActions.yaml
