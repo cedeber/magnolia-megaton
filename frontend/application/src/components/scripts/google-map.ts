@@ -60,10 +60,10 @@ export default class GoogleMap extends Vue {
         window.google = window.google || {};
 
         if (!window.google.isMapsAlreadyLoading && !window.google.maps) {
-            window.google.isMapsAlreadyLoading = true;
             await loadJS(
                 `https://maps.googleapis.com/maps/api/js?key=${this.apiKey!}`,
             );
+            window.google.isMapsAlreadyLoading = true;
         }
 
         this.initMap();
