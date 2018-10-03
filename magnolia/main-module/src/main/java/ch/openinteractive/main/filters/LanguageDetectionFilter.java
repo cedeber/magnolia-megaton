@@ -139,7 +139,7 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
             }
         }
 
-        if (!locales.contains(request.getLocale()) && currentLocale.equals(request.getLocale())) {
+        if (!locales.contains(preferredLocale) && currentLocale.equals(preferredLocale)) {
             currentLocale = sitefn.site().getI18n().getDefaultLocale();
             preferredLocale = currentLocale;
         }
