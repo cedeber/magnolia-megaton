@@ -12,9 +12,9 @@ form:
         fieldType: text
         label: Last Name Label
         i18n: true
-      - name: adressLabel
+      - name: addressLabel
         fieldType: text
-        label: Adress Label
+        label: Address Label
         i18n: true
       - name: zipLabel
         fieldType: text
