@@ -133,10 +133,9 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
         Locale preferredLocale = new Locale(request.getLocale().getLanguage());
 
         Enumeration<Locale> preferredLocales = request.getLocales();
-        while (request.getLocales().hasMoreElements() && !locales.contains(preferredLocale)) {
+        while (preferredLocales.hasMoreElements() && !locales.contains(preferredLocale)) {
             preferredLocale = new Locale(preferredLocales.nextElement().getLanguage());
         }
-
 
         String URI = request.getRequestURI();
         Locale currentLocale = preferredLocale;
