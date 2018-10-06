@@ -52,6 +52,9 @@ const cssLoaderConfig = [
                     stage: 2,
                     sourceMap: true,
                     features: {
+                        "custom-properties": {
+                            preserve: false,
+                        },
                         "custom-media-queries": true,
                         "nesting-rules": true,
                     },
@@ -71,11 +74,11 @@ if (!debug) {
             preset: [
                 "default",
                 {
-                    "calc": false,
+                    calc: false,
                 },
             ],
         }),
-    )
+    );
 }
 
 // Entries with polyfills
@@ -117,12 +120,12 @@ module.exports = {
             legacy
                 ? undefined
                 : [
-                    {
-                        from: "./*-manifest.json",
-                        context: "./application/",
-                        to: resourcesPath,
-                    },
-                ],
+                      {
+                          from: "./*-manifest.json",
+                          context: "./application/",
+                          to: resourcesPath,
+                      },
+                  ],
         ),
     ],
     module: {
@@ -155,8 +158,8 @@ module.exports = {
                     // overwrite tsconfig.json configuration
                     compilerOptions: legacy
                         ? {
-                            target: "es5",
-                        }
+                              target: "es5",
+                          }
                         : {},
                 },
             },

@@ -1,11 +1,5 @@
-/* --- Shell --- */
-// Extracted separately by webpack, see webpack.config.js. Injected by FreeMarker
-import "./shell/shell.css";
-
 /* --- Styles --- */
-import "./styles/base.css";
-import "./styles/article.css";
-import "./styles/form.css";
+import "./styles/main.css";
 
 /* --- Application --- */
 import Vue from "vue";
