@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.Locale;
 
 public class LanguageDetectionFilter extends AbstractMgnlFilter {
@@ -131,6 +132,11 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
     private void setLangAttribute(HttpServletRequest request, boolean isCurrentlyDefaultLocale, Collection<Locale> locales) {
         Locale preferredLocale = new Locale(request.getLocale().getLanguage());
 
+        Enumeration<Locale> preferredLocales = request.getLocales();
+        while (preferredLocales.hasMoreElements() && !locales.contains(preferredLocale)) {
+            preferredLocale = new Locale(preferredLocales.nextElement().getLanguage());
+        }
+
         String URI = request.getRequestURI();
         Locale currentLocale = preferredLocale;
         for (Locale locale : locales) {
@@ -140,7 +146,14 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
         }
 
         if (!locales.contains(preferredLocale) && currentLocale.equals(preferredLocale)) {
-            currentLocale = sitefn.site().getI18n().getDefaultLocale();
+            Locale englishLocale = new Locale("en");
+
+            if (locales.contains(englishLocale)) {
+                currentLocale = englishLocale;
+            } else {
+                currentLocale = sitefn.site().getI18n().getDefaultLocale();
+            }
+
             preferredLocale = currentLocale;
         }
 
