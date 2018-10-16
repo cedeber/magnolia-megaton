@@ -36,15 +36,6 @@
     </div>
 </template>
 
-<style>
-    :root {
-        --carousel-transition-timing: 350ms;
-        --carousel-transition-nonlinear: 1.5s;
-        --carousel-delay: 5s;
-        --carousel-scale: 1.1;
-    }
-</style>
-
 <style scoped>
 @import url(../variables.css);
 
@@ -54,6 +45,11 @@
    └──────────────┘
 */
 .o-carousel {
+    --carousel-transition-timing: 350ms;
+    --carousel-transition-nonlinear: 1.5s;
+    --carousel-delay: 5s;
+    --carousel-scale: 1.1;
+
     opacity: 0;
     will-change: opacity;
     transition: opacity 0s;
