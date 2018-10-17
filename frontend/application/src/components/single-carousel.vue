@@ -223,24 +223,33 @@
 .controls {
     position: absolute;
     z-index: 5;
-    bottom: 0;
-    width: 100%;
+    bottom: 10px;
+    width: calc(100% - 20px);
     text-align: center;
-    left: 50%;
-    transform: translateX(-50%) translateY(-15px);
+    left: 10px;
     color: white;
+    line-height: 0;
+    height: 44px;
+}
+
+.controls > button {
+    padding: 0;
+}
+
+.previous-button,
+.next-button {
+    position: absolute;
+    width: 44px;
+    height: 44px;
 }
 
 .previous-button {
-    position: absolute;
     left: 0;
-    transform: translateX(18px);
 }
 
 .next-button {
     position: absolute;
     right: 0;
-    transform: translateX(-18px);
 }
 
 .bullet {
@@ -249,7 +258,7 @@
     border-radius: 50%;
     width: 15px;
     height: 15px;
-    margin: 5px;
+    margin: 14px 5px 15px;
 }
 
 .bullet::after {

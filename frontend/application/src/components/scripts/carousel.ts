@@ -120,6 +120,7 @@ export default class Carousel extends Vue {
 
         // Reset the Carousel after the resize
         // The Carousel's height shouldn't be changed because making the window bigger means you want to see more content
+        /** @this Carousel */
         function resize(this: Carousel) {
             if (this.isLoaded) {
                 this.isLoaded = false;
@@ -174,7 +175,8 @@ export default class Carousel extends Vue {
             });
         }
 
-        this.carouselWidth = this.$el.offsetWidth;
+        const slider = (this.$el.querySelector(".slider") || this.$el) as HTMLDivElement;
+        this.carouselWidth = slider.offsetWidth;
 
         if (this.carouselWidth <= 0) {
             this.isLoaded = true;
