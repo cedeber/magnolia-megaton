@@ -1,12 +1,16 @@
 package ch.openinteractive.main.filters;
 
+import ch.openinteractive.main.servlets.LocaleUtil;
 import info.magnolia.cms.filters.AbstractMgnlFilter;
 import info.magnolia.cms.i18n.I18nContentSupport;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.site.Site;
 import info.magnolia.module.site.functions.SiteFunctions;
 import info.magnolia.templating.functions.TemplatingFunctions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +22,12 @@ import java.util.Locale;
 
 public class LanguageDetectionFilter extends AbstractMgnlFilter {
 
-    SiteFunctions sitefn;
-    TemplatingFunctions cmsfn;
+    private static final Logger log = LoggerFactory.getLogger(LanguageDetectionFilter.class);
 
+    private SiteFunctions sitefn;
+    private TemplatingFunctions cmsfn;
+
+    @Inject
     public LanguageDetectionFilter(SiteFunctions sitefn, TemplatingFunctions cmsfn) {
         this.sitefn = sitefn;
         this.cmsfn = cmsfn;
@@ -29,11 +36,12 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         try {
-            String URI = request.getRequestURI();
+            String uri = request.getRequestURI();
 
-            if (!URI.contains(".magnolia") && !cmsfn.isEditMode() && request.getHeader("Accept").contains("html")) {
+            // TODO exclude favicon.ico.
+            if (!uri.contains(".magnolia") && !uri.contains(".servlet") && !uri.contains("/404") && !uri.contains("VAADIN") && !uri.contains(".resources") && !cmsfn.isEditMode() && request.getHeader("Accept").contains("html")) {
 
-                Collection<Locale> locales = getLocales();
+                Collection<Locale> locales = LocaleUtil.getLocales(sitefn);
 
                 if (locales != null && locales.size() > 0) {
 
@@ -51,10 +59,11 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
                             String redirectURI;
 
                             String contextPath = MgnlContext.getContextPath();
-                            redirectURI = contextPath + "/" + language + URI.replaceFirst(contextPath, "");
+                            redirectURI = contextPath + "/" + language + uri.replaceFirst(contextPath, "");
 
                             if (!language.equals(site.getI18n().getDefaultLocale().getLanguage())) {
                                 response.sendRedirect(redirectURI);
+                                log.debug("Redirected user from:"+ uri +" to: "+ redirectURI);
                             }
                         }
                     }
@@ -63,23 +72,6 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
         } catch (Exception ignored) {}
 
         filterChain.doFilter(request, response);
-    }
-
-    /**
-     * Returns a Collection of locales. If no locales are defined it returns a Collection with 0 elements.
-     * Returns null if there is no i18n Node in the Site config!
-     * @return
-     */
-    private Collection<Locale> getLocales() {
-        Collection<Locale> locales = null;
-        Site site = sitefn.site();
-        I18nContentSupport i18n = site.getI18n();
-
-        if (i18n != null ) {
-            locales = i18n.getLocales();
-        }
-
-        return locales;
     }
 
     /**
@@ -95,7 +87,7 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
         String language = langAttribute == null ? "" : langAttribute.toString().substring(0, 2);
 
         for (Locale currentLocale : locales) {
-            if (URI.contains("/" + currentLocale + "/") && currentLocale.getLanguage().equals(language)) {
+            if (LocaleUtil.urlContainsLocale(URI, currentLocale) && currentLocale.getLanguage().equals(language)) {
                 return false;
             }
         }
@@ -115,7 +107,7 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
 
 
         for (Locale currentLocale : locales) {
-            if (URI.contains("/" + currentLocale + "/")) {
+            if (LocaleUtil.urlContainsLocale(URI, currentLocale)) {
                 isCurrentlyDefaultLocale = false;
             }
         }
@@ -140,7 +132,7 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
         String URI = request.getRequestURI();
         Locale currentLocale = preferredLocale;
         for (Locale locale : locales) {
-            if (URI.contains("/" + locale + "/")) {
+            if (LocaleUtil.urlContainsLocale(URI, locale)) {
                 currentLocale = locale;
             }
         }
