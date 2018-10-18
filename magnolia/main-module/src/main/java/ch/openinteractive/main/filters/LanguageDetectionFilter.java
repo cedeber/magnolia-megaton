@@ -1,8 +1,8 @@
 package ch.openinteractive.main.filters;
 
+import ch.openinteractive.main.StarterKit;
 import ch.openinteractive.main.servlets.LocaleUtil;
 import info.magnolia.cms.filters.AbstractMgnlFilter;
-import info.magnolia.cms.i18n.I18nContentSupport;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.site.Site;
 import info.magnolia.module.site.functions.SiteFunctions;
@@ -26,20 +26,20 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
 
     private SiteFunctions sitefn;
     private TemplatingFunctions cmsfn;
+    private StarterKit mainModule;
 
     @Inject
-    public LanguageDetectionFilter(SiteFunctions sitefn, TemplatingFunctions cmsfn) {
+    public LanguageDetectionFilter(SiteFunctions sitefn, TemplatingFunctions cmsfn, StarterKit mainModule) {
         this.sitefn = sitefn;
         this.cmsfn = cmsfn;
+        this.mainModule = mainModule;
     }
 
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         try {
-            String uri = request.getRequestURI();
 
-            // TODO exclude favicon.ico.
-            if (!uri.contains(".magnolia") && !uri.contains(".servlet") && !uri.contains("/404") && !uri.contains("VAADIN") && !uri.contains(".resources") && !cmsfn.isEditMode() && request.getHeader("Accept").contains("html")) {
+            if (uriAllowedForRedirection(request)) {
 
                 Collection<Locale> locales = LocaleUtil.getLocales(sitefn);
 
@@ -59,6 +59,7 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
                             String redirectURI;
 
                             String contextPath = MgnlContext.getContextPath();
+                            String uri = request.getRequestURI();
                             redirectURI = contextPath + "/" + language + uri.replaceFirst(contextPath, "");
 
                             if (!language.equals(site.getI18n().getDefaultLocale().getLanguage())) {
@@ -157,6 +158,43 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
         } else if (!isCurrentlyDefaultLocale) {
             request.getSession().setAttribute("lang", currentLocale.getLanguage().substring(0, 2));
         }
+    }
 
+
+    /**
+     * Returns if the request is allowed to be redirected based on browser language.
+     * Here we exclude evey request that is not a web page etc.
+     *
+     * @param request
+     * @return boolean
+     */
+    private boolean uriAllowedForRedirection(HttpServletRequest request) {
+        String uri = request.getRequestURI();
+
+        //URI excludes
+        if( uri.contains("/.magnolia/") ||
+            uri.contains("/.servlet/") ||
+            uri.contains("/VAADIN/") ||
+            uri.contains("/.resources/")){
+            return false;
+        }
+
+        //No redirect in edit mode
+        if(cmsfn.isEditMode()) {
+            return false;
+        }
+
+        //Only redirect html
+        if(!request.getHeader("Accept").contains("html") ) {
+            return false;
+        }
+
+        //Do not redirect 404 page
+        String notFoundPagePath = mainModule.getNotFoundPagePath();
+        if(notFoundPagePath != null && !notFoundPagePath.isEmpty() && uri.contains(notFoundPagePath)) {
+            return false;
+        }
+
+        return true;
     }
 }
