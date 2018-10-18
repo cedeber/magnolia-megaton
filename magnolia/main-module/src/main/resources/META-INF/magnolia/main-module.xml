@@ -43,4 +43,15 @@
             </mappings>
         </servlet>
     </servlets-->
+
+    <servlets>
+        <servlet>
+            <name>NotFoundRedirectServlet</name>
+            <class>ch.openinteractive.main.servlets.NotFoundRedirectServlet</class>
+            <comment>Handles redirects to a 404 page</comment>
+            <mappings>
+                <mapping>/.servlet/NotFoundRedirect/*</mapping>
+            </mappings>
+        </servlet>
+    </servlets>
 </module>
