@@ -5,14 +5,13 @@ import info.magnolia.module.form.templates.components.FormFieldModel;
 import info.magnolia.rendering.model.RenderingModel;
 import info.magnolia.rendering.template.RenderableDefinition;
 import info.magnolia.templating.functions.TemplatingFunctions;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class OIFormFieldModel<RD extends RenderableDefinition> extends FormFieldModel {
     private static final Logger log = LoggerFactory.getLogger(OIFormFieldModel.class);
@@ -72,7 +71,7 @@ public class OIFormFieldModel<RD extends RenderableDefinition> extends FormField
             Object cellObject = super.content.getProperty("cell").getString();
             return cellObject != null ? "cell-" + cellObject.toString() : "1of1";
         } catch (RepositoryException e) {
-            log.error("Cell Property not found in form field. Form field path: " + super.content + "/r/n", e);
+            log.warn("Cell Property not found in form field. Form field path: " + super.content + "/r/n");
         }
         return "cell-1of1";
     }

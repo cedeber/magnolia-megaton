@@ -4,6 +4,13 @@ form:
   - name: tabMain
     label: Single Checkbox
     fields:
+
+    - name: controlName
+      label: Field Name
+      fieldType: text
+      required: true
+      description: Used internally by form-module. Can be used in email template.
+
     - name: label
       fieldType: richText
       label: Field Label
@@ -11,14 +18,17 @@ form:
       height: 180
       required: true
       configJsFile: /.resources/main/dialogs/include/config/simple.js
-    - name: value
-      label: Field Name
-      fieldType: text
-      required: true
+
     - name: mandatory
       fieldType: checkbox
       label: Required
       buttonLabel: Field is mandatory
       defaultValue: false
 
-actions: !include:/main/dialogs/include/commonActions.yaml
+
+
+actions:
+  commit:
+    class: ch.openinteractive.main.form.SaveSingleCheckboxActionDefinition
+  cancel:
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
