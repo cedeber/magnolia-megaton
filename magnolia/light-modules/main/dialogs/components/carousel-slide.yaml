@@ -2,32 +2,25 @@ form:
   label: Carousel Slide
   tabs:
     - name: tabMain
-      label: Content
+      label: Background media
       fields:
-        - name: foregroundText
-          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
-          label: Foreground text
-          height: 130
-          configJsFile: /.resources/main/dialogs/include/config/simple.js
-          i18n: true
         - name: image
-          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          fieldType: link
           targetWorkspace: dam
           appName: assets
           label: Image, Poster
-          required: true
           i18n: true
           identifierToPathConverter:
             class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
           contentPreviewDefinition:
             contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
           validators:
-            - name: image
-              class: ch.openinteractive.main.validators.MimeTypeValidatorDefinition
-              pattern: image/*
-              errorMessage: Choose an image
+          - name: image
+            class: ch.openinteractive.main.validators.MimeTypeValidatorDefinition
+            pattern: image/*
+            errorMessage: Choose an image
         - name: video
-          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          fieldType: link
           targetWorkspace: dam
           appName: assets
           label: Video
@@ -35,14 +28,56 @@ form:
           identifierToPathConverter:
             class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
           validators:
-            - name: video
-              class: ch.openinteractive.main.validators.MimeTypeValidatorDefinition
-              pattern: video/*
-              errorMessage: Choose a video
-        - name: isCover
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-          label: Media as cover
-          buttonLabel: The media covers the whole container (like a background)
+          - name: video
+            class: ch.openinteractive.main.validators.MimeTypeValidatorDefinition
+            pattern: video/*
+            errorMessage: Choose a video
+        - name: isAutoplay
+          class: info.magnolia.ui.form.field.definition.HiddenFieldDefinition
           defaultValue: true
+          type: Boolean
+        - name: isInstantly
+          class: info.magnolia.ui.form.field.definition.HiddenFieldDefinition
+          defaultValue: true
+          type: Boolean
+        - name: isCover
+          class: info.magnolia.ui.form.field.definition.HiddenFieldDefinition
+          defaultValue: true
+          type: Boolean
+        - name: position
+          fieldType: optionGroup
+          layout: horizontal
+          sortOptions: false
+          label: Position
+          description: If cropped, this is the part of the media which will be shown.
+          options:
+          - name: center
+            selected: true
+            label: Center
+          - name: top
+            label: Top
+          - name: right
+            label: Right
+          - name: bottom
+            label: Bottom
+          - name: left
+            label: Left
+
+    - name: tabText
+      label: Foreground Text
+      fields:
+      - name: title
+        fieldType: richText
+        label: Title
+        i18n: true
+        height: 120
+        configJsFile: /.resources/main/dialogs/include/config/title.js
+      - name: body
+        fieldType: richText
+        label: Paragraph
+        i18n: true
+        height: 180
+        configJsFile: /.resources/main/dialogs/include/config/simple.js
+
 
 actions: !include:/main/dialogs/include/commonActions.yaml

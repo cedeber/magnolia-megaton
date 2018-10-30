@@ -1,8 +1,7 @@
-import { Vue, Component, Prop } from "vue-property-decorator";
-import validateSchema from "../../schemas/validate";
-import mediaSchema from "../../schemas/media.json";
-import sourcesSchema from "../../schemas/picture-sources.json";
-import taggr from "../../devtools/taggr";
+import { Vue, Component, Prop, Watch } from "vue-property-decorator";
+// import validateSchema from "../../schemas/validate";
+// import mediaSchema from "../../schemas/media.json";
+// import sourcesSchema from "../../schemas/picture-sources.json";
 
 interface LazyJSON {
     picture?: {
@@ -30,64 +29,74 @@ interface LazyJSON {
     };
 }
 
-declare global {
-    interface Window {
-        objectFitPolyfill: any;
-    }
-}
+// const validateMedia = validateSchema(mediaSchema);
+// const validateSources = validateSchema(sourcesSchema);
 
-const validateMedia = validateSchema(mediaSchema);
-const validateSources = validateSchema(sourcesSchema);
+// Edge doesn't support object-fit for video...
+// https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/13603873/#comment-14
 const IEdgeMatches = /(Edge|Trident)\/(\d.)/i.exec(navigator.userAgent);
-// Edge 16 doesn't support object-fit for video...
-const isOutdatedBrowser = IEdgeMatches && parseInt(IEdgeMatches[2], 10) < 17;
-
-/**
- * @todo Save the result in a sessionStorage?
- */
+const isOutdatedBrowser = IEdgeMatches != null; // && parseInt(IEdgeMatches[2], 10) < 17;
 
 @Component
 export default class LazyMedia extends Vue {
     @Prop({ type: Boolean, default: false })
-    public isInstantly!: boolean;
+    isInstantly!: boolean;
 
     @Prop({ type: Boolean, default: false })
-    public isCover!: boolean;
+    isCover!: boolean;
 
     @Prop({ type: Boolean, default: false })
-    public hasCaption!: boolean;
+    hasCaption!: boolean;
 
     @Prop({ type: Boolean, default: false })
-    public isAutoplay!: boolean;
+    isAutoplay!: boolean;
 
     @Prop({ type: String, default: "is-center" })
-    public position!: string;
+    position!: string;
 
     // need to return JSON
     @Prop({ type: String, default: "" })
-    public path!: string;
+    path!: string;
 
     // if content == null, fetch the content with 'path' (JSON)
     @Prop({ type: Object, default: null })
-    public content!: LazyJSON | null;
+    content!: LazyJSON | null;
 
     @Prop({ type: Object, default: null })
-    public ratio!: any;
+    ratio!: any;
 
-    public source = "";
-    public width: string | number = "100%";
-    public height: string | number = "100%";
-    public isLoaded = false;
+    @Prop({ type: Object, default: null })
+    simRatio!: any;
 
-    public video: any = null;
-    public picture: any = null;
-    public metadata: any = {};
+    @Prop({ type: Boolean, default: false })
+    scaled!: boolean;
 
-    private log = taggr("lazy-media");
+    @Prop({ type: Number, default: -1 })
+    maxWidth!: number;
 
-    public async mounted(): Promise<void> {
-        this.log.keep(this.$el);
+    source = "";
+    width: string | number = "100%";
+    height: string | number = "100%";
+    isLoaded = false;
+    observer: IntersectionObserver | null = null;
 
+    video: any = null;
+    picture: any = null;
+    metadata: any = {};
+
+    @Watch("path")
+    onPathChanged() {
+        this.init();
+    }
+
+    mounted() {
+        this.init();
+    }
+
+    /**
+     * @returns {Promise<void>}
+     */
+    async init(): Promise<void> {
         let data = this.content;
         let source = "";
 
@@ -100,40 +109,64 @@ export default class LazyMedia extends Vue {
             throw new Error("json is void");
         }
 
-        await validateMedia(data);
-        this.log.info("json is valid");
+        // await validateMedia(data);
 
-        this.video = data.video;
-        this.picture = data.picture;
-        this.metadata = data.metadata;
+        this.video = data.video || null;
+        this.picture = data.picture || null;
+        this.metadata = data.metadata || null;
+
+        if (this.maxWidth && this.maxWidth > 0 && this.picture) {
+            this.picture.sources = restrictSources(
+                this.picture.sources,
+                this.maxWidth,
+            );
+        }
 
         source = this.video
             ? this.video.link || ""
             : await getPictureSource(this.picture.sources);
-        this.log.info(`default source: '${source}'`);
+
+        // Helper for object-fit polyfill
+        if (!this.ratio && this.isCover && this.simRatio && isOutdatedBrowser) {
+            this.ratio = this.simRatio;
+        }
+
+        if (this.ratio) {
+            this.$el.style.paddingTop =
+                `calc(1 / (${this.ratio.w} / ${this.ratio.h}) * 100%)`;
+        }
 
         if (this.isInstantly) {
             this.source = source;
         } else {
-            // [TODO] Create only one observer for all lazy components
-            const observer = new IntersectionObserver(
+            if (this.observer != null) {
+                this.observer.disconnect();
+                this.observer = null;
+            }
+
+            this.observer = new IntersectionObserver(
                 entries => {
                     if (!entries[0].isIntersecting) {
                         return;
                     }
 
-                    observer.disconnect();
+                    if (this.observer != null) {
+                        this.observer.disconnect();
+                        this.observer = null;
+                    }
+
                     this.source = source;
                 },
                 {
                     rootMargin: "100px 100px 667px 100px", // 1 viewport height of an iPhone 7/8
                 },
             );
-            observer.observe(this.$el);
+
+            this.observer.observe(this.$el);
         }
     }
 
-    public updated() {
+    updated() {
         const image = this.$el.querySelector("img");
 
         if (image) {
@@ -141,8 +174,7 @@ export default class LazyMedia extends Vue {
             // tslint:disable-next-line:no-bitwise
             const ext = source.slice(((source.lastIndexOf(".") - 1) >>> 0) + 2);
 
-            // [TODO] Add @load with Vue?
-
+            // TODO :: Add @load with Vue?
             image.addEventListener("load", async () => {
                 let width = image.naturalWidth;
                 let height = image.naturalHeight;
@@ -172,7 +204,40 @@ export default class LazyMedia extends Vue {
                 this.width = width;
                 this.height = height;
 
-                // object-fit polyfill for IEdge <= 15
+                if (this.scaled) {
+                    const imageParent = image.parentElement;
+
+                    if (imageParent) {
+                        const imageRatio = width / height;
+                        const pictureWidth = imageParent.offsetWidth;
+                        const pictureHeight = imageParent.offsetHeight;
+                        const pictureArea = pictureWidth * pictureHeight;
+                        const pictureRatio = pictureWidth / pictureHeight;
+                        const area =
+                            imageRatio >= pictureRatio
+                                ? pictureWidth * height * (pictureWidth / width)
+                                : pictureHeight * width * (pictureHeight / height);
+                        const areaRatio = area / pictureArea;
+                        const minScale = 0.4;
+                        const scale =
+                            Math.round(
+                                ((1 - areaRatio) * (1 - minScale) + minScale) *
+                                    100,
+                            ) / 100;
+
+                        image.style.transform = `scale(${scale})`;
+                        image.style.transformOrigin = "center";
+                    }
+                }
+
+                // remove the placeholder (v-else triggers too early)
+                if (this.$slots.default && this.$slots.default.length > 0) {
+                    for (const slot of this.$slots.default) {
+                        (slot.elm as HTMLElement).style.display = "none";
+                    }
+                }
+
+                // object-fit polyfill
                 if (
                     typeof window.objectFitPolyfill === "function" &&
                     isOutdatedBrowser &&
@@ -185,11 +250,66 @@ export default class LazyMedia extends Vue {
                 this.isLoaded = true;
             });
         }
+
+        if (this.video) {
+            const video = this.$el.querySelector("video");
+
+            if (video) {
+                // object-fit polyfill
+                if (
+                    typeof window.objectFitPolyfill === "function" &&
+                    isOutdatedBrowser &&
+                    this.isCover
+                ) {
+                    window.objectFitPolyfill(video);
+                }
+            }
+        }
     }
 }
 
+function getNumber(value: string | number): number | undefined {
+    const result = /^(\d)+/.exec(value.toString());
+
+    return result ? parseInt(result[0], 10) : undefined;
+}
+
+function restrictSources(data: any, max: number | string): any {
+    const maxWidth = getNumber(max);
+
+    if (maxWidth == undefined || maxWidth === 0) {
+        return data;
+    }
+
+    const newSources: { [propName: string]: string } = {};
+    const sourcesKeys = Object.keys(data);
+    const sortedKeys = sourcesKeys.sort(
+        (a: string, b: string): number => {
+            const aNum = a === "all" ? Infinity : getNumber(a) || 0;
+            const bNum = b === "all" ? Infinity : getNumber(b) || 0;
+
+            return aNum <= bNum ? -1 : 1;
+        },
+    );
+
+    for (const key of sortedKeys) {
+        const keyNumber = getNumber(key) || Infinity;
+
+        if (keyNumber <= maxWidth) {
+            newSources[key] = data[key];
+        } else {
+            // tslint:disable-next-line:no-string-literal
+            newSources["all"] = data[key];
+
+            break;
+        }
+    }
+
+    return newSources;
+}
+
 async function getPictureSource(data: any): Promise<string> {
-    await validateSources(data);
+    // await validateSources(data);
 
     const pixelRatio = window.devicePixelRatio || 1;
     const sourcesInfos: Array<{ pxr: number; src: string }> = [];

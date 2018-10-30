@@ -1,0 +1,85 @@
+form:
+  label: Custom Form
+  tabs:
+    - name: tabMain
+      label: Main
+      fields:
+      - name: nameLabel
+        fieldType: text
+        label: First Name Label
+        i18n: true
+      - name: lastnameLabel
+        fieldType: text
+        label: Last Name Label
+        i18n: true
+      - name: addressLabel
+        fieldType: text
+        label: Address Label
+        i18n: true
+      - name: zipLabel
+        fieldType: text
+        label: Zip Label
+        i18n: true
+      - name: cityLabel
+        fieldType: text
+        label: City Label
+        i18n: true
+      - name: countryLabel
+        fieldType: text
+        label: Country Label
+        i18n: true
+      - name: companyLabel
+        fieldType: text
+        label: Company Label
+        i18n: true
+      - name: emailLabel
+        fieldType: text
+        label: Email Label
+        i18n: true
+      - name: phoneLabel
+        fieldType: text
+        label: Phone Label
+        i18n: true
+      - name: messageLabel
+        fieldType: text
+        label: Message Label
+        i18n: true
+      - name: sendLabel
+        fieldType: text
+        label: Send Label
+        i18n: true
+      - name: privacyText
+        fieldType: richText
+        label: Privacy Text
+        i18n: true
+      - name: requiredText
+        fieldType: text
+        label: required Text
+        i18n: true
+
+    - name: tabConfig
+      label: Config
+      fields:
+      - name: fromEmail
+        fieldType: text
+        label: From Email
+        i18n: true
+        required: true
+
+      - name: recipient
+        fieldType: text
+        label: Recipient
+        i18n: true
+        required: true
+
+      - name: subject
+        fieldType: text
+        label: Subject
+        i18n: true
+        required: true
+
+actions:
+  commit:
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+  cancel:
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition

@@ -5,7 +5,7 @@ form:
       label: Main
       fields:
         - name: searchPage
-          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          fieldType: link
           targetWorkspace: website
           appName: pages
           label: Search Page
@@ -13,13 +13,16 @@ form:
           identifierToPathConverter:
             class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
         - name: label
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-          required: true
+          fieldType: text
           label: Label
           i18n: true
         - name: placeholder
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          fieldType: text
           label: Placeholder
+          i18n: true
+        - name: button
+          fieldType: text
+          label: Button label
           i18n: true
 
 actions: !include:/main/dialogs/include/commonActions.yaml

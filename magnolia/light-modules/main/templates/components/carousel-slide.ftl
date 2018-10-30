@@ -1,25 +1,31 @@
-[#include "../macros/alt.ftl"]
 [#assign isCover = content.isCover?? && content.isCover == true]
+[#assign isInstantly = content.isInstantly?? && content.isInstantly == true]
+[#assign isAutoplay = content.isAutoplay?? && content.isAutoplay == true]
 
-[#if content.image?? && damfn.getAsset(content.image)??]
-<div class="item">[#-- TODO inherit items per row --]
-    <div class="item-inner">
-        [#if content.foregroundText?has_content]
-        <div class="foreground o-flex-middle is-vertical is-left">
-            <div class="h1 is-left">${isCover?string!cmsfn.decode(content).foregroundText!}</div>
+<div class="slide [#if cmsfn.isEditMode()]cell-1of1[/#if]">
+    <div class="slide-inner">
+        [#if content.title?has_content || content.body?has_content]
+        <div class="foreground o-flex-middle is-vertical o-section has-no-top-space has-no-bottom-space">
+            <div class="o-group is-large is-left">
+                [#include "editorial.ftl"]
+            </div>
         </div>
         [/#if]
         <div class="background">
             [#if !cmsfn.isEditMode()]
             <lazy-media path="${cmsfn.link(content)?replace('.html', '.json')}"
                         :is-cover="${isCover?string}"
-                        :is-autoplay="true"
+                        :is-instantly="${isInstantly?string!}"
+                        :is-autoplay="${isAutoplay?string!}"
                         class="o-lazy-media">
             </lazy-media>
             [#else]
-            <img src="${damfn.getAssetLink(content.image)!}" style="display:block;max-width:100%">
+                [#if content.image?? && damfn.getAsset(content.image)??]
+                    <img src="${damfn.getAssetLink(content.image)!}" style="display: block; max-width: 100%">
+                [#elseif content.video?? && damfn.getAsset(content.video)??]
+                    <video playsinline controls src="${damfn.getAssetLink(content.video)!}" preload="metadata" style="display: block; max-width: 100%"></video>
+                [/#if]
             [/#if]
         </div>
     </div>
 </div>
-[/#if]

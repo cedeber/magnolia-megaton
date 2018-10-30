@@ -1,0 +1,8 @@
+title: Media (Image, Video)
+renderType: freemarker
+templateScript: /main/templates/components/lazyMedia.ftl
+dialog: main:components/lazyMedia
+
+variations:
+  json:
+    templateScript: /main/templates/variations/mediaJSON.ftl

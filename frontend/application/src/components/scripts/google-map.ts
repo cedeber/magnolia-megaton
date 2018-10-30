@@ -1,70 +1,69 @@
-import Vue from "vue";
-import { Component, Prop, Watch } from "vue-property-decorator";
-import taggr from "../../devtools/taggr";
-
-declare global {
-    interface Window { google: any; }
-}
-
-const log = taggr("google-map");
-
-/* [TODO] Watch slot changes */
+import { Vue, Component, Prop, Watch } from "vue-property-decorator";
+import { loadJS } from '../../helpers/async-loader';
 
 @Component
-class GoogleMap extends Vue {
+export default class GoogleMap extends Vue {
     @Prop({ type: Number, default: 0 })
-    public lat!: number;
+    lat!: number;
 
     @Prop({ type: Number, default: 0 })
-    public long!: number;
+    long!: number;
 
     @Prop({ type: Number, default: 50 })
-    public scale!: number;
+    scale!: number;
 
     @Prop({ type: Number, default: 15 })
-    public zoom!: number;
+    zoom!: number;
 
     @Prop({ type: String, default: null })
-    public apiKey!: string | null;
+    apiKey!: string | null;
 
     @Prop({ type: String, default: null })
-    public markerIcon!: string | null;
+    markerIcon!: string | null;
 
     @Prop({ type: Number, default: 0 })
-    public markerWidth!: number;
+    markerWidth!: number;
 
     @Prop({ type: Number, default: 0 })
-    public markerHeight!: number;
+    markerHeight!: number;
 
-    public isLoaded: boolean = false;
-    public map?: google.maps.Map;
-    public marker?: google.maps.Marker;
+    @Prop({ type: Boolean, default: false })
+    personalized!: boolean;
+
+    @Prop({ type: String, default: "" })
+    stylesPath!: string;
+
+    isLoaded: boolean = false;
+    map?: google.maps.Map;
+    marker?: google.maps.Marker;
 
     @Watch("lat")
-    public onLatChanged(newVal: number) {
+    onLatChanged(newVal: number) {
         if (this.isLoaded && newVal !== 0 && this.long !== 0) {
             this.moveMap();
         }
     }
 
     @Watch("long")
-    public onLongChanged(newVal: number) {
+    onLongChanged(newVal: number) {
         if (this.isLoaded && newVal !== 0 && this.lat !== 0) {
             this.moveMap();
         }
     }
 
-    public async mounted() {
+    async mounted() {
         if (!this.apiKey) {
-            log.error("no API key provided. https://console.developers.google.com/apis/");
+            // no API key provided. https://console.developers.google.com/apis/
             return;
         }
 
         window.google = window.google || {};
 
         if (!window.google.isMapsAlreadyLoading && !window.google.maps) {
+            await loadJS(
+                `https://maps.googleapis.com/maps/api/js?key=${this.apiKey!}`,
+            );
             window.google.isMapsAlreadyLoading = true;
-            await loadJS(`https://maps.googleapis.com/maps/api/js?key=${this.apiKey!}`);
         }
 
         this.initMap();
@@ -73,7 +72,7 @@ class GoogleMap extends Vue {
     /**
      * Center the map in case lat, long or other properties changed
      */
-    public moveMap() {
+    moveMap() {
         const coords = new google.maps.LatLng(this.lat, this.long);
         google.maps.event.trigger(this.map, "resize");
 
@@ -89,7 +88,16 @@ class GoogleMap extends Vue {
     /**
      * Setup Google Map
      */
-    public initMap() {
+    async initMap() {
+        let styles;
+
+        // Get personalized styles
+        if (this.personalized) {
+            styles = await fetch(this.stylesPath, { credentials: "include" })
+                .then(response => response.json())
+                .catch(() => { /* empty */ });
+        }
+
         // Create Map
         this.map = new google.maps.Map(this.$el.querySelector(".map"), {
             gestureHandling: "cooperative",
@@ -97,7 +105,7 @@ class GoogleMap extends Vue {
             zoom: this.zoom,
             center: { lat: 0, lng: 0 },
             // Custom styling from https://mapstyle.withgoogle.com/
-            // styles: [],
+            styles,
         });
 
         // Create Icon
@@ -105,8 +113,14 @@ class GoogleMap extends Vue {
             this.markerIcon && typeof this.markerIcon === "string"
                 ? ({
                       url: this.markerIcon,
-                      scaledSize: new google.maps.Size(this.markerWidth, this.markerHeight),
-                      anchor: new google.maps.Point(this.markerWidth / 2, this.markerHeight),
+                      scaledSize: new google.maps.Size(
+                          this.markerWidth,
+                          this.markerHeight,
+                      ),
+                      anchor: new google.maps.Point(
+                          this.markerWidth / 2,
+                          this.markerHeight,
+                      ),
                   } as google.maps.Icon)
                 : undefined;
 
@@ -117,10 +131,6 @@ class GoogleMap extends Vue {
             optimized: false,
         });
 
-        if (icon) {
-            log.info(`Personalized marker (${this.markerWidth}×${this.markerHeight}px)`);
-        }
-
         // Create Info Window
         const infoElement = this.$slots.default[0].elm as HTMLElement;
 
@@ -129,12 +139,10 @@ class GoogleMap extends Vue {
             content.removeAttribute("hidden");
 
             const infoWindow = new google.maps.InfoWindow({ content });
-            google.maps.event.addListener(this.marker, "click", () => infoWindow.open(this.map, this.marker));
-
-            log.list(content).info("info window opened");
+            google.maps.event.addListener(this.marker, "click", () =>
+                infoWindow.open(this.map, this.marker),
+            );
         }
-
-        log.list(this.$el).success("initialized");
 
         this.isLoaded = true;
         if (this.lat !== 0 && this.long !== 0) {
@@ -142,25 +150,3 @@ class GoogleMap extends Vue {
         }
     }
 }
-
-function loadJS(src: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-        const script = document.createElement("script");
-
-        script.onload = function(event) {
-            log.success(`${src} loaded`);
-            resolve(event);
-        };
-
-        script.onerror = function(event) {
-            log.error(`${src} fails to load`);
-            reject(event);
-        };
-
-        script.async = true;
-        script.src = src;
-        document.head.appendChild(script);
-    });
-}
-
-export default GoogleMap;

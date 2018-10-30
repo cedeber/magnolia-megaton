@@ -1,4 +1,3 @@
-/*! Vertical State v1.0 */
 
 export interface VerticalState {
     topPosition: number;
@@ -19,14 +18,23 @@ export interface VerticalState {
 export default function verticalState(
     marginTop: number = 0,
     marginBottom: number = marginTop,
-): (arg0: HTMLElement) => VerticalState {
+): (arg0: HTMLElement, arg1?: HTMLElement | Window | null) => VerticalState {
     /**
      * @param {HTMLElement} domElement
      * @returns {VerticalState}
      */
-    return function(domElement: HTMLElement): VerticalState {
-        const wTop = window.pageYOffset;
-        const wHeight = window.innerHeight;
+    return function(
+        domElement: HTMLElement,
+        container: HTMLElement | Window | null = window,
+    ): VerticalState {
+        const wTop: number =
+            container === window || container == undefined
+                ? window.pageYOffset
+                : (container as HTMLElement).scrollTop;
+        const wHeight: number =
+            container === window || container == undefined
+                ? window.innerHeight
+                : (container as HTMLElement).offsetHeight;
         const topPosition = getTopPosition(domElement);
         const topProgress = getTopProgress();
         const bottomProgress = getBottomProgress();

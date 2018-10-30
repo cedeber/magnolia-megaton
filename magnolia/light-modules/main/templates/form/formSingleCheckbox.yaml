@@ -1,0 +1,5 @@
+title: Single Checkbox
+renderType: freemarker
+templateScript: /main/templates/form/formSingleCheckbox.ftl
+dialog: main:form/formSingleCheckbox
+modelClass: ch.openinteractive.main.form.OIFormFieldModel

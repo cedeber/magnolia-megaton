@@ -2,15 +2,37 @@
     [#assign devMode = cmsfn.authorInstance!false]
 
     <!-- Application -->
-    [#assign app = def.parameters.app!"main"]
-    <script src="${ctx.contextPath}/app/commons.js"></script>
-    <script async defer src="${ctx.contextPath}/app/${app!}.js"></script>
+    <script nomodule>window.__nomodule__ = true;</script>
+    <script>
+        (function() {
+            var script = document.createElement("script");
+            script.async = true;
+            script.defer = true;
+            script.crossOrigin = "use-credentials";
+            if (window.__nomodule__) {
+                script.noModule = true;
+                script.src = "${ctx.contextPath}/app-legacy/main.js";
+            } else {
+                script.type = "module";
+                script.src = "${ctx.contextPath}/app/main.js";
+            }
+            document.body.appendChild(script);
+        })();
+    </script>
+
     <!-- Outdated Browsers -->
     [#if !devMode]
     <div id="outdated"></div>
-    ${resfn.js(["/main/webresources/external/outdatedbrowser.min.js"])!}
-    ${resfn.css(["/main/webresources/external/outdatedbrowser.min.css"])!}
-    <script>
+    <script nomodule src="${ctx.contextPath}/.resources/main/webresources/external/outdatedbrowser.min.js"></script>
+    <script nomodule>
+        const link = document.createElement("link");
+
+        link.setAttribute("rel", "stylesheet");
+        link.setAttribute("media", "screen");
+        link.setAttribute("href", "${ctx.contextPath}/.resources/main/webresources/external/outdatedbrowser.min.css");
+
+        document.head.appendChild(link);
+
         outdatedBrowser({
             bgColor: "#f25648",
             color: "#ffffff",
@@ -20,6 +42,3 @@
     </script>
     [/#if]
 [/#if]
-
-<!-- Cookies EU Banner -->
-[@cms.area name="tagManager" /]

@@ -13,7 +13,15 @@
 - [ ] Correct `<head>`: App name, etc...
 - [ ] Fill Web App Manifest
 - [ ] Cookie compliance (only for political Europe right now)
+- [ ] Custom Cookie compliance style
 - [ ] Check Form submissions
+
+# Design Acceptance
+- [ ] Cookie Banner
+- [ ] 404/Fehlerseite
+- [ ] Datenschutzerklärung in Formular
+- [ ] Success und Error Page/Feld in Formular
+- [ ] Webfonts erhalten
 
 # Magnolia Configurations
 ## Project setup
@@ -33,10 +41,7 @@
 - [ ] Imaging Module (Is `/modules/site/config/site/theme` set correctly on public?)
 - [ ] Does Magnolia Search find pages/assets/news/events etc.
 - [ ] Check for yaml errors in Definitions App
-- [ ] Add .monitor-this file in home/xyz/xyz directory (Tomcat Monitoring on Mironet)
-
-## Cache Optimization
-- [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
+- [ ] Add .monitor-this file in home/xyz/xyz directory (Tomcat Monitoring on Mironet. ONLY IF PUBLIC IS NOT PROTECTED)
 
 # Testings
 Chrome and Firefox should technically behave the same way whatever the operating system is.

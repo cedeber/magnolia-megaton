@@ -2,7 +2,7 @@ name: tabLayout
 label: Layout
 fields:
   - name: sectionLayout
-    class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+    fieldType: optionGroup
     label: Section layout
     layout: horizontal
     sortOptions: false
@@ -13,7 +13,7 @@ fields:
       - name: large
         label: large
   - name: space
-    class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+    fieldType: optionGroup
     multiselect: true
     label: Vertical spaces
     sortOptions: false

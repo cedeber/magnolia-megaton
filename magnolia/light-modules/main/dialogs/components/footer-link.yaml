@@ -1,0 +1,61 @@
+form:
+  label: link
+  tabs:
+  - name: tabMain
+    label: Main
+    fields:
+    - name: label
+      fieldType: text
+      label: Link text
+      required: true
+      i18n: true
+    - name: image
+      fieldType: link
+      targetWorkspace: dam
+      appName: assets
+      label: Logo
+      i18n: true
+      identifierToPathConverter:
+        class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+      contentPreviewDefinition:
+        contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+      validators:
+      - name: image
+        class: ch.openinteractive.main.validators.MimeTypeValidatorDefinition
+        pattern: image/*
+        errorMessage: Choose an image
+    - name: href
+      fieldType: switchable
+      label: Link
+      i18n: true
+      options:
+      - name: internal
+        label: Internal link
+        selected: true
+        value: internal
+      - name: external
+        label: External link
+        value: external
+      - name: file
+        label: Link to a file
+        value: file
+      fields:
+      - name: internal
+        fieldType: link
+        label: Internal link
+        targetWorkspace: website
+        appName: pages
+        identifierToPathConverter:
+          class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+      - name: external
+        fieldType: text
+        label: External link
+      - name: file
+        fieldType: link
+        label: External link
+        targetWorkspace: dam
+        appName: assets
+        identifierToPathConverter:
+          class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+
+actions: !include:/main/dialogs/include/commonActions.yaml

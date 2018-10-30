@@ -47,6 +47,19 @@
             <artifactId>magnolia-site</artifactId>
         </dependency>
 
+
+        <!-- https://mvnrepository.com/artifact/de.marvinkerkhoff/form2db-app -->
+        <!--dependency>
+            <groupId>de.marvinkerkhoff</groupId>
+            <artifactId>form2db-app</artifactId>
+            <version>1.2</version>
+        </dependency-->
+
+        <dependency>
+            <groupId>info.magnolia.form</groupId>
+            <artifactId>magnolia-form</artifactId>
+        </dependency>
+
         <!-- TEST -->
         <dependency>
             <groupId>junit</groupId>

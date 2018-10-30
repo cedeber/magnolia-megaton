@@ -77,7 +77,7 @@ export default function scrollIntoViewport(
              * @returns {*}
              */
             function step(): any {
-                // [FIXME] doesn't work well on mobile
+                // FIXME :: doesn't work well on mobile
                 /*
                 const whereAmI = window.pageYOffset;
 
