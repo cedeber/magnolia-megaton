@@ -9,7 +9,7 @@ form:
       label: Field Name
       fieldType: text
       required: true
-      description: Used internally by form-module. Can be used in email template.
+      description: Identifier of the field. Can be used in email template.
 
     - name: label
       fieldType: richText
@@ -25,10 +25,4 @@ form:
       buttonLabel: Field is mandatory
       defaultValue: false
 
-
-
-actions:
-  commit:
-    class: ch.openinteractive.main.form.SaveSingleCheckboxActionDefinition
-  cancel:
-    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition
+actions: !include:/main/dialogs/include/commonActions.yaml
