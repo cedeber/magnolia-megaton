@@ -2,5 +2,5 @@ templateScript: /main/templates/form/formGroupFields.ftl
 areas:
   fields:
     availableComponents:
-      formCheckboxLink:
-        id: 'main:form/formCheckboxLink'
+      formSingleCheckbox:
+        id: 'main:form/formSingleCheckbox'
