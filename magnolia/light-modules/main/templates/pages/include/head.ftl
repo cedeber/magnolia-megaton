@@ -50,6 +50,7 @@
 <meta property="og:url" content="${oifn.getDefaultBaseUrl()!}">
 <meta property="og:site_name" content="${webAppShortName!}">
 <meta property="og:locale" content="${cmsfn.language()!}">
+<meta property="og:type" content="website">
 
 <meta name="twitter:title" content="${content.metaTitle!content.windowTitle!content.navigationTitle!content.title!}">
 <meta name="twitter:description" content="${content.description!root.description!}">
