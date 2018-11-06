@@ -19,10 +19,11 @@ form:
           i18n: true
         - name: readmorehref
           appName: pages
+          required: true
           fieldType: link
           label: Read more page
           targetWorkspace: website
-          identifierToPathConverter: 
+          identifierToPathConverter:
             class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
         - name: reject
           fieldType: text
