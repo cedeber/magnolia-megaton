@@ -13,6 +13,8 @@
 <!-- Web Application -->
 <link rel="stylesheet" href="${ctx.contextPath}/app/main.css">
 
+<link rel="stylesheet" href="${ctx.contextPath}/.resources/main/webresources/external/outdatedbrowser.min.css">
+
 [#if cmsfn.isEditMode()]
 <style>
     .no-edit { display: none; }
