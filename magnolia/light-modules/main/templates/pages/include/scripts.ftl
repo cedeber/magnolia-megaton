@@ -21,7 +21,7 @@
     <!-- Outdated Browsers -->
     <div id="outdated"></div>
     [#--<script src="${ctx.contextPath}/.resources/main/webresources/external/outdatedbrowser.min.js"></script>--]
-    <script src="${ctx.contextPath}/.resources/main/webresources/external/outdatedbrowser.js"></script>
+    <script src="${ctx.contextPath}/.resources/main/webresources/external/outdatedbrowser.min.js"></script>
     <script >
         // Plain Javascript
         //event listener: DOM ready
