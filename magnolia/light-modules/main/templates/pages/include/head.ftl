@@ -10,9 +10,8 @@
 <meta name="description" content="${content.description!}">
 <meta name="keywords" content="${content.keywords!root.keywords!}">
 
-<!-- Web Application -->
+<!-- CSS -->
 <link rel="stylesheet" href="${ctx.contextPath}/app/main.css">
-
 <link rel="stylesheet" href="${ctx.contextPath}/.resources/main/webresources/external/outdatedbrowser.min.css">
 
 [#if cmsfn.isEditMode()]

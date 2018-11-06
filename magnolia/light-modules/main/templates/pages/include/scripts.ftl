@@ -47,6 +47,5 @@
                 languagePath: '${ctx.contextPath}/.resources/main/webresources/external/lang/${cmsfn.language()!'en'}.html'
             })
         });
-
     </script>
 [/#if]
