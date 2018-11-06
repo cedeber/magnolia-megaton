@@ -1,4 +1,5 @@
 [#if !cmsfn.isEditMode()]
+
     <!-- Application -->
     <script nomodule>window.__nomodule__ = true;</script>
     <script>
@@ -20,7 +21,6 @@
 
     <!-- Outdated Browsers -->
     <div id="outdated"></div>
-    [#--<script src="${ctx.contextPath}/.resources/main/webresources/external/outdatedbrowser.min.js"></script>--]
     <script src="${ctx.contextPath}/.resources/main/webresources/external/outdatedbrowser.min.js"></script>
     <script >
         // Plain Javascript
@@ -44,10 +44,9 @@
                 bgColor: '#f25648',
                 color: '#ffffff',
                 lowerThan: 'IE11',
-                languagePath: '${ctx.contextPath}/.resources/main/webresources/external/lang/de.html'
+                languagePath: '${ctx.contextPath}/.resources/main/webresources/external/lang/${cmsfn.language()!'en'}.html'
             })
         });
 
     </script>
-
 [/#if]
