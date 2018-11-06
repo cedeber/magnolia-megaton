@@ -1,6 +1,4 @@
 [#if !cmsfn.isEditMode()]
-    [#assign devMode = cmsfn.authorInstance!false]
-
     <!-- Application -->
     <script nomodule>window.__nomodule__ = true;</script>
     <script>
@@ -21,24 +19,35 @@
     </script>
 
     <!-- Outdated Browsers -->
-    [#if !devMode]
     <div id="outdated"></div>
-    <script nomodule src="${ctx.contextPath}/.resources/main/webresources/external/outdatedbrowser.min.js"></script>
-    <script nomodule>
-        const link = document.createElement("link");
-
-        link.setAttribute("rel", "stylesheet");
-        link.setAttribute("media", "screen");
-        link.setAttribute("href", "${ctx.contextPath}/.resources/main/webresources/external/outdatedbrowser.min.css");
-
-        document.head.appendChild(link);
-
-        outdatedBrowser({
-            bgColor: "#f25648",
-            color: "#ffffff",
-            lowerThan: "IE11",
-            languagePath: '${ctx.contextPath}/.resources/main/webresources/external/lang/${cmsfn.language()!'en'}.html'
+    [#--<script src="${ctx.contextPath}/.resources/main/webresources/external/outdatedbrowser.min.js"></script>--]
+    <script src="${ctx.contextPath}/.resources/main/webresources/external/outdatedbrowser.js"></script>
+    <script >
+        // Plain Javascript
+        //event listener: DOM ready
+        function addLoadEvent(func) {
+            var oldonload = window.onload;
+            if (typeof window.onload != 'function') {
+                window.onload = func;
+            } else {
+                window.onload = function() {
+                    if (oldonload) {
+                        oldonload();
+                    }
+                    func();
+                }
+            }
+        }
+        //call plugin function after DOM ready
+        addLoadEvent(function(){
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'IE11',
+                languagePath: '${ctx.contextPath}/.resources/main/webresources/external/lang/de.html'
+            })
         });
+
     </script>
-    [/#if]
+
 [/#if]
