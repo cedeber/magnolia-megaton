@@ -39,6 +39,7 @@
 - [ ] Admin user (author/public) check workspaces!
 - [ ] Visitor user (author/public)
 - [ ] Imaging Module (Is `/modules/site/config/site/theme` set correctly on public?)
+- [ ] Are image sizes ok in all viewport widths? (Renditions, Compression, Image format, file size)
 - [ ] Does Magnolia Search find pages/assets/news/events etc.
 - [ ] Check for yaml errors in Definitions App
 - [ ] Add .monitor-this file in home/xyz/xyz directory (Tomcat Monitoring on Mironet. ONLY IF PUBLIC IS NOT PROTECTED)
