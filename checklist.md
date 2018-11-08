@@ -25,6 +25,7 @@
 - [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (`/modules/cache/config/compression/voters/contentType/allowed@2`)
 - [ ] Set `defaultBaseUrl` in Magnolia server config (author/public)
 - [ ] enable formProcessors/sendConfirmationEMail@enabled
+- [ ] Check that robots NOINDEX is NOT set
 
 ## Project finalization
 - [ ] Anonymous role access to required workspaces (public)
