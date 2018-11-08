@@ -43,7 +43,7 @@
             outdatedBrowser({
                 bgColor: '#f25648',
                 color: '#ffffff',
-                lowerThan: 'IE11',
+                lowerThan: 'IE10', [#-- Set to IE11 necessary --]
                 languagePath: '${ctx.contextPath}/.resources/main/webresources/external/lang/${cmsfn.language()!'en'}.html'
             })
         });
