@@ -1,4 +1,4 @@
-import { Vue, Component, Prop } from "vue-property-decorator";
+import {Component, Prop, Vue} from "vue-property-decorator";
 
 @Component
 export default class CustomForm extends Vue {
@@ -25,20 +25,6 @@ export default class CustomForm extends Vue {
 
     fileUploadTextPlaceholder = this.fileUploadText;
 
-    firstname = "";
-    lastname = "";
-    company = "";
-    email = "";
-    message = "";
-    privacy = false;
-    termsConditions = false;
-
-    address = "";
-    city = "";
-    zip = "";
-    country = "";
-    phone = "";
-
     error = false;
     success = false;
     missingRequired = false;
@@ -51,14 +37,19 @@ export default class CustomForm extends Vue {
 
         if (data) {
             return fetch(
-                window.mgnlContextPath + "/.mail/",
+                window.mgnlContextPath + "/.servlet/CustomForm/",
                 {
                     method: "POST",
                     credentials: "include",
                     body: data,
                 },
-            )
-            .then(response => response.text())
+            ).then(response => {
+                if (response.ok) {
+                    response.text()
+                } else {
+                    throw new Error(response.statusText)
+                }
+            })
             .then(() => this.success = true)
             .catch(() => {
                 this.success = false;
@@ -68,7 +59,7 @@ export default class CustomForm extends Vue {
         }
 
         this.error = !this.missingRequired;
-        throw new Error("Form not filled.");
+        return
     }
 
     validateForm() {
