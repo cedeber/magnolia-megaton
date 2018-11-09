@@ -85,7 +85,7 @@ form:
         i18n: true
 
     - name: tabMessages
-      label: Benachrichtigungen
+      label: Messages
       fields:
       - name: successText
         fieldType: richText
