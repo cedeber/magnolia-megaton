@@ -1,0 +1,10 @@
+title: Single Carousel
+renderType: freemarker
+templateScript: /main/templates/components/carouselSingle.ftl
+dialog: main:components/carouselSingle
+
+areas:
+  slides:
+    availableComponents:
+      slide:
+        id: main:components/carousel-slide

@@ -1,0 +1,3 @@
+class: info.magnolia.virtualuri.mapping.RegexpVirtualUriMapping
+fromUri: /app-legacy/(.*)
+toUri: forward:/.resources/main/webresources/build/legacy/$1

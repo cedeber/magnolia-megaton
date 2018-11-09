@@ -1,0 +1,2 @@
+templateScript: /main/templates/form/formSelection.ftl
+modelClass: ch.openinteractive.main.form.OIFormFieldModel

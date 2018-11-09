@@ -9,4 +9,13 @@ package ch.openinteractive.main;
 public class StarterKit {
     /* you can optionally implement info.magnolia.module.ModuleLifecycle */
 
+    private String notFoundPagePath;
+
+    public String getNotFoundPagePath() {
+        return notFoundPagePath;
+    }
+
+    public void setNotFoundPagePath(String notFoundPagePath) {
+        this.notFoundPagePath = notFoundPagePath;
+    }
 }

@@ -1,0 +1,7 @@
+.o-navigation {
+    display: none;
+}
+
+.o-navigation.js-open {
+    display: block;
+}

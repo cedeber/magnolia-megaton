@@ -18,7 +18,7 @@ areas:
     type: single
     availableComponents:
       carousel:
-        id: main:components/carousel
+        id: main:components/carouselHero
         
   searchBar:
     renderType: freemarker
@@ -31,13 +31,21 @@ areas:
     availableComponents:
       sectionLayout:
         id: main:components/sectionLayout
-   # [TODO] select default value (standard and 1 column)
+   # TODO :: select default value (standard and 1 column)
    # autoGeneration:
    #   content:
    #     sectionLayout:
    #       nodeType: mgnl:component
    #       templateId: main:components/sectionLayout
    #   generatorClass: info.magnolia.rendering.generator.CopyGenerator
+        
+  footer:
+    renderType: freemarker
+    editable: true
+    type: single
+    availableComponents:
+      footer:
+        id: main:components/footer
 
   tagManager:
     renderType: freemarker

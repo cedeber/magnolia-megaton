@@ -1,0 +1,6 @@
+templateScript: /main/templates/form/formGroupFields.ftl
+areas:
+  fields:
+    availableComponents:
+      formSingleCheckbox:
+        id: 'main:form/formSingleCheckbox'

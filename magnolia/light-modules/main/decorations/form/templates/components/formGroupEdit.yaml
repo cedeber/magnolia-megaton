@@ -1,5 +1,0 @@
-title: Zip/City fields
-areas: 
-  edits: 
-    templateScript: /main/templates/form/edits.ftl
-    maxComponents: 2

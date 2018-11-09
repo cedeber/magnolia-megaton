@@ -1,172 +1,142 @@
-// tslint:disable:max-line-length object-literal-sort-keys
-
-const path = require("path");
 const webpack = require("webpack");
-const lodash = require("lodash");
-const env = process.env.NODE_ENV;
-const CleanWebpackPlugin = require("clean-webpack-plugin"); // Clean build folders
-const UglifyJSPlugin = require("uglifyjs-webpack-plugin"); // Minify JS
-const ExtractTextPlugin = require("extract-text-webpack-plugin"); // Extract CSS
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin; // Analyze bundle modules size
+const path = require("path");
+
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const { VueLoaderPlugin } = require("vue-loader");
 
 /* --- configuration --- */
-// Should CSS be extracted from JS or injected via JS? Except for shell.css which is always extracted
-// For Single Page App it's nicer if CSS is asynchronously injected on demand
-const extractCSS = true;
+// Legacy: ES5
+// Module: ES6
+const legacy =
+    process.env.LEGACY &&
+    (process.env.LEGACY === "true" || process.env.LEGACY === "1");
 
-// You can have multiple applications in case you do multi page websites
-// They will share common plugins in commons.js wich includes the polyfills
-const appChunks = ["main"];
-
-// We create a "shell.css" file which is injected in <HEAD> thanks to FreeMarker.
-// This is optimized for Single Page App and Progressive Web App
-const shellCSS = new ExtractTextPlugin("shell.css");
-const appsCSS = new ExtractTextPlugin("[name].css"); // unused if extractCSS == false
+// debug == development
+const debug =
+    process.env.DEBUG &&
+    (process.env.DEBUG === "true" || process.env.DEBUG === "1");
 
 // Paths
-const publicPath = `${env === "development" ? '/author' : ''}/app/`; // we do redirecting for Magnolia, see `magnolia/virtualUriMappings`
-const magnoliaResourcesPath = path.resolve(__dirname, "../../magnolia/light-modules/main/webresources");
-const buildPath = path.resolve(__dirname, "../../magnolia/light-modules/main/webresources/build");
-const reportFilename = "../../../../../frontend/application/report.html"; // must be relative to `buildPath` and saved into `frontend`
+const publicPath = `${debug ? "/author" : ""}/app${legacy ? "-legacy" : ""}/`; // we do redirecting for Magnolia, see `magnolia/virtualUriMappings`
+const resourcesPath = path.resolve(
+    __dirname,
+    "../../magnolia/light-modules/main/webresources",
+);
+const buildPath = path.resolve(
+    __dirname,
+    "../../magnolia/light-modules/main/webresources/build/",
+    `${legacy ? "legacy" : "module"}`,
+);
 
-// cssnano options, integrated into css-loader
-const cssnanoOptions =
-    env === "production"
-        ? {
-              zindex: false,
-              normalizeUrl: false,
-              normalizeCharset: false,
-              autoprefixer: false,
-              calc: false,
-              convertValues: false,
-              discardUnused: false,
-          }
-        : false;
-
-// PostCSS plugins
-const postcssPlugins = [
-    require("postcss-import")(),
-    require("postcss-cssnext")({
-        browsers: ["last 3 versions"],
-        warnForDuplicates: false,
-    }),
-];
-
-// css-loader configuration
-const cssLoaderConfig = {
-    loader: "css-loader",
-    options: {
-        camelCase: true,
-        sourceMap: env !== "production",
-        minimize: cssnanoOptions,
+// CSS Loader / PostCSS configuration
+const cssLoaderConfig = [
+    {
+        loader: "css-loader",
+        options: {
+            // import: true,
+            minimize: true,
+            importLoaders: 1,
+            sourceMap: debug,
+        },
     },
-};
-
-// css-loader with PostCSS configuration
-const cssLoaderUse = [
-    lodash.defaultsDeep({ options: { importLoaders: 1 } }, cssLoaderConfig),
     {
         loader: "postcss-loader",
         options: {
-            sourceMap: env !== "production",
             ident: "postcss",
-            plugins: postcssPlugins,
+            sourceMap: debug ? "inline" : false,
+            plugins: [
+                require("postcss-import"),
+                require("postcss-preset-env")({
+                    stage: 2,
+                    sourceMap: true,
+                    features: {
+                        "custom-properties": {
+                            preserve: false,
+                        },
+                        "custom-media-queries": true,
+                        "nesting-rules": true,
+                    },
+                    browsers: "> 0.5% in CH, Firefox ESR, not dead",
+                    autoprefixer: {
+                        grid: true,
+                    },
+                }),
+            ],
         },
     },
 ];
 
-const config = {
-    entry: {
-        main: "./application/src/main.ts",
+if (!debug) {
+    cssLoaderConfig[1].options.plugins.push(
+        require("cssnano")({
+            preset: [
+                "default",
+                {
+                    calc: false,
+                },
+            ],
+        }),
+    );
+}
 
-        // polyfills is declared here but will be included within commons.js, see CommonsChunkPlugin
-        polyfills: [
-            "core-js/shim",
-            "whatwg-fetch",
-            "matchmedia-polyfill",
-            "intersection-observer",
-            "objectFitPolyfill",
-            "./application/polyfills",
-        ],
-    },
+// Entries with polyfills
+const entry = {
+    main: [
+        "objectFitPolyfill",
+        "intersection-observer",
+        "./application/polyfills",
+        "./application/src/main.ts",
+    ],
+};
+
+if (legacy) {
+    entry["main"].unshift("core-js/shim", "whatwg-fetch", "matchmedia-polyfill");
+}
+
+module.exports = {
+    entry,
     output: {
-        // We don't use [hash] because we import scripts with Magnolia
         filename: "[name].js",
         path: buildPath,
-        publicPath: publicPath,
+        publicPath,
+    },
+    resolve: {
+        extensions: [".ts", ".js"],
+        alias: {
+            vue$: "vue/dist/vue.esm.js",
+        },
     },
     plugins: [
         new CleanWebpackPlugin([buildPath], {
             root: path.resolve(__dirname, "../../"),
         }),
-
-        // Used for asynchronously loaded modules => `import().then()`
-        new webpack.NamedChunksPlugin(
-            chunk => chunk.name || chunk.mapModules(m => path.basename(m.request, ".ts")).join("_"),
+        new MiniCssExtractPlugin({
+            filename: "[name].css",
+        }),
+        new VueLoaderPlugin(),
+        new CopyWebpackPlugin(
+            legacy
+                ? undefined
+                : [
+                      {
+                          from: "./*-manifest.json",
+                          context: "./application/",
+                          to: resourcesPath,
+                      },
+                  ],
         ),
-        shellCSS,
-        appsCSS,
-
-        // Mainly needed for taggr, but can be used as if it's node.js
-        new webpack.DefinePlugin({
-            "process.env": {
-                NODE_ENV: JSON.stringify(env),
-            },
-        }),
-
-        // Extract common modules and concat them with the polyfills
-        new webpack.optimize.CommonsChunkPlugin({
-            name: "polyfills",
-            filename: "commons.js",
-            chunks: appChunks,
-        }),
-
-        // Copy Manifest files
-        new CopyWebpackPlugin([
-            {
-                from: "./*-manifest.json",
-                context: "./application/",
-                to: magnoliaResourcesPath,
-            },
-        ]),
     ],
     module: {
         rules: [
             {
-                // Output tslint while compiling
-                test: /\.ts$/,
-                enforce: "pre",
-                loader: "tslint-loader",
-            },
-            {
-                // Compiles from TypeScript
-                test: /\.ts$/,
-                loader: "ts-loader",
-                exclude: /node_modules/,
-                options: {
-                    appendTsSuffixTo: [/\.vue$/],
-                    silent: true,
-                },
-            },
-            {
                 // Vue Single file components
-                // The CSS from component is compiled through cssnext
                 test: /\.vue$/,
                 loader: "vue-loader",
                 options: {
-                    postcss: {
-                        useConfigFile: false,
-                        plugins: postcssPlugins,
-                    },
                     loaders: {
                         i18n: "@kazupon/vue-i18n-loader",
-                        css: extractCSS
-                            ? appsCSS.extract({
-                                  fallback: "vue-style-loader",
-                                  use: cssLoaderConfig,
-                              })
-                            : ["vue-style-loader", cssLoaderConfig],
                     },
 
                     // Transforms asset paths in Vue templates to require expressions that webpack can handle
@@ -179,22 +149,23 @@ const config = {
                 },
             },
             {
-                // When you import shell.css it extracts it separately
-                test: /\b(?=shell\b)\w+\.css$/,
-                use: shellCSS.extract({
-                    fallback: "style-loader",
-                    use: cssLoaderUse,
-                }),
+                test: /\.ts$/,
+                loader: "ts-loader",
+                exclude: /node_modules/,
+                options: {
+                    appendTsSuffixTo: [/\.vue$/],
+                    silent: true,
+                    // overwrite tsconfig.json configuration
+                    compilerOptions: legacy
+                        ? {
+                              target: "es5",
+                          }
+                        : {},
+                },
             },
             {
-                // Default CSS, except shell.css
-                test: /\b(?!shell\b)\w+\.css$/,
-                use: extractCSS
-                    ? appsCSS.extract({
-                          fallback: "style-loader",
-                          use: cssLoaderUse,
-                      })
-                    : [{ loader: "style-loader" }, ...cssLoaderUse],
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, ...cssLoaderConfig],
             },
             {
                 // All assets that have to be packaged
@@ -210,36 +181,5 @@ const config = {
             },
         ],
     },
-    resolve: {
-        // We use the ESM version of Vue
-        extensions: [".ts", ".js", ".vue"],
-        alias: {
-            vue$: "vue/dist/vue.esm.js",
-        },
-    },
-    devtool: "source-map",
+    devtool: debug ? "inline-source-map" : undefined,
 };
-
-if (env === "production") {
-    config.plugins = (config.plugins || []).concat([
-        // Compress JS if in production
-        new UglifyJSPlugin({
-            sourceMap: false,
-            uglifyOptions: {
-                mangle: true,
-                compress: true,
-            },
-        }),
-
-        // Generates a bundle overview on each build
-        new BundleAnalyzerPlugin({
-            analyzerMode: "static",
-            reportFilename,
-        }),
-    ]);
-
-    // Remove sourcemap for production
-    config.devtool = undefined;
-}
-
-module.exports = config;

@@ -1,0 +1,53 @@
+form:
+  label: Single Carousel
+  tabs:
+    - name: tabConfig
+      label: Configuration
+      fields:
+        - name: ratio
+          fieldType: composite
+          transformerClass: info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
+          label: Slide fixed ratio
+          description: For instance, 16 / 9 for videos or 4 / 3 for images.
+          required: true
+          fields:
+            - name: width
+              fieldType: text
+              label: Width unit
+              required: true
+            - name: height
+              fieldType: text
+              label: Height unit
+              required: true
+        - name: autoplay
+          fieldType: checkbox
+          label: Carousel autoplay
+          buttonLabel: Switch automatically between the slides
+        - name: delay
+          fieldType: text
+          label: Delay (ms)
+          defaultValue: 5000
+        - name: renderType
+          fieldType: select
+          label: Render Type
+          options:
+            - name: linear
+              selected: true
+              label: Linear
+            # - name: continue
+            #   label: Continue
+            - name: async
+              label: Asynchronous
+        - name: orientation
+          fieldType: select
+          label: Orientation
+          options:
+            - name: horizontal
+              selected: true
+              label: Horizontal
+            - name: vertical
+              label: Vertical
+
+    - !include:/main/dialogs/include/sectionLayoutOverride.yaml
+
+actions: !include:/main/dialogs/include/commonActions.yaml

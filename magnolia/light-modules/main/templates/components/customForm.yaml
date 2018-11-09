@@ -1,0 +1,4 @@
+title: Custom Form
+renderType: freemarker
+templateScript: /main/templates/components/customForm.ftl
+dialog: main:components/customForm

@@ -76,9 +76,9 @@
         <Async name="log-error">
             <AppenderRef ref="sync-log-error"/>
         </Async>
-        <RollingFile name="sync-log-activation"
-                     fileName="${magnolia.logs.dir}/magnolia-activation.log"
-                     filePattern="${magnolia.logs.dir}/magnolia-activation-%i.log"
+    <RollingFile name="sync-log-publishing"
+                 fileName="${magnolia.logs.dir}/magnolia-publishing.log"
+                 filePattern="${magnolia.logs.dir}/magnolia-publishing-%i.log"
                      append="true">
             <PatternLayout pattern="%-5p %c %d{dd.MM.yyyy HH:mm:ss} -- %m%n"/>
             <ThresholdFilter level="ERROR"/>
@@ -87,8 +87,8 @@
             </Policies>
             <DefaultRolloverStrategy max="5"/>
         </RollingFile>
-        <Async name="log-activation">
-            <AppenderRef ref="sync-log-activation"/>
+    <Async name="log-publishing">
+      <AppenderRef ref="sync-log-publishing"/>
         </Async>
         <File name="log-bootstrap" fileName="${magnolia.logs.dir}/bootstrap.log">
             <PatternLayout pattern="%-5p %d{dd.MM.yyyy HH:mm:ss}  %m%n"/>
@@ -139,12 +139,9 @@
         <!-- Magnolia categories -->
         <Logger name="info.magnolia" level="INFO"/>
 
-        <!-- Activation - additivity is true so logs also go to sub-categories' appenders -->
-        <Logger name="info.magnolia.cms.exchange" level="INFO" additivity="true">
-            <AppenderRef ref="log-activation"/>
-        </Logger>
-        <Logger name="info.magnolia.module.activation" level="INFO" additivity="true">
-            <AppenderRef ref="log-activation"/>
+    <!-- Publishing - additivity is true so logs also go to sub-categories' appenders -->
+    <Logger name="info.magnolia.publishing" level="INFO" additivity="true">
+      <AppenderRef ref="log-publishing"/>
         </Logger>
 
         <!-- bootstrapping -->

@@ -1,25 +1,51 @@
 [#if !cmsfn.isEditMode()]
-    [#assign devMode = cmsfn.authorInstance!false]
 
     <!-- Application -->
-    [#assign app = def.parameters.app!"main"]
-    <script src="${ctx.contextPath}/app/commons.js"></script>
-    <script async defer src="${ctx.contextPath}/app/${app!}.js"></script>
-    <!-- Outdated Browsers -->
-    [#if !devMode]
-    <div id="outdated"></div>
-    ${resfn.js(["/main/webresources/external/outdatedbrowser.min.js"])!}
-    ${resfn.css(["/main/webresources/external/outdatedbrowser.min.css"])!}
+    <script nomodule>window.__nomodule__ = true;</script>
     <script>
-        outdatedBrowser({
-            bgColor: "#f25648",
-            color: "#ffffff",
-            lowerThan: "IE11",
-            languagePath: '${ctx.contextPath}/.resources/main/webresources/external/lang/${cmsfn.language()!'en'}.html'
+        (function() {
+            var script = document.createElement("script");
+            script.async = true;
+            script.defer = true;
+            script.crossOrigin = "use-credentials";
+            if (window.__nomodule__) {
+                script.noModule = true;
+                script.src = "${ctx.contextPath}/app-legacy/main.js";
+            } else {
+                script.type = "module";
+                script.src = "${ctx.contextPath}/app/main.js";
+            }
+            document.body.appendChild(script);
+        })();
+    </script>
+
+    <!-- Outdated Browsers -->
+    <div id="outdated"></div>
+    <script src="${ctx.contextPath}/.resources/main/webresources/external/outdatedbrowser.min.js"></script>
+    <script >
+        // Plain Javascript
+        //event listener: DOM ready
+        function addLoadEvent(func) {
+            var oldonload = window.onload;
+            if (typeof window.onload != 'function') {
+                window.onload = func;
+            } else {
+                window.onload = function() {
+                    if (oldonload) {
+                        oldonload();
+                    }
+                    func();
+                }
+            }
+        }
+        //call plugin function after DOM ready
+        addLoadEvent(function(){
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'IE10', [#-- Set to IE11 necessary --]
+                languagePath: '${ctx.contextPath}/.resources/main/webresources/external/lang/${cmsfn.language()!'en'}.html'
+            })
         });
     </script>
-    [/#if]
 [/#if]
-
-<!-- Cookies EU Banner -->
-[@cms.area name="tagManager" /]

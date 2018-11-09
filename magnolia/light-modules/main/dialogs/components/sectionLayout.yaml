@@ -1,14 +1,18 @@
 form:
   label: Section
   tabs:
-   - !include:/main/dialogs/include/tabLayout.yaml
+    - !include:/main/dialogs/include/tabLayout.yaml
       fields:
         - name: sectionLayout
           options:
             - name: wide
               label: as wide as the viewport
+        - name: noPageGutters
+          fieldType: checkbox
+          label: Page gutters
+          buttonLabel: Remove page gutters (if wide + theme)
         - name: cell
-          class: info.magnolia.ui.form.field.definition.OptionGroupFieldDefinition
+          fieldType: optionGroup
           multiselect: false
           type: String
           label: Page Layout
@@ -23,8 +27,16 @@ form:
             - name: 1of4
               label: 4 columns
         - name: hasGutter
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-          label: Gutters
+          fieldType: checkbox
+          label: Columns gutters
           buttonLabel: Add gutters between columns
+
+    - name: tabApp
+      label: Application
+      fields:
+        - name: sectionID
+          fieldType: text
+          label: Section ID
+          description: no space
 
 actions: !include:/main/dialogs/include/commonActions.yaml

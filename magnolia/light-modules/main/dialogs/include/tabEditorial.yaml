@@ -1,0 +1,62 @@
+name: tabEditorial
+label: Editorial
+fields:
+  - name: preHeader
+    fieldType: text
+    label: Pre-header
+    i18n: true
+  - name: title
+    fieldType: richText
+    label: Article Title
+    i18n: true
+    height: 120
+    configJsFile: /.resources/main/dialogs/include/config/title.js
+  - name: intro
+    fieldType: richText
+    label: Article introduction
+    i18n: true
+    height: 180
+    configJsFile: /.resources/main/dialogs/include/config/simple.js
+  - name: body
+    fieldType: richText
+    label: Article body
+    i18n: true
+    height: 450
+    configJsFile: /.resources/main/dialogs/include/config/editorial.js
+  - name: callToAction
+    fieldType: composite
+    transformerClass:  info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
+    label: Call to action
+    layout: vertical
+    fields:
+      - name: callToActionText
+        fieldType: text
+        label: Text
+      - name: callToActionLink
+        fieldType: switchable
+        label: Redirect Page
+        options:
+          - name: Internal
+            label: Internal link
+            selected: true
+            value: Internal
+          - name: External
+            label: External link
+            value: External
+          - name: Section
+            label: Section ID
+            value: Section
+        fields:
+          - name: Internal
+            fieldType: link
+            label: Internal link
+            targetWorkspace: website
+            appName: pages
+            identifierToPathConverter:
+              class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+          - name: External
+            fieldType: text
+            label: External link
+          - name: Section
+            fieldType: text
+            label: Section ID

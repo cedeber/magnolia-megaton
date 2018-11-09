@@ -13,7 +13,15 @@
 - [ ] Correct `<head>`: App name, etc...
 - [ ] Fill Web App Manifest
 - [ ] Cookie compliance (only for political Europe right now)
+- [ ] Custom Cookie compliance style
 - [ ] Check Form submissions
+
+# Design Acceptance
+- [ ] Cookie Banner
+- [ ] 404/Fehlerseite
+- [ ] Datenschutzerklärung in Formular
+- [ ] Success und Error Page/Feld in Formular
+- [ ] Webfonts erhalten
 
 # Magnolia Configurations
 ## Project setup
@@ -32,12 +40,10 @@
 - [ ] Admin user (author/public) check workspaces!
 - [ ] Visitor user (author/public)
 - [ ] Imaging Module (Is `/modules/site/config/site/theme` set correctly on public?)
+- [ ] Are image sizes ok in all viewport widths? (Renditions, Compression, Image format, file size)
 - [ ] Does Magnolia Search find pages/assets/news/events etc.
 - [ ] Check for yaml errors in Definitions App
-- [ ] Add .monitor-this file in home/xyz/xyz directory (Tomcat Monitoring on Mironet)
-
-## Cache Optimization
-- [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (/modules/cache/config/compression/voters/contentType/allowed@2)
+- [ ] Add .monitor-this file in home/xyz/xyz directory (Tomcat Monitoring on Mironet. ONLY IF PUBLIC IS NOT PROTECTED)
 
 # Testings
 Chrome and Firefox should technically behave the same way whatever the operating system is.
@@ -73,6 +79,7 @@ Don't forget touch screens on Microsoft Surface.
 - [ ] [Google Lighthouse: Webpage](https://developers.google.com/web/tools/lighthouse/) (inside Chrome 60+ Dev Tools)
 - [ ] [Web Page Test](https://www.webpagetest.org) (can be done with Chrome dev tools, simulate slow connection and under-powered device)
 - [ ] [Google Structured data testing tool](https://search.google.com/structured-data/testing-tool)
+- [ ] [Facebook sharing debugger](https://developers.facebook.com/tools/debug/sharing/) (Checks og tags)
 
 ## Optionals tools
 - [Mozilla Observatory: Security](https://observatory.mozilla.org) (Server Security)

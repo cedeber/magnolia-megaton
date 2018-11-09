@@ -1,38 +1,24 @@
 form:
-  label: Editorial
+  label: Article
   tabs:
-    - name: tabMain
-      label: Content
-      fields:
-        - name: preHeader
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-          label: Pre-header
-          i18n: true
-        - name: title
-          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
-          label: Article Title
-          i18n: true
-          height: 120
-          configJsFile: /.resources/main/dialogs/include/config/title.js
-        - name: intro
-          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
-          label: Article introduction
-          i18n: true
-          height: 180
-          configJsFile: /.resources/main/dialogs/include/config/simple.js
-        - name: body
-          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
-          label: Article body
-          i18n: true
-          height: 450
-          configJsFile: /.resources/main/dialogs/include/config/editorial.js
+    - !include:/main/dialogs/include/tabEditorialBody.yaml
+    - !include:/main/dialogs/include/tabEditorialHeader.yaml
 
-    - name: tabLayout
-      label: Layout
+    - !include:/main/dialogs/include/sectionLayoutOverride.yaml
       fields:
-        - name: layoutOverride
-          class: info.magnolia.ui.form.field.definition.CheckboxFieldDefinition
-          label: Layout override
-          buttonLabel: This component must use the whole width of the section
+        - name: textAlignment
+          fieldType: optionGroup
+          multiselect: false
+          type: String
+          label: Alignment override
+          sortOptions: false
+          options:
+            - name: left
+              label: Left
+              selected: true
+            - name: center
+              label: Center
+            - name: right
+              label: Right
 
 actions: !include:/main/dialogs/include/commonActions.yaml

@@ -1,5 +1,4 @@
 [#assign root = navfn.rootPage(content)!content!]
-[#assign baseUrl = state.originalBrowserURL?replace(state.currentURI, '')!]
 
 [#assign webAppShortName = "Megaton"]
 [#assign webAppThemeColor = "#000000"]
@@ -7,14 +6,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no[#--, viewport-fit=cover--]">
-<title>${content.windowTitle!content.title!}</title>
-<meta name="description" content="${content.description!root.description!}">
+<title>${content.metaTitle!content.windowTitle!content.navigationTitle!content.title!}</title>
+<meta name="description" content="${content.description!}">
 <meta name="keywords" content="${content.keywords!root.keywords!}">
 
-<!-- Web Application -->
-<style media="screen">
-    [#include "/main/webresources/build/shell.css"]
-</style>
+<!-- CSS -->
+<link rel="stylesheet" href="${ctx.contextPath}/app/main.css">
+<link rel="stylesheet" href="${ctx.contextPath}/.resources/main/webresources/external/outdatedbrowser.min.css">
 
 [#if cmsfn.isEditMode()]
 <style>
@@ -22,19 +20,6 @@
     .o-flex > .mgnlEditorBar { flex-basis: 100%; }
 </style>
 [/#if]
-
-[#assign app = def.parameters.app!"main"]
-<script>
-    (function() {
-        var linkElement = document.createElement("link");
-
-        linkElement.setAttribute("rel", "stylesheet");
-        linkElement.setAttribute("media", "screen");
-        linkElement.setAttribute("href", "${ctx.contextPath}/app/${app!}.css");
-
-        document.head.appendChild(linkElement);
-    })();
-</script>
 <script>window.mgnlContextPath = "${ctx.contextPath}";</script>
 
 <link rel="manifest" href="${ctx.contextPath}/manifest.json">
@@ -61,15 +46,15 @@
 <meta name="msapplication-tap-highlight" content="no">
 
 <!-- Social networks -->
-<meta property="og:title" content="${content.title!}">
+<meta property="og:title" content="${content.metaTitle!content.windowTitle!content.navigationTitle!content.title!}">
 <meta property="og:description" content="${content.description!root.description!}">
-<meta property="og:url" content="${state.originalBrowserURL!}">
+<meta property="og:url" content="${oifn.getDefaultBaseUrl()!}">
 <meta property="og:site_name" content="${webAppShortName!}">
 <meta property="og:locale" content="${cmsfn.language()!}">
+<meta property="og:type" content="website">
 
-<meta name="twitter:title" content="${content.title!}">
+<meta name="twitter:title" content="${content.metaTitle!content.windowTitle!content.navigationTitle!content.title!}">
 <meta name="twitter:description" content="${content.description!root.description!}">
-<meta name="twitter:card" content="summary_large_image">
 
 [#if content.image?? && damfn.getAsset(content.image)??]
     [#assign image = content.image]
@@ -78,11 +63,12 @@
 [/#if]
 
 [#if image?has_content]
-    [#assign imageLink = baseUrl + damfn.getAssetLink(root.image)!]
-    [#assign imageMap = damfn.getAssetMap(root.image)!]
+    [#assign imageLink = oifn.getDefaultBaseUrl() + damfn.getAssetLink(image)!]
+    [#assign imageMap = damfn.getAssetMap(image)!]
     <meta property="og:image" content="${imageLink!}">
     <meta property="og:image:width" content="${imageMap.metadata.mgnl.width?round?string.computer!}">
     <meta property="og:image:height" content="${imageMap.metadata.mgnl.height?round?string.computer!}">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="${imageLink!}">
     <meta name="twitter:image:alt" content="${imageMap.caption!imageMap.description!}">
 [/#if]
