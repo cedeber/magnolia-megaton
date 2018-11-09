@@ -170,9 +170,11 @@ select::-ms-value { background: none; }
 
 
 /* --- Label --- */
+label:not(.is-static) {
+    position: absolute;
+}
 label {
     color: hsl(var(--form-default-color));
-    position: absolute;
     margin-bottom: 0;
     left: calc(var(--layout-gutter-width) / 2 + 15px);
     top: 8px;

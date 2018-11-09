@@ -17,3 +17,9 @@ E-Mail: ${content.email!}
 Telefon: ${content.phone!}
 <br>
 Message: ${content.message!}
+
+<br>
+<br>
+Attachment:
+<br>
+<br>

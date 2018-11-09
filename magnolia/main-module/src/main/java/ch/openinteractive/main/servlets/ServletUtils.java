@@ -1,5 +1,6 @@
 package ch.openinteractive.main.servlets;
 
+import info.magnolia.cms.beans.runtime.Document;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.mail.MailModule;
 import info.magnolia.module.mail.MailTemplate;
@@ -14,10 +15,14 @@ import javax.jcr.Session;
 import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 public class ServletUtils {
+
+    private static final List<String> ALLOWED_TYPES = new ArrayList<>(Arrays.asList(
+                    "application/pdf",
+                    "application/zip",
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"));
 
 
     public static void sendMailToRecipient(String recipient, String fromEmail, String subject, String templatePath, Map<String, Object> parameters, MailAttachment attachment, String recipientCC) throws Exception {
@@ -56,34 +61,16 @@ public class ServletUtils {
 
 
     /**
-     * Check if all required Parameters are present
-     * @param req
-     * @param requiredParameters
-     * @return
-     */
-    public static boolean checkRequiredParams(HttpServletRequest req, Set<String> requiredParameters) {
-        for (String requiredParam : requiredParameters) {
-            if (req.getParameter(requiredParam) == null || req.getParameter(requiredParam).isEmpty()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-
-    /**
      * Save the given values to the form2db repository for legal reasons if the shouldSave parameter is true.
      * Else it just returns the created Node for further use
-     * Will save into the form2DB workspace so we can use the export functionality of the form2DB App.
      *
      * @param values the values to be saved
      * @param shouldSave whether the session should be saved or not. It is used to be able to only get the created Node
      *                   to send an E-Mail
      * @return the created Node
      * @throws RepositoryException
-     * @throws IllegalArgumentException when the orderid is missing (This should always be provided, if not someone is messing around with the JavaScript)
      */
-    public static Node saveToJCR(Map<String, Object> values, List<String> parametersToSave, boolean shouldSave) throws RepositoryException, IllegalArgumentException {
+    public static Node saveToJCR(Map<String, String> values, List<String> parametersNotToSave, boolean shouldSave) throws RepositoryException {
         Node newNode;
 
         Session session = MgnlContext.getJCRSession("form2db");
@@ -97,9 +84,9 @@ public class ServletUtils {
 
         newNode = customMailNode.addNode(UUID.randomUUID().toString(), "mgnl:formEntryNode");
 
-        for (Map.Entry<String, Object> value : values.entrySet()) {
-            if (parametersToSave.contains(value.getKey())) {
-                newNode.setProperty(value.getKey(), value.getValue().toString());
+        for (Map.Entry<String, String> value : values.entrySet()) {
+            if (!parametersNotToSave.contains(value.getKey())) {
+                newNode.setProperty(value.getKey(), value.getValue());
             }
         }
 
@@ -107,5 +94,15 @@ public class ServletUtils {
 
         return newNode;
     }
+
+    /**
+     * Check if the given document is valid
+     * @param document the document to be checked
+     * @return
+     */
+    public static boolean isValidDocument(Document document) {
+   		if (document == null || document.getFile().length() > 30000000) return false;
+   		return ALLOWED_TYPES.contains(document.getType());
+   	}
 
 }

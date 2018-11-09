@@ -18,5 +18,5 @@ areas:
         id: main:components/googleMap
       form:
         id: form:components/form
-      # customForm:
-      #   id: main:components/customForm
+      customForm:
+        id: main:components/customForm
