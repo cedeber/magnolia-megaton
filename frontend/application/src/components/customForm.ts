@@ -1,5 +1,4 @@
-import { Vue, Component, Prop } from "vue-property-decorator";
-import serialize from "../helpers/form-serialize";
+import {Component, Prop, Vue} from "vue-property-decorator";
 
 @Component
 export default class CustomForm extends Vue {
@@ -21,56 +20,62 @@ export default class CustomForm extends Vue {
     @Prop({ type: String })
     termsConditionsPage!: string;
 
-    firstname = "";
-    lastname = "";
-    company = "";
-    email = "";
-    message = "";
-    privacy = false;
-    termsConditions = false;
+    @Prop({ type: String })
+    fileUploadText!: string;
 
-    address = "";
-    city = "";
-    zip = "";
-    country = "";
-    phone = "";
+    fileUploadTextPlaceholder = this.fileUploadText;
 
-    errorMessage = "";
+    error = false;
+    success = false;
+    missingRequired = false;
+    onceSubmitted = false;
 
     async sendMail() {
+        this.onceSubmitted = true;
+
         const data = this.validateForm();
 
         if (data) {
             return fetch(
-                window.mgnlContextPath + "/.mail/",
+                window.mgnlContextPath + "/.servlet/CustomForm/",
                 {
                     method: "POST",
                     credentials: "include",
-                    body: JSON.stringify(data),
+                    body: data,
                 },
-            )
-                .then(response => response.text())
-                .catch(() => {
-                    this.errorMessage = "Something went wrong. Please try again later.";
-                    throw new Error("Unable send the request.");
-                });
+            ).then(response => {
+                if (response.ok) {
+                    response.text()
+                } else {
+                    throw new Error(response.statusText)
+                }
+            })
+            .then(() => this.success = true)
+            .catch(() => {
+                this.success = false;
+                this.error = true;
+                throw new Error("Unable send the request.");
+            });
         }
 
-        this.errorMessage = "Please fill the form.";
-        throw new Error("Form not filled.");
+        this.error = !this.missingRequired;
+        return
     }
 
     validateForm() {
-        let data: any = null;
+        let data: FormData = new FormData();
         const defaultForm = this.$el.querySelector("form") as HTMLFormElement;
 
+        this.onceSubmitted = true;
+
         if (defaultForm) {
-            this.errorMessage = "";
+            this.error = false;
+            this.missingRequired = false;
 
             if (CustomForm.checkEachFieldOfForm(defaultForm)) {
-                data = serialize(defaultForm as HTMLFormElement);
+                data = new FormData(defaultForm);
             } else {
-                this.errorMessage = "Please fill in all the required fields.";
+                this.missingRequired = true;
                 return null;
             }
         }
@@ -95,5 +100,43 @@ export default class CustomForm extends Vue {
         }
 
         return false;
+    }
+
+
+
+    validateFile (file) {
+        if ( file.size > 30000000 ) { return false; }
+
+        const regex = new RegExp("(.*?)\.(docx|doc|pdf|zip)$");
+        return regex.test( file.name );
+    }
+
+    handleFileUpload() {
+        const fileUpload = this.$el.querySelector("#file-upload") as any;
+        const fileUploadText = this.$el.querySelector(".file-upload-text");
+
+        if (fileUpload && fileUploadText) {
+            if (fileUpload.files[0]) {
+                if (this.validateFile(fileUpload.files[0])) {
+                    this.fileUploadTextPlaceholder = fileUpload.files[0].name;
+                } else {
+                    fileUpload.files[0] = null;
+                    this.fileUploadTextPlaceholder = this.fileUploadText;
+                }
+            } else {
+                this.fileUploadTextPlaceholder = this.fileUploadText;
+            }
+        }
+    }
+
+    checkFormClasses() {
+        return {
+            '-once-submitted' : this.onceSubmitted
+        }
+    }
+
+    delegateFileUpload() {
+        const fileUpload = this.$el.querySelector("#file-upload") as any;
+        fileUpload.click()
     }
 }
