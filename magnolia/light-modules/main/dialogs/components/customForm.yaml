@@ -71,17 +71,17 @@ form:
 
       - name: fileUploadLabel
         fieldType: text
-        label: Label
+        label: File Upload Label
         i18n: true
 
       - name: fileUploadPlaceholder
         fieldType: text
-        label: Placeholder
+        label: File Upload Placeholder
         i18n: true
 
       - name: fileUploadButtonText
         fieldType: text
-        label: Button Text
+        label: File Upload Button Text
         i18n: true
 
     - name: tabMessages
