@@ -19,9 +19,9 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class MailServlet extends HttpServlet {
+public class CustomFormServlet extends HttpServlet {
 
-    private static final Logger log = LoggerFactory.getLogger(MailServlet.class);
+    private static final Logger log = LoggerFactory.getLogger(CustomFormServlet.class);
     private TemplatingFunctions cmsfn;
     private final boolean SHOULD_SAVE = false;
     private final String TEMPLATE_PATH = "main/templates/emails/mailTemplate.ftl";
@@ -36,13 +36,16 @@ public class MailServlet extends HttpServlet {
 
 
     @Inject
-    public MailServlet(TemplatingFunctions cmsfn) {
+    public CustomFormServlet(TemplatingFunctions cmsfn) {
         this.cmsfn = cmsfn;
     }
 
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) {
+
+        log.debug("Custom Form MailServlet called");
+
         try {
             resp.setContentType("text/html");
 
@@ -74,6 +77,7 @@ public class MailServlet extends HttpServlet {
                 ServletUtils.sendMailToRecipient(recipient, fromEmail, subject, TEMPLATE_PATH, mailTemplateParameters, attachment, null);
                 resp.setStatus(HttpServletResponse.SC_OK);
             } else {
+                log.warn("Request not valid");
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
 
@@ -95,10 +99,12 @@ public class MailServlet extends HttpServlet {
      * @return
      */
     private boolean checkRequiredParameters(Map<String, String> parameters) {
-        for (String parameter : REQUIRED_PARAMETERS) {
-            if (!parameters.containsKey(parameter) || parameters.get(parameter) == null || "".equals(parameters.get(parameter))) return false;
+        for (String parameterKey : REQUIRED_PARAMETERS) {
+            if (!parameters.containsKey(parameterKey) || parameters.get(parameterKey) == null || "".equals(parameters.get(parameterKey))) {
+                log.warn("Required parameter missing: "+parameterKey);
+                return false;
+            }
         }
-
         return true;
     }
 
