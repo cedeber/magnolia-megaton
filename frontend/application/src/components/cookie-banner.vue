@@ -110,7 +110,7 @@
 
         deleteCookie(cookieName) {
             let hostname = window.document.location.hostname;
-            0 === hostname.indexOf("www.") && (hostname = hostname.substring(4));
+            0 === hostname.indexOf("www.") && (hostname = hostname.substring(4)); // TODO: WHAT IS THIS??!
             window.document.cookie = cookieName + "=; domain=." + hostname + "; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/";
             window.document.cookie = cookieName + "=; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/"
         }
