@@ -32,17 +32,6 @@
 
     </dependencies>
 
-    <!-- Remove comments if needed -->
-    <!--servlets>
-        <servlet>
-            <name>MailServlet</name>
-            <class>ch.openinteractive.main.servlets.MailServlet</class>
-            <comment>Handles E-Mails from custom forms</comment>
-            <mappings>
-                <mapping>/.mail/*</mapping>
-            </mappings>
-        </servlet>
-    </servlets-->
 
     <servlets>
         <servlet>
@@ -53,5 +42,14 @@
                 <mapping>/.servlet/NotFoundRedirect/*</mapping>
             </mappings>
         </servlet>
+
+        <!--<servlet>-->
+            <!--<name>CustomFormServlet</name>-->
+            <!--<class>ch.openinteractive.main.servlets.CustomFormServlet</class>-->
+            <!--<comment>Handles E-Mails from custom forms</comment>-->
+            <!--<mappings>-->
+                <!--<mapping>/.servlet/CustomForm/*</mapping>-->
+            <!--</mappings>-->
+        <!--</servlet>-->
     </servlets>
 </module>
