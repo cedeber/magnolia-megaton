@@ -33,7 +33,6 @@
 - [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (`/modules/cache/config/compression/voters/contentType/allowed@2`)
 - [ ] Set `defaultBaseUrl` in Magnolia server config (author/public)
 - [ ] enable formProcessors/sendConfirmationEMail@enabled
-- [ ] Check that robots NOINDEX is NOT set (https://seositecheckup.com/)
 
 ## Project finalization
 - [ ] Anonymous role access to required workspaces (public)
@@ -44,6 +43,7 @@
 - [ ] Does Magnolia Search find pages/assets/news/events etc.
 - [ ] Check for yaml errors in Definitions App
 - [ ] Add .monitor-this file in home/xyz/xyz directory (Tomcat Monitoring on Mironet. ONLY IF PUBLIC IS NOT PROTECTED)
+- [ ] Check that robots NOINDEX is NOT set (https://seositecheckup.com/)
 
 # Testings
 Chrome and Firefox should technically behave the same way whatever the operating system is.
