@@ -1,0 +1,10 @@
+form:
+  label: Image
+  tabs:
+    - !include:/main/dialogs/include/tabLazyImage.yaml
+
+    #- !include:/main/dialogs/include/tabLazyConfig.yaml
+
+    #- !include:/main/dialogs/include/tabSectionLayoutOverride.yaml
+
+actions: !include:/main/dialogs/include/commonActions.yaml

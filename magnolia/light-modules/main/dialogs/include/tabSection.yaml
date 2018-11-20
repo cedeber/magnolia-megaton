@@ -1,9 +1,9 @@
-name: tabLayout
-label: Layout
+name: tabSection
+label: Properties
 fields:
   - name: sectionLayout
     fieldType: optionGroup
-    label: Section layout
+    label: Content width
     layout: horizontal
     sortOptions: false
     options:
@@ -12,6 +12,10 @@ fields:
         selected: true
       - name: large
         label: large
+      - name: boundless
+        label: boundless
+      - name: fullwidth
+        label: full-width
   - name: space
     fieldType: optionGroup
     multiselect: true
@@ -22,4 +26,4 @@ fields:
         label: Remove top space
       - name: bottom
         label: Remove bottom space
-  - !include:/main/dialogs/include/cssTheme.yaml
+  - !include:/main/dialogs/include/fieldCssTheme.yaml

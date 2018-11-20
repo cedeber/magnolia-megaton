@@ -1,0 +1,15 @@
+!inherit:main:components/lazyMedia
+title: Image
+dialog: main:components/lazyImage
+
+parameters:
+  maxRenditionWidth: 2560
+  isInstantly: false
+  isCover: false
+  width:
+  height:
+  position: center
+
+variations:
+  json:
+    templateScript: /main/templates/variations/mediaJSON.ftl

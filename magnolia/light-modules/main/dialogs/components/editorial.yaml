@@ -4,7 +4,7 @@ form:
     - !include:/main/dialogs/include/tabEditorialBody.yaml
     - !include:/main/dialogs/include/tabEditorialHeader.yaml
 
-    - !include:/main/dialogs/include/sectionLayoutOverride.yaml
+    - !include:/main/dialogs/include/tabSectionLayoutOverride.yaml
       fields:
         - name: textAlignment
           fieldType: optionGroup

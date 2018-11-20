@@ -511,23 +511,6 @@ sub { vertical-align: sub; }
     display: block;
 }
 
-/* Object Fit */
-.has-cover {
-    position: relative;
-}
-
-.has-cover > img {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-}
-
-
 /* --- Scroll --- */
 
 /* Block scroll on Desktop */

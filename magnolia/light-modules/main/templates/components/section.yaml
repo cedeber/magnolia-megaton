@@ -1,7 +1,7 @@
-title: Section layout
+title: Section
 renderType: freemarker
-templateScript: /main/templates/components/sectionLayout.ftl
-dialog: main:components/sectionLayout
+templateScript: /main/templates/components/section.ftl
+dialog: main:components/section
 
 areas:
   content:
@@ -12,6 +12,8 @@ areas:
         id: main:components/editorial
       media:
         id: main:components/lazyMedia
+      video:
+        id: main:components/lazyVideo
       carousel:
         id: main:components/carouselSingle
       map:

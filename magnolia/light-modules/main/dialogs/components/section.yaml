@@ -1,0 +1,10 @@
+form:
+  label: Section
+  tabs:
+    - !include:/main/dialogs/include/tabSection.yaml
+
+    #- !include:/main/dialogs/include/tabSectionLayout.yaml
+
+    #- !include:/main/dialogs/include/tabSectionApplication.yaml
+
+actions: !include:/main/dialogs/include/commonActions.yaml

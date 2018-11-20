@@ -1,0 +1,38 @@
+name: tabLazyVideo
+label: Video
+fields:
+  - name: video
+    fieldType: link
+    targetWorkspace: dam
+    appName: assets
+    label: Video
+    i18n: true
+    identifierToPathConverter:
+      class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+    validators:
+    - name: video
+      class: ch.openinteractive.main.validators.MimeTypeValidatorDefinition
+      pattern: video/*
+      errorMessage: Choose a video
+
+  - name: poster
+    fieldType: link
+    targetWorkspace: dam
+    appName: assets
+    label: Poster
+    i18n: true
+    identifierToPathConverter:
+      class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+    contentPreviewDefinition:
+      contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+    validators:
+    - name: image
+      class: ch.openinteractive.main.validators.MimeTypeValidatorDefinition
+      pattern: image/*
+      errorMessage: Choose an image
+
+  - name: isAutoplay
+    fieldType: checkbox
+    label: Auto play
+    buttonLabel: Play the video automatically or show controls
+    defaultValue: false

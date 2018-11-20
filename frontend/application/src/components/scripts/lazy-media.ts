@@ -74,6 +74,12 @@ export default class LazyMedia extends Vue {
     @Prop({ type: Number, default: -1 })
     maxWidth!: number;
 
+    @Prop({ type: Number, default: -1 })
+    naturalWidth!: number;
+
+    @Prop({ type: Number, default: -1 })
+    naturalHeight!: number;
+
     source = "";
     width: string | number = "100%";
     height: string | number = "100%";
@@ -132,14 +138,14 @@ export default class LazyMedia extends Vue {
         }
 
         if (this.ratio) {
-            this.$el.style.paddingTop =
+            (this.$refs.figure as any).style.paddingTop =
                 `calc(1 / (${this.ratio.w} / ${this.ratio.h}) * 100%)`;
         }
 
         if (this.isInstantly) {
             this.source = source;
         } else {
-            if (this.observer != null) {
+            if (this.observer !== null) {
                 this.observer.disconnect();
                 this.observer = null;
             }
@@ -150,7 +156,7 @@ export default class LazyMedia extends Vue {
                         return;
                     }
 
-                    if (this.observer != null) {
+                    if (this.observer !== null) {
                         this.observer.disconnect();
                         this.observer = null;
                     }
@@ -162,12 +168,14 @@ export default class LazyMedia extends Vue {
                 },
             );
 
-            this.observer.observe(this.$el);
+            if((this.$refs.figure as any)) {
+                this.observer.observe((this.$refs.figure as any));
+            }
         }
     }
 
     updated() {
-        const image = this.$el.querySelector("img");
+        const image = (this.$refs.figure as any).querySelector("img");
 
         if (image) {
             const source = image.getAttribute("src") || "";
@@ -231,11 +239,12 @@ export default class LazyMedia extends Vue {
                 }
 
                 // remove the placeholder (v-else triggers too early)
+                /*
                 if (this.$slots.default && this.$slots.default.length > 0) {
                     for (const slot of this.$slots.default) {
                         (slot.elm as HTMLElement).style.display = "none";
                     }
-                }
+                } */
 
                 // object-fit polyfill
                 if (
@@ -252,7 +261,7 @@ export default class LazyMedia extends Vue {
         }
 
         if (this.video) {
-            const video = this.$el.querySelector("video");
+            const video = (this.$refs.figure as any).querySelector("video");
 
             if (video) {
                 // object-fit polyfill

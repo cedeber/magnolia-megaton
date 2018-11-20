@@ -1,0 +1,13 @@
+!inherit:main:components/lazyMedia
+title: Video
+dialog: main:components/lazyVideo
+
+parameters:
+  isCover: false
+  width:
+  height:
+  position: center
+
+variations:
+  json:
+    templateScript: /main/templates/variations/mediaJSON.ftl

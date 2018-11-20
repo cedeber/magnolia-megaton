@@ -1,0 +1,18 @@
+name: tabLazyImage
+label: Image
+fields:
+  - name: image
+    fieldType: link
+    targetWorkspace: dam
+    appName: assets
+    label: Image, Poster
+    i18n: true
+    identifierToPathConverter:
+      class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+    contentPreviewDefinition:
+      contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+    validators:
+    - name: image
+      class: ch.openinteractive.main.validators.MimeTypeValidatorDefinition
+      pattern: image/*
+      errorMessage: Choose an image

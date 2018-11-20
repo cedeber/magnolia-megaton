@@ -29,8 +29,8 @@ areas:
     renderType: freemarker
     templateScript: /main/templates/areas/indexed.ftl
     availableComponents:
-      sectionLayout:
-        id: main:components/sectionLayout
+      section:
+        id: main:components/section
    # TODO :: select default value (standard and 1 column)
    # autoGeneration:
    #   content:

@@ -1,20 +1,62 @@
 [#assign imageWidth = 1600]
 [#assign imageHeight = 900]
+
+[#assign maxRenditionWidth = 0]
+[#if def.parameters.maxRenditionWidth?has_content]
+    [#assign maxRenditionWidth = def.parameters.maxRenditionWidth]
+[/#if]
+
 [#if content.image?has_content && damfn.getAsset(content.image)??]
     [#assign asset = damfn.getAsset(content.image)!]
     [#if !cmsfn.nodeById(asset.getItemKey().getAssetId(), 'dam').hasProperty('mgnl:deleted')]
         [#assign imageMap = damfn.getAssetMap(content.image)!]
         [#assign imageWidth = imageMap.metadata.mgnl.width!1]
         [#assign imageHeight = imageMap.metadata.mgnl.height!1]
+        [#assign imageRatio = "calc(" + imageHeight?string.computer + " / " + imageWidth?string.computer + " * 100%)"]
+        [#assign imageCaption = imageMap.caption!]
     [/#if]
 [/#if]
 
-[#assign isCover = content.isCover?? && content.isCover == true]
-[#assign isInstantly = content.isInstantly?? && content.isInstantly == true]
-[#assign isAutoplay = content.isAutoplay?? && content.isAutoplay == true]
-[#assign hasCaption = content.hasCaption?? && content.hasCaption == true]
-[#assign hasRatio = content.width?has_content && content.height?has_content]
+[#if content.video?has_content && damfn.getAsset(content.video)??]
+    [#assign asset = damfn.getAsset(content.video)!]
+    [#if !cmsfn.nodeById(asset.getItemKey().getAssetId(), 'dam').hasProperty('mgnl:deleted')]
+        [#assign videoMap = damfn.getAssetMap(content.video)!]
+        [#assign videoCaption = videoMap.caption!]
+    [/#if]
+[/#if]
 
+[#-- Video --]
+[#assign isAutoplay = content.isAutoplay ! (def.parameters.isAutoplay?? && def.parameters.isAutoplay == true)]
+
+[#-- Image --]
+[#assign isInstantly = content.isInstantly?? && content.isInstantly == true]
+
+[#-- Both --]
+[#assign position = content.position ! def.parameters.position?string ! "center"]
+[#assign hasCaption = content.hasCaption?? && content.hasCaption == true]
+
+[#assign isCover = (def.parameters.isCover?? && def.parameters.isCover == true) ! false]
+[#if content.isCover?? && content.isCover == true]
+    [#assign isCover = true]
+[/#if]
+
+[#assign hasCaption = (def.parameters.hasCaption?? && def.parameters.hasCaption == true) ! false]
+[#if content.hasCaption?? && content.hasCaption == true]
+    [#assign hasCaption = true]
+[/#if]
+
+[#assign hasRatio = false]
+[#if content.width?has_content && content.height?has_content]
+    [#assign hasRatio = true]
+    [#assign ratio = "{w:" + content.width?string + ",h:" + content.height?string + "}"]
+    [#assign imageRatio = "calc(" + content.height?string + " / " + content.width?string + " * 100%)"]
+[#elseif def.parameters.width?has_content && def.parameters.height?has_content]
+    [#assign hasRatio = true]
+    [#assign ratio = "{w:" + def.parameters.width?string.computer + ",h:" + def.parameters.height?string.computer + "}"]
+    [#assign imageRatio = "calc(" + def.parameters.height?string.computer + " / " + def.parameters.width?string.computer + " * 100%)"]
+[/#if]
+
+[#-- Layout --]
 [#if ctx.cell?has_content]
     [#assign cellOverride = ctx.cell]
     [#if content.layoutOverride?has_content]
@@ -30,43 +72,44 @@
     [/#if]
 [/#if]
 
-<!-- Lazy Media -->
-<div class="o-lazy-media [#if cellOverride?has_content]cell-${cellOverride!}[/#if] [#if content.title?has_content || content.body?has_content]has-editorial[/#if]">
-[#if !cmsfn.isEditMode()]
-    <lazy-media path="${cmsfn.link(content)?replace('.html', '.json')}"
-                [#if hasRatio]:ratio="{w:${content.width!},h:${content.height}}"[/#if]
-                [#if isCover && imageWidth > 0 && imageHeight > 0]:sim-ratio="{w:${imageWidth?string.computer!},h:${imageHeight?string.computer!}}"[/#if]
-                position="is-${content.position!'center'}"
-                :is-cover="${isCover?string!}"
-                :is-instantly="${isInstantly?string!}"
-                :is-autoplay="${isAutoplay?string!}"
-                :has-caption="${hasCaption?string!}"
-                [#if content.maxWidth?has_content]:max-width="${content.maxWidth!0}"[/#if]>
-        [#-- placeholder used before 'mounted' and before getting 'source' --]
-        <svg class="media"
-             width="${imageWidth?string.computer!}"
-             height="${imageHeight?string.computer!}"
-             viewBox="0 0 1 1">
-        </svg>
-    </lazy-media>
-[#else]
-    <figure class="o-lazy-media">
-        [#if imageMap?? && !content.video?has_content]
-            <picture class="container js-loaded [#if hasRatio]has-fixed-ratio[/#if]">
-                <img class="media [#if isCover == true]is-cover[/#if]" src="${damfn.getAssetLink(content.image)!}" style="display: block; max-width: 100%">
-            </picture>
-            [#if imageMap.caption?has_content]
-                <figcaption class="caption">${imageMap.caption}</figcaption>
+[#-- Lazy Media --]
+<div class="[#if cellOverride?has_content]cell-${cellOverride!}[/#if] cell-1of1-sm">
+    <div class="o-lazy-media [#if content.title?has_content || content.body?has_content]has-editorial[/#if]">
+        [#if !cmsfn.isEditMode()]
+            <lazy-media path="${cmsfn.link(content)?replace('.html', '.json')}"
+                        [#if hasRatio]:ratio="${ratio!}"[/#if]
+                        [#if isCover && imageWidth > 0 && imageHeight > 0]:sim-ratio="{w:${imageWidth?string.computer!},h:${imageHeight?string.computer!}}"[/#if]
+                        position="is-${position!}"
+                        :is-cover="${isCover?string!}"
+                        :is-instantly="${isInstantly?string!}"
+                        :is-autoplay="${isAutoplay?string!}"
+                        :has-caption="${hasCaption?string!}"
+                        :max-width="${maxRenditionWidth!}">
+                        <figure class="figure" style="padding-top: ${imageRatio!}">
+                            <picture class="container js-loaded has-fixed-ratio">
+                                <img class="media is-${position!} [#if isCover == true]is-cover[/#if]" width="${imageWidth?string.computer!}" height="${imageHeight?string.computer!}" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'/>">
+                            </picture>
+                        </figure>
+            </lazy-media>
+        [#else]
+            <figure class="figure" [#if hasRatio]style="padding-top: ${imageRatio!}"[/#if]>
+            [#if content.image?has_content]
+                <picture class="container js-loaded [#if hasRatio]has-fixed-ratio[/#if]">
+                    <img class="media is-${position!} [#if isCover == true]is-cover[/#if]" src="${damfn.getAssetLink(content.image)!}">
+                </picture>
             [/#if]
+            [#if content.video?has_content]
+                <video controls class="container media js-loaded [#if hasRatio]has-fixed-ratio[/#if]" src="${damfn.getAssetLink(content.video)!}" preload="metadata" style="display: block; max-width: 100%"
+                       poster="${damfn.getAssetLink(content.image)!}">
+                </video>
+            [/#if]
+            </figure>
         [/#if]
-        [#if content.video?has_content]
-            <video controls class="container media" src="${damfn.getAssetLink(content.video)!}" preload="metadata" style="display: block; max-width: 100%"
-                   poster="${damfn.getAssetLink(content.image)!}">
-            </video>
+        [#if hasCaption == true]
+            <div class="caption">${videoCaption!imageCaption!}</div>
         [/#if]
-    </figure>
-[/#if]
-[#if content.title?has_content || content.body?has_content]
-    [#include "editorial.ftl"]
-[/#if]
+        [#if content.title?has_content || content.body?has_content]
+            [#include "editorial.ftl"]
+        [/#if]
+    </div>
 </div>

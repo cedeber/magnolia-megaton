@@ -1,0 +1,7 @@
+name: tabSectionApplication
+label: Application
+fields:
+  - name: sectionID
+    fieldType: text
+    label: Section ID
+    description: no space

@@ -31,8 +31,8 @@ areas:
     renderType: freemarker
     templateScript: /main/templates/areas/indexed.ftl
     availableComponents:
-      sectionLayout:
-        id: main:components/sectionLayout
+      section:
+        id: main:components/section
         
   footer:
     renderType: freemarker

@@ -3,6 +3,16 @@ renderType: freemarker
 templateScript: /main/templates/components/lazyMedia.ftl
 dialog: main:components/lazyMedia
 
+parameters:
+  maxRenditionWidth: 999
+  hasCaption: false
+  isInstantly: false
+  isAutoplay: false
+  isCover: false
+  width:
+  height:
+  position: center
+
 variations:
   json:
     templateScript: /main/templates/variations/mediaJSON.ftl

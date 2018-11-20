@@ -1,0 +1,61 @@
+name: tabLazyConfig
+label: Configuration
+fields:
+- name: hasCaption
+  fieldType: checkbox
+  label: Caption
+  buttonLabel: Show the caption, since one is defined in the Asset Manager
+  defaultValue: false
+- name: isCover
+  fieldType: checkbox
+  label: Media as cover
+  buttonLabel: The media covers the whole container (like a background)
+  defaultValue: true
+- name: ratio
+  fieldType: composite
+  transformerClass: info.magnolia.ui.form.field.transformer.composite.DelegatingCompositeFieldTransformer
+  label: Fixed ratio
+  description: For instance, 16 / 9 for videos or 4 / 3 for images.
+  fields:
+  - name: width
+    fieldType: text
+    label: Width unit
+  - name: height
+    fieldType: text
+    label: Height unit
+- name: position
+  fieldType: optionGroup
+  layout: horizontal
+  sortOptions: false
+  label: Position
+  description: If cropped, this is the part of the media which will be shown.
+  options:
+  - name: center
+    selected: true
+    label: Center
+  - name: top
+    label: Top
+  - name: right
+    label: Right
+  - name: bottom
+    label: Bottom
+  - name: left
+    label: Left
+
+- name: overlay
+  class: info.magnolia.ui.form.field.definition.StaticFieldDefinition
+  label: ---------------
+  value: Foreground-Text
+
+- name: title
+  fieldType: richText
+  label: Title
+  i18n: true
+  height: 120
+  configJsFile: /.resources/main/dialogs/include/config/title.js
+- name: body
+  fieldType: richText
+  label: Paragraph
+  i18n: true
+  height: 450
+  configJsFile: /.resources/main/dialogs/include/config/editorial.js

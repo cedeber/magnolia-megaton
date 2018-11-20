@@ -48,6 +48,6 @@ form:
             - name: vertical
               label: Vertical
 
-    - !include:/main/dialogs/include/sectionLayoutOverride.yaml
+    - !include:/main/dialogs/include/tabSectionLayoutOverride.yaml
 
 actions: !include:/main/dialogs/include/commonActions.yaml
