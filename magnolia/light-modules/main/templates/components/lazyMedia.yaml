@@ -4,7 +4,7 @@ templateScript: /main/templates/components/lazyMedia.ftl
 dialog: main:components/lazyMedia
 
 parameters:
-  maxRenditionWidth: 999
+  maxRenditionWidth: 2560
   hasCaption: false
   isInstantly: false
   isAutoplay: false

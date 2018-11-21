@@ -4,6 +4,7 @@ dialog: main:components/lazyImage
 
 parameters:
   maxRenditionWidth: 2560
+  hasCaption: false
   isInstantly: false
   isCover: false
   width:
@@ -12,4 +13,4 @@ parameters:
 
 variations:
   json:
-    templateScript: /main/templates/variations/mediaJSON.ftl
+    templateScript: /main/templates/variations/medaJSON.ftl
