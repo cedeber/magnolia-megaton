@@ -7,6 +7,7 @@
 [#assign hasMultiCells = content.cell?? && content.cell != "1of1"]
 [#assign hasGutter = content.hasGutter?? && content.hasGutter == true && hasMultiCells]
 [#assign noPageGutters = content.sectionLayout?? && content.sectionLayout == "fullwidth"]
+[#assign hasLayout = def.parameters.layout?? && def.parameters.layout == true]
 
 <!-- Layout -->
 [@compress single_line=true]
@@ -24,9 +25,10 @@
 >
 [/@compress]
     <div class="o-group [#if isBoundless]is-full-width[#elseif isLarge]is-large[/#if] [#if hasBackground && !noPageGutters]has-inner-gutter[/#if]">
-        [#if hasMultiCells]
+
+    [#if hasLayout && hasMultiCells]
         <div class="o-flex is-multiline [#if hasGutter]has-gutter[/#if]">
-            [@cms.area name="content" contextAttributes={"cell": content.cell!} /]
+            [@cms.area name="content" contextAttributes={"layout": def.parameters.layout!,"cell": content.cell!} /]
         </div>
         [#else]
             [@cms.area name="content" /]

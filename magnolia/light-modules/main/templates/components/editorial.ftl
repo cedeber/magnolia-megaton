@@ -1,21 +1,6 @@
 [#assign parent = cmsfn.parent(content, "mgnl:page")!]
 [#assign textAlignment = "is-" + content.textAlignment!'left']
 
-[#if ctx.cell?has_content]
-    [#assign cellOverride = ctx.cell]
-    [#if content.layoutOverride?has_content]
-        [#if content.layoutOverride == "full"]
-            [#assign cellOverride = "1of1"]
-        [#elseif content.layoutOverride == "wider"]
-            [#if ctx.cell == "1of3"]
-                [#assign cellOverride = "2of3"]
-            [#elseif ctx.cell == "1of4"]
-                [#assign cellOverride = "3of4"]
-            [/#if]
-        [/#if]
-    [/#if]
-[/#if]
-
 [#if content.callToActionText?has_content && content.callToActionLink?has_content]
     [#if content.callToActionLink == "Section" && content.callToActionLinkSection?has_content]
         [#assign scrollLink = content.callToActionLinkSection!]
@@ -30,7 +15,7 @@
 [/#if]
 
 <!-- Editorial -->
-<div class="o-editorial ${textAlignment} [#if cellOverride?has_content]cell-${cellOverride!}[/#if]">
+<div class="o-editorial ${textAlignment}">
     [#if content.preHeader?has_content || content.title?has_content || ctx.orderIndex?? && ctx.orderIndex == 0]
     <header>
         [#if content.preHeader?has_content]

@@ -3,26 +3,6 @@
     [#assign imageRatio = 1 / (content.width?eval / content.height?eval) * 100]
 [/#if]
 
-[#if ctx.cell?has_content]
-    [#assign cellOverride = ctx.cell]
-    [#if content.layoutOverride?has_content]
-        [#if content.layoutOverride == "full"]
-            [#assign cellOverride = "1of1"]
-        [#elseif content.layoutOverride == "wider"]
-            [#if ctx.cell == "1of3"]
-                [#assign cellOverride = "2of3"]
-            [#elseif ctx.cell == "1of4"]
-                [#assign cellOverride = "3of4"]
-            [/#if]
-        [/#if]
-    [/#if]
-[/#if]
-
-<!-- Single Carousel -->
-[#if cellOverride??]
-    <div class="cell-${cellOverride!}">
-[/#if]
-
 [#if !cmsfn.isEditMode()]
 <single-carousel v-bind:delay="${content.delay!'5000'}"
                  v-bind:autoplay="${(content.autoplay!false)?c}"
@@ -37,8 +17,4 @@
 </single-carousel>
 [#else]
     [@cms.area name="slides" /]
-[/#if]
-
-[#if cellOverride??]
-    </div>
 [/#if]

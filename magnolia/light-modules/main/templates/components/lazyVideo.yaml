@@ -2,7 +2,7 @@
 title: Video
 dialog: main:components/lazyVideo
 
-parameters:
+parameters: !override
   isCover: false
   width:
   height:

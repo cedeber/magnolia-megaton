@@ -56,60 +56,42 @@
     [#assign imageRatio = "calc(" + def.parameters.height?string.computer + " / " + def.parameters.width?string.computer + " * 100%)"]
 [/#if]
 
-[#-- Layout --]
-[#if ctx.cell?has_content]
-    [#assign cellOverride = ctx.cell]
-    [#if content.layoutOverride?has_content]
-        [#if content.layoutOverride == "full"]
-            [#assign cellOverride = "1of1"]
-        [#elseif content.layoutOverride == "wider"]
-            [#if ctx.cell == "1of3"]
-                [#assign cellOverride = "2of3"]
-            [#elseif ctx.cell == "1of4"]
-                [#assign cellOverride = "3of4"]
-            [/#if]
-        [/#if]
-    [/#if]
-[/#if]
-
 [#-- Lazy Media --]
-<div class="[#if cellOverride?has_content]cell-${cellOverride!}[/#if] cell-1of1-sm">
-    <div class="o-lazy-media [#if content.title?has_content || content.body?has_content]has-editorial[/#if]">
-        [#if !cmsfn.isEditMode()]
-            <lazy-media path="${cmsfn.link(content)?replace('.html', '.json')}"
-                        [#if hasRatio]:ratio="${ratio!}"[/#if]
-                        [#if isCover && imageWidth > 0 && imageHeight > 0]:sim-ratio="{w:${imageWidth?string.computer!},h:${imageHeight?string.computer!}}"[/#if]
-                        position="is-${position!}"
-                        :is-cover="${isCover?string!}"
-                        :is-instantly="${isInstantly?string!}"
-                        :is-autoplay="${isAutoplay?string!}"
-                        :has-caption="${hasCaption?string!}"
-                        :max-width="${maxRenditionWidth!}">
-                        <figure class="figure" style="padding-top: ${imageRatio!}">
-                            <picture class="container js-loaded has-fixed-ratio">
-                                <img class="media is-${position!} [#if isCover == true]is-cover[/#if]" width="${imageWidth?string.computer!}" height="${imageHeight?string.computer!}" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'/>">
-                            </picture>
-                        </figure>
-            </lazy-media>
-        [#else]
-            <figure class="figure" [#if hasRatio]style="padding-top: ${imageRatio!}"[/#if]>
-            [#if content.image?has_content]
-                <picture class="container js-loaded [#if hasRatio]has-fixed-ratio[/#if]">
-                    <img class="media is-${position!} [#if isCover == true]is-cover[/#if]" src="${damfn.getAssetLink(content.image)!}">
-                </picture>
-            [/#if]
-            [#if content.video?has_content]
-                <video controls class="container media js-loaded [#if hasRatio]has-fixed-ratio[/#if]" src="${damfn.getAssetLink(content.video)!}" preload="metadata" style="display: block; max-width: 100%"
-                       poster="${damfn.getAssetLink(content.image)!}">
-                </video>
-            [/#if]
-            </figure>
+<div class="o-lazy-media [#if content.title?has_content || content.body?has_content]has-editorial[/#if]">
+    [#if !cmsfn.isEditMode()]
+        <lazy-media path="${cmsfn.link(content)?replace('.html', '.json')}"
+                    [#if hasRatio]:ratio="${ratio!}"[/#if]
+                    [#if isCover && imageWidth > 0 && imageHeight > 0]:sim-ratio="{w:${imageWidth?string.computer!},h:${imageHeight?string.computer!}}"[/#if]
+                    position="is-${position!}"
+                    :is-cover="${isCover?string!}"
+                    :is-instantly="${isInstantly?string!}"
+                    :is-autoplay="${isAutoplay?string!}"
+                    :has-caption="${hasCaption?string!}"
+                    :max-width="${maxRenditionWidth!}">
+                    <figure class="figure" style="padding-top: ${imageRatio!}">
+                        <picture class="container js-loaded has-fixed-ratio">
+                            <img class="media is-${position!} [#if isCover == true]is-cover[/#if]" width="${imageWidth?string.computer!}" height="${imageHeight?string.computer!}" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'/>">
+                        </picture>
+                    </figure>
+        </lazy-media>
+    [#else]
+        <figure class="figure" [#if hasRatio]style="padding-top: ${imageRatio!}"[/#if]>
+        [#if content.image?has_content]
+            <picture class="container js-loaded [#if hasRatio]has-fixed-ratio[/#if]">
+                <img class="media is-${position!} [#if isCover == true]is-cover[/#if]" src="${damfn.getAssetLink(content.image)!}">
+            </picture>
         [/#if]
-        [#if hasCaption == true]
-            <div class="caption">${videoCaption!imageCaption!}</div>
+        [#if content.video?has_content]
+            <video controls class="container media js-loaded [#if hasRatio]has-fixed-ratio[/#if]" src="${damfn.getAssetLink(content.video)!}" preload="metadata" style="display: block; max-width: 100%"
+                   poster="${damfn.getAssetLink(content.image)!}">
+            </video>
         [/#if]
-        [#if content.title?has_content || content.body?has_content]
-            [#include "editorial.ftl"]
-        [/#if]
-    </div>
+        </figure>
+    [/#if]
+    [#if hasCaption == true]
+        <div class="caption">${videoCaption!imageCaption!}</div>
+    [/#if]
+    [#if content.title?has_content || content.body?has_content]
+        [#include "editorial.ftl"]
+    [/#if]
 </div>

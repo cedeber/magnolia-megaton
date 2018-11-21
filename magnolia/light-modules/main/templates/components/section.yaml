@@ -3,6 +3,9 @@ renderType: freemarker
 templateScript: /main/templates/components/section.ftl
 dialog: main:components/section
 
+parameters:
+  layout: false #if active, add tabSectionLayout to section dialog and if expected so tabSectionLayoutOverride to Components
+
 areas:
   content:
     renderType: freemarker
