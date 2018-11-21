@@ -15,7 +15,7 @@
 [/#if]
 
 <!-- Editorial -->
-<div class="o-editorial ${textAlignment}">
+<div class="o-editorial o-component ${textAlignment}">
     [#if content.preHeader?has_content || content.title?has_content || ctx.orderIndex?? && ctx.orderIndex == 0]
     <header>
         [#if content.preHeader?has_content]

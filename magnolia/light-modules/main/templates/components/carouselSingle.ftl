@@ -10,7 +10,7 @@
                  v-bind:render-type="'${content.renderType!'linear'}'"
                  v-bind:orientation="'${content.orientation!'horizontal'}'"
                  [#if imageRatio??]v-bind:slide-ratio="${imageRatio?string.computer!0}"[/#if]
-                 class="o-carousel" [#if content.asHero?? && content.asHero == true]style="height: 100vh"[/#if]>
+                 class="o-carousel o-component" [#if content.asHero?? && content.asHero == true]style="height: 100vh"[/#if]>
     <template slot="slides">
         [@cms.area name="slides" /]
     </template>

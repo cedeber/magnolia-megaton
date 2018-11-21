@@ -16,7 +16,7 @@
                 [#if content.columns??]v-bind:columns="${content.columns!'0'}"[/#if]
                 [#if content.minWidth??]v-bind:min-width="${content.minWidth!'0'}"[/#if]
                 [#if content.maxWidth??]v-bind:max-width="${content.maxWidth!'0'}"[/#if]
-                class="o-carousel [#if hasGutter]has-inner-gutter[/#if]" [#if content.asHero?? && content.asHero == true]style="height: 100vh"[/#if]>
+                class="o-carousel o-component [#if hasGutter]has-inner-gutter[/#if]" [#if content.asHero?? && content.asHero == true]style="height: 100vh"[/#if]>
     <template slot="slides">
         [@cms.area name="slides" /]
     </template>

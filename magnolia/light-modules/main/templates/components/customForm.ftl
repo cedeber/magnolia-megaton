@@ -3,7 +3,7 @@
     Fields are only shown in Preview.<br/>
     Make sure to enable the CustomFormServlet (/.servlet/CustomForm/*) and configure the smtp server.
 [#else]
-<custom-form inline-template :from-email="'${content.fromEmail!}'" :recipient="'${content.recipient!}'" :subject="'${content.subject!}'" :file-upload-text="'${content.fileUploadPlaceholder!}'">
+<custom-form inline-template class="o-custom-form o-component" :from-email="'${content.fromEmail!}'" :recipient="'${content.recipient!}'" :subject="'${content.subject!}'" :file-upload-text="'${content.fileUploadPlaceholder!}'">
     <div>
         <form v-if="!success" class="js-default-form" @submit.prevent="validateForm">
             <div class="form-item-hidden">

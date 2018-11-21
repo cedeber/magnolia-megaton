@@ -24,7 +24,8 @@
             [#if content.styles?has_content]
                 :personalized="true"
                 styles-path="${cmsfn.link(content)?replace('.html', '.json')}"
-            [/#if]>
+            [/#if]
+            class="o-component">
     <p hidden>
     [#if content.info?has_content]
         ${cmsfn.decode(content).info!}
@@ -33,7 +34,7 @@
 </google-map>
 
 [#if cmsfn.isEditMode()]
-    <div style="width: 100%; height: 200px; background-color: lightgrey" class="o-google-map">
+    <div style="width: 100%; height: 200px; background-color: lightgrey" class="o-google-map o-component">
         Google map only visible in Preview mode.
     </div>
 [/#if]

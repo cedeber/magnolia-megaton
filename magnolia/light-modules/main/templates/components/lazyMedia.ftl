@@ -57,7 +57,7 @@
 [/#if]
 
 [#-- Lazy Media --]
-<div class="o-lazy-media [#if content.title?has_content || content.body?has_content]has-editorial[/#if]">
+<div class="o-lazy-media o-component [#if content.title?has_content || content.body?has_content]has-editorial[/#if]">
     [#if !cmsfn.isEditMode()]
         <lazy-media path="${cmsfn.link(content)?replace('.html', '.json')}"
                     [#if hasRatio]:ratio="${ratio!}"[/#if]
