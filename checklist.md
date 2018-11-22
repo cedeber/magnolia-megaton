@@ -9,6 +9,7 @@
 - [ ] Disclaimer
 - [ ] Custom error pages
 - [ ] Page titles & Descriptions
+- [ ] Change name in web-app-manifest.json (The name shown when adding a website to the home screen)
 - [ ] App + Mobile Favicons
 - [ ] Correct `<head>`: App name, etc...
 - [ ] Fill Web App Manifest
