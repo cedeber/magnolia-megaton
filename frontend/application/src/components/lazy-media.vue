@@ -55,6 +55,10 @@
         max-width: none;
     }
 
+    video.container.has-fixed-ratio[style] { /* if object-fit polyfill applied */
+        transform: none;
+    }
+
     figure.is-cover .container:not(.has-fixed-ratio) {
         display: flex;
     }
