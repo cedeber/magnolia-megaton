@@ -47,9 +47,7 @@
 - [ ] Add .monitor-this file in home/xyz/xyz directory (Tomcat Monitoring on Mironet. ONLY IF PUBLIC IS NOT PROTECTED)
 - [ ] Check that robots NOINDEX is NOT set (https://seositecheckup.com/)
 - [ ] Set `defaultBaseUrl` in Magnolia server config on public. (The real one, not xyz.mironet.ch)
-
-## After Go-Live
-- [ ] Set the defaultBaseUrl to correct Domain
+- [ ] Test Facebook sharing. https://developers.facebook.com/tools/debug/sharing/
 
 
 # Testings
