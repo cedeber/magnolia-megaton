@@ -32,6 +32,7 @@
 - [ ] Add woff2 mimetype (`/server/MIMEMapping/`)
 - [ ] Set `/server/security/userManagers/system@lockTimePeriod` to 5(minutes)
 - [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (`/modules/cache/config/compression/voters/contentType/allowed@2`)
+- [ ] Remove compression contentType for html `html/text` in Magnolia server config. (Facebook sharing bug)
 - [ ] Set `defaultBaseUrl` in Magnolia server config (author/public)
 - [ ] enable formProcessors/sendConfirmationEMail@enabled
 
