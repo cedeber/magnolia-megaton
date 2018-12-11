@@ -83,7 +83,7 @@
         [/#if]
         [#if content.video?has_content]
             <video controls class="container media js-loaded [#if hasRatio]has-fixed-ratio[/#if]" src="${damfn.getAssetLink(content.video)!}" preload="metadata" style="display: block; max-width: 100%"
-                   poster="${damfn.getAssetLink(content.image)!}">
+                   poster="${damfn.getAssetLink(content.poster)!}">
             </video>
         [/#if]
         </figure>
