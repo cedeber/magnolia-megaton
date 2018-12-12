@@ -9,6 +9,7 @@
 - [ ] Disclaimer
 - [ ] Custom error pages
 - [ ] Page titles & Descriptions
+- [ ] Change name in web-app-manifest.json (The name shown when adding a website to the home screen)
 - [ ] App + Mobile Favicons
 - [ ] Correct `<head>`: App name, etc...
 - [ ] Fill Web App Manifest
@@ -31,6 +32,7 @@
 - [ ] Add woff2 mimetype (`/server/MIMEMapping/`)
 - [ ] Set `/server/security/userManagers/system@lockTimePeriod` to 5(minutes)
 - [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (`/modules/cache/config/compression/voters/contentType/allowed@2`)
+- [ ] Remove compression contentType for html `html/text` in Magnolia server config. (Facebook sharing bug)
 - [ ] Set `defaultBaseUrl` in Magnolia server config (author/public)
 - [ ] enable formProcessors/sendConfirmationEMail@enabled
 
@@ -44,6 +46,9 @@
 - [ ] Check for yaml errors in Definitions App
 - [ ] Add .monitor-this file in home/xyz/xyz directory (Tomcat Monitoring on Mironet. ONLY IF PUBLIC IS NOT PROTECTED)
 - [ ] Check that robots NOINDEX is NOT set (https://seositecheckup.com/)
+- [ ] Set `defaultBaseUrl` in Magnolia server config on public. (The real one, not xyz.mironet.ch)
+- [ ] Test Facebook sharing. https://developers.facebook.com/tools/debug/sharing/
+
 
 # Testings
 Chrome and Firefox should technically behave the same way whatever the operating system is.
