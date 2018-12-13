@@ -29,7 +29,11 @@
 [#assign isAutoplay = content.isAutoplay ! (def.parameters.isAutoplay?? && def.parameters.isAutoplay == true)]
 
 [#-- Image --]
-[#assign isInstantly = content.isInstantly?? && content.isInstantly == true]
+[#assign isInstantly = def.parameters.isInstantly?c!]
+
+[#if content.isInstantly??]
+    [#assign isInstantly = content.isInstantly]
+[/#if]
 
 [#-- Both --]
 [#assign position = content.position ! def.parameters.position?string ! "center"]
@@ -67,7 +71,7 @@
                     :is-instantly="${isInstantly?string!}"
                     :is-autoplay="${isAutoplay?string!}"
                     :has-caption="${hasCaption?string!}"
-                    :max-width="${maxRenditionWidth!}">
+                    :max-width="${maxRenditionWidth?string.computer!}">
                     <figure class="figure" style="padding-top: ${imageRatio!}">
                         <picture class="container js-loaded has-fixed-ratio">
                             <img class="media is-${position!} [#if isCover == true]is-cover[/#if]" width="${imageWidth?string.computer!}" height="${imageHeight?string.computer!}" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'/>">
