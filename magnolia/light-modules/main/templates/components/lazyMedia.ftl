@@ -74,7 +74,7 @@
                     :max-width="${maxRenditionWidth?string.computer!}">
                     <figure class="figure" style="padding-top: ${imageRatio!}">
                         <picture class="container js-loaded has-fixed-ratio">
-                            <img class="media is-${position!} [#if isCover == true]is-cover[/#if]" width="${imageWidth?string.computer!}" height="${imageHeight?string.computer!}" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'/>">
+                            <img class="media is-${position!} [#if isCover == true]is-cover[/#if]" width="${imageWidth?string.computer!}" height="${imageHeight?string.computer!}" alt="placeholder" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
                         </picture>
                     </figure>
         </lazy-media>
