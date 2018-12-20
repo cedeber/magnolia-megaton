@@ -1,8 +1,12 @@
-!inherit:main:components/lazyMedia
 title: Video
+renderType: freemarker
+templateScript: /main/templates/components/lazyMedia.ftl
 dialog: main:components/lazyVideo
 
-parameters: !override
+parameters:
+  hasCaption: false
+  isInstantly: false
+  isAutoplay: false
   isCover: false
   width:
   height:
