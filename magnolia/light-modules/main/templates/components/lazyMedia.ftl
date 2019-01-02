@@ -1,9 +1,10 @@
 [#assign imageWidth = 1600]
 [#assign imageHeight = 900]
+[#setting number_format="0.##"]
 
 [#assign maxRenditionWidth = 0]
 [#if def.parameters.maxRenditionWidth?has_content]
-    [#assign maxRenditionWidth = def.parameters.maxRenditionWidth]
+    [#assign maxRenditionWidth = def.parameters.maxRenditionWidth?number]
 [/#if]
 
 [#if content.image?has_content && damfn.getAsset(content.image)??]
@@ -12,7 +13,7 @@
         [#assign imageMap = damfn.getAssetMap(content.image)!]
         [#assign imageWidth = imageMap.metadata.mgnl.width!1]
         [#assign imageHeight = imageMap.metadata.mgnl.height!1]
-        [#assign imageRatio = "calc(" + imageHeight?string.computer + " / " + imageWidth?string.computer + " * 100%)"]
+        [#assign imageRatio = "calc(" + imageHeight?number + " / " + imageWidth?number + " * 100%)"]
         [#assign imageCaption = imageMap.caption!]
     [/#if]
 [/#if]
@@ -56,8 +57,8 @@
     [#assign imageRatio = "calc(" + content.height?string + " / " + content.width?string + " * 100%)"]
 [#elseif def.parameters.width?has_content && def.parameters.height?has_content]
     [#assign hasRatio = true]
-    [#assign ratio = "{w:" + def.parameters.width?string.computer + ",h:" + def.parameters.height?string.computer + "}"]
-    [#assign imageRatio = "calc(" + def.parameters.height?string.computer + " / " + def.parameters.width?string.computer + " * 100%)"]
+    [#assign ratio = "{w:" + def.parameters.width?number + ",h:" + def.parameters.height?number + "}"]
+    [#assign imageRatio = "calc(" + def.parameters.height?number + " / " + def.parameters.width?number + " * 100%)"]
 [/#if]
 
 [#-- Lazy Media --]
@@ -65,7 +66,7 @@
     [#if !cmsfn.isEditMode()]
         <lazy-media path="${cmsfn.link(content)?replace('.html', '.json')}"
                     [#if hasRatio]:ratio="${ratio!}"[/#if]
-                    [#if isCover && imageWidth > 0 && imageHeight > 0]:sim-ratio="{w:${imageWidth?string.computer!},h:${imageHeight?string.computer!}}"[/#if]
+                    [#if isCover && imageWidth > 0 && imageHeight > 0]:sim-ratio="{w:${imageWidth?number!},h:${imageHeight?number!}}"[/#if]
                     position="is-${position!}"
                     :is-cover="${isCover?string!}"
                     :is-instantly="${isInstantly?string!}"
@@ -74,7 +75,7 @@
                     :max-width="${maxRenditionWidth!}">
                     <figure class="figure" style="padding-top: ${imageRatio!}">
                         <picture class="container js-loaded has-fixed-ratio">
-                            <img class="media is-${position!} [#if isCover == true]is-cover[/#if]" width="${imageWidth?string.computer!}" height="${imageHeight?string.computer!}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+                            <img class="media is-${position!} [#if isCover == true]is-cover[/#if]" width="${imageWidth?number!}" height="${imageHeight?number!}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
                         </picture>
                     </figure>
         </lazy-media>
@@ -82,7 +83,7 @@
         <figure class="figure" [#if hasRatio]style="padding-top: ${imageRatio!}"[/#if]>
         [#if content.image?has_content]
             <picture class="container js-loaded [#if hasRatio]has-fixed-ratio[/#if]">
-                <img class="media is-${position!} [#if isCover == true]is-cover[/#if]" src="${damfn.getAssetLink(content.image)!}">
+                <img class="media is-${position!} [#if isCover == true]is-cover[/#if]" src="${damfn.getAssetLink(content.image)!}" style="display: block; max-width: 100%">
             </picture>
         [/#if]
         [#if content.video?has_content]
