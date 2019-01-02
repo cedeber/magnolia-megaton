@@ -108,7 +108,7 @@
                     </div>
 
                     <div class="form-row cell-1of2">
-                        <input name="privacy" id="privacy" required type="checkbox" v-model="privacy">
+                        <input name="privacy" id="privacy" required type="checkbox">
                         <label class="checkbox-label" for="privacy">
                             ${cmsfn.decode(content).privacyText!}
                         </label>
@@ -118,6 +118,11 @@
                     </div>
                     <div class="error-message form-row is-multiline cell-1of2 cell-1of1-sm" v-if="missingRequired">
                         ${cmsfn.decode(content).missingRequiredText!}
+                    </div>
+
+                    <div id="winnie-puuh">
+                        <label for="winnie">Leave this field empty!</label>
+                        <input name="winnie" id="winnie" type="text" tabindex="-1" autocomplete="off" value="hello">
                     </div>
 
                     <div class="button-wrapper cell-1of1">

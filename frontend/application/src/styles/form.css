@@ -236,13 +236,15 @@ input:invalid + label.active {
     text-decoration: none;
 }
 
-#mgnlhp {
+#mgnlhp,
+#winnie-puuh {
     display: block;
     position: absolute;
     overflow: hidden;
     right: -2466px;
 }
 
-#mgnlhp label {
+#mgnlhp label,
+#winnie-puuh label {
     position: static;
 }

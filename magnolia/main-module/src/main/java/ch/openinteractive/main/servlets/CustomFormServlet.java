@@ -25,6 +25,7 @@ public class CustomFormServlet extends HttpServlet {
     private TemplatingFunctions cmsfn;
     private final boolean SHOULD_SAVE = false;
     private final String TEMPLATE_PATH = "main/templates/emails/mailTemplate.ftl";
+    private final String HONEYPOT_NAME = "winnie";
 
 
     private final List<String> PARAMETERS_NOT_TO_SAVE = new ArrayList<>(Arrays
@@ -50,6 +51,10 @@ public class CustomFormServlet extends HttpServlet {
             resp.setContentType("text/html");
 
             Map<String, String> parameters = getParameters(req);
+
+            if (!isHoneypotFieldValid(parameters)) {
+                throw new Exception("Honeypot field should be empty!");
+            }
 
             Map<String, Object> mailTemplateParameters = new HashMap<>();
             MailAttachment attachment = null;
@@ -91,6 +96,18 @@ public class CustomFormServlet extends HttpServlet {
             log.error("Exception in MailServlet", e);
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    private boolean isHoneypotFieldValid(Map<String, String> parameters) {
+        if (!parameters.containsKey(HONEYPOT_NAME) && parameters.get(HONEYPOT_NAME) != null) {
+            return false;
+        }
+
+        if (!"".equals(parameters.get(HONEYPOT_NAME))) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

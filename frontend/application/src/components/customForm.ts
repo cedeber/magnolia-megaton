@@ -30,6 +30,15 @@ export default class CustomForm extends Vue {
     missingRequired = false;
     onceSubmitted = false;
 
+    mounted() {
+        // Remove Honeypot text
+        const honeypotField = document.querySelector("#winnie");
+
+        if (honeypotField) {
+            honeypotField.value = "";
+        }
+    }
+
     async sendMail() {
         this.onceSubmitted = true;
 
