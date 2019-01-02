@@ -45,7 +45,7 @@ public class OITemplatingFunctions {
 
     /**
      * Return the localized links from the cmsfn.localizedLinks method
-     * and adds the default locale to de default link
+     * and adds the default locale to the default link
      * e.g. "/home" becomes "/de/home"
      * @return
      * @throws RepositoryException
