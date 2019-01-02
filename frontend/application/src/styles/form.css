@@ -235,3 +235,14 @@ input:invalid + label.active {
 .error a {
     text-decoration: none;
 }
+
+#mgnlhp {
+    display: block;
+    position: absolute;
+    overflow: hidden;
+    right: -2466px;
+}
+
+#mgnlhp label {
+    position: static;
+}
