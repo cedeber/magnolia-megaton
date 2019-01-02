@@ -1,7 +1,7 @@
 package ch.openinteractive.main.filters;
 
 import ch.openinteractive.main.StarterKit;
-import ch.openinteractive.main.servlets.LocaleUtil;
+import ch.openinteractive.main.utils.LocaleUtil;
 import info.magnolia.cms.filters.AbstractMgnlFilter;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.site.Site;
@@ -172,26 +172,26 @@ public class LanguageDetectionFilter extends AbstractMgnlFilter {
         String uri = request.getRequestURI();
 
         //URI excludes
-        if( uri.contains("/.magnolia/") ||
-            uri.contains("/.servlet/") ||
-            uri.contains("/VAADIN/") ||
-            uri.contains("/.resources/")){
+        if (uri.contains("/.magnolia/")
+            || uri.contains("/.servlet/")
+            || uri.contains("/VAADIN/")
+            || uri.contains("/.resources/")) {
             return false;
         }
 
         //No redirect in edit mode
-        if(cmsfn.isEditMode()) {
+        if (cmsfn.isEditMode()) {
             return false;
         }
 
         //Only redirect html
-        if(!request.getHeader("Accept").contains("html") ) {
+        if (!request.getHeader("Accept").contains("html")) {
             return false;
         }
 
         //Do not redirect 404 page
         String notFoundPagePath = mainModule.getNotFoundPagePath();
-        if(notFoundPagePath != null && !notFoundPagePath.isEmpty() && uri.contains(notFoundPagePath)) {
+        if (notFoundPagePath != null && !notFoundPagePath.isEmpty() && uri.contains(notFoundPagePath)) {
             return false;
         }
 
