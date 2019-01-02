@@ -1,6 +1,6 @@
 {
   "name": "magnolia-megaton",
-  "version": "5.0.0",
+  "version": "5.2.0",
   "scripts": {
     "watch:localhost": "DEBUG=1 webpack --mode=development --config ./application/webpack.config.js --hide-modules --watch",
     "build:debug": "DEBUG=1 webpack --mode=production --config ./application/webpack.config.js --hide-modules && DEBUG=1 LEGACY=1 webpack --mode=production --config ./application/webpack.config.js --hide-modules",
