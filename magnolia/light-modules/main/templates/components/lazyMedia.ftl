@@ -71,10 +71,10 @@
                     :is-instantly="${isInstantly?string!}"
                     :is-autoplay="${isAutoplay?string!}"
                     :has-caption="${hasCaption?string!}"
-                    :max-width="${maxRenditionWidth?string.computer!}">
+                    :max-width="${maxRenditionWidth!}">
                     <figure class="figure" style="padding-top: ${imageRatio!}">
                         <picture class="container js-loaded has-fixed-ratio">
-                            <img class="media is-${position!} [#if isCover == true]is-cover[/#if]" width="${imageWidth?string.computer!}" height="${imageHeight?string.computer!}" alt="placeholder" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+                            <img class="media is-${position!} [#if isCover == true]is-cover[/#if]" width="${imageWidth?string.computer!}" height="${imageHeight?string.computer!}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
                         </picture>
                     </figure>
         </lazy-media>

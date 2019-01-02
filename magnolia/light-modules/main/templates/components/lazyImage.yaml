@@ -3,7 +3,7 @@ renderType: freemarker
 templateScript: /main/templates/components/lazyMedia.ftl
 dialog: main:components/lazyImage
 
-parameters: !override
+parameters:
   maxRenditionWidth: 2560
   hasCaption: false
   isInstantly: false
