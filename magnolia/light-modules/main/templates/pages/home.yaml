@@ -40,12 +40,21 @@ areas:
    #   generatorClass: info.magnolia.rendering.generator.CopyGenerator
         
   footer:
-    renderType: freemarker
-    editable: true
-    type: single
-    availableComponents:
-      footer:
-        id: main:components/footer
+      renderType: freemarker
+      editable: true
+      templateScript: /main/templates/areas/footer.ftl
+      dialog: main:areas/footer
+      inheritance:
+        enabled: true
+        components: all
+      areas:
+        links:
+          inheritance:
+            enabled: true
+            components: all
+          availableComponents:
+            link:
+              id: main:components/footer-link
 
   tagManager:
     renderType: freemarker

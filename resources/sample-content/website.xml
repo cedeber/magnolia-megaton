@@ -20,7 +20,7 @@
       <sv:value>superuser</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-      <sv:value>2019-01-02T12:11:12.789+01:00</sv:value>
+      <sv:value>2019-01-03T10:46:56.219+01:00</sv:value>
     </sv:property>
     <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
       <sv:value>superuser</sv:value>
@@ -110,6 +110,9 @@
       <sv:property sv:name="jcr:uuid" sv:type="String">
         <sv:value>ca2e20d3-96db-412c-aa26-78366912b0a3</sv:value>
       </sv:property>
+      <sv:property sv:name="copyright" sv:type="String">
+        <sv:value>Copyright 2019 &amp;mdash; Open Interactive</sv:value>
+      </sv:property>
       <sv:property sv:name="mgnl:created" sv:type="Date">
         <sv:value>2019-01-02T09:42:49.559+01:00</sv:value>
       </sv:property>
@@ -117,7 +120,7 @@
         <sv:value>superuser</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-        <sv:value>2019-01-02T10:11:45.999+01:00</sv:value>
+        <sv:value>2019-01-03T10:46:56.219+01:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
         <sv:value>superuser</sv:value>
@@ -264,6 +267,90 @@
           </sv:node>
         </sv:node>
       </sv:node>
+      <sv:node sv:name="links">
+        <sv:property sv:name="jcr:primaryType" sv:type="Name">
+          <sv:value>mgnl:area</sv:value>
+        </sv:property>
+        <sv:property sv:name="jcr:uuid" sv:type="String">
+          <sv:value>11f9e306-1f03-4006-aaf4-4c09e7c88d7a</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:created" sv:type="Date">
+          <sv:value>2019-01-03T10:44:38.766+01:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:createdBy" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+          <sv:value>2019-01-03T10:46:56.219+01:00</sv:value>
+        </sv:property>
+        <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+          <sv:value>superuser</sv:value>
+        </sv:property>
+        <sv:node sv:name="0">
+          <sv:property sv:name="jcr:primaryType" sv:type="Name">
+            <sv:value>mgnl:component</sv:value>
+          </sv:property>
+          <sv:property sv:name="jcr:uuid" sv:type="String">
+            <sv:value>b15bea2f-19f9-4b90-800a-1ab08676b82d</sv:value>
+          </sv:property>
+          <sv:property sv:name="href" sv:type="String">
+            <sv:value>external</sv:value>
+          </sv:property>
+          <sv:property sv:name="hrefexternal" sv:type="String">
+            <sv:value>https://www.facebook.com/OpenInteractive/</sv:value>
+          </sv:property>
+          <sv:property sv:name="label" sv:type="String">
+            <sv:value>Facebook</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:created" sv:type="Date">
+            <sv:value>2019-01-03T10:46:21.341+01:00</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:createdBy" sv:type="String">
+            <sv:value>superuser</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+            <sv:value>2019-01-03T10:46:21.341+01:00</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+            <sv:value>superuser</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:template" sv:type="String">
+            <sv:value>main:components/footer-link</sv:value>
+          </sv:property>
+        </sv:node>
+        <sv:node sv:name="00">
+          <sv:property sv:name="jcr:primaryType" sv:type="Name">
+            <sv:value>mgnl:component</sv:value>
+          </sv:property>
+          <sv:property sv:name="jcr:uuid" sv:type="String">
+            <sv:value>808b289c-89dd-414b-b084-1d387c771b93</sv:value>
+          </sv:property>
+          <sv:property sv:name="href" sv:type="String">
+            <sv:value>internal</sv:value>
+          </sv:property>
+          <sv:property sv:name="hrefinternal" sv:type="String">
+            <sv:value>3db62458-a17c-416d-a48d-0a167eccf7b7</sv:value>
+          </sv:property>
+          <sv:property sv:name="label" sv:type="String">
+            <sv:value>Impressum</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:created" sv:type="Date">
+            <sv:value>2019-01-03T10:46:56.220+01:00</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:createdBy" sv:type="String">
+            <sv:value>superuser</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+            <sv:value>2019-01-03T10:46:56.220+01:00</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+            <sv:value>superuser</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:template" sv:type="String">
+            <sv:value>main:components/footer-link</sv:value>
+          </sv:property>
+        </sv:node>
+      </sv:node>
     </sv:node>
     <sv:node sv:name="tagManager">
       <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -302,7 +389,7 @@
         <sv:value>superuser</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-        <sv:value>2019-01-02T11:53:50.279+01:00</sv:value>
+        <sv:value>2019-01-03T10:47:03.079+01:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
         <sv:value>superuser</sv:value>
@@ -497,11 +584,31 @@
           <sv:value>superuser</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-          <sv:value>2019-01-02T09:44:45.529+01:00</sv:value>
+          <sv:value>2019-01-03T10:47:03.079+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
           <sv:value>superuser</sv:value>
         </sv:property>
+        <sv:node sv:name="links">
+          <sv:property sv:name="jcr:primaryType" sv:type="Name">
+            <sv:value>mgnl:area</sv:value>
+          </sv:property>
+          <sv:property sv:name="jcr:uuid" sv:type="String">
+            <sv:value>99de44b6-66c4-4beb-ac91-c7ca2676ed5b</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:created" sv:type="Date">
+            <sv:value>2019-01-03T10:47:03.085+01:00</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:createdBy" sv:type="String">
+            <sv:value>superuser</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+            <sv:value>2019-01-03T10:47:03.085+01:00</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+            <sv:value>superuser</sv:value>
+          </sv:property>
+        </sv:node>
       </sv:node>
       <sv:node sv:name="tagManager">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">
@@ -1096,7 +1203,7 @@
         <sv:value>superuser</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-        <sv:value>2019-01-02T12:03:36.466+01:00</sv:value>
+        <sv:value>2019-01-03T10:47:29.385+01:00</sv:value>
       </sv:property>
       <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
         <sv:value>superuser</sv:value>
@@ -1181,11 +1288,31 @@
           <sv:value>superuser</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastModified" sv:type="Date">
-          <sv:value>2019-01-02T12:03:36.392+01:00</sv:value>
+          <sv:value>2019-01-03T10:47:29.385+01:00</sv:value>
         </sv:property>
         <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
           <sv:value>superuser</sv:value>
         </sv:property>
+        <sv:node sv:name="links">
+          <sv:property sv:name="jcr:primaryType" sv:type="Name">
+            <sv:value>mgnl:area</sv:value>
+          </sv:property>
+          <sv:property sv:name="jcr:uuid" sv:type="String">
+            <sv:value>83ba6df1-173d-4a36-a7a2-87efdf147f83</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:created" sv:type="Date">
+            <sv:value>2019-01-03T10:47:29.389+01:00</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:createdBy" sv:type="String">
+            <sv:value>superuser</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:lastModified" sv:type="Date">
+            <sv:value>2019-01-03T10:47:29.389+01:00</sv:value>
+          </sv:property>
+          <sv:property sv:name="mgnl:lastModifiedBy" sv:type="String">
+            <sv:value>superuser</sv:value>
+          </sv:property>
+        </sv:node>
       </sv:node>
       <sv:node sv:name="tagManager">
         <sv:property sv:name="jcr:primaryType" sv:type="Name">

@@ -37,12 +37,18 @@ areas:
   footer:
     renderType: freemarker
     editable: false
-    availableComponents:
-      footer:
-        id: main:components/footer
+    templateScript: /main/templates/areas/footer.ftl
+    dialog: main:areas/footer
     inheritance:
       enabled: true
-      components: all
+    areas:
+     links:
+       inheritance:
+         enabled: true
+         components: all
+       availableComponents:
+         link:
+           id: main:components/footer-link
 
   tagManager:
     renderType: freemarker
