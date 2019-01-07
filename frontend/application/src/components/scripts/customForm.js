@@ -31,9 +31,9 @@ let CustomForm = class CustomForm extends Vue {
         const data = this.validateForm();
         if (data) {
             const request = await fetch(window.mgnlContextPath + "/.mail/", {
-                method: "POST",
-                credentials: "include",
                 body: JSON.stringify(data),
+                credentials: "include",
+                method: "POST",
             });
             if (request.ok) {
                 return await request.text();
@@ -60,18 +60,20 @@ let CustomForm = class CustomForm extends Vue {
         return data;
     }
     checkEachFieldOfForm(form) {
-        if (form && form.checkValidity())
+        if (form && form.checkValidity()) {
             return true;
-        if (form) {
-            const elements = form.querySelectorAll("input, select, textarea");
-            elements.forEach(element => {
-                element.classList.remove("invalid");
-                if (!element.checkValidity()) {
-                    element.classList.add("invalid");
-                }
-            });
+        } else {
+            if (form) {
+                const elements = form.querySelectorAll("input, select, textarea");
+                elements.forEach(element => {
+                    element.classList.remove("invalid");
+                    if (!element.checkValidity()) {
+                        element.classList.add("invalid");
+                    }
+                });
+            }
+            return false;
         }
-        return false;
     }
 };
 __decorate([

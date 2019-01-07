@@ -32,7 +32,7 @@ export default class CustomForm extends Vue {
 
     mounted() {
         // Remove Honeypot text
-        const honeypotField = document.querySelector("#winnie");
+        const honeypotField = document.querySelector("#winnie") as HTMLInputElement;
 
         if (honeypotField) {
             honeypotField.value = "";
@@ -110,8 +110,6 @@ export default class CustomForm extends Vue {
 
         return false;
     }
-
-
 
     validateFile (file) {
         if ( file.size > 30000000 ) { return false; }
