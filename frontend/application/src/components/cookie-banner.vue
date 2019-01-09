@@ -23,6 +23,7 @@
 
 <script lang="ts">
     import {Vue, Component, Prop} from "vue-property-decorator";
+    import {loadJS} from "../helpers/async-loader";
 
     @Component
     export default class CookieBanner extends Vue {
@@ -65,9 +66,19 @@
         /**
          * EVERY STATISTICS SCRIPTS COME HERE
          */
-        launch() {
+        async launch() {
             if (this.isProduction) { // Magnolia Public Instance
-                console.log("🛰")
+
+                // await loadJS(
+                //     `https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-1`,
+                // );
+                //
+                // if (typeof window !== 'undefined') {
+                //     (window as any).dataLayer = (window as any).dataLayer || [];
+                //
+                //     (window as any).dataLayer.push('js', new Date());
+                //     (window as any).dataLayer.push('config', 'UA-XXXXXXXXX-1', {'anonymize_ip': true});
+                // }
             }
         }
 
