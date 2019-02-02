@@ -52,6 +52,6 @@ form:
           label: Map styles
           description: JSON from https://mapstyle.withgoogle.com/
 
-    - !include:/main/dialogs/include/sectionLayoutOverride.yaml
+    - !include:/main/dialogs/include/tabSectionLayoutOverride.yaml
 
 actions: !include:/main/dialogs/include/commonActions.yaml

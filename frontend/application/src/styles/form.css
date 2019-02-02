@@ -235,3 +235,16 @@ input:invalid + label.active {
 .error a {
     text-decoration: none;
 }
+
+#mgnlhp,
+#winnie-puuh {
+    display: block;
+    position: absolute;
+    overflow: hidden;
+    right: -2466px;
+}
+
+#mgnlhp label,
+#winnie-puuh label {
+    position: static;
+}

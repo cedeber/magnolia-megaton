@@ -104,6 +104,6 @@ form:
           configJsFile: /.resources/main/dialogs/include/config/simple.js
         # call to action (include)
 
-    - !include:/main/dialogs/include/sectionLayoutOverride.yaml
+    - !include:/main/dialogs/include/tabSectionLayoutOverride.yaml
 
 actions: !include:/main/dialogs/include/commonActions.yaml

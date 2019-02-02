@@ -1,6 +1,7 @@
 package ch.openinteractive.main.servlets;
 
 import ch.openinteractive.main.StarterKit;
+import ch.openinteractive.main.utils.LocaleUtil;
 import info.magnolia.cms.util.RequestDispatchUtil;
 import info.magnolia.context.MgnlContext;
 import info.magnolia.module.site.functions.SiteFunctions;
@@ -39,7 +40,7 @@ public class NotFoundRedirectServlet extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 
         String handle = mainModule.getNotFoundPagePath();
-        if(handle == null || handle.isEmpty()) {
+        if (handle == null || handle.isEmpty()) {
             PrintWriter writer = response.getWriter();
             writer.write("404 page is not configuered.<br> Please add the path to the 404 page to the module config (/modules/main-module/config@notFoundPagePath)");
             return;

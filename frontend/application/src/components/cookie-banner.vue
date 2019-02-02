@@ -24,6 +24,7 @@
 <script lang="ts">
     import {Vue, Component, Prop} from "vue-property-decorator";
     import storage from '../helpers/proxy-storage';
+    // import {loadJS} from "../helpers/async-loader";
 
     @Component
     export default class CookieBanner extends Vue {
@@ -50,7 +51,8 @@
          */
         launch() {
             if (this.isProduction) { // Magnolia Public Instance
-                console.log("🛰")
+                console.log("🛰");
+                // await loadJS('https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXXX-1');
             }
         }
 

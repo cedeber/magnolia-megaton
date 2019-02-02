@@ -30,6 +30,15 @@ export default class CustomForm extends Vue {
     missingRequired = false;
     onceSubmitted = false;
 
+    mounted() {
+        // Remove Honeypot text
+        const honeypotField = document.querySelector("#winnie") as HTMLInputElement;
+
+        if (honeypotField) {
+            honeypotField.value = "";
+        }
+    }
+
     async sendMail() {
         this.onceSubmitted = true;
 
@@ -41,7 +50,7 @@ export default class CustomForm extends Vue {
                 {
                     method: "POST",
                     credentials: "include",
-                    body: data,
+                    body: JSON.stringify(data),
                 },
             ).then(response => {
                 if (response.ok) {
@@ -101,8 +110,6 @@ export default class CustomForm extends Vue {
 
         return false;
     }
-
-
 
     validateFile (file) {
         if ( file.size > 30000000 ) { return false; }

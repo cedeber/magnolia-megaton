@@ -120,6 +120,11 @@
                         ${cmsfn.decode(content).missingRequiredText!}
                     </div>
 
+                    <div id="winnie-puuh">
+                        <label for="winnie">Leave this field empty!</label>
+                        <input name="winnie" id="winnie" type="text" tabindex="-1" autocomplete="off" value="hello">
+                    </div>
+
                     <div class="button-wrapper cell-1of1">
                         <input type="submit" value="${content.sendLabel!}" @click.prevent="sendMail">
                     </div>

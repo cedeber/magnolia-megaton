@@ -47,6 +47,6 @@ Vue.component("custom-form", CustomForm);
 Vue.component("toggle-field", ToggleField);
 Vue.component('form-select', FormSelect);
 
-// Connect the Vue intance to the whole <main id="view"> container
+// Connect the Vue instance to the whole <main id="view"> container
 // Avoid to use the standard DOM API as a virtual-dom will handle it
 vm.$mount("#view");

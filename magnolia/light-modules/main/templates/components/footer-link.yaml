@@ -1,4 +1,4 @@
-title: Legal link
+title: Footer link
 renderType: freemarker
 templateScript: /main/templates/components/footer-link.ftl
 dialog: main:components/footer-link
