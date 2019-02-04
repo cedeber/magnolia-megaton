@@ -51,6 +51,7 @@ a preconfigured Java module
 - [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (`/modules/cache/config/compression/voters/contentType/allowed@2`)
 - [ ] Set `defaultBaseUrl` in Magnolia server config (author/public)
 - [ ] enable formProcessors/sendConfirmationEMail@enabled
+- [ ] enable language detection (`/server/filters/languageDetection` set to true)
 
 ### Finalization
 - [ ] Anonymous role access to required workspaces (public)
