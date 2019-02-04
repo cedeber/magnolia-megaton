@@ -50,8 +50,10 @@ a preconfigured Java module
 - [ ] Set `/server/security/userManagers/system@lockTimePeriod` to 5(minutes)
 - [ ] Set correct compression contentType for SVG `image/svg+xml` in Magnolia server config (`/modules/cache/config/compression/voters/contentType/allowed@2`)
 - [ ] Set `defaultBaseUrl` in Magnolia server config (author/public)
-- [ ] enable formProcessors/sendConfirmationEMail@enabled
-- [ ] enable language detection (`/server/filters/languageDetection` set to true)
+- [ ] Enable formProcessors/sendConfirmationEMail@enabled
+- [ ] Enable language detection (`/server/filters/languageDetection` set to true)
+- [ ] Set 404 path (`/.servlet/NotFoundRedirect/`) in web.xml on author & public
+- [ ] Add 404 path to module config (`/modules/main-module/config@notFoundPagePath`)
 
 ### Finalization
 - [ ] Anonymous role access to required workspaces (public)
