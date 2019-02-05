@@ -14,6 +14,7 @@
         <div class="background">
             [#if !cmsfn.isEditMode()]
             <lazy-media path="${cmsfn.link(content)?replace('.html', '.json')}"
+                        position="is-${content.position!'center'}"
                         :is-cover="${isCover?string}"
                         :is-instantly="${isInstantly?string!}"
                         :is-autoplay="${isAutoplay?string!}"
